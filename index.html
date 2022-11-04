@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://kit.fontawesome.com/53d0376852.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="body__container">
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* Header */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <header class="header">
+            <div class="header__container">
+                <div class="header__logo">
+                    <h2>CITRIXcrm</h2>     
+                </div>
+                <form action="" class="header__form">
+                    <input class="header__search" placeholder="🔍︎" type="text">
+                </form>
+
+                <button class="header__plus" id="header__plus">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+                <nav class="header__nav" id="header__nav">
+                    <ul class="header__ul">
+                        <li class="header__li"><a href="" class="header__a"><i class="fa-solid fa-user"></i></a></li>
+                        <li class="header__li"><a href="" class="header__a"><i class="fa-solid fa-bell"></i></a></li>
+                        <li class="header__li"><a href="" class="header__a"><i class="fa-solid fa-earth-americas"></i></a></li>
+                    </ul>    
+                </nav>
+            </div>
+            
+        </header>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* End Header */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* SideBar */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <div class="sidebar" id="sidebar">
+            <nav class="sidebar__nav">
+                <ul class="sidebar__ul">
+                    <li class="sidebar__li sidebar__li--active"><a href="" class="sidebar__a"><i class="fa-solid fa-home-user sidebar__emoji"></i>Inicio</a></li>
+                    <li class="sidebar__li"><a href="" class="sidebar__a"><i class="fa-solid fa-building sidebar__emoji"></i>Propiedades</a></li>
+                    <li class="sidebar__li"><a href="" class="sidebar__a"><i class="fa-solid fa-address-book sidebar__emoji"></i>Agenda</a></li>
+                    <li class="sidebar__li"><a href="" class="sidebar__a"><i class="fa-solid fa-circle-question sidebar__emoji"></i>Consultas</a></li>
+                </ul>   
+            </nav>
+        </div>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* End SideBar */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* Main */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <main class="main" id="main">
+            <div class="main__container">
+                <i class="fa-solid fa-home-user main__h1--emoji"></i><h1 class="main__h1">Inicio</h1>
+                <div class="main__decoration"></div>
+                <div class="main__atajos atajos">
+                    <div class="atajos__atajo" onClick="self.location.href='/user_zone_f856k876/home_admin.php?page=crm_alta_propiedades'">
+                        <i class="fa-solid fa-building atajo__emoji"></i>
+                        <h2 class="atajo__h2">Propiedades</h2>
+                        <button type="button" class="atajo__button" onClick="self.location.href='/user_zone_f856k876/home_admin.php?page=crm_alta_propiedades'">Nueva propiedad</button>
+                    </div>
+                    <div class="atajos__atajo" onClick="self.location.href='/user_zone_f856k876/home_admin.php?page=crm_alta_propiedades'">
+                        <i class="fa-solid fa-envelope atajo__emoji"></i>
+                        <h2 class="atajo__h2">Mail</h2>
+                        <button type="button" class="atajo__button" onClick="self.location.href='/user_zone_f856k876/home_admin.php?page=crm_alta_propiedades'">Nuevo mail</button>
+                    </div>
+                    <div class="atajos__atajo" onClick="self.location.href='/user_zone_f856k876/home_admin.php?page=crm_alta_propiedades'">
+                        <i class="fa-solid fa-address-book atajo__emoji"></i>
+                        <h2 class="atajo__h2">Agenda</h2>
+                        <button type="button" class="atajo__button" onClick="self.location.href='/user_zone_f856k876/home_admin.php?page=crm_alta_propiedades'">Nueva cita</button>
+                    </div>
+                    <div class="atajos__atajo" onClick="self.location.href='/user_zone_f856k876/home_admin.php?page=crm_alta_propiedades'">
+                        <i class="fa-solid fa-circle-question atajo__emoji"></i>
+                        <h2 class="atajo__h2">Consultas</h2>
+                        <button type="button" class="atajo__button" onClick="self.location.href='/user_zone_f856k876/home_admin.php?page=crm_alta_propiedades'">Nueva consulta</button>
+                    </div>
+                </div>
+                <div class="main__decoration"></div>
+                <div class="main__tareas tareas">
+                    <form id="form_home" class="tareas__form">
+                        <select name="estado" class="tareas__select">
+                            <option value="1">Pendientes</option>
+                            <option value="2">Cerradas</option>
+                            <option value="0">Todas</option>
+                        </select>
+                        <select name="user_id" class="tareas__select">
+                            <option value="1">Nestor Chumbita</option>
+                            <option value="2">Benjamin Miranda</option>
+                            <option value="3">Carlos .O</option>
+                        </select>
+                        <select name="rango_dias" class="tareas__select">
+                            <option value="1">Hoy</option>
+                            <option value="2">Esta semana</option>
+                            <option value="3">Este mes</option>
+                        </select>
+                
+                        <input type="text" class="tareas__search"  name="busqueda" placeholder="Asunto / Observaciones" />
+                        <button type="button" onClick="crm_inmobiliaria_completar_tareas_buscador2()" class="tareas__search--btn"><i class="fa fa-search"></i></button>
+                        <input type="hidden" name="action" value="ps_crm_get_tareas_home" />
+                    </form>
+                    <div class="tareas--pendientes">
+                        <h4 class="tareas--pendientes__h4 titulo_busqueda" id="TituloTareas">Tareas pendientes</h4>
+                        <form action="" class="tareas--pendientes__form">
+                        <ul class="tareas--pendientes__list">
+                            <li class="tareas--pendientes__li"><div class="tareas--pendientes__tarea"><h4>Visita casa de la vieja</h4><span>10/07/2022</span></div><h5 class="tareas--pendientes__nombre">Celeste Scaglione</h5><input class="tareas--pendientes__checkbox" type="checkbox"></li>
+                            <li class="tareas--pendientes__li"><div class="tareas--pendientes__tarea"><h4>Ordenar la pieza</h4><span>10/07/2022</span></div><h5 class="tareas--pendientes__nombre">Tamara Falcó</h5><input class="tareas--pendientes__checkbox" type="checkbox"></li>
+                            <li class="tareas--pendientes__li"><div class="tareas--pendientes__tarea"><h4>Ordenar la pieza</h4><span>10/07/2022</span></div><h5 class="tareas--pendientes__nombre">Carlitos Tevez</h5><input class="tareas--pendientes__checkbox" type="checkbox"></li>
+                            <li class="tareas--pendientes__li"><div class="tareas--pendientes__tarea"><h4>Ordenar la pieza</h4><span>10/07/2022</span></div><h5 class="tareas--pendientes__nombre">Luis Grimaldi</h5><input class="tareas--pendientes__checkbox" type="checkbox"></li>
+                        </ul>
+                        <input type="hidden" name="action" value="ps_crm_set_terminadas" />
+                        </form>
+                        <button type="button" id="boton_realizadas" onClick="crm_inmobiliaria_pasar_a_terminada_masivo()" class="tareas--pendientes__btn">Pasar a realizada</button>
+                    </div>
+                </div>
+            </div>  
+        </main>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* End Main */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
