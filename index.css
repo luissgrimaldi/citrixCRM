@@ -2,6 +2,9 @@
 
 /* Global */
 :root{
+    --color-principal-scrollbar:#09c867;
+    --color-secundario-scrollbar:#0960c8;
+    --color-body-selection:#09c867;
     --color-principal-header:#0960c8 ;
     --color-secundario-header:white;
     --color-principal-sidebar:#0960c8;
@@ -20,11 +23,33 @@ body{
     margin: 0 auto;
 }
 
+/* Barra de Scroll */
+body::-webkit-scrollbar {
+    width: auto;               /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: var( --color-principal-scrollbar);    /* color of the scroll thumb */
+
+}
+
+body::-webkit-scrollbar-track {
+    background: var( --color-secundario-scrollbar);        /* color of the tracking area */
+}
+  
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+*::selection{
+    background-color: var(--color-body-selection);
+}
+
 .body__container{
     overflow-x: hidden;
     background-color: var(--body-color);
     min-height: 100vh;
 }
+
 
 ul{
     list-style: none;
@@ -82,7 +107,12 @@ a{
     /* border: 0.188em solid var(--color-secundario-header); */
     text-align: start;
     width: 100%;
-    color: black;
+    color: var(--color-principal-header);
+}
+
+.header__search::placeholder{
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
 }
 
 
