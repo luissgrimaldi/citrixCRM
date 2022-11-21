@@ -10,7 +10,7 @@
     --color-principal-sidebar:#0960c8;
     --color-secundario-sidebar:white;
     --color-terciario-sidebar:#09c867;
-    --body-color: white;
+    --body-color: #aecdf3;
     --body-select-hover-checked:#09c86881;
     --color-principal-main:#0960c8;
     --color-secundario-main:#09c867;
@@ -206,6 +206,7 @@ a{
 
 .main__container{
     padding: 3%;
+    background-color:white;
 }
 
 .main__h1--emoji{
