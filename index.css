@@ -71,7 +71,7 @@ a{
     background-color: var(--color-principal-header);
     position: fixed;
     top: 0;
-    right: 0;
+    right: 3em;
     z-index: 999;
 }
 .header__container{
