@@ -48,7 +48,7 @@ body::-webkit-scrollbar-track {
     overflow-x: hidden;
     background-color: var(--body-color);
     min-height: 100vh;
-    padding: 0 3em;
+    padding: 0 2.5em;
 }
 
 
@@ -66,12 +66,12 @@ a{
 
 /* Header */
 .header{
-    width: calc(100% - 6em);
+    width: calc(100% - 5em);
     height: 6.25em;
     background-color: var(--color-principal-header);
     position: fixed;
     top: 0;
-    right: 3em;
+    right: 2.5em;
     z-index: 999;
 }
 .header__container{
