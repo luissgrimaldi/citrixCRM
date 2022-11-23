@@ -1,4 +1,4 @@
-/*let sidebarBtn = document.getElementById("sidebar__toggle")
+let sidebarBtn = document.querySelector(".header__logo")
 
 
 sidebarBtn.addEventListener("click", function(){
@@ -7,7 +7,7 @@ sidebarBtn.addEventListener("click", function(){
     sidebar.classList.toggle("sidebar--toggle");
     main.classList.toggle("main--toggle")
 });
-*/
+
 let headerBtn = document.getElementById("header__plus")
 headerBtn.addEventListener("click", function(){
     let headerNav=document.getElementById("header__nav");

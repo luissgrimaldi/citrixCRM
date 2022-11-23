@@ -83,6 +83,11 @@ a{
     padding: 0 5em;
 }
 
+.header__logo{
+    cursor: pointer;
+    user-select: none;
+}
+
 .header__logo h2{
     font-size: 1.25em;
     color: var(--color-secundario-sidebar);
@@ -179,7 +184,9 @@ a{
     margin-left: 10%;
 }
 
-
+.sidebar--toggle{
+    visibility: hidden;
+}
 
 .sidebar__emoji{
     margin-right: 0.063em;
@@ -230,7 +237,7 @@ a{
 .main__busqueda-agenda{
     display: flex;
     flex-direction: column;
-    margin: 1.875em 0;
+    margin: 1.875em 1em;
 }
 
 .form__busqueda-agenda{
@@ -261,7 +268,7 @@ a{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     gap: 0 2em;
 }
 
@@ -326,6 +333,29 @@ a{
 
 
 
+@media screen and (max-width:1350px) {
+
+
+    .form__container-right__text{
+        width: 15em;
+    }
+
+    .form__container-right__select{
+        width: 11em;
+    }
+
+}
+
+@media screen and (max-width:1023px) {
+
+
+    .form__container-right--bloque{
+        flex-direction: column;
+        gap: 1em;
+    }
+
+
+}
 
 @media screen and (max-width:960px) {
 
@@ -342,11 +372,6 @@ a{
         flex-wrap: wrap;
     }
 
-    .form__container-right__select, .form__container-right__text{
-        width: 8em;
-        text-align: center;
-        font-size: 1em;
-    }
     .atajo__emoji{
         font-size: 4em ;
     }
@@ -395,6 +420,13 @@ a{
 
 }
 
+@media screen and (max-width:628px) {
+    .form__busqueda-agenda{
+        flex-direction: column;
+        gap: 2em;
+    }
+}
+
 @media screen and (max-width:480px) {
     .header__nav{
         position: fixed;
@@ -412,6 +444,7 @@ a{
     .header__plus{
         display: block;
     }
+
 }
 
 @media screen and (max-width:360px) {

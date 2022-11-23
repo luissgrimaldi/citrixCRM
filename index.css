@@ -83,6 +83,11 @@ a{
     padding: 0 5em;
 }
 
+.header__logo{
+    cursor: pointer;
+    user-select: none;
+}
+
 .header__logo h2{
     font-size: 1.25em;
     color: var(--color-secundario-sidebar);
@@ -179,7 +184,9 @@ a{
     margin-left: 10%;
 }
 
-
+.sidebar--toggle{
+    visibility: hidden;
+}
 
 .sidebar__emoji{
     margin-right: 0.063em;
@@ -516,3 +523,4 @@ a{
         font-size: 0.9em;
     }
 }
+
