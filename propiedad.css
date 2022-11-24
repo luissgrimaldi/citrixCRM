@@ -212,6 +212,7 @@ a{
 
 
 .main__container{
+    min-height: 100vh;
     padding: 3%;
     background-color:white;
 }
@@ -257,6 +258,11 @@ a{
     font-size: 1em;
 }
 
+.form__container-left__button:hover{
+    cursor: pointer;
+    background-color: var(--body-select-hover-checked);
+}
+
 .form__container-right{
     display: flex;
     flex-direction: column;
@@ -287,6 +293,7 @@ a{
     border-radius: 1.25em;
     padding: 0.313em 0;
     font-size: 1em;
+    cursor: pointer;
 }
 
 .form__container-right__text{
@@ -298,7 +305,6 @@ a{
     padding: 0.313em 0;
     font-size: 1em;
 }
-
 
 .form__container-right__checkbox{
     width: 1.3em;
@@ -326,6 +332,11 @@ a{
     font-size: 1em;
     cursor: pointer;
 }
+
+.form__container-right__button:hover{
+    cursor: pointer;
+    background-color: var(--body-select-hover-checked);
+}
 /* End Main */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -348,32 +359,16 @@ a{
 
 @media screen and (max-width:1023px) {
 
-
     .form__container-right--bloque{
         flex-direction: column;
         gap: 1em;
     }
-
-
 }
 
-@media screen and (max-width:960px) {
 
-    .main__atajos{
-        flex-wrap: wrap;
-    }
-
-    .atajos__atajo{
-        width: 12em;
-        margin:0.625em 0;
-    }
-
-    .tareas__form{
-        flex-wrap: wrap;
-    }
-
-    .atajo__emoji{
-        font-size: 4em ;
+@media screen and (max-width:858px) {
+    .header__container{
+        padding: 0 2em;
     }
 }
 
@@ -448,14 +443,32 @@ a{
 }
 
 @media screen and (max-width:360px) {
-    .sidebar{
+    .header__logo h2{
+        font-size: 1em;
+    }
+
+    .header__form{
+        width: 11em;
+    }
+
+    .header__plus{
+        font-size: 1em;
+    }
+
+    .header__search::placeholder{
+        font-size: 1em;
+    }
+
+   .sidebar{
         width: 100%;
     }
+
+    
 }
 
-@media screen and (max-width:320px){
-    .tareas--pendientes__list{
-        font-size: 0.9em;
+@media screen and (max-width:335px){
+    .header__form{
+        width: 8em;
     }
 }
 
