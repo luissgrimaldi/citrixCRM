@@ -441,9 +441,10 @@ a{
     }
 
     .tareas__select, .tareas__search{
-        width: 8em;
+        width: 15em;
         text-align: center;
     }
+    
     .atajo__emoji{
         font-size: 4em ;
     }
@@ -555,4 +556,3 @@ a{
         font-size: 0.9em;
     }
 }
-
