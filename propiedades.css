@@ -210,6 +210,7 @@ a{
     padding-left: 0 ;
 }
 
+
 .main__container{
     min-height: 100vh;
     padding: 3%;
@@ -234,72 +235,52 @@ a{
     border-top: 0.125em dotted var(--color-principal-main);
 }
 
-.main__atajos{
-    display: flex;
-    flex-direction: row;
-    margin: 1.875em 0;
-    justify-content: space-around;
+.main__busqueda-propiedad{
+    margin: 1.875em 1em;
 }
 
-.atajos__atajo{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 0.188em solid var(--color-principal-main);
-    width: 22%;
-    padding: 1.25em 0;
-    border-radius: 1.25em;
-    gap: 0.75em;
-}
-
-.atajos__atajo:hover{
-    transform: scale(1.1);
-    cursor: pointer;
-}
-
-.atajo__emoji{
-    font-size: 5em;
-    color: var(--color-principal-main);
-}
-
-.atajo__h2{
-    font-size: 1.125em;
-    color: var(--color-principal-main);
-    font-weight: bold;
-}
-
-.atajo__button{
-    color: var(--color-terciario-main);
-    background-color: var(--color-secundario-main);
-    padding: 0.313em 0.4em;
-    border-radius: 16px;
-    font-size: 1em;
-}
-
-.atajo__button:hover{
-    cursor: pointer;
-    background-color: var(--body-select-hover-checked);
-}
-
-.main__tareas{
-    margin: 1.875em 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.tareas__form{
-    display: flex;
-    flex-direction: row;
+.form__busqueda-propiedad{
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    gap: 1.875em;
+    align-items: center;
+    gap: 2em;
 }
 
-.tareas__select, .tareas__search{
-    width: 18.75em;
+
+.form__bloque{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+    flex-wrap: wrap;
+}
+
+
+.form__bloque__content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+
+.form__select{
+    width: 15em;
+    text-align: center;
+    background-color: var(--color-principal-main);
+    color: var(--color-terciario-main);
+    border-radius: 1.25em;
+    padding: 0.313em 0;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.form__text{
+    width: 15em;
     text-align: center;
     background-color: var(--color-principal-main);
     color: var(--color-terciario-main);
@@ -308,86 +289,7 @@ a{
     font-size: 1em;
 }
 
-.tareas__select:hover{
-    cursor: pointer;
-}
-
-.tareas__select option:checked{
-    background-color: var(--body-select-checked);
-}
-
-
-.tareas__search--btn{
-    font-size: 1.25em;
-    color: var(--color-principal-main);
-    cursor: pointer;
-}
-
-
-.tareas--pendientes{
-    margin-top:3em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1.875em;
-    width: 100%;
-}
-
-.tareas--pendientes__h4{
-    font-size: 1.125em;
-    color: var(--color-principal-main);
-    font-weight: bold;
-}
-
-.tareas--pendientes__form{
-    display: block;
-    width: 100%;
-    
-}
-
-
-.tareas--pendientes__list{
-    background-color: #aecdf3;
-    width: 100%;
-    border-radius: 1.25em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 1.25em;
-    gap: 1.25em;
-    margin: 0 auto;
-    color: var(--color-terciario-main);
-    font-size: 1em;
-}
-
-
-
-.tareas--pendientes__li{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #87b0e3;
-    border-radius: 1.25em;
-    padding: 1.25em;
-    overflow-x: auto;
-}
-
-.tareas--pendientes__tarea{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    padding-right: 1.25em;
-}
-
-
-.tareas--pendientes__nombre{
-    padding-right: 1.25em;
-}
-
-
-
-.tareas--pendientes__checkbox{
+.form__checkbox{
     width: 1.3em;
     height: 1.3em;
     -webkit-appearance: checkbox !important;
@@ -397,25 +299,51 @@ a{
     appearance: checkbox !important;
 }
 
-.tareas--pendientes__checkbox:hover{
+.text-referencia{
+    width: 7em;
+}
+
+.form__checkbox:hover{
     cursor: pointer;
 }
 
-.tareas--pendientes__checkbox:checked{
+.form__checkbox:checked{
     accent-color: var(--body-select-hover-checked);
 }
 
-.tareas--pendientes__btn{
-    background-color: var(--color-secundario-main);
-    color: var(--color-terciario-main);
-    font-size: 1.125em;
-    border-radius: 0.5em;
-    padding: 0.313em;
+
+
+.form__bloque__precio, .form__bloque__habitaciones{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.tareas--pendientes__btn:hover{
-    background-color: var(--body-select-hover-checked);
+.habitaciones__h2, .precio__h2{
+    font-size: 1.25em;
+}
+
+.precio__container, .habitaciones__container{
+    display: flex;
+    gap: 1em;
+}
+
+.precio__container__content__text, .habitaciones__container__content__text{
+    width: 8em;
+}
+
+.form__button{
+    color: var(--color-terciario-main);
+    background-color: var(--color-secundario-main);
+    padding: 0.313em 4em;
+    border-radius: 16px;
+    font-size: 1em;
     cursor: pointer;
+}
+
+.form__button:hover{
+    cursor: pointer;
+    background-color: var(--body-select-hover-checked);
 }
 /* End Main */
 
@@ -424,30 +352,27 @@ a{
 
 
 
-
-@media screen and (max-width:960px) {
-
-    .main__atajos{
-        flex-wrap: wrap;
+@media screen and (max-width:778px) {
+    .form__busqueda-propiedad{
+        gap: 2em;
     }
 
-    .atajos__atajo{
-        width: 12em;
-        margin:0.625em 0;
+    .form__bloque{
+        flex-direction: column;
+        gap: 0.5em;
     }
 
-    .tareas__form{
-        flex-wrap: wrap;
+    .form__bloque--2{
+        gap: 1.2em;
     }
 
-    .tareas__select, .tareas__search{
-        width: 8em;
-        text-align: center;
+    .form__bloque--5{
+        gap: 2em;
     }
-    .atajo__emoji{
-        font-size: 4em ;
-    }
+
+
 }
+
 
 @media screen and (max-width:858px) {
     .header__container{
@@ -498,6 +423,13 @@ a{
 
 }
 
+@media screen and (max-width:628px) {
+    .form__busqueda-agenda{
+        flex-direction: column;
+        gap: 2em;
+    }
+}
+
 @media screen and (max-width:480px) {
     .header__nav{
         position: fixed;
@@ -515,10 +447,10 @@ a{
     .header__plus{
         display: block;
     }
+
 }
 
 @media screen and (max-width:425px) {
-    
     .header__logo h2{
         font-size: 1em;
     }
@@ -534,23 +466,17 @@ a{
     .header__search::placeholder{
         font-size: 1em;
     }
-    
-    .sidebar{
+
+   .sidebar{
         width: 100%;
     }
+
+    
 }
 
 @media screen and (max-width:335px){
     .header__form{
         width: 8em;
-    }
-}
-
-
-@media screen and (max-width:320px){
-
-    .tareas--pendientes__list{
-        font-size: 0.9em;
     }
 }
 
