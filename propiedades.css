@@ -451,6 +451,12 @@ a{
 }
 
 @media screen and (max-width:425px) {
+    .sidebar{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:360px) {
     .header__logo h2{
         font-size: 1em;
     }
@@ -466,12 +472,6 @@ a{
     .header__search::placeholder{
         font-size: 1em;
     }
-
-   .sidebar{
-        width: 100%;
-    }
-
-    
 }
 
 @media screen and (max-width:335px){
