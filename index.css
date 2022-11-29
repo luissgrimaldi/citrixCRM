@@ -380,6 +380,10 @@ a{
     padding-right: 1.25em;
 }
 
+.tareas--pendientes__tarea__tipo{
+    text-align: center;
+    font-weight: bold;
+}
 
 .tareas--pendientes__nombre{
     padding-right: 1.25em;
@@ -444,7 +448,7 @@ a{
         width: 15em;
         text-align: center;
     }
-    
+
     .atajo__emoji{
         font-size: 4em ;
     }
