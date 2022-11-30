@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="consulta.css">
+    <script src="https://kit.fontawesome.com/53d0376852.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="body__container">
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* Header */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <header class="header">
+            <div class="header__container">
+                <div class="header__logo">
+                    <h2>CITRIXcrm</h2>     
+                </div>
+                <form action="" class="header__form">
+                    <input class="header__search" placeholder="&#XF002" type="text">
+                </form>
+
+                <button class="header__plus" id="header__plus">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+                <nav class="header__nav" id="header__nav">
+                    <ul class="header__ul">
+                        <li class="header__li"><a href="" class="header__a"><i class="fa-solid fa-user"></i></a></li>
+                        <li class="header__li"><a href="" class="header__a"><i class="fa-solid fa-bell"></i></a></li>
+                        <li class="header__li"><a href="" class="header__a"><i class="fa-solid fa-earth-americas"></i></a></li>
+                    </ul>    
+                </nav>
+            </div>
+            
+        </header>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* End Header */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* SideBar */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <div class="sidebar" id="sidebar">
+            <nav class="sidebar__nav">
+                <ul class="sidebar__ul">
+                    <li class="sidebar__li"><a href="index.html" class="sidebar__a"><i class="fa-solid fa-home-user sidebar__emoji"></i>Inicio</a></li>
+                    <li class="sidebar__li"><a href="propiedades.html" class="sidebar__a"><i class="fa-solid fa-building sidebar__emoji"></i>Propiedades</a></li>
+                    <li class="sidebar__li"><a href="agenda.html" class="sidebar__a"><i class="fa-solid fa-address-book sidebar__emoji"></i>Agenda</a></li>
+                    <li class="sidebar__li sidebar__li--active"><a href="" class="sidebar__a"><i class="fa-solid fa-circle-question sidebar__emoji"></i>Consultas</a></li>
+                </ul>   
+            </nav>
+        </div>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* End SideBar */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* Main */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <main class="main" id="main">
+            <div class="main__container">
+                <div class="main__container__top">
+                    <div class="main__title"><i class="fa-solid fa-circle-question main__h1--emoji"></i><h1 class="main__h1">Consultas</h1></div>
+                    <div class="main__buttons">
+                        <button class="main__buttons__button">Nueva consulta</button>
+                    </div>
+                </div>
+                <div class="main__decoration"></div>
+                <div class="main__busqueda-consulta">
+                    <form id="form_calc_4" class="form__busqueda-consulta form">
+                        <div class="form__bloque form__bloque--1">
+                            <div class="form__bloque__fecha fecha">
+                                <h2 class="fecha__h2">Fecha</h2>
+                                <div class="fecha__container">
+                                    <div class="form__bloque__content fecha__container__content">
+                                        <label  class="form__label fecha__container__content__label" for="">Desde</label>
+                                        <input class="form__text fecha__container__content__text" type="text">
+                                    </div>
+                                    <div class="form__bloque__content fecha__container__content">
+                                        <label  class="form__label fecha__container__content__label" for="">Hasta</label>
+                                        <input class="form__text fecha__container__content__text" type="text">
+                                    </div>
+                                </div>                            
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Cliente</label>
+                                <input class="form__text content__text" type="text">
+                            </div>
+                        </div>
+                        <div class="form__bloque form__bloque--2">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Canal</label>
+                                <select class="form__select" name="" id="">
+                                    <option value></option>
+                                    <option value="1">Sin publicar</option>
+                                </select>
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Operación</label>
+                                <select class="form__select" name="" id="">
+                                    <option value></option>
+                                    <option value="1">Sin publicar</option>
+                                </select>
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Zona</label>
+                                <select class="form__select" name="" id="">
+                                    <option value></option>
+                                    <option value="1">Sin publicar</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form__bloque form__bloque--3">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Tipo de propiedad</label>
+                                <select class="form__select" name="" id="">
+                                    <option value></option>
+                                    <option value="1">Sin publicar</option>
+                                </select>
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Propiedad</label>
+                                <input class="form__text content__text" type="text">
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Estado</label>
+                                <select class="form__select" name="" id="">
+                                    <option value></option>
+                                    <option value="1">Sin publicar</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form__bloque form__bloque--4">
+                            <input type="button" class="form__button form__bloque__button" value="Buscar">
+                        </div>
+                    </form>
+                </div>
+                <div class="main__decoration"></div>
+            </div>  
+        </main>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* End Main */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
