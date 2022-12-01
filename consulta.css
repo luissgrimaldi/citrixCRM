@@ -7,6 +7,7 @@
     --color-body-selection:#09c867;
     --color-principal-header:#0960c8 ;
     --color-secundario-header:white;
+    --color-terciario-header:#09c867;
     --color-principal-sidebar:#0960c8;
     --color-secundario-sidebar:white;
     --color-terciario-sidebar:#09c867;
@@ -120,6 +121,12 @@ a{
     font-weight: 900;
 }
 
+select{
+    appearance: auto;
+	-webkit-appearance: auto;
+	-moz-appearance: auto;
+}
+
 
 .header__ul{
     display: flex;
@@ -130,6 +137,7 @@ a{
     background-color: var(--color-secundario-header);
     padding: 0.313em 0.625em;
     border-radius: 50%;
+    position: relative;
 }
 
 
@@ -137,10 +145,37 @@ a{
     transform: scale(1.13);
 }
 
+.header__li-user__ul{
+    top: calc((6.25em / 2) + 0.75em) ;
+    min-width: 8em;
+    text-align: left;
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: var(--color-principal-header);
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+.header__li-user__ul--toggle{
+    display: none;
+}
+
+.user__li{
+    padding: 0.5em 0.5em ;
+    color: white;
+}
+
+.user__a:hover{
+    color: var(--color-terciario-header); 
+}
+
+
 .header__a{
     color: var(--color-principal-header);
     font-size: 1.25em;
 }
+
 /* End Header */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
