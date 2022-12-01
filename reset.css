@@ -81,3 +81,13 @@ meter {
 :where([draggable="true"]) {
     -webkit-user-drag: element;
 }
+
+
+/* citrixCRM modificaciones globales */
+select{
+    background-image: url('https://www.freeiconspng.com/thumbs/white-arrow-png/white-down-arrow-png-2.png');
+    background-color: red;
+    background-repeat: no-repeat, repeat;
+    background-position: right .9em top 50%, 0 0;
+    background-size: .85em auto, 100%;
+}

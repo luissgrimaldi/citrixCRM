@@ -15,8 +15,7 @@ headerBtn.addEventListener("click", function(){
 });
 
 let profile = document.querySelector(".header__li-user");
-profile.addEventListener("click",function(e){
-    e.preventDefault();
+profile.addEventListener("click",function(){
     let profileMenu = document.querySelector(".header__li-user__ul");
 
     profileMenu.classList.toggle("header__li-user__ul--toggle");

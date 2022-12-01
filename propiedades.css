@@ -26,16 +26,15 @@ body{
 
 /* Barra de Scroll */
 body::-webkit-scrollbar {
-    width: auto;               /* width of the entire scrollbar */
+    width: auto; /* width of the entire scrollbar */
 }
 
 body::-webkit-scrollbar-thumb {
     background-color: var( --color-principal-scrollbar);    /* color of the scroll thumb */
-
 }
 
 body::-webkit-scrollbar-track {
-    background: var( --color-secundario-scrollbar);        /* color of the tracking area */
+    background: var( --color-secundario-scrollbar);  /* color of the tracking area */
 }
   
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -74,6 +73,7 @@ a{
     right: 0;
     z-index: 999;
 }
+
 .header__container{
     height: 100%;
     display: flex;
@@ -121,7 +121,6 @@ a{
     font-weight: 900;
 }
 
-
 .header__ul{
     display: flex;
     gap: 2.5em;
@@ -133,7 +132,6 @@ a{
     border-radius: 50%;
     position: relative;
 }
-
 
 .header__li:hover{
     transform: scale(1.13);
@@ -160,14 +158,14 @@ a{
     color: white;
 }
 
-.user__a:hover{
-    color: var(--color-terciario-header); 
-}
-
-
-.header__a{
+.header__a, .header__span{
     color: var(--color-principal-header);
     font-size: 1.25em;
+    cursor: pointer;
+}
+
+.user__a:hover{
+    color: var(--color-terciario-header); 
 }
 
 /* End Header */
@@ -475,7 +473,7 @@ a{
         gap: 1em;
     }
 
-    .header__a{
+    .header__a, .header__span{
         font-size: 1em;
     }
 
