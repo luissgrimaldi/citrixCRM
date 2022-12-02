@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+
+/* Global */
+:root{
+    --color-principal-login:#0960c8;
+    --color-secundario-login:#09c867;
+    --color-hover-login:#09c86881;
+    --color-body-selection:#09c867;
+    --body-color: #3c7ecf;
+}
+
+body{
+    min-height: 100vh;
+    font-family: 'Nunito Sans', sans-serif;
+    margin: 0 auto;
+}
+
+/* Barra de Scroll */
+body::-webkit-scrollbar {
+    width: auto;               /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: var( --color-principal-scrollbar);    /* color of the scroll thumb */
+
+}
+
+body::-webkit-scrollbar-track {
+    background: var( --color-secundario-scrollbar);        /* color of the tracking area */
+}
+  
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+*::selection{
+    background-color: var(--color-body-selection);
+}
+
+.body__container{
+    overflow-x: hidden;
+    background-color: var(--body-color);
+    min-height: 100vh;
+}
+
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+/* End Global */
+
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+/* Main */
+
+.login{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 30em;
+    height: 19em;
+    background-color:rgba(255, 255, 255, .2);
+    border-radius: 2em;
+    box-shadow: 4px 8px 42px -10px rgba(0,0,0,0.84);
+-webkit-box-shadow: 4px 8px 42px -10px rgba(0,0,0,0.84);
+-moz-box-shadow: 4px 8px 42px -10px rgba(0,0,0,0.84);
+}
+
+.login__title{
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: -.8em;
+    font-size: 3em;
+    text-align: center;
+    color: var(--color-secundario-login);
+    font-weight: bold;
+    text-shadow: 4px 2px 2px rgba(0,0,0,0.6);
+}
+
+.login__form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+}
+
+.login__form__bloque{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bloque--3{
+    margin-top: .5em;
+}
+
+.login__form__label{
+    background-color: var(--color-principal-login);
+    color: white;
+    width: 7em;
+    border-top-right-radius:1em;
+    border-top-left-radius:1em;
+    text-align: center;
+}
+
+.login__form__input{
+    width: 18.75em;
+    text-align: center;
+    background-color: var(--color-principal-login);
+    color: white;
+    border-radius: 1.25em;
+    padding: 0.313em 0;
+    font-size: 1em;
+}
+
+.login__form__input--submit{
+    background-color: #09c867;
+}
+
+/* End Main */
+
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+
+
+
+@media screen and (max-width:960px) {
+
+    .main__atajos{
+        flex-wrap: wrap;
+    }
+
+    .atajos__atajo{
+        width: 12em;
+        margin:0.625em 0;
+    }
+
+    .tareas__form{
+        flex-wrap: wrap;
+    }
+
+    .tareas__select, .tareas__search{
+        width: 15em;
+        text-align: center;
+    }
+
+    .atajo__emoji{
+        font-size: 4em ;
+    }
+}
+
+@media screen and (max-width:858px) {
+    .header__container{
+        padding: 0 2em;
+    }
+}
+
+
+@media screen and (max-width:768px) {
+
+    .sidebar{
+        visibility: hidden;
+    }
+
+    .sidebar__toggle{
+        display: block;
+        font-size: 1em;
+        visibility: visible;
+    }
+
+    .sidebar--toggle{
+        visibility: visible;
+    }
+
+    .main{
+        padding: 6.25em 0 0 0;
+    }
+
+    .header__form{
+        width: 11.6em;
+    }
+
+    .header__container{
+        padding: 0 1em 0 1em;
+    }
+
+    .main--toggle{
+        padding-left: 12.5em ;
+    }
+
+    .header__ul{
+        gap: 1em;
+    }
+
+    .header__a, .header__span{
+        font-size: 1em;
+    }
+
+}
+
+@media screen and (max-width:480px) {
+    .header__nav{
+        position: fixed;
+        right: 200%;
+        background-color: var(--color-principal-header);
+        top: 6.25em ;
+        padding: 0.5em;
+        border-bottom-left-radius:10px ;
+    }
+
+    .header__nav--toggle{
+        right: 0;
+    }
+
+    .header__plus{
+        display: block;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .sidebar{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:360px) {
+    
+    .header__logo h2{
+        font-size: 1em;
+    }
+
+    .header__form{
+        width: 11em;
+    }
+
+    .header__plus{
+        font-size: 1em;
+    }
+
+    .header__search::placeholder{
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width:335px){
+    .header__form{
+        width: 8em;
+    }
+}
+
+
+@media screen and (max-width:320px){
+
+    .tareas--pendientes__list{
+        font-size: 0.9em;
+    }
+}
