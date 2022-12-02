@@ -4,9 +4,10 @@
 :root{
     --color-principal-login:#0960c8;
     --color-secundario-login:#09c867;
+    --color-terciario-login:#55d897;
     --color-hover-login:#09c86881;
     --color-body-selection:#09c867;
-    --body-color: #3c7ecf;
+    --body-color: #E5E9EC;
 }
 
 body{
@@ -14,23 +15,6 @@ body{
     font-family: 'Nunito Sans', sans-serif;
     margin: 0 auto;
 }
-
-/* Barra de Scroll */
-body::-webkit-scrollbar {
-    width: auto;               /* width of the entire scrollbar */
-}
-
-body::-webkit-scrollbar-thumb {
-    background-color: var( --color-principal-scrollbar);    /* color of the scroll thumb */
-
-}
-
-body::-webkit-scrollbar-track {
-    background: var( --color-secundario-scrollbar);        /* color of the tracking area */
-}
-  
-/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
-/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
 *::selection{
     background-color: var(--color-body-selection);
@@ -55,7 +39,7 @@ a{
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
-/* Main */
+/* Login */
 
 .login{
     position: absolute;
@@ -68,10 +52,9 @@ a{
     height: 19em;
     background-color:rgba(255, 255, 255, .2);
     border-radius: 2em;
-    box-shadow: 4px 8px 42px -10px rgba(0,0,0,0.84);
--webkit-box-shadow: 4px 8px 42px -10px rgba(0,0,0,0.84);
--moz-box-shadow: 4px 8px 42px -10px rgba(0,0,0,0.84);
+    animation: gradient-shadow 4s linear infinite;
 }
+
 
 .login__title{
     position: absolute;
@@ -80,9 +63,9 @@ a{
     top: -.8em;
     font-size: 3em;
     text-align: center;
-    color: var(--color-secundario-login);
+    color: white;
     font-weight: bold;
-    text-shadow: 4px 2px 2px rgba(0,0,0,0.6);
+    animation: gradient-text-shadow 4s linear infinite;
 }
 
 .login__form{
@@ -108,29 +91,54 @@ a{
 }
 
 .login__form__label{
-    background-color: var(--color-principal-login);
+    background-color: var(--color-secundario-login);
     color: white;
     width: 7em;
     border-top-right-radius:1em;
     border-top-left-radius:1em;
     text-align: center;
+    border: 2px solid var(--color-secundario-login);
+    
 }
 
 .login__form__input{
     width: 18.75em;
     text-align: center;
-    background-color: var(--color-principal-login);
-    color: white;
+    background-color: transparent;
+    -webkit-box-shadow: 0 0 17px .2em var(--color-secundario-login);
+    box-shadow: 0 0 17px .2em var(--color-secundario-login);
+    border: 2px solid var(--color-secundario-login);
+    color: var(--color-secundario-login);
     border-radius: 1.25em;
     padding: 0.313em 0;
     font-size: 1em;
 }
 
 .login__form__input--submit{
-    background-color: #09c867;
+    background-color: var(--color-secundario-login);
+    -webkit-box-shadow: 0 0 17px .2em var(--color-secundario-login);
+    box-shadow: 0 0 17px .2em var(--color-secundario-login);
+    border: 2px solid var(--color-secundario-login);
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--color-secundario-login);
 }
 
-/* End Main */
+.login__form__input--submit:hover{
+    background-color: var(--color-secundario-login);
+    -webkit-animation-name: gradient-shadow;
+    animation-name: gradient-shadow;
+    -webkit-animation-timing-function: ease;
+    animation-timing-function: ease;
+    -webkit-animation-duration: 5s;
+    animation-duration: 5s;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    color: white;
+}
+
+
+/* End Login */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -138,134 +146,81 @@ a{
 
 
 
-@media screen and (max-width:960px) {
+@media screen and (max-width:517px) {
 
-    .main__atajos{
-        flex-wrap: wrap;
-    }
-
-    .atajos__atajo{
-        width: 12em;
-        margin:0.625em 0;
-    }
-
-    .tareas__form{
-        flex-wrap: wrap;
-    }
-
-    .tareas__select, .tareas__search{
-        width: 15em;
-        text-align: center;
-    }
-
-    .atajo__emoji{
-        font-size: 4em ;
-    }
-}
-
-@media screen and (max-width:858px) {
-    .header__container{
-        padding: 0 2em;
+    .login{
+        width: 90%;
     }
 }
 
 
-@media screen and (max-width:768px) {
-
-    .sidebar{
-        visibility: hidden;
-    }
-
-    .sidebar__toggle{
-        display: block;
-        font-size: 1em;
-        visibility: visible;
-    }
-
-    .sidebar--toggle{
-        visibility: visible;
-    }
-
-    .main{
-        padding: 6.25em 0 0 0;
-    }
-
-    .header__form{
-        width: 11.6em;
-    }
-
-    .header__container{
-        padding: 0 1em 0 1em;
-    }
-
-    .main--toggle{
-        padding-left: 12.5em ;
-    }
-
-    .header__ul{
-        gap: 1em;
-    }
-
-    .header__a, .header__span{
-        font-size: 1em;
-    }
-
-}
-
-@media screen and (max-width:480px) {
-    .header__nav{
-        position: fixed;
-        right: 200%;
-        background-color: var(--color-principal-header);
-        top: 6.25em ;
-        padding: 0.5em;
-        border-bottom-left-radius:10px ;
-    }
-
-    .header__nav--toggle{
-        right: 0;
-    }
-
-    .header__plus{
-        display: block;
-    }
-}
-
-@media screen and (max-width:425px) {
-    .sidebar{
-        width: 100%;
-    }
-}
-
-@media screen and (max-width:360px) {
+@media screen and (max-width:375px) {
     
-    .header__logo h2{
-        font-size: 1em;
+    .login__title{
+        font-size: 2.5em;
     }
-
-    .header__form{
-        width: 11em;
-    }
-
-    .header__plus{
-        font-size: 1em;
-    }
-
-    .header__search::placeholder{
-        font-size: 1em;
-    }
-}
-
-@media screen and (max-width:335px){
-    .header__form{
-        width: 8em;
+    .login__form__input{
+        width: 90%;
     }
 }
 
 
-@media screen and (max-width:320px){
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
-    .tareas--pendientes__list{
-        font-size: 0.9em;
+/* KeyFrames */
+
+@keyframes gradient-shadow {
+    0% {
+        -webkit-box-shadow: 0 0 17px .2em var(--color-secundario-login),0 0 4px .1em var(--color-secundario-login);
+        box-shadow: 0 0 17px .2em var(--color-secundario-login),0 0 4px .1em var(--color-secundario-login);
+        border: 2px solid var(--color-secundario-login);
+      }
+      
+      20% {
+        -webkit-box-shadow: 0 0 17px .2em var(--color-terciario-login),0 0 4px .1em var(--color-terciario-login);
+        box-shadow: 0 0 17px .2em var(--color-terciario-login),0 0 4px .1em var(--color-terciario-login);
+        border: 2px solid var(--color-terciario-login);
+      }
+
+      60% {
+          -webkit-box-shadow: 0 0 17px .2em var(--color-secundario-login),0 0 4px .1em var(--color-secundario-login);
+          box-shadow: 0 0 17px .2em var(--color-secundario-login),0 0 4px .1em var(--color-secundario-login);
+          border: 2px solid var(--color-secundario-login);
+      }
+
+
+      80% {
+        -webkit-box-shadow: 0 0 17px .2em var(--color-terciario-login),0 0 4px .1em var(--color-terciario-login);
+        box-shadow: 0 0 17px .2em var(--color-terciario-login),0 0 4px .1em var(--color-terciario-login);
+        border: 2px solid var(--color-terciario-login);
+      }
+
+      100% {
+        -webkit-box-shadow: 0 0 17px .2em var(--color-secundario-login),0 0 4px .1em var(--color-secundario-login);
+        box-shadow: 0 0 17px .2em var(--color-secundario-login),0 0 4px .1em var(--color-secundario-login);
+        border: 2px solid var(--color-secundario-login);
+      }
+  }
+
+  @keyframes gradient-text-shadow {
+      0% {
+        text-shadow: 1px 0 5px var(--color-secundario-login), -1px 0 5px var(--color-secundario-login), 1px 0 5px var(--color-secundario-login), -1px 0 5px var(--color-secundario-login), 1px 0 5px var(--color-secundario-login), -1px 0 5px var(--color-secundario-login), 1px 0 5px var(--color-secundario-login), -1px 0 5px var(--color-secundario-login);
+      }
+
+    20% {
+        text-shadow: 1px 0 5px var(--color-secundario-login), 1px 0 5px var(--color-secundario-login), 1px 0 5px var(--color-secundario-login);
+      }
+      
+    60% {
+        text-shadow: 1px 0 5px var(--color-secundario-login), -1px 0 5px var(--color-secundario-login), 1px 0 5px var(--color-secundario-login), -1px 0 5px var(--color-secundario-login), 1px 0 5px var(--color-secundario-login), -1px 0 5px var(--color-secundario-login), 1px 0 5px var(--color-secundario-login), -1px 0 5px var(--color-secundario-login);
     }
-}
+
+      80% {
+        text-shadow: 1px 0 5px var(--color-secundario-login), 1px 0 5px var(--color-secundario-login), 1px 0 5px var(--color-secundario-login);
+      }
+
+    100% {
+        text-shadow: 1px 0 5px var(--color-secundario-login), -1px 0 5px var(--color-secundario-login), 1px 0 5px var(--color-secundario-login), -1px 0 5px var(--color-secundario-login), 1px 0 5px var(--color-secundario-login), -1px 0 5px var(--color-secundario-login), 1px 0 5px var(--color-secundario-login), -1px 0 5px var(--color-secundario-login);
+      }
+  }
