@@ -139,14 +139,15 @@ a{
 
 .header__li-user__ul{
     top: calc((6.25em / 2) + 0.75em) ;
-    min-width: 8em;
+    width: 7em;
     text-align: left;
     position: absolute;
-    left: 0;
+    left: -2.3em;
     right: 0;
     background-color: var(--color-principal-header);
     border-bottom-left-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
+    text-align: center;
 }
 
 .header__li-user__ul--toggle{
@@ -162,6 +163,11 @@ a{
     color: var(--color-principal-header);
     font-size: 1.25em;
     cursor: pointer;
+}
+
+.user__span{
+    color: var(--color-secundario-main);
+    font-weight: bold;
 }
 
 .user__a:hover{
@@ -508,6 +514,12 @@ a{
 }
 
 
+@media screen and (max-width:858px) {
+    .header__container{
+        padding: 0 2em;
+    }
+}
+
 @media screen and (max-width:778px) {
     .form__busqueda-propiedad{
         gap: 2em;
@@ -525,17 +537,7 @@ a{
     .form__bloque--5{
         gap: 2em;
     }
-
-
 }
-
-
-@media screen and (max-width:858px) {
-    .header__container{
-        padding: 0 2em;
-    }
-}
-
 
 @media screen and (max-width:768px) {
 
@@ -577,6 +579,10 @@ a{
         font-size: 1em;
     }
 
+    .header__li-user__ul{
+        left: -2.5em;
+        width: 7em;
+    }
 }
 
 @media screen and (max-width:628px) {
@@ -617,6 +623,11 @@ a{
 
     .sidebar{
         width: 100%;
+    }
+
+    .header__li-user__ul{
+        top: 2.3em;
+        left: -.5em;
     }
 
 }

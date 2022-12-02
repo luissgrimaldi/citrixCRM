@@ -26,16 +26,16 @@ body{
 
 /* Barra de Scroll */
 body::-webkit-scrollbar {
-    width: auto;               /* width of the entire scrollbar */
+    width: auto;             
 }
 
 body::-webkit-scrollbar-thumb {
-    background-color: var( --color-principal-scrollbar);    /* color of the scroll thumb */
+    background-color: var( --color-principal-scrollbar);    
 
 }
 
 body::-webkit-scrollbar-track {
-    background: var( --color-secundario-scrollbar);        /* color of the tracking area */
+    background: var( --color-secundario-scrollbar);       
 }
   
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -140,14 +140,15 @@ a{
 
 .header__li-user__ul{
     top: calc((6.25em / 2) + 0.75em) ;
-    min-width: 8em;
+    width: 7em;
     text-align: left;
     position: absolute;
-    left: 0;
+    left: -2.3em;
     right: 0;
     background-color: var(--color-principal-header);
     border-bottom-left-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
+    text-align: center;
 }
 
 .header__li-user__ul--toggle{
@@ -163,6 +164,11 @@ a{
     color: var(--color-principal-header);
     font-size: 1.25em;
     cursor: pointer;
+}
+
+.user__span{
+    color: var(--color-secundario-main);
+    font-weight: bold;
 }
 
 .user__a:hover{
@@ -525,8 +531,9 @@ a{
         gap: 1em;
     }
 
-    .header__a, .header__span{
-        font-size: 1em;
+    .header__li-user__ul{
+        left: -2.5em;
+        width: 7em;
     }
 
 }
@@ -538,7 +545,7 @@ a{
         background-color: var(--color-principal-header);
         top: 6.25em ;
         padding: 0.5em;
-        border-bottom-left-radius:10px ;
+        border-bottom-left-radius:.5em ;
     }
 
     .header__nav--toggle{
@@ -551,6 +558,11 @@ a{
 
     .sidebar{
         width: 100%;
+    }
+
+    .header__li-user__ul{
+        top: 2.3em;
+        left: -.5em;
     }
 }
 

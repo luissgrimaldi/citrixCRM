@@ -26,16 +26,15 @@ body{
 
 /* Barra de Scroll */
 body::-webkit-scrollbar {
-    width: auto;               /* width of the entire scrollbar */
+    width: auto; /* width of the entire scrollbar */
 }
 
 body::-webkit-scrollbar-thumb {
     background-color: var( --color-principal-scrollbar);    /* color of the scroll thumb */
-
 }
 
 body::-webkit-scrollbar-track {
-    background: var( --color-secundario-scrollbar);        /* color of the tracking area */
+    background: var( --color-secundario-scrollbar);  /* color of the tracking area */
 }
   
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -251,6 +250,35 @@ a{
     background-color:white;
 }
 
+.main__container__top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.main__buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.main__buttons__button{
+    color: var(--color-terciario-main);
+    background-color: var(--color-secundario-main);
+    padding: 0.413em .8em;
+    border-radius: 16px;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+}
+
+.main__buttons__button:hover{
+    cursor: pointer;
+    background-color: var(--body-select-hover-checked);
+}
+
 .main__h1--emoji{
     color: var(--color-principal-main);
     font-size: 1.875em;
@@ -269,133 +297,52 @@ a{
     border-top: 0.125em dotted var(--color-principal-main);
 }
 
-.main__busqueda-agenda{
+.main__perfil{
     margin: 1.875em 1em;
 }
 
-.form__busqueda-agenda{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.form__container-left__button{
-    color: var(--color-terciario-main);
-    background-color: var(--color-secundario-main);
-    padding: 0.313em 0.4em;
-    border-radius: 16px;
-    font-size: 1em;
-}
-
-.form__container-left__button:hover{
-    cursor: pointer;
-    background-color: var(--body-select-hover-checked);
-}
-
-.form__container-right{
+.main__perfil__container{
     display: flex;
     flex-direction: column;
-    gap: 1em;
-    
-}
-
-.form__container-right--bloque{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    gap: 2em;
     justify-content: center;
-    gap: 0 2em;
-}
-
-.form__container-right--bloque__content{
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    margin: 0;
-}
-
-.form__container-right__select{
-    width: 18em;
-    text-align: center;
-    background-color: var(--color-principal-main);
-    color: var(--color-terciario-main);
-    border-radius: 1.25em;
-    padding: 0.313em 0;
-    font-size: 1em;
-    cursor: pointer;
-}
-
-.form__container-right__text{
     width: 30em;
+    margin: 0 auto;
+}
+
+.perfil__bloque{
+    width: 100%;
+    text-align: center;
+}
+
+.perfil__bloque__content{
+    width: 100%;
     text-align: center;
     background-color: var(--color-principal-main);
     color: var(--color-terciario-main);
     border-radius: 1.25em;
-    padding: 0.313em 0;
+    padding: .5em 1em;
     font-size: 1em;
 }
 
-.form__container-right__checkbox{
-    width: 1.3em;
-    height: 1.3em;
-    -webkit-appearance: checkbox !important;
-    -moz-appearance: checkbox !important;
-    -ms-appearance: checkbox !important;
-    -o-appearance: checkbox !important;
-    appearance: checkbox !important;
+.perfil__bloque__fake-label{
+    padding: 0 8%;
+    border-top-right-radius:1em;
+    border-top-left-radius:1em;
+    text-align: center;
+    margin: 0 auto;
+    background-color: #09c867;
+    color: white;
+
 }
 
-.form__container-right__checkbox:hover{
-    cursor: pointer;
-}
 
-.form__container-right__checkbox:checked{
-    accent-color: var(--body-select-hover-checked);
-}
-
-.form__container-right__button{
-    color: var(--color-terciario-main);
-    background-color: var(--color-secundario-main);
-    padding: 0.313em 4em;
-    border-radius: 16px;
-    font-size: 1em;
-    cursor: pointer;
-}
-
-.form__container-right__button:hover{
-    cursor: pointer;
-    background-color: var(--body-select-hover-checked);
-}
 /* End Main */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
-
-
-@media screen and (max-width:1350px) {
-
-
-    .form__container-right__text{
-        width: 15em;
-    }
-
-    .form__container-right__select{
-        width: 11em;
-    }
-
-}
-
-@media screen and (max-width:1023px) {
-
-    .form__container-right--bloque{
-        flex-direction: column;
-        gap: 1em;
-    }
-}
 
 
 @media screen and (max-width:858px) {
@@ -404,6 +351,11 @@ a{
     }
 }
 
+@media screen and (max-width:778px) {
+    .main__perfil__container{
+        width: 90%;
+    }
+}
 
 @media screen and (max-width:768px) {
 
@@ -458,6 +410,17 @@ a{
     }
 }
 
+@media screen and (max-width:584px) {
+    .main__buttons{
+        flex-direction: column;
+        margin: 0.4em;
+    }
+
+    .main__buttons__button{
+        padding: 0.413em .4em ;
+    }
+}
+
 @media screen and (max-width:480px) {
     .header__nav{
         position: fixed;
@@ -487,6 +450,13 @@ a{
 
 }
 
+@media screen and (max-width:394px) {
+    .main__container__top{
+        justify-content: center;
+    }
+}
+
+
 @media screen and (max-width:360px) {
     .header__logo h2{
         font-size: 1em;
@@ -503,7 +473,6 @@ a{
     .header__search::placeholder{
         font-size: 1em;
     }
-
 }
 
 @media screen and (max-width:335px){
