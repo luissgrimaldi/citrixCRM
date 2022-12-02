@@ -466,12 +466,10 @@ a{
         display: block;
     }
 
-}
-
-@media screen and (max-width:425px) {
     .sidebar{
         width: 100%;
     }
+
 }
 
 @media screen and (max-width:360px) {

@@ -548,9 +548,7 @@ a{
     .header__plus{
         display: block;
     }
-}
 
-@media screen and (max-width:425px) {
     .sidebar{
         width: 100%;
     }
