@@ -393,22 +393,12 @@ a{
         gap: 1em;
     }
 
-    .header__a, .header__span{
-        font-size: 1em;
-    }
-
     .header__li-user__ul{
         left: -2.5em;
         width: 7em;
     }
 }
 
-@media screen and (max-width:628px) {
-    .form__busqueda-agenda{
-        flex-direction: column;
-        gap: 2em;
-    }
-}
 
 @media screen and (max-width:584px) {
     .main__buttons{

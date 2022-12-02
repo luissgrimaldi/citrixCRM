@@ -575,10 +575,6 @@ a{
         gap: 1em;
     }
 
-    .header__a, .header__span{
-        font-size: 1em;
-    }
-
     .header__li-user__ul{
         left: -2.5em;
         width: 7em;
