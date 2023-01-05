@@ -16,19 +16,30 @@
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <div class="login">
             <h1 class="login__title">citrixCRM</h1>
-            <form class="login__form" action="index.html">
-                <div class="login__form__bloque">
-                    <label class="login__form__label" for="">Username</label>
-                    <input class="login__form__input" type="text">
+            <div class="login__container">
+                <div class="login__bloque">
+                    <div class="login__frase frase">
+                        <span class="frase__span frase__span--1">Cada día es</span>
+                        <span class="frase__span frase__span--2">un nuevo Comienzo.</span>
+                    </div>
+                    <form class="login__form" action="index.html">
+                        <div class="login__form__bloque">
+                            <label class="login__form__label" for="">Usuario</label>
+                            <input class="login__form__input" type="text" placeholder="Usuario">
+                        </div>
+                        <div class="login__form__bloque">
+                            <label class="login__form__label" for="">Contaseña</label>
+                            <input class="login__form__input" type="password" placeholder="Contraseña">
+                        </div>
+                        <div class="login__form__bloque bloque--3">
+                            <input class="login__form__input login__form__input--submit" type="submit" value="Iniciar Sesión">
+                        </div>
+                    </form>
                 </div>
-                <div class="login__form__bloque">
-                    <label class="login__form__label" for="">Password</label>
-                    <input class="login__form__input" type="password">
+                <div class="login__bloque">
+                    <img class="login__img" src="loginimg.svg" alt="">
                 </div>
-                <div class="login__form__bloque bloque--3">
-                    <input class="login__form__input login__form__input--submit" type="submit" value="Iniciar Sesión">
-                </div>
-            </form>
+            </div>
         </div>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* End Login */-->
