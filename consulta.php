@@ -117,24 +117,42 @@
                     <ul class="consultas__ul">
                         <?php
                             $iniciConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
-                            $sentencia2 = $connect->prepare("SELECT * FROM `wp_consultas` LIMIT $iniciConsultasXpagina,$consultasXpagina") or die('query failed');
+                            $sentencia2 = $connect->prepare("SELECT * FROM `wp_consultas` ORDER BY id DESC LIMIT $iniciConsultasXpagina,$consultasXpagina") or die('query failed');
                             $sentencia2->execute();
                             $list_consultas = $sentencia2->fetchAll();                         
                             foreach($list_consultas as $consulta){
                                 $tipoConsulta = $consulta['consulta'];
+                                $idPropiedadConsulta = $consulta['propiedad_id'];
                                 $nombreConsulta = $consulta['nombre'];
                                 $apellidoConsulta = $consulta['apellido'];
                                 $emailConsulta = $consulta['email'];
                                 $telefonoConsulta = $consulta['telefono'];
                                 $fechaConsulta = $consulta['created'];
+                                $idsituacionConsulta = $consulta['situacion'];
+                                $idsituacionConsulta = intval($idsituacionConsulta);
+
+                            $sentencia3 = $connect->prepare("SELECT * FROM `wp_propiedades` WHERE id=$idPropiedadConsulta") or die('query failed');
+                            $sentencia3->execute();
+                            $list_propiedades = $sentencia3->fetchAll();                         
+                            foreach($list_propiedades as $propiedad){
+                                $refPropiedad = $propiedad['referencia_interna'];
+                                $callePropiedad = $propiedad['calle'];
+                                $alturaPropiedad = $propiedad['altura'];
+
+
+                            $sentencia4 = $connect->prepare("SELECT * FROM `wp_situaciones` WHERE id=$idsituacionConsulta") or die('query failed');
+                            $sentencia4->execute();
+                            $list_situaciones = $sentencia4->fetchAll();                         
+                            foreach($list_situaciones as $situacion){
+                                $situacionConsulta = $situacion['nombre'];
                             ?>                           
                         <li class="consultas__li">
                             <div class="consultas__bloque">
                                 <div class="consultas__bloque__content">
-                                    <span class="consultas__consulta"> <?php echo $tipoConsulta, ' | C6610 (Pedro Goyena 2700) | ',$fechaConsulta?></span>
+                                    <span class="consultas__consulta"> <?php echo $tipoConsulta, ' | ', $refPropiedad,' (',$callePropiedad,' ',$alturaPropiedad,') | ',$fechaConsulta?></span>
                                 </div>
                                 <div class="consultas__bloque__content">
-                                    <span class="consultas__datos-cliente"><?php echo $nombreConsulta, ' ', $apellidoConsulta, ' (', $emailConsulta, ' - ', $telefonoConsulta,')'?></span>
+                                    <span class="consultas__datos-cliente"><?php echo $nombreConsulta, ' ', $apellidoConsulta, ' (', $emailConsulta, ' - ', $telefonoConsulta,') | Situación: ',$situacionConsulta?></span>
                                 </div>
                             </div>
                             <div class="consultas__bloque">
@@ -145,7 +163,7 @@
                                 </div>   
                             </div>
                         </li>
-                        <?php }; ?>
+                        <?php };};}; ?>
                     </ul>
                 </div>
                 <div class="pagination">
