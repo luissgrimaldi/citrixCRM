@@ -116,8 +116,8 @@
                 <div class="consultas">
                     <ul class="consultas__ul">
                         <?php
-                            $iniciConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
-                            $sentencia2 = $connect->prepare("SELECT * FROM `wp_consultas` ORDER BY id DESC LIMIT $iniciConsultasXpagina,$consultasXpagina") or die('query failed');
+                            $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
+                            $sentencia2 = $connect->prepare("SELECT * FROM `wp_consultas` ORDER BY id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
                             $sentencia2->execute();
                             $list_consultas = $sentencia2->fetchAll();                         
                             foreach($list_consultas as $consulta){
@@ -149,10 +149,10 @@
                         <li class="consultas__li">
                             <div class="consultas__bloque">
                                 <div class="consultas__bloque__content">
-                                    <span class="consultas__consulta"> <?php echo $tipoConsulta, ' | ', $refPropiedad,' (',$callePropiedad,' ',$alturaPropiedad,') | ',$fechaConsulta?></span>
+                                    <span class="consultas__consulta"> <?php echo $tipoConsulta. ' | '. $refPropiedad.' ('.$callePropiedad.' '.$alturaPropiedad.') | '.$fechaConsulta?></span>
                                 </div>
                                 <div class="consultas__bloque__content">
-                                    <span class="consultas__datos-cliente"><?php echo $nombreConsulta, ' ', $apellidoConsulta, ' (', $emailConsulta, ' - ', $telefonoConsulta,') | Situación: ',$situacionConsulta?></span>
+                                    <span class="consultas__datos-cliente"><?php echo $nombreConsulta. ' '. $apellidoConsulta. ' ('. $emailConsulta. ' - '. $telefonoConsulta.') | Situación: '.$situacionConsulta?></span>
                                 </div>
                             </div>
                             <div class="consultas__bloque">
