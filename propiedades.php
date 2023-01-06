@@ -23,7 +23,7 @@
                 </div>
                 <div class="main__decoration"></div>
                 <div class="main__busqueda-propiedad">
-                    <form class="form__busqueda-propiedad form" name="form" action="propiedades.php">
+                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="propiedades.php">
                         <div class="form__bloque">
                             <div class="form__bloque__content content"> 
                                 <label  class="form__label content__label" for="">Operación</label>
@@ -165,44 +165,34 @@
                     <ul class="propiedades__ul">
                     <?php
                         $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
-                        $sentencia = $connect->prepare("SELECT * FROM `wp_propiedades` ORDER BY id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
+                        $sentencia = $connect->prepare("SELECT prop.id, prop.foto_portada, prop.tipo_propiedad_id, prop.operacion_id, prop.zona_id, prop.metros_utiles, prop.cant_habitaciones, prop.nro_banios, prop.precio_propietario, prop.visible_web,
+                        tipo.id, tipo.nombre,
+                        op.id, op.nombre,
+                        zona.id, zona.nombre,
+                        prop.id as prop_id, prop.foto_portada as prop_foto_portada, prop.tipo_propiedad_id as prop_tipo_propiedad_id, prop.operacion_id as prop_operacion_id, prop.zona_id as prop_zona_id, prop.metros_utiles as prop_metros_utiles, prop.cant_habitaciones as prop_cant_habitaciones, prop.nro_banios as prop_nro_banios, prop.precio_propietario as prop_precio_propietario, prop.visible_web as prop_visible_web,
+                        tipo.id as tipo_id, tipo.nombre as tipo_nombre,
+                        op.id as op_id, op.nombre as op_nombre,
+                        zona.id as zona_id, zona.nombre as zona_nombre  
+                        FROM wp_propiedades prop 
+                        LEFT JOIN wp_propiedad_tipo tipo ON  prop.tipo_propiedad_id =tipo.id
+                        LEFT JOIN wp_propiedad_operacion op ON  prop.operacion_id=op.id
+                        LEFT JOIN wp_zonas zona ON  prop.zona_id=zona.id
+                        ORDER BY prop_id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
                         $sentencia->execute();
-                        $list_propiedades = $sentencia->fetchAll();                         
+                        $list_propiedades = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                         foreach($list_propiedades as $propiedad){
-                            $imgPropiedad = strval($propiedad['foto_portada']);
+                            $imgPropiedad = strval($propiedad['prop_foto_portada']);
                             $imgPropiedad = str_replace('"', '', $imgPropiedad);;
                             $imgPropiedad = str_replace("[", "", $imgPropiedad);
                             $imgPropiedad = str_replace("]", "", $imgPropiedad);
-                            $idTipoPropiedad = $propiedad['tipo_propiedad_id'];
-                            $idOperacionPropiedad = $propiedad['operacion_id'];
-                            $idZonaPropiedad = $propiedad['zona_id'];
-                            $metrosPropiedad = floatval($propiedad['metros_utiles']);
-                            $habitacionesPropiedad = $propiedad['cant_habitaciones'];
-                            $baniosPropiedad = $propiedad['nro_banios'];
-                            $precioPropiedad = intval($propiedad['precio_propietario']);
-                            $enWeb = intval($propiedad['visible_web']);
-                            
-
-
-                            $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_tipo` WHERE id=$idTipoPropiedad") or die('query failed');
-                            $sentencia->execute();
-                            $list_tipoPropiedad = $sentencia->fetchAll();                         
-                            foreach($list_tipoPropiedad as $tipoDePropiedad){
-                                $tipoPropiedad = $tipoDePropiedad['nombre'];
-                                
-                                
-                                $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_operacion` WHERE id=$idOperacionPropiedad") or die('query failed');
-                                $sentencia->execute();
-                                $list_operacionPropiedad = $sentencia->fetchAll();                         
-                                foreach($list_operacionPropiedad as $operacionDePropiedad){
-                                    $operacionPropiedad = $operacionDePropiedad['nombre'];
-
-
-                                $sentencia = $connect->prepare("SELECT * FROM `wp_zonas` WHERE id=$idZonaPropiedad") or die('query failed');
-                                $sentencia->execute();
-                                $list_zonaPropiedad = $sentencia->fetchAll();                         
-                                foreach($list_zonaPropiedad as $zonadePropiedad){
-                                    $zonaPropiedad = $zonadePropiedad['nombre'];
+                            $metrosPropiedad = floatval($propiedad['prop_metros_utiles']);
+                            $habitacionesPropiedad = $propiedad['prop_cant_habitaciones'];
+                            $baniosPropiedad = $propiedad['prop_nro_banios'];
+                            $precioPropiedad = intval($propiedad['prop_precio_propietario']);
+                            $enWeb = intval($propiedad['prop_visible_web']);
+                            $tipoPropiedad = $propiedad['tipo_nombre'];
+                            $operacionPropiedad = $propiedad['op_nombre'];
+                            $zonaPropiedad = $propiedad['zona_nombre'];                                                                   
                         ?>                           
                         <li class="propiedades__li">
                             <img class="propiedades__img" src="<?php echo 'https://projectandbrokers.com/wp-content/uploads/thumbnails/mediano__'.$imgPropiedad?>" alt="">
@@ -217,7 +207,7 @@
                                 <a href=""><i class="propiedades__accion fa-solid fa-eye-slash"></i></a>
                             </div>
                         </li>
-                    <?php };};};}; ?>
+                    <?php };?>
                     </ul>
                 </div>
                 <div class="pagination">

@@ -117,42 +117,37 @@
                     <ul class="consultas__ul">
                         <?php
                             $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
-                            $sentencia2 = $connect->prepare("SELECT * FROM `wp_consultas` ORDER BY id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
-                            $sentencia2->execute();
-                            $list_consultas = $sentencia2->fetchAll();                         
-                            foreach($list_consultas as $consulta){
-                                $tipoConsulta = $consulta['consulta'];
-                                $idPropiedadConsulta = $consulta['propiedad_id'];
-                                $nombreConsulta = $consulta['nombre'];
-                                $apellidoConsulta = $consulta['apellido'];
-                                $emailConsulta = $consulta['email'];
-                                $telefonoConsulta = $consulta['telefono'];
-                                $fechaConsulta = $consulta['created'];
-                                $idsituacionConsulta = $consulta['situacion'];
-                                $idsituacionConsulta = intval($idsituacionConsulta);
-
-                            $sentencia3 = $connect->prepare("SELECT * FROM `wp_propiedades` WHERE id=$idPropiedadConsulta") or die('query failed');
-                            $sentencia3->execute();
-                            $list_propiedades = $sentencia3->fetchAll();                         
-                            foreach($list_propiedades as $propiedad){
-                                $refPropiedad = $propiedad['referencia_interna'];
-                                $callePropiedad = $propiedad['calle'];
-                                $alturaPropiedad = $propiedad['altura'];
-
-
-                            $sentencia4 = $connect->prepare("SELECT * FROM `wp_situaciones` WHERE id=$idsituacionConsulta") or die('query failed');
-                            $sentencia4->execute();
-                            $list_situaciones = $sentencia4->fetchAll();                         
-                            foreach($list_situaciones as $situacion){
-                                $situacionConsulta = $situacion['nombre'];
+                            $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, con.created, con.situacion,
+                            prop.id, prop.referencia_interna, prop.calle, prop.altura,
+                            sit.id, sit.nombre,
+                            con.id as con_id, con.consulta as con_consulta, con.nombre as con_nombre, con.apellido as con_apellido, con.email as con_email, con.telefono as con_telefono, con.created as con_created,
+                            prop.referencia_interna as prop_referencia_interna, prop.calle as prop_calle, prop.altura as prop_altura,
+                            sit.nombre as sit_nombre      
+                            FROM wp_consultas con 
+                            LEFT JOIN wp_propiedades prop ON  con.propiedad_id =prop.id
+                            LEFT JOIN wp_situaciones sit ON  con.situacion=sit.id
+                            ORDER BY con_id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
+                            $sentencia->execute();
+                            $list_consultas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+                            foreach($list_consultas as $consulta){                  
+                                $tipoConsulta = $consulta['con_consulta'];
+                                $nombreConsulta = $consulta['con_nombre'];
+                                $apellidoConsulta = $consulta['con_apellido'];
+                                $emailConsulta = $consulta['con_email'];
+                                $telefonoConsulta = $consulta['con_telefono'];
+                                $fechaConsulta = $consulta['con_created'];
+                                $refPropiedad = $consulta['prop_referencia_interna'];
+                                $callePropiedad = $consulta['prop_calle'];
+                                $alturaPropiedad = $consulta['prop_altura'];
+                                $situacionConsulta = $consulta['sit_nombre'];                             
                             ?>                           
                         <li class="consultas__li">
                             <div class="consultas__bloque">
                                 <div class="consultas__bloque__content">
-                                    <span class="consultas__consulta"> <?php echo $tipoConsulta. ' | '. $refPropiedad.' ('.$callePropiedad.' '.$alturaPropiedad.') | '.$fechaConsulta?></span>
+                                <span class="consultas__consulta"> <?php echo $tipoConsulta. ' | '. $refPropiedad.' ('.$callePropiedad.' '.$alturaPropiedad.') | '.$fechaConsulta?></span>
                                 </div>
-                                <div class="consultas__bloque__content">
-                                    <span class="consultas__datos-cliente"><?php echo $nombreConsulta. ' '. $apellidoConsulta. ' ('. $emailConsulta. ' - '. $telefonoConsulta.') | Situación: '.$situacionConsulta?></span>
+                                <div class="consultas__bloque__content">                           
+                                <span class="consultas__datos-cliente"><?php echo $nombreConsulta. ' '. $apellidoConsulta. ' ('. $emailConsulta. ' - '. $telefonoConsulta.') | Situación: '.$situacionConsulta?></span>
                                 </div>
                             </div>
                             <div class="consultas__bloque">
@@ -163,7 +158,7 @@
                                 </div>   
                             </div>
                         </li>
-                        <?php };};}; ?>
+                        <?php }; ?>
                     </ul>
                 </div>
                 <div class="pagination">
