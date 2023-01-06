@@ -7,7 +7,11 @@
         $consultasTotales = $sentencia->rowCount();
         $paginas = $consultasTotales/$consultasXpagina;
         $paginas = ceil($paginas);
-        if(!$_GET || $_GET["pagina"]<1){header('Location:propiedades.php?pagina=1');}elseif($_GET['pagina']>$paginas){header('Location:propiedades.php?pagina='.$paginas);};
+        if(!isset($_POST['seleccionarOperacion'])){
+        $_POST['seleccionarOperacion'] = '';
+        if(!$_GET || $_GET["pagina"]<1){header('Location:propiedades.php?pagina=1&op='.$_POST['seleccionarOperacion']);}elseif($_GET['pagina']>$paginas){header('Location:propiedades.php?pagina='.$paginas.'&op='.$_POST['seleccionarOperacion']);};}else{
+            if(!$_GET || $_GET["pagina"]<1){header('Location:propiedades.php?pagina=1&op='.$_POST['seleccionarOperacion']);}elseif($_GET['pagina']>$paginas){header('Location:propiedades.php?pagina='.$paginas.'&op='.$_POST['seleccionarOperacion']);};
+        }
 ?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
@@ -27,8 +31,11 @@
                         <div class="form__bloque">
                             <div class="form__bloque__content content"> 
                                 <label  class="form__label content__label" for="">Operación</label>
-                                <select class="form__select content__select" name="" id="">
+                                <select class="form__select content__select" name="seleccionarOperacion" id="">                      
                                     <option value></option>
+                                    <?php if($_POST['seleccionarOperacion'] != ''){?>
+                                    <option value="<?php echo $_POST['seleccionarOperacion'];?>"><?php echo $_POST['seleccionarOperacion'];?></option>
+                                    <?php };?>
                                     <?php                             
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_operacion` WHERE habilitado=1") or die('query failed');
                                         $sentencia->execute();
@@ -64,7 +71,7 @@
                                 <?php                             
                                     $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE habilitado=1") or die('query failed');
                                     $sentencia->execute();
-                                    $list_ciudades = $sentencia->fetchAll();                         
+                                    $list_ciudades = $sentencia->fetchAll(PDO::FETCH_ASSOC);                         
                                     foreach($list_ciudades as $ciudad){
                                     $idCiudad = $ciudad['id'];
                                     $nombreCiudad = $ciudad['nombre'];
@@ -140,7 +147,7 @@
                                     <?php                             
                                     $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_tipo` WHERE habilitado=1") or die('query failed');
                                     $sentencia->execute();
-                                    $list_estadoPublicacion = $sentencia->fetchAll();                         
+                                    $list_estadoPublicacion = $sentencia->fetchAll(PDO::FETCH_ASSOC);                         
                                     foreach($list_estadoPublicacion as $estadoPublicacion){
                                     $idPropiedadTipo = $estadoPublicacion['id'];
                                     $propiedadTipoNombre = $estadoPublicacion['nombre'];
@@ -151,7 +158,7 @@
                             </div>
                         </div>
                         <div class="form__bloque form__bloque--5">
-                            <input type="button" class="form__button form__bloque__button" value="Buscar">
+                            <input type="submit" class="form__button form__bloque__button" value="Buscar">
                             <input type="button" class="form__button form__bloque__button" value="Guardar filtros">
                             <input class="form__text form__bloque__text" type="text" placeholder="Nombre del filtro">
                             <select class="form__select form__bloque__select" name="" id="">
@@ -164,6 +171,12 @@
                 <div class="propiedades">
                     <ul class="propiedades__ul">
                     <?php
+
+                    if (!isset($_GET['op']) or $_GET['op'] == ''){
+                        $filtro = '';
+                    }elseif($_GET['op'] != ''){ 
+                        $filtro = "WHERE op.id = '".$_GET['op']."'";
+                    }
                         $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
                         $sentencia = $connect->prepare("SELECT prop.id, prop.foto_portada, prop.tipo_propiedad_id, prop.operacion_id, prop.zona_id, prop.metros_utiles, prop.cant_habitaciones, prop.nro_banios, prop.precio_propietario, prop.visible_web,
                         tipo.id, tipo.nombre,
@@ -177,7 +190,7 @@
                         LEFT JOIN wp_propiedad_tipo tipo ON  prop.tipo_propiedad_id =tipo.id
                         LEFT JOIN wp_propiedad_operacion op ON  prop.operacion_id=op.id
                         LEFT JOIN wp_zonas zona ON  prop.zona_id=zona.id
-                        ORDER BY prop_id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
+                        $filtro ORDER BY prop_id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
                         $sentencia->execute();
                         $list_propiedades = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                         foreach($list_propiedades as $propiedad){
@@ -212,11 +225,11 @@
                 </div>
                 <div class="pagination">
                     <ul>
-                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="propiedades.php?pagina=<?php echo $_GET["pagina"]-1?>"><li><</li></a>
+                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="propiedades.php?pagina=<?php echo $_GET["pagina"]-1?>&op=<?php echo $_GET['op']?>"><li><</li></a>
 				        <?php for($i=0;$i<$paginas;$i++):?>
-                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="propiedades.php?pagina=<?php echo $i+1?>"><li><?php echo $i+1?></li></a>
+                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="propiedades.php?pagina=<?php echo $i+1?>&op=<?php echo $_GET['op']?>"><li><?php echo $i+1?></li></a>
 				        <?php endfor ?>
-                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="propiedades.php?pagina=<?php echo $_GET["pagina"]+1?>"><li>></li></a>
+                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="propiedades.php?pagina=<?php echo $_GET["pagina"]+1?>&op=<?php echo $_GET['op']?>"><li>></li></a>
                     </ul>
                 </div>
             </div>  
