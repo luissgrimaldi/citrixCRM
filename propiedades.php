@@ -2,7 +2,6 @@
 <?php include 'sidebar.php' ?>
 <?php  $sentencia = $connect->prepare("SELECT * FROM `wp_propiedades`") or die('query failed');
         $sentencia->execute();
-        $list_consultas = $sentencia->fetchAll();
         $consultasXpagina = 40;
         $consultasTotales = $sentencia->rowCount();
         $paginas = $consultasTotales/$consultasXpagina;
@@ -30,6 +29,15 @@
                             <div class="form__bloque__content content"> 
                                 <label  class="form__label content__label" for="">Operación</label>
                                 <select class="form__select content__select" name="seleccionarOperacion" id="">                      
+                                <?php if($_GET['op'] != ''){
+                                        $idOp= $_GET['op'];
+                                        $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_operacion` WHERE id= $idOp") or die('query failed');
+                                        $sentencia->execute();
+                                        $list_propiedadesTipo = $sentencia->fetchAll();                         
+                                        foreach($list_propiedadesTipo as $propiedadTipo){
+                                            $propiedadTipoNombre = $propiedadTipo['nombre'];?>
+                                            <option value="<?php echo $_GET['tipo'];?>"><?php echo $propiedadTipoNombre;?></option>
+                                        <?php };};?>
                                     <option value></option>
                                     <?php if($_POST['seleccionarOperacion'] != ''){?>
                                     <option value="<?php echo $_POST['seleccionarOperacion'];?>"><?php echo $_POST['seleccionarOperacion'];?></option>
@@ -41,18 +49,24 @@
                                         foreach($list_propiedadesOperacion as $propiedadOperacion){
                                         $idPropiedadOperacion = $propiedadOperacion['id'];
                                         $propiedadOperacionNombre = $propiedadOperacion['nombre'];
-                                    ?>
+                                        if($_GET['op']!=$idPropiedadOperacion){?>
                                     <option value="<?php echo $idPropiedadOperacion?>"><?php echo $propiedadOperacionNombre?></option>
-                                <?php };?>
+                                <?php };};?>
                                 </select>
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Tipo</label>
-                                <select class="form__select content__select" name="seleccionarTipo" id="">
+                                <select class="form__select content__select" name="seleccionarTipo" id="">    
+                                    <?php if($_GET['tipo'] != ''){
+                                        $idTipo= $_GET['tipo'];
+                                        $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_tipo` WHERE id= $idTipo") or die('query failed');
+                                        $sentencia->execute();
+                                        $list_propiedadesTipo = $sentencia->fetchAll();                         
+                                        foreach($list_propiedadesTipo as $propiedadTipo){
+                                            $propiedadTipoNombre = $propiedadTipo['nombre'];?>
+                                            <option value="<?php echo $_GET['tipo'];?>"><?php echo $propiedadTipoNombre;?></option>
+                                        <?php };};?>
                                     <option value></option>
-                                    <?php if($_POST['seleccionarTipo'] != ''){?>
-                                    <option value="<?php echo $_POST['seleccionarTipo'];?>"><?php echo $_POST['seleccionarTipo'];?></option>
-                                    <?php };?>
                                     <?php                             
                                     $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_tipo` WHERE habilitado=1") or die('query failed');
                                     $sentencia->execute();
@@ -148,7 +162,7 @@
                                     <?php                             
                                     $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_tipo` WHERE habilitado=1") or die('query failed');
                                     $sentencia->execute();
-                                    $list_estadoPublicacion = $sentencia->fetchAll(PDO::FETCH_ASSOC);                         
+                                    $list_estadoPublicacion = $sentencia->fetchAll(PDO::FETCH_ASSOC);                  
                                     foreach($list_estadoPublicacion as $estadoPublicacion){
                                     $idPropiedadTipo = $estadoPublicacion['id'];
                                     $propiedadTipoNombre = $estadoPublicacion['nombre'];
@@ -175,7 +189,7 @@
 
                     if($_GET['op'] == '' AND $_GET['tipo'] == ''){$filtro = '';}else{ 
                     if($_GET['op'] != '' AND $_GET['tipo'] == ''){$filtro = "WHERE op.id = '".$_GET['op']."'";};
-                    if($_GET['op'] == '' AND $_GET['tipo'] != ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND tipo.id = '".$_GET['tipo']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] != ''){$filtro = "WHERE tipo.id = '".$_GET['tipo']."' ";};
                     if($_GET['op'] != '' AND $_GET['tipo'] != ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND tipo.id = '".$_GET['tipo']."' ";};
                     }
                         $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
@@ -194,6 +208,7 @@
                         $filtro ORDER BY prop_id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
                         $sentencia->execute();
                         $list_propiedades = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+                        $consultasTotales = $sentencia->rowCount();   
                         foreach($list_propiedades as $propiedad){
                             $imgPropiedad = strval($propiedad['prop_foto_portada']);
                             $imgPropiedad = str_replace('"', '', $imgPropiedad);;
