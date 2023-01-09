@@ -8,7 +8,8 @@
         $paginas = ceil($paginas);
         if(!isset($_POST['seleccionarOperacion'])){$_POST['seleccionarOperacion'] = '';};
         if(!isset($_POST['seleccionarTipo'])){$_POST['seleccionarTipo'] = '';};
-        if(!$_GET || $_GET["pagina"]<1){header('Location:propiedades.php?pagina=1&op='.$_POST['seleccionarOperacion'].'&tipo='.$_POST['seleccionarTipo']);}elseif($_GET['pagina']>$paginas){header('Location:propiedades.php?pagina='.$paginas.'&op='.$_POST['seleccionarOperacion'].'&tipo='.$_POST['seleccionarTipo']);}
+        if(!isset($_POST['seleccionarCiudad'])){$_POST['seleccionarCiudad'] = '';};
+        if(!$_GET || $_GET["pagina"]<1){header('Location:propiedades.php?pagina=1&op='.$_POST['seleccionarOperacion'].'&tipo='.$_POST['seleccionarTipo'].'&ciudad='.$_POST['seleccionarCiudad'].'&zona='.$_POST['seleccionarZona']);}elseif($_GET['pagina']>$paginas){header('Location:propiedades.php?pagina='.$paginas.'&op='.$_POST['seleccionarOperacion'].'&tipo='.$_POST['seleccionarTipo'].'&ciudad='.$_POST['seleccionarCiudad'].'&zona='.$_POST['seleccionarZona']);}
 ?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
@@ -78,23 +79,53 @@
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Ciudad</label>
-                            <select class="form__select content__select" name="" id="">
-                                <option value></option>
-                                <?php                             
-                                    $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE habilitado=1") or die('query failed');
-                                    $sentencia->execute();
-                                    $list_ciudades = $sentencia->fetchAll(PDO::FETCH_ASSOC);                         
-                                    foreach($list_ciudades as $ciudad){
-                                    $idCiudad = $ciudad['id'];
-                                    $nombreCiudad = $ciudad['nombre'];
-                                ?>
-                                <option value="<?php echo $idCiudad?>"><?php echo $nombreCiudad?></option>
-                                    <?php };?>
-                            </select>
+                                <select class="form__select content__select" name="seleccionarCiudad" id="">
+                                <?php if($_GET['ciudad'] != ''){
+                                        $id= $_GET['ciudad'];
+                                        $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE id= $id") or die('query failed');
+                                        $sentencia->execute();
+                                        $list_propiedades = $sentencia->fetchAll();                         
+                                        foreach($list_propiedades as $propiedad){
+                                        $propiedadNombre = $propiedad['nombre'];?>
+                                        <option value="<?php echo $_GET['ciudad'];?>"><?php echo $propiedadNombre;?></option>
+                                    <?php };};?>
+                                        <option value></option>
+                                        <?php                          
+                                            $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE habilitado=1") or die('query failed');
+                                            $sentencia->execute();
+                                            $list_propiedadesOperacion = $sentencia->fetchAll();                         
+                                            foreach($list_propiedadesOperacion as $propiedad){
+                                            $idPropiedad = $propiedad['id'];
+                                            $propiedadNombre = $propiedad['nombre'];
+                                            if($_GET['ciudad']!=$idPropiedad){?>
+                                        <option value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
+                                    <?php };};?>
+                                </select>
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Zona</label>
-                                <input class="form__text content__text" type="text">
+                                <select class="form__select content__select" name="seleccionarZona" id="">
+                                <?php if($_GET['zona'] != ''){
+                                        $id= $_GET['zona'];
+                                        $sentencia = $connect->prepare("SELECT * FROM `wp_zonas` WHERE id= $id") or die('query failed');
+                                        $sentencia->execute();
+                                        $list_propiedades = $sentencia->fetchAll();                         
+                                        foreach($list_propiedades as $propiedad){
+                                        $propiedadNombre = $propiedad['nombre'];?>
+                                        <option value="<?php echo $_GET['zona'];?>"><?php echo $propiedadNombre;?></option>
+                                    <?php };};?>
+                                        <option value></option>
+                                        <?php                          
+                                            $sentencia = $connect->prepare("SELECT * FROM `wp_zonas` WHERE habilitada=1") or die('query failed');
+                                            $sentencia->execute();
+                                            $list_propiedadesOperacion = $sentencia->fetchAll();                         
+                                            foreach($list_propiedadesOperacion as $propiedad){
+                                            $idPropiedad = $propiedad['id'];
+                                            $propiedadNombre = $propiedad['nombre'];
+                                            if($_GET['zona']!=$idPropiedad){?>
+                                        <option value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
+                                    <?php };};?>
+                                </select>
                             </div>
                         </div>
                         <div class="form__bloque form__bloque--2">
@@ -183,54 +214,81 @@
                 <div class="propiedades">
                     <ul class="propiedades__ul">
                     <?php
-
-                    if($_GET['op'] == '' AND $_GET['tipo'] == ''){$filtro = '';}else{ 
-                    if($_GET['op'] != '' AND $_GET['tipo'] == ''){$filtro = "WHERE op.id = '".$_GET['op']."'";};
-                    if($_GET['op'] == '' AND $_GET['tipo'] != ''){$filtro = "WHERE tipo.id = '".$_GET['tipo']."' ";};
-                    if($_GET['op'] != '' AND $_GET['tipo'] != ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND tipo.id = '".$_GET['tipo']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] == '' AND $_GET['ciudad']== '' AND $_GET['zona']== ''){$filtro = '';}else{ 
+                    if($_GET['op'] != '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] == '' AND $_GET['zona'] == ''){$filtro = "WHERE op.id = '".$_GET['op']."'";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] == '' AND $_GET['zona'] == ''){$filtro = "WHERE tipo.id = '".$_GET['tipo']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] != '' AND $_GET['zona'] == ''){$filtro = "WHERE ciudad.id = '".$_GET['ciudad']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] == '' AND $_GET['zona'] != ''){$filtro = "WHERE zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] != '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] != '' AND $_GET['zona'] != ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND tipo.id = '".$_GET['tipo']."' AND ciudad.id = '".$_GET['ciudad']."' AND zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] != '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] != '' AND $_GET['zona'] == ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND tipo.id = '".$_GET['tipo']."' AND ciudad.id = '".$_GET['ciudad']."' ";};
+                    if($_GET['op'] != '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] == '' AND $_GET['zona'] != ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND tipo.id = '".$_GET['tipo']."' AND zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] != '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] != '' AND $_GET['zona'] != ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND ciudad.id = '".$_GET['ciudad']."' AND zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] != '' AND $_GET['zona'] != ''){$filtro = "WHERE tipo.id = '".$_GET['tipo']."' AND ciudad.id = '".$_GET['ciudad']."' AND zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] != '' AND $_GET['zona'] != ''){$filtro = "WHERE ciudad.id = '".$_GET['ciudad']."' AND zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] == '' AND $_GET['zona'] != ''){$filtro = "WHERE tipo.id = '".$_GET['tipo']."' AND zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] != '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] == '' AND $_GET['zona'] != ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] != '' AND $_GET['zona'] == ''){$filtro = "WHERE tipo.id = '".$_GET['tipo']."' AND ciudad.id = '".$_GET['ciudad']."' ";};
+                    if($_GET['op'] != '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] != '' AND $_GET['zona'] == ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND ciudad.id = '".$_GET['ciudad']."' ";};
+                    if($_GET['op'] != '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] == '' AND $_GET['zona'] == ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND tipo.id = '".$_GET['tipo']."' ";};
                     }
                         $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
-                        $sentencia = $connect->prepare("SELECT prop.id, prop.foto_portada, prop.tipo_propiedad_id, prop.operacion_id, prop.zona_id, prop.metros_utiles, prop.cant_habitaciones, prop.nro_banios, prop.precio_propietario, prop.visible_web,
+                        $sentencia = $connect->prepare("SELECT prop.id, prop.foto_portada, prop.tipo_propiedad_id, prop.operacion_id, prop.zona_id, prop.metros_utiles, prop.cant_habitaciones, prop.nro_banios, prop.precio_propietario, prop.visible_web, prop.ciudad_id,
                         tipo.id, tipo.nombre,
                         op.id, op.nombre,
                         zona.id, zona.nombre,
-                        prop.id as prop_id, prop.foto_portada as prop_foto_portada, prop.tipo_propiedad_id as prop_tipo_propiedad_id, prop.operacion_id as prop_operacion_id, prop.zona_id as prop_zona_id, prop.metros_utiles as prop_metros_utiles, prop.cant_habitaciones as prop_cant_habitaciones, prop.nro_banios as prop_nro_banios, prop.precio_propietario as prop_precio_propietario, prop.visible_web as prop_visible_web,
+                        ciudad.id,
+                        prop.id as prop_id, prop.foto_portada as prop_foto_portada, prop.tipo_propiedad_id as prop_tipo_propiedad_id, prop.operacion_id as prop_operacion_id, prop.zona_id as prop_zona_id, prop.metros_utiles as prop_metros_utiles, prop.cant_habitaciones as prop_cant_habitaciones, prop.nro_banios as prop_nro_banios, prop.precio_propietario as prop_precio_propietario, prop.visible_web as prop_visible_web, prop.ciudad_id as prop_ciudad_id,
                         tipo.id as tipo_id, tipo.nombre as tipo_nombre,
                         op.id as op_id, op.nombre as op_nombre,
-                        zona.id as zona_id, zona.nombre as zona_nombre  
+                        zona.id as zona_id, zona.nombre as zona_nombre,
+                        ciudad.id as ciudad_id  
                         FROM wp_propiedades prop 
                         LEFT JOIN wp_propiedad_tipo tipo ON  prop.tipo_propiedad_id =tipo.id
                         LEFT JOIN wp_propiedad_operacion op ON  prop.operacion_id=op.id
                         LEFT JOIN wp_zonas zona ON  prop.zona_id=zona.id
+                        LEFT JOIN wp_ciudades ciudad ON  prop.ciudad_id=ciudad.id
                         $filtro") or die('query failed');
                         $sentencia->execute();
                         $list_propiedades = $sentencia->fetchAll(PDO::FETCH_ASSOC);
-                        $consultasXpagina = 40;
                         $consultasTotales = $sentencia->rowCount();
                         $paginas = $consultasTotales/$consultasXpagina;
                         $paginas = ceil($paginas);?>
 
 
                     <?php
-
-                    if($_GET['op'] == '' AND $_GET['tipo'] == ''){$filtro = '';}else{ 
-                    if($_GET['op'] != '' AND $_GET['tipo'] == ''){$filtro = "WHERE op.id = '".$_GET['op']."'";};
-                    if($_GET['op'] == '' AND $_GET['tipo'] != ''){$filtro = "WHERE tipo.id = '".$_GET['tipo']."' ";};
-                    if($_GET['op'] != '' AND $_GET['tipo'] != ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND tipo.id = '".$_GET['tipo']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] == '' AND $_GET['ciudad']== '' AND $_GET['zona']== ''){$filtro = '';}else{ 
+                    if($_GET['op'] != '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] == '' AND $_GET['zona'] == ''){$filtro = "WHERE op.id = '".$_GET['op']."'";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] == '' AND $_GET['zona'] == ''){$filtro = "WHERE tipo.id = '".$_GET['tipo']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] != '' AND $_GET['zona'] == ''){$filtro = "WHERE ciudad.id = '".$_GET['ciudad']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] == '' AND $_GET['zona'] != ''){$filtro = "WHERE zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] != '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] != '' AND $_GET['zona'] != ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND tipo.id = '".$_GET['tipo']."' AND ciudad.id = '".$_GET['ciudad']."' AND zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] != '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] != '' AND $_GET['zona'] == ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND tipo.id = '".$_GET['tipo']."' AND ciudad.id = '".$_GET['ciudad']."' ";};
+                    if($_GET['op'] != '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] == '' AND $_GET['zona'] != ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND tipo.id = '".$_GET['tipo']."' AND zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] != '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] != '' AND $_GET['zona'] != ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND ciudad.id = '".$_GET['ciudad']."' AND zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] != '' AND $_GET['zona'] != ''){$filtro = "WHERE tipo.id = '".$_GET['tipo']."' AND ciudad.id = '".$_GET['ciudad']."' AND zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] != '' AND $_GET['zona'] != ''){$filtro = "WHERE ciudad.id = '".$_GET['ciudad']."' AND zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] == '' AND $_GET['zona'] != ''){$filtro = "WHERE tipo.id = '".$_GET['tipo']."' AND zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] != '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] == '' AND $_GET['zona'] != ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND zona.id = '".$_GET['zona']."' ";};
+                    if($_GET['op'] == '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] != '' AND $_GET['zona'] == ''){$filtro = "WHERE tipo.id = '".$_GET['tipo']."' AND ciudad.id = '".$_GET['ciudad']."' ";};
+                    if($_GET['op'] != '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] != '' AND $_GET['zona'] == ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND ciudad.id = '".$_GET['ciudad']."' ";};
+                    if($_GET['op'] != '' AND $_GET['tipo'] != '' AND $_GET['ciudad'] == '' AND $_GET['zona'] == ''){$filtro = "WHERE op.id = '".$_GET['op']."' AND tipo.id = '".$_GET['tipo']."' ";};
                     }
                         $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
-                        $sentencia = $connect->prepare("SELECT prop.id, prop.foto_portada, prop.tipo_propiedad_id, prop.operacion_id, prop.zona_id, prop.metros_utiles, prop.cant_habitaciones, prop.nro_banios, prop.precio_propietario, prop.visible_web,
+                        $sentencia = $connect->prepare("SELECT prop.id, prop.foto_portada, prop.tipo_propiedad_id, prop.operacion_id, prop.zona_id, prop.metros_utiles, prop.cant_habitaciones, prop.nro_banios, prop.precio_propietario, prop.visible_web, prop.ciudad_id,
                         tipo.id, tipo.nombre,
                         op.id, op.nombre,
                         zona.id, zona.nombre,
-                        prop.id as prop_id, prop.foto_portada as prop_foto_portada, prop.tipo_propiedad_id as prop_tipo_propiedad_id, prop.operacion_id as prop_operacion_id, prop.zona_id as prop_zona_id, prop.metros_utiles as prop_metros_utiles, prop.cant_habitaciones as prop_cant_habitaciones, prop.nro_banios as prop_nro_banios, prop.precio_propietario as prop_precio_propietario, prop.visible_web as prop_visible_web,
+                        ciudad.id,
+                        prop.id as prop_id, prop.foto_portada as prop_foto_portada, prop.tipo_propiedad_id as prop_tipo_propiedad_id, prop.operacion_id as prop_operacion_id, prop.zona_id as prop_zona_id, prop.metros_utiles as prop_metros_utiles, prop.cant_habitaciones as prop_cant_habitaciones, prop.nro_banios as prop_nro_banios, prop.precio_propietario as prop_precio_propietario, prop.visible_web as prop_visible_web, prop.ciudad_id as prop_ciudad_id,
                         tipo.id as tipo_id, tipo.nombre as tipo_nombre,
                         op.id as op_id, op.nombre as op_nombre,
-                        zona.id as zona_id, zona.nombre as zona_nombre  
+                        zona.id as zona_id, zona.nombre as zona_nombre,
+                        ciudad.id as ciudad_id  
                         FROM wp_propiedades prop 
                         LEFT JOIN wp_propiedad_tipo tipo ON  prop.tipo_propiedad_id =tipo.id
                         LEFT JOIN wp_propiedad_operacion op ON  prop.operacion_id=op.id
                         LEFT JOIN wp_zonas zona ON  prop.zona_id=zona.id
+                        LEFT JOIN wp_ciudades ciudad ON  prop.ciudad_id=ciudad.id
                         $filtro ORDER BY prop_id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
                         $sentencia->execute();
                         $list_propiedades = $sentencia->fetchAll(PDO::FETCH_ASSOC);
@@ -266,11 +324,11 @@
                 </div>
                 <div class="pagination">
                     <ul>
-                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="propiedades.php?pagina=<?php echo $_GET["pagina"]-1?>&op=<?php echo $_GET['op']?>&tipo=<?php echo $_GET['tipo']?>"><li><</li></a>
+                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="propiedades.php?pagina=<?php echo $_GET["pagina"]-1?>&op=<?php echo $_GET['op']?>&tipo=<?php echo $_GET['tipo']?>&ciudad=<?php echo $_GET['ciudad']?>&zona=<?php echo $_GET['zona']?>"><li><</li></a>
 				        <?php for($i=0;$i<$paginas;$i++):?>
-                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="propiedades.php?pagina=<?php echo $i+1?>&op=<?php echo $_GET['op']?>&tipo=<?php echo $_GET['tipo']?>"><li><?php echo $i+1?></li></a>
+                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="propiedades.php?pagina=<?php echo $i+1?>&op=<?php echo $_GET['op']?>&tipo=<?php echo $_GET['tipo']?>&ciudad=<?php echo $_GET['ciudad']?>&zona=<?php echo $_GET['zona']?>"><li><?php echo $i+1?></li></a>
 				        <?php endfor ?>
-                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="propiedades.php?pagina=<?php echo $_GET["pagina"]+1?>&op=<?php echo $_GET['op']?>&tipo=<?php echo $_GET['tipo']?>"><li>></li></a>
+                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="propiedades.php?pagina=<?php echo $_GET["pagina"]+1?>&op=<?php echo $_GET['op']?>&tipo=<?php echo $_GET['tipo']?>&ciudad=<?php echo $_GET['ciudad']?>&zona=<?php echo $_GET['zona']?>"><li>></li></a>
                     </ul>
                 </div>
             </div>  
