@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda</title>
+    <title><?php $nombrePag=basename($_SERVER['PHP_SELF'], ".php"); echo ucfirst($nombrePag);?></title>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="<?php echo basename($_SERVER['PHP_SELF'], ".php")?>.css">
+    <link rel="stylesheet" href="<?php echo ucfirst(basename($_SERVER['PHP_SELF'], ".php"))?>.css">
     <script src="https://kit.fontawesome.com/53d0376852.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -33,9 +33,9 @@
                         <li class="header__li header__li-user ">
                             <span class="header__span"><i class="fa-solid fa-user"></i></span>
                             <ul class="header__li-user__ul header__li-user__ul--toggle user">
-                                <li class="user__li"><span class="user__span" href="profile.html">Fulanito Johnson</span></li>
-                                <li class="user__li"><a class="user__a" href="perfil.html">Ver mi perfil</a></li>
-                                <li class="user__li"><a class="user__a" href="login.html">Cerrar sesión</a></li>
+                                <li class="user__li"><span class="user__span" href="profile.php">Fulanito Johnson</span></li>
+                                <li class="user__li"><a class="user__a" href="perfil.php">Ver mi perfil</a></li>
+                                <li class="user__li"><a class="user__a" href="login.php">Cerrar sesión</a></li>
                             </ul>
                         </li>
                         <li class="header__li"><a href="" class="header__a"><i class="fa-solid fa-bell"></i></a></li>

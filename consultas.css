@@ -65,11 +65,11 @@
     color: var(--color-principal-main);
 }
 
-.main__busqueda-propiedad{
+.main__busqueda-consulta{
     margin: 1.875em 1em;
 }
 
-.form__busqueda-propiedad{
+.form__busqueda-consulta{
     width: 100%;
     height: 100%;
     display: flex;
@@ -109,10 +109,6 @@
     cursor: pointer;
 }
 
-.form__select option{
-    text-align: center;
-}
-
 .form__text{
     width: 15em;
     text-align: center;
@@ -123,46 +119,22 @@
     font-size: 1em;
 }
 
-.form__checkbox{
-    width: 1.3em;
-    height: 1.3em;
-    -webkit-appearance: checkbox !important;
-    -moz-appearance: checkbox !important;
-    -ms-appearance: checkbox !important;
-    -o-appearance: checkbox !important;
-    appearance: checkbox !important;
-}
-
-.text-referencia{
-    width: 7em;
-}
-
-.form__checkbox:hover{
-    cursor: pointer;
-}
-
-.form__checkbox:checked{
-    accent-color: var(--body-select-hover-checked);
-}
-
-
-
-.form__bloque__precio, .form__bloque__habitaciones{
+.form__bloque__fecha{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.habitaciones__h2, .precio__h2{
+.fecha__h2{
     font-size: 1.25em;
 }
 
-.precio__container, .habitaciones__container{
+.fecha__container{
     display: flex;
     gap: 1em;
 }
 
-.precio__container__content__text, .habitaciones__container__content__text{
+.fecha__container__content__text{
     width: 8em;
 }
 
@@ -180,11 +152,11 @@
     background-color: var(--body-select-hover-checked);
 }
 
-.propiedades{
+.consultas{
     margin: 1.875em 1em;
 }
 
-.propiedades__ul{
+.consultas__ul{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -195,51 +167,57 @@
     gap: 1.25em;
 }
 
-.propiedades__li{
+.consultas__li{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: space-between;
     background-color: #87b0e3;
     width: 100%;
     margin: 0 auto;
     border-radius: 1.25em;
     padding: 1.25em;
     overflow-x: auto;
+    align-items: center;
 }
 
-.propiedades__img{
-    width: 18em;
-    border-radius: 1em;
-}
-
-.propiedades__nombre-detalles-precio{
-    color: white;
+.consultas__bloque{
     display: flex;
     flex-direction: column;
-    padding: 0 1.25em;
 }
 
-.propiedades__estado{
+.consultas__bloque__content{
+    color: white;
+    display: flex;
+    flex-direction: row;
+    padding: 0 1.25em;
+    padding-bottom: .5em;
+}
+
+.consultas__consulta{
+    font-weight: bold;
+}
+
+.consultas__estado{
     padding-right: 1.25em;
     color: white;
     font-weight: bold;
     text-align: center;
 }
 
-.propiedades__edit-hide{
+.consultas__edit-search-reload{
     display: flex;
     flex-direction: column;
     gap: 1.25em;
     text-align: center;
+    padding-right: 3em;
 }
 
-.propiedades__accion{
+.consultas__accion{
     color: var(--color-principal-main);
     font-size: 1.25em;
 }
 
-.propiedades__accion:hover{
+.consultas__accion:hover{
     transform: scale(1.3);
 }
 
@@ -284,51 +262,37 @@
     color: rgba(63, 60, 60, 0.418);
     pointer-events: none;
   }
-
 /* End Main */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
-
-@media screen and (max-width:968px) {
-    .propiedades__img{
-        width: 17em ;
-    }
-}
-
 @media screen and (max-width:900px) {
-    .propiedades__li{
+    .consultas__li{
         flex-direction: column;
         text-align: center;
         gap: 1em;
     }
 
-    .propiedades__nombre-detalles-precio{
-        order: 1;
-        padding: 0;
+    .consultas__bloque{
+        gap: 1em;
     }
 
-    .propiedades__img{
+    .consultas__bloque__content{
         padding: 0;
-        order: 2;
+        text-align: center;
+        justify-content: center;
     }
 
-    .propiedades__estado{
-        order: 3;
-        padding: 0;
-    }
-
-    .propiedades__edit-hide{
+    .consultas__edit-search-reload{
         flex-direction: row;
         gap: 1.5em;
         order: 4;  
     }
-    
 }
 
 @media screen and (max-width:778px) {
-    .form__busqueda-propiedad{
+    .form__busqueda-consulta{
         gap: 2em;
     }
 
@@ -337,17 +301,17 @@
         gap: 0.5em;
     }
 
-    .form__bloque--2{
+    .form__bloque--1{
         gap: 1.2em;
     }
 
-    .form__bloque--5{
+    .form__bloque--4{
         gap: 2em;
     }
 }
 
 @media screen and (max-width:628px) {
-    .form__busqueda-agenda{
+    .form__busqueda-consulta{
         flex-direction: column;
         gap: 2em;
     }
@@ -369,3 +333,7 @@
         justify-content: center;
     }
 }
+
+
+
+  
