@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="login.css">
+    <script src="https://kit.fontawesome.com/53d0376852.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="body__container">
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* Login */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <div class="login">
+            <h1 class="login__title">citrixCRM</h1>
+            <div class="login__container">
+                <div class="login__bloque">
+                    <div class="login__frase frase">
+                        <span class="frase__span frase__span--1">Cada día es</span>
+                        <span class="frase__span frase__span--2">un nuevo Comienzo.</span>
+                    </div>
+                    <form class="login__form" method="POST" action="backend/login.php">
+                        <div class="login__form__bloque">
+                            <label class="login__form__label" for="">Usuario</label>
+                            <input class="login__form__input" name="nickname" type="text" placeholder="Usuario">
+                        </div>
+                        <div class="login__form__bloque">
+                            <label class="login__form__label" for="">Contaseña</label>
+                            <input class="login__form__input" name ="pass" type="password" placeholder="Contraseña">
+                        </div>
+                        <div class="login__form__bloque bloque--3">
+                            <input class="login__form__input login__form__input--submit" type="submit" value="Iniciar Sesión">
+                        </div>
+                    </form>
+                </div>
+                <div class="login__bloque">
+                    <img class="login__img" src="loginimg.svg" alt="">
+                </div>
+            </div>
+        </div>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* End Login */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
