@@ -53,7 +53,7 @@ if(isset($_SESSION['nickname'])){
                             <ul class="header__li-user__ul header__li-user__ul--toggle user">
                                 <li class="user__li"><span class="user__span" href="profile.php"><?php echo $nombreAgente.' '.$apellidoAgente?></span></li>
                                 <li class="user__li"><a class="user__a" href="perfil.php">Ver mi perfil</a></li>
-                                <li class="user__li"><a class="user__a" href="backend/logout.php">Cerrar sesión</a></li>
+                                <li class="user__li"><a class="user__a" onclick="return confirm('Seguro que quieres cerrar sesión?');" href="backend/logout.php">Cerrar sesión</a></li>
                             </ul>
                         </li>
                         <li class="header__li"><a href="" class="header__a"><i class="fa-solid fa-bell"></i></a></li>

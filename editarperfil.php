@@ -67,7 +67,12 @@
                                 </div> -->
                             <div class="perfil__bloque">
                                 <div class="perfil__bloque__content--submit">
-                                    <input type="submit" class="perfil__bloque__content__submit" value="Guardar">
+                                    <input type="submit" class="perfil__bloque__content__submit" value="Guardar">                            
+                                </div>
+                            </div>
+                            <div class="perfil__bloque">
+                                <div class="perfil__bloque__content--notsubmit">
+                                <a class="perfil__bloque__content__notsubmit" onclick="return confirm('Seguro que quieres salir sin guardar?');" href="perfil.php">Salir sin guardar</a>
                                 </div>
                             </div>
                         </div>
@@ -97,6 +102,11 @@
                             <div class="perfil__bloque">
                                 <div class="perfil__bloque__content--submit">
                                     <input type="submit" class="perfil__bloque__content__submit" value="Guardar">
+                                </div>
+                            </div>
+                            <div class="perfil__bloque">
+                                <div class="perfil__bloque__content--notsubmit">
+                                <a class="perfil__bloque__content__notsubmit" onclick="return confirm('Seguro que quieres salir sin guardar?');" href="perfil.php">Salir sin guardar</a>
                                 </div>
                             </div>
                         </div>

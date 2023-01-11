@@ -118,6 +118,24 @@
     background-color: var(--body-select-hover-checked);
 }
 
+.perfil__bloque__content__notsubmit{
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: red;
+    color: var(--color-terciario-main);
+    border-radius: 1.25em;
+    padding: .5em 1em;
+    font-size: 1em;
+}
+
+
+.perfil__bloque__content__notsubmit:hover{
+    cursor: pointer;
+    background-color: rgba(255, 0, 0, 0.514);
+}
+
+
 textarea{
     height: 100%;
     overflow: hidden;

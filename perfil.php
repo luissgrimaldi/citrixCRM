@@ -55,13 +55,7 @@
                             <div class="perfil__bloque__content">
                                 <span class="perfil__bloque__content__telefono-oficina"></span>
                             </div>
-                        </div> -->
-                        <div class="perfil__bloque">
-                            <span class="perfil__bloque__fake-label">Sobre mi</span>
-                            <div class="perfil__bloque__content">
-                                <span class="perfil__bloque__content__about-me"><?php echo $sobreMiAgente?></span>
-                            </div>
-                        </div>
+                        </div> -->                   
                     </div>
                 </div>
             </div>  
