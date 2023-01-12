@@ -1,158 +1,57 @@
 <?php include 'header.php' ?>
 <?php include 'sidebar.php' ?>
-<?php  $sentencia = $connect->prepare("SELECT * FROM `wp_propiedades`") or die('query failed');
-        $sentencia->execute();
-        $consultasXpagina = 40;
-        $consultasTotales = $sentencia->rowCount();
-        $paginas = $consultasTotales/$consultasXpagina;
-        $paginas = ceil($paginas);
-        if(!isset($_POST['seleccionarOperacion'])){$_POST['seleccionarOperacion'] = '';}; if(!isset($_POST['seleccionarTipo'])){$_POST['seleccionarTipo'] = '';}; if(!isset($_POST['seleccionarCiudad'])){$_POST['seleccionarCiudad'] = '';}; if(!isset($_POST['buscarPrecioDesde'])){$_POST['buscarPrecioDesde'] = '';}; if(!isset($_POST['buscarPrecioHasta'])){$_POST['buscarPrecioHasta'] = '';}; if(!isset($_POST['buscarHabitacionesDesde'])){$_POST['buscarHabitacionesDesde'] = '';}; if(!isset($_POST['buscarHabitacionesHasta'])){$_POST['buscarHabitacionesHasta'] = '';}; if(!isset($_POST['buscarDomicilio'])){$_POST['buscarDomicilio'] = '';}; if(!isset($_POST['buscarReferencia'])){$_POST['buscarReferencia'] = '';}; if(!isset($_POST['buscarPileta'])){$_POST['buscarPileta'] = '';}; if(!isset($_POST['buscarLlaves'])){$_POST['buscarLlaves'] = '';}; if(!isset($_POST['buscarOcupada'])){$_POST['buscarOcupada'] = '';}; if(!isset($_POST['buscarPlantaBaja'])){$_POST['buscarPlantaBaja'] = '';}; if(!isset($_POST['buscarEstado'])){$_POST['buscarEstado'] = '';};
-        if(!$_GET || $_GET["pagina"]<1){header('Location:propiedades.php?pagina=1&op='.$_POST['seleccionarOperacion'].'&tipo='.$_POST['seleccionarTipo'].'&ciudad='.$_POST['seleccionarCiudad'].'&zona='.$_POST['seleccionarZona'].'&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&habitacionesdesde='.$_POST['buscarHabitacionesDesde'].'&habitacioneshasta='.$_POST['buscarHabitacionesHasta'].'&domicilio='.$_POST['buscarDomicilio'].'&ref='.$_POST['buscarReferencia'].'&pileta='.$_POST['buscarPileta'].'&llaves='.$_POST['buscarLlaves'].'&ocupada='.$_POST['buscarOcupada'].'&plantabaja='.$_POST['buscarPlantaBaja'].'&estado='.$_POST['buscarEstado']);}elseif($_GET['pagina']>$paginas){header('Location:propiedades.php?pagina=1&op='.$_POST['seleccionarOperacion'].'&tipo='.$_POST['seleccionarTipo'].'&ciudad='.$_POST['seleccionarCiudad'].'&zona='.$_POST['seleccionarZona'].'&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&habitacionesdesde='.$_POST['buscarHabitacionesDesde'].'&habitacioneshasta='.$_POST['buscarHabitacionesHasta'].'&domicilio='.$_POST['buscarDomicilio'].'&ref='.$_POST['buscarReferencia'].'&pileta='.$_POST['buscarPileta'].'&llaves='.$_POST['buscarLlaves'].'&ocupada='.$_POST['buscarOcupada'].'&plantabaja='.$_POST['buscarPlantaBaja'].'&estado='.$_POST['buscarEstado']);}
-        else if (!isset($_GET['op']) || !isset($_GET['tipo']) || !isset($_GET['ciudad']) || !isset($_GET['zona']) || !isset($_GET['preciodesde']) || !isset($_GET['preciohasta']) || !isset($_GET['habitacionesdesde']) || !isset($_GET['habitacioneshasta']) || !isset($_GET['domicilio']) || !isset($_GET['ref']) || !isset($_GET['pileta']) || !isset($_GET['llaves']) || !isset($_GET['ocupada']) || !isset($_GET['plantabaja']) || !isset($_GET['estado'])){header('Location:propiedades.php?pagina=1&op='.$_POST['seleccionarOperacion'].'&tipo='.$_POST['seleccionarTipo'].'&ciudad='.$_POST['seleccionarCiudad'].'&zona='.$_POST['seleccionarZona'].'&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&habitacionesdesde='.$_POST['buscarHabitacionesDesde'].'&habitacioneshasta='.$_POST['buscarHabitacionesHasta'].'&domicilio='.$_POST['buscarDomicilio'].'&ref='.$_POST['buscarReferencia'].'&pileta='.$_POST['buscarPileta'].'&llaves='.$_POST['buscarLlaves'].'&ocupada='.$_POST['buscarOcupada'].'&plantabaja='.$_POST['buscarPlantaBaja'].'&estado='.$_POST['buscarEstado']);};
-?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <main class="main" id="main">
             <div class="main__container">
                 <div class="main__container__top">
-                    <div class="main__title"><i class="fa-solid fa-building main__h1--emoji"></i><h1 class="main__h1">Propiedades</h1></div>
-                    <div class="main__buttons">
-                        <button class="main__buttons__button">Agregar Propiedad</button>
-                        <button class="main__buttons__button">Descargar Ficha</button>
-                    </div>
+                    <div class="main__title"><i class="fa-solid fa-envelope main__h1--emoji"></i><h1 class="main__h1">Agregar consulta</h1></div>                    
                 </div>
                 <div class="main__decoration"></div>
-                <div class="main__busqueda-propiedad">
+                <div class="main__busqueda-propiedad">             
                     <form class="form__busqueda-propiedad form" name="form" method="POST" action="propiedades.php">
+                        <h2 class="main__h2">Datos de contacto</h2>
                         <div class="form__bloque">
-                            <div class="form__bloque__content content"> 
-                                <label  class="form__label content__label" for="">Operación</label>
-                                <select class="form__select content__select" name="seleccionarOperacion" id="">                      
-                                <?php if($_GET['op'] != ''){
-                                    $id= $_GET['op'];
-                                    $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_operacion` WHERE id= $id") or die('query failed');
-                                    $sentencia->execute();
-                                    $list_propiedades = $sentencia->fetchAll();                         
-                                    foreach($list_propiedades as $propiedad){
-                                    $propiedadNombre = $propiedad['nombre'];?>
-                                    <option value="<?php echo $_GET['op'];?>"><?php echo $propiedadNombre;?></option>
-                                <?php };};?>
-                                    <option value></option>
-                                    <?php                          
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_operacion` WHERE habilitado=1") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_propiedades = $sentencia->fetchAll();                         
-                                        foreach($list_propiedades as $propiedad){
-                                        $idPropiedad = $propiedad['id'];
-                                        $propiedadNombre = $propiedad['nombre'];
-                                        if($_GET['op']!=$idPropiedad){?>
-                                    <option value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
-                                <?php };};?>
-                                </select>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Nombre</label>
+                                <input type="text" class="form__text content__text" name="nombre" id="">                                  
                             </div>
                             <div class="form__bloque__content content">
-                                <label  class="form__label content__label" for="">Tipo</label>
-                                <select class="form__select content__select" name="seleccionarTipo" id="">    
-                                <?php if($_GET['tipo'] != ''){
-                                    $id= $_GET['tipo'];
-                                    $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_tipo` WHERE id= $id") or die('query failed');
-                                    $sentencia->execute();
-                                    $list_propiedades = $sentencia->fetchAll();                         
-                                    foreach($list_propiedades as $propiedad){
-                                    $propiedadNombre = $propiedad['nombre'];?>
-                                    <option value="<?php echo $_GET['tipo'];?>"><?php echo $propiedadNombre;?></option>
-                                <?php };};?>
-                                    <option value></option>
-                                    <?php                          
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_tipo` WHERE habilitado=1") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_propiedadesOperacion = $sentencia->fetchAll();                         
-                                        foreach($list_propiedadesOperacion as $propiedad){
-                                        $idPropiedad = $propiedad['id'];
-                                        $propiedadNombre = $propiedad['nombre'];
-                                        if($_GET['tipo']!=$idPropiedad){?>
-                                    <option value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
-                                <?php };};?>
-                                </select>
+                                <label  class="form__label content__label" for="">Apellido</label>
+                                <input type="text" class="form__text content__text" name="apellido" id="">                                  
                             </div>
                             <div class="form__bloque__content content">
-                                <label  class="form__label content__label" for="">Ciudad</label>
-                                <select class="form__select content__select" name="seleccionarCiudad" id="">
-                                <?php if($_GET['ciudad'] != ''){
-                                        $id= $_GET['ciudad'];
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE id= $id") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_propiedades = $sentencia->fetchAll();                         
-                                        foreach($list_propiedades as $propiedad){
-                                        $propiedadNombre = $propiedad['nombre'];?>
-                                        <option value="<?php echo $_GET['ciudad'];?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };};?>
-                                        <option value></option>
-                                        <?php                          
-                                            $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE habilitado=1") or die('query failed');
-                                            $sentencia->execute();
-                                            $list_propiedadesOperacion = $sentencia->fetchAll();                         
-                                            foreach($list_propiedadesOperacion as $propiedad){
-                                            $idPropiedad = $propiedad['id'];
-                                            $propiedadNombre = $propiedad['nombre'];
-                                            if($_GET['ciudad']!=$idPropiedad){?>
-                                        <option value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
-                                    <?php };};?>
-                                </select>
+                                <label  class="form__label content__label" for="">Email</label>
+                                <input type="text" class="form__text content__text" name="email" id="">                                  
                             </div>
                             <div class="form__bloque__content content">
-                                <label  class="form__label content__label" for="">Zona</label>
-                                <select class="form__select content__select" name="seleccionarZona" id="">
-                                <?php if($_GET['zona'] != ''){
-                                        $id= $_GET['zona'];
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_zonas` WHERE id= $id") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_propiedades = $sentencia->fetchAll();                         
-                                        foreach($list_propiedades as $propiedad){
-                                        $propiedadNombre = $propiedad['nombre'];?>
-                                        <option value="<?php echo $_GET['zona'];?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };};?>
-                                        <option value></option>
-                                        <?php                          
-                                            $sentencia = $connect->prepare("SELECT * FROM `wp_zonas` WHERE habilitada=1") or die('query failed');
-                                            $sentencia->execute();
-                                            $list_propiedadesOperacion = $sentencia->fetchAll();                         
-                                            foreach($list_propiedadesOperacion as $propiedad){
-                                            $idPropiedad = $propiedad['id'];
-                                            $propiedadNombre = $propiedad['nombre'];
-                                            if($_GET['zona']!=$idPropiedad){?>
-                                        <option value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
-                                    <?php };};?>
-                                </select>
+                                <label  class="form__label content__label" for="">Teléfono</label>
+                                <input type="text" class="form__text content__text" name="telefono" id="">                                  
                             </div>
                         </div>
-                        <div class="form__bloque form__bloque--2">
-                            <div class="form__bloque__precio precio">
-                                <h2 class="precio__h2">Precio</h2>
-                                <div class="precio__container">
-                                    <div class="form__bloque__content precio__container__content">
-                                        <label  class="form__label precio__container__content__label" for="">Desde</label>
-                                    <input class="form__text precio__container__content__text" name="buscarPrecioDesde" value="<?php echo trim($_GET['preciodesde'])?>" type="text">
-                                    </div>
-                                    <div class="form__bloque__content precio__container__content">
-                                        <label  class="form__label precio__container__content__label" for="">Hasta</label>
-                                        <input class="form__text precio__container__content__text" name="buscarPrecioHasta" value="<?php echo trim($_GET['preciohasta'])?>" type="text">
-                                    </div>
-                                </div>                            
+                        <div class="form__bloque">
+                                <div class="form__bloque__content content">
+                                    <label  class="form__label content__label" for="">Propiedad</label>
+                                    <input type="text" class="form__text content__text" name="propiedad" id="">                                                    
                             </div>
-                            <div class="form__bloque__habitaciones habitaciones">
-                                <h2 class="habitaciones__h2">Habitaciones</h2>
-                                <div class="habitaciones__container">
-                                    <div class="form__bloque__content habitaciones__container__content">
-                                        <label  class="form__label habitaciones__container__content__label" for="">Desde</label>
-                                        <input class="form__text habitaciones__container__content__text" name="buscarHabitacionesDesde" value="<?php echo trim($_GET['habitacionesdesde'])?>"  type="text">
-                                    </div>
-                                    <div class="form__bloque__content habitaciones__container__content">
-                                        <label  class="form__label habitaciones__container__content__label" for="">Hasta</label>
-                                        <input class="form__text habitaciones__container__content__text" name="buscarHabitacionesHasta" value="<?php echo trim($_GET['habitacioneshasta'])?>" type="text">
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="form__bloque">
+                                <div class="form__bloque__content content">
+                                    <label  class="form__label content__label" for="">Propiedad</label>
+                                    <input type="text" class="form__text content__text" name="propiedad" id="">                                                    
+                            </div>
+                        </div>
+                        <div class="form__bloque">
+                                <div class="form__bloque__content content">
+                                    <label  class="form__label content__label" for="">Observaciones</label>
+                                    <textarea class="form__textarea content__textarea" name="observaciones" id=""></textarea>                                                    
+                            </div>
+                        </div>
+                        <div class="form__bloque">
+                                <div class="form__bloque__content content">
+                                    <label  class="form__label content__label" for="">Consulta</label>
+                                    <textarea class="form__textarea content__textarea" name="consulta" id=""></textarea>                                                       
                             </div>
                         </div>
                         <div class="form__bloque">

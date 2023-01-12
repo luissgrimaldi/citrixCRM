@@ -19,7 +19,7 @@
                 <div class="main__container__top">
                     <div class="main__title"><i class="fa-solid fa-circle-question main__h1--emoji"></i><h1 class="main__h1">Consultas</h1></div>
                     <div class="main__buttons">
-                        <button class="main__buttons__button">Nueva consulta</button>
+                        <a href="agregarconsulta.php" class="main__buttons__button">Nueva consulta</a>
                     </div>
                 </div>
                 <div class="main__decoration"></div>
@@ -31,17 +31,17 @@
                                 <div class="fecha__container">
                                     <div class="form__bloque__content fecha__container__content">
                                         <label  class="form__label fecha__container__content__label" for="">Desde</label>
-                                        <input class="form__text fecha__container__content__text" name="buscarFechaDesde" value="<?php echo $_GET['fechadesde']?>" type="text">
+                                        <input class="form__text fecha__container__content__text" name="buscarFechaDesde" value="<?php echo trim($_GET['fechadesde'])?>" type="text">
                                     </div>
                                     <div class="form__bloque__content fecha__container__content">
                                         <label  class="form__label fecha__container__content__label" for="">Hasta</label>
-                                        <input class="form__text fecha__container__content__text" name="buscarFechaHasta" value="<?php echo $_GET['fechahasta']?>" type="text">
+                                        <input class="form__text fecha__container__content__text" name="buscarFechaHasta" value="<?php echo trim($_GET['fechahasta'])?>" type="text">
                                     </div>
                                 </div>                            
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Cliente</label>
-                                <input class="form__text content__text" name="buscarCliente" value="<?php echo $_GET['cliente']?>" type="text">
+                                <input class="form__text content__text" name="buscarCliente" value="<?php echo trim($_GET['cliente'])?>" type="text">
                             </div>
                         </div>
                         <div class="form__bloque form__bloque--2">
@@ -149,7 +149,7 @@
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Propiedad</label>
-                                <input class="form__text content__text" name="buscarPropiedad" type="text">
+                                <input class="form__text content__text" name="buscarPropiedad" value="<?php echo trim($_GET['propiedad'])?>" type="text">
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Estado</label>
@@ -186,13 +186,13 @@
                 <div class="consultas">
                     <ul class="consultas__ul">
                         <?php
-                        $whereFecha=" AND con.created BETWEEN ".$_GET['fechadesde']."AND".$_GET['fechahasta'];         
-                        $whereCliente=" AND con.nombre OR con.apellido OR con.email OR con.telefono LIKE '%".$_GET['cliente']."%'";
+                        $whereFecha=" AND con.created BETWEEN ".$_GET['fechadesde']." AND ".$_GET['fechahasta'];         
+                        $whereCliente=" AND con.nombre OR con.apellido OR con.email OR con.telefono LIKE '%".trim($_GET['cliente'])."%'";
                         $whereCanal=" AND canal.id = ".$_GET['canal'];
                         $whereOp=" AND op.id = ".$_GET['op'];
-                        $whereTipo=" AND tipo.id = ".$_GET['tipo'];
-                        $wherePropiedad=" AND prop.referencia_interna OR prop.calle OR prop.altura OR prop.descripcion_corta LIKE '%".$_GET['propiedad']."%'";
-                        $whereZona=" AND zona.id = ".$_GET['zona'];
+                        $whereTipo=" AND prop.tipo_propiedad_id = ".$_GET['tipo'];
+                        $wherePropiedad=" AND prop.referencia_interna OR prop.calle OR prop.altura OR prop.descripcion_corta LIKE '%".trim($_GET['propiedad'])."%'";
+                        $whereZona=" AND prop.zona_id = ".$_GET['zona'];
                         $whereEstado=" AND canal.id = ".$_GET['estado'];
                         if($_GET['fechadesde'] == '' AND $_GET['cliente'] == '' AND $_GET['canal'] == '' AND $_GET['op'] == '' AND $_GET['tipo'] == '' AND $_GET['propiedad'] == '' AND $_GET['zona'] == '' AND $_GET['estado'] == ''){$filtro = '';}else{ 
                             
@@ -221,8 +221,6 @@
                         LEFT JOIN wp_propiedades prop ON  con.propiedad_id =prop.id
                         LEFT JOIN wp_situaciones sit ON  con.situacion=sit.id
                         LEFT JOIN wp_medios_contacto canal ON  con.canal_id=canal.id
-                        LEFT JOIN wp_propiedad_tipo tipo ON  prop.tipo_propiedad_id =tipo.id
-                        LEFT JOIN wp_zonas zona ON  prop.zona_id=zona.id
                         $filtro") or die('query failed');
                         $sentencia->execute();
                         $list_propiedades = $sentencia->fetchAll(PDO::FETCH_ASSOC);
@@ -268,7 +266,7 @@
                         <li class="consultas__li">
                             <div class="consultas__bloque">
                                 <div class="consultas__bloque__content">
-                                <span class="consultas__consulta"> <?php echo $tipoConsulta. ' | '. $refPropiedad.' ('.$callePropiedad.' '.$alturaPropiedad.') | '.$fechaConsulta?></span>
+                                <span class="consultas__consulta"> <?php echo $tipoConsulta. ' | '. $refPropiedad.' ('.$callePropiedad.' '.$alturaPropiedad.') | '.gettype($fechaConsulta)?></span>
                                 </div>
                                 <div class="consultas__bloque__content">                           
                                 <span class="consultas__datos-cliente"><?php echo $nombreConsulta. ' '. $apellidoConsulta. ' ('. $emailConsulta. ' - '. $telefonoConsulta.') | Situación: '.$situacionConsulta?></span>
