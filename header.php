@@ -1,12 +1,12 @@
 <?php 
 if(!isset($_SESSION)) {session_start();};
 include 'backend/connect.php';
-if(isset($_SESSION['nickname'])){
-    $nickname= $_SESSION['nickname'];
-    $datos= $connect-> prepare ("SELECT * FROM usuarios WHERE nickname= ?");
-    $datos->execute([$nickname]);
+if(isset($_SESSION['usuario'])){
+    $idAgente= $_SESSION['usuario'];
+    $datos= $connect-> prepare ("SELECT * FROM usuarios WHERE user_id= ?");
+    $datos->execute([$idAgente]);
     $agente = $datos->fetch(PDO::FETCH_ASSOC);
-    $idAgente = $agente['user_id'];
+    $nickname = $agente['nickname'];
     $nombreAgente = $agente['nombre'];
     $apellidoAgente = $agente['apellido'];
     $rolAgente = $agente['rol'];

@@ -1,5 +1,5 @@
 <?php session_start();
-$nickname= $_SESSION['nickname'];
-unset($nickname);
+$idAgente= $_SESSION['usuario'];
+unset($idAgente);
 session_destroy();
 header("location: ../login.php"); ?>

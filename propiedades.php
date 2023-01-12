@@ -256,7 +256,6 @@
                         
                         
                     }
-                        $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
                         $sentencia = $connect->prepare("SELECT prop.id, prop.foto_portada, prop.tipo_propiedad_id, prop.operacion_id, prop.zona_id, prop.metros_utiles, prop.cant_habitaciones, prop.nro_banios, prop.precio_propietario, prop.visible_web, prop.ciudad_id, prop.calle, prop.referencia_interna, prop.llavero, prop.ocupada, prop.planta_baja, prop.status_id,
                         tipo.id, tipo.nombre,
                         op.id, op.nombre,

@@ -17,7 +17,7 @@
                 <div class="main__decoration"></div>
                 <?php if($_GET['pagina']== 'info'){?>
                     <div class="main__perfil">                   
-                        <form class="main__perfil__container" method="POST" action="backend/editarperfil.php">
+                        <form class="main__perfil__container" method="POST" action="backend/editarperfilinformacion.php">
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Username</span>
                                 <div class="perfil__bloque__content">
@@ -80,23 +80,23 @@
                 <?php }?>
                 <?php if($_GET['pagina']== 'contrasena'){?>
                     <div class="main__perfil">                   
-                        <form class="main__perfil__container" method="POST" action="backend/editarperfil.php">
+                        <form class="main__perfil__container" method="POST" action="backend/editarperfilcontrasena.php">
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Contraseña Actual</span>
                                 <div class="perfil__bloque__content">
-                                    <input type="password" name="nickname" class="perfil__bloque__content__username" placeholder="Ingrese su contraseña actual">
+                                    <input type="password" name="passwordActual" class="perfil__bloque__content__username" placeholder="Ingrese su contraseña actual">
                                 </div>
                             </div>
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Contraseña nueva</span>
                                 <div class="perfil__bloque__content">
-                                    <input type="password" name="nombre" class="perfil__bloque__content__nombre" placeholder="Ingrese su contraseña nueva">
+                                    <input type="password" name="passwordNew" class="perfil__bloque__content__nombre" placeholder="Ingrese su contraseña nueva">
                                 </div>
                             </div>
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Contraseña nueva</span>
                                 <div class="perfil__bloque__content">
-                                    <input type="password" name="apellido" class="perfil__bloque__content__apellido" placeholder="Reingrese su contraseña nueva">
+                                    <input type="password" name="passwordNewRep" class="perfil__bloque__content__apellido" placeholder="Reingrese su contraseña nueva">
                                 </div>
                             </div>
                             <div class="perfil__bloque">

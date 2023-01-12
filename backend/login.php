@@ -11,7 +11,7 @@ include 'connect.php';
 
     if($row){ 
         session_start();
-        $_SESSION['nickname'] = $row['nickname'];
+        $_SESSION['usuario'] = $row['user_id'];
         header("location: ../index.php");
         exit;
     }

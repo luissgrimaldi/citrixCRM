@@ -279,7 +279,6 @@
 
   .pagination a.is-disabled{
     user-select: none;
-    cursor: not-allowed;
     background-color: transparent;
     color: rgba(63, 60, 60, 0.418);
     pointer-events: none;

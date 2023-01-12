@@ -55,6 +55,8 @@
 
 .main__buttons__button--active{
     background-color: var(--color-principal-main);
+    pointer-events: none;
+    user-select: none;
 }
 
 .main__h1--emoji{
