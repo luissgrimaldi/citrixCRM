@@ -266,7 +266,7 @@
                         <li class="consultas__li">
                             <div class="consultas__bloque">
                                 <div class="consultas__bloque__content">
-                                <span class="consultas__consulta"> <?php echo $tipoConsulta. ' | '. $refPropiedad.' ('.$callePropiedad.' '.$alturaPropiedad.') | '.gettype($fechaConsulta)?></span>
+                                <span class="consultas__consulta"> <?php echo $tipoConsulta. ' | '. $refPropiedad.' ('.$callePropiedad.' '.$alturaPropiedad.') | '$fechaConsulta?></span>
                                 </div>
                                 <div class="consultas__bloque__content">                           
                                 <span class="consultas__datos-cliente"><?php echo $nombreConsulta. ' '. $apellidoConsulta. ' ('. $emailConsulta. ' - '. $telefonoConsulta.') | Situación: '.$situacionConsulta?></span>
