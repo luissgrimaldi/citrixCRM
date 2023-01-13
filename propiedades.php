@@ -273,7 +273,6 @@
                         LEFT JOIN wp_ciudades ciudad ON  prop.ciudad_id=ciudad.id
                         $filtro") or die('query failed');
                         $sentencia->execute();
-                        $list_propiedades = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                         $consultasTotales = $sentencia->rowCount();
                         $paginas = $consultasTotales/$consultasXpagina;
                         $paginas = ceil($paginas);?> 

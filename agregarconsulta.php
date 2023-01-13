@@ -10,7 +10,7 @@
                 </div>
                 <div class="main__decoration"></div>
                 <div class="main__busqueda-propiedad">             
-                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="propiedades.php">
+                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/agregarconsulta.php">
                         <h2 class="main__h2">Datos de contacto</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -23,23 +23,17 @@
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Email</label>
-                                <input type="text" class="form__text content__text" name="email" id="">                                  
+                                <input type="email" class="form__text content__text" name="email" id="">                                  
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Teléfono</label>
                                 <input type="text" class="form__text content__text" name="telefono" id="">                                  
                             </div>
-                        </div>
+                        </div>                   
                         <div class="form__bloque">
                                 <div class="form__bloque__content content">
                                     <label  class="form__label content__label" for="">Propiedad</label>
-                                    <input type="text" class="form__text content__text" name="propiedad" id="">                                                    
-                            </div>
-                        </div>
-                        <div class="form__bloque">
-                                <div class="form__bloque__content content">
-                                    <label  class="form__label content__label" for="">Propiedad</label>
-                                    <input type="text" class="form__text content__text" name="propiedad" id="">                                                    
+                                    <input type="text" class="form__text content__text form__text--propiedad" name="propiedad" id="">                                                    
                             </div>
                         </div>
                         <div class="form__bloque">
@@ -125,7 +119,7 @@
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Asignado a</label>
-                                <select class="form__select" name="asiganadoa" id="">                               
+                                <select class="form__select" name="asignadoa" id="">                               
                                         <option value></option>
                                         <?php                          
                                             $sentencia = $connect->prepare("SELECT * FROM `usuarios`  WHERE habilitado=1") or die('query failed');
@@ -207,9 +201,9 @@
                                     <option value="21:00">21:00</option>
                                     <option value="21:30">21:30</option>
                                 </select>
-                            </div>                                  
+                            </div>                                                             
                         </div>
-                        <h2 class="main__h2">Requisitos del cliente</h2>
+                        <!-- <h2 class="main__h2">Requisitos del cliente</h2>
                         <span  class="form__span content__span" for="">Tipo de propiedad</span>      
                         <div class="form__bloque"> 
                             <?php                          
@@ -222,10 +216,10 @@
                             ?>
                                 <div class="form__bloque__content content">  
                                     <label  class="form__label content__label" for=""><?php echo $propiedadNombre?></label>
-                                    <input class="form__checkbox content__checkbox" type="checkbox" name="buscarPileta" value="<?php echo $idPropiedad?>">
+                                    <input class="form__checkbox content__checkbox" type="checkbox" name="buscarTipo" value="<?php echo $idPropiedad?>">
                                 </div> 
                             <?php };?>                                                                            
-                        </div>
+                        </div>                       
                         <span  class="form__span content__span" for="">Zonas</span>                           
                         <div class="form__bloque"> 
                             <?php                          
@@ -238,13 +232,59 @@
                             ?>
                                 <div class="form__bloque__content content">  
                                     <label  class="form__label content__label" for=""><?php echo $propiedadNombre?></label>
-                                    <input class="form__checkbox content__checkbox" type="checkbox" name="buscarPileta" value="<?php echo $idPropiedad?>">
+                                    <input class="form__checkbox content__checkbox" type="checkbox" name="buscarPileta" value="1">
                                 </div> 
                             <?php };?>                                                                            
-                        </div>                                                
+                        </div> -->
+                        <h2 class="main__h2">Preferencias</h2>
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Superficie construida desde</label>
+                                <input type="text" class="form__text content__text" name="superficiedesde" id="">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Superficie construida hasta</label>
+                                <input type="text" class="form__text content__text" name="superficiehasta" id="">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Precio desde</label>
+                                <input type="text" class="form__text content__text" name="preciodesde" id="">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Precio hasta</label>
+                                <input type="text" class="form__text content__text" name="preciohasta" id="">                                  
+                            </div>
+                        </div> 
+                        <div class="form__bloque"> 
+                            <div class="form__bloque__content content">  
+                                <label  class="form__label content__label" for="">Planta baja</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="plantabaja" value="1">
+                            </div>  
+                            <div class="form__bloque__content content">  
+                                <label  class="form__label content__label" for="">Garaje</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="garage" value="1">
+                            </div>                                                                             
+                            <div class="form__bloque__content content">  
+                                <label  class="form__label content__label" for="">Garaje doble</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="garagedoble" value="1">
+                            </div>                                                                             
+                            <div class="form__bloque__content content">  
+                                <label  class="form__label content__label" for="">Amueblada</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="amueblada" value="1">
+                            </div>                                                                             
+                            <div class="form__bloque__content content">  
+                                <label  class="form__label content__label" for="">Balcón</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="balcon" value="1">
+                            </div>                                                                             
+                            <div class="form__bloque__content content">  
+                                <label  class="form__label content__label" for="">Pileta</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="pileta" value="1">
+                            </div>                                                                             
+                        </div>
+                        <div class="main__decoration"></div>
+                        <input type="submit" class="form__button form__bloque__button" value="Agregar consulta">                                                                 
                     </form>
                 </div>
-                <div class="main__decoration"></div>
                 </div>                
             </div>  
         </main>

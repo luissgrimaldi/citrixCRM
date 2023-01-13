@@ -16,6 +16,8 @@
 
     
     $registrar = $connect-> prepare ("INSERT INTO usuarios (nombre, apellido , nickname, pass, habilitado, rol, foto, sucursal_id, celular, email) VALUES ($nombreAgente, $apellidoAgente, $nickname, $password, $habilitado, $rolAgente, $fotoAgente, $sucursalId, $celularAgente, $emailAgente)");
+    $registrar->execute();
+
     if ($registrar->execute()){
         echo '
             <script>
