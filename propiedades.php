@@ -18,8 +18,8 @@
                 <div class="main__container__top">
                     <div class="main__title"><i class="fa-solid fa-building main__h1--emoji"></i><h1 class="main__h1">Propiedades</h1></div>
                     <div class="main__buttons">
-                        <button class="main__buttons__button">Agregar Propiedad</button>
-                        <button class="main__buttons__button">Descargar Ficha</button>
+                        <a href="agregarpropiedad.php" class="main__buttons__button">Agregar Propiedad</a>
+                        <a class="main__buttons__button">Descargar Ficha</a>
                     </div>
                 </div>
                 <div class="main__decoration"></div>
@@ -307,6 +307,7 @@
                             $habitacionesPropiedad = $propiedad['prop_cant_habitaciones'];
                             $baniosPropiedad = $propiedad['prop_nro_banios'];
                             $precioPropiedad = intval($propiedad['prop_precio_propietario']);
+                            $refPropiedad = $propiedad['prop_referencia_interna'];
                             $enWeb = intval($propiedad['prop_visible_web']);
                             $tipoPropiedad = $propiedad['tipo_nombre'];
                             $operacionPropiedad = $propiedad['op_nombre'];
@@ -315,7 +316,7 @@
                         <li class="propiedades__li">
                             <img class="propiedades__img" src="<?php echo 'https://projectandbrokers.com/wp-content/uploads/thumbnails/mediano__'.$imgPropiedad?>" alt="">
                             <div class="propiedades__nombre-detalles-precio">
-                                <span class="propiedades__nombre"><?php echo $tipoPropiedad.' en '.$operacionPropiedad.' '.$zonaPropiedad;?></span>
+                                <span class="propiedades__nombre"><?php echo $tipoPropiedad.' en '.$operacionPropiedad.' '.$zonaPropiedad. ' '.$refPropiedad;?></span>
                                 <span class="propiedades__detalles"><?php echo $metrosPropiedad.'m2 | '.$habitacionesPropiedad,' hab | '.$baniosPropiedad.' Baños'?></span>
                                 <span class="propiedades__precio"><?php echo 'U$S '.number_format($precioPropiedad,0,",", ".").' | U$S '.intval($precioPropiedad/$metrosPropiedad).'/m2'?></span>
                             </div>
