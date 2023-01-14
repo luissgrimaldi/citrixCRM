@@ -10,7 +10,7 @@
                 </div>
                 <div class="main__decoration"></div>
                 <div class="main__busqueda-propiedad">             
-                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/agregarconsulta.php">
+                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/agregarconsulta.php" enctype="multipart/form-data">
                         <h2 class="main__h2">Caracteristicas</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -326,8 +326,235 @@
                                     <option value="<?php echo $idCocina?>"><?php echo $cocinaNombre?></option>
                                 <?php };?>
                                 </select>
-                            </div>                                                                                                                                                                             
+                            </div>                                                                                                                                                                                               
                         </div>
+                        <h2 class="main__h2">Calidez</h2>
+                        <div class="form__bloque form__bloque--checkbox">  
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Alarma</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="alarma" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Agua</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="agua" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Aire acondicionado central</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="aireacondicionadocentral" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Aire acondicionado</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="aireacondicionado" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Bar</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="bar" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Alarma c/incendio</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="alarmaincendio" value="1">                             
+                            </div>
+                        </div>   
+                        <div class="form__bloque form__bloque--checkbox">  
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Alarma c/Robo</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="alarmarobo" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Altillo</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="altillo" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Caja fuerte</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="cajafuerte" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Parrilla</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="parrilla" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Asensor</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="asensor" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Balcon</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="balcon" value="1">                             
+                            </div>
+                        </div>   
+                        <div class="form__bloque form__bloque--checkbox">  
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Chimenea</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="chimenea" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Electrodomésticos</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="electrodomesticos" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Calefacción frio/calor</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="calefacionfriocalor" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Centrico</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="centrico" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Garaje</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="garaje" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Garaje doble</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="garajedoble" value="1">                             
+                            </div>
+                        </div>   
+                        <div class="form__bloque form__bloque--checkbox">  
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Gas natural</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="gasnatural" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Galería</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="galeria" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Hab. juegos</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="habjuegos" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Hidromasaje</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="hidromasaje" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Línea telefónica</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="lineatelefonica" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Gimnasio</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="gimnasio" value="1">                             
+                            </div>
+                        </div>   
+                        <div class="form__bloque form__bloque--checkbox">  
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Jardín</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="jardin" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Lavadero</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="lavadero" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Patio</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="patio" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Jacuzzi</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="jacuzzi" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Luz</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="luz" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Sauna</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="sauna" value="1">                             
+                            </div>
+                        </div>   
+                        <div class="form__bloque form__bloque--checkbox">  
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Preinst. AACC</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="preinstaacc" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Luminoso</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="luminoso" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Pileta propia</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="piletapropia" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Pileta compartida</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="piletacompartida" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Riego automático</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="riegoautomatico" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Amueblado</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="amueblado" value="1">                             
+                            </div>
+                        </div>   
+                        <div class="form__bloque form__bloque--checkbox">  
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Puerta blindada</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="puertablindada" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Portón automático</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="portonautomatico" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Solarium</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="solarium" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Pérgola</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="pergola" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">TV</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="tv" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Video portero</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="videoportero" value="1">                             
+                            </div>
+                        </div>   
+                        <div class="form__bloque form__bloque--checkbox">  
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Satelite</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="satelite" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Vestuario</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="vestuario" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Buardilla</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="buardilla" value="1">                             
+                            </div>                      
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Habitación de servicio</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="habitacionservicio" value="1">                             
+                            </div>                      
+                        </div>   
+                        <h2 class="main__h2">Descripcion General</h2>
+                        <div class="form__bloque">  
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Descripcion corta</label>
+                                <input type="text" class="form__text content__text form__text--propiedad" name="descripcioncorta" id="">                                  
+                            </div>
+                        </div>   
+                        <script type="text/javascript">
+                            tinymce.init({
+                                selector: '#tinymce'
+                            });
+                        </script>   
+                        <div class="form__bloque"> 
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Descripcion larga</label>
+                                <textarea name="descripcionlarga" id="tinymce"></textarea>
+                            </div>                                                                                                                                                                                                      
+                        </div>
+                        <div class="form__bloque__content content">
+                            <label  class="form__label content__label" for="">Foto de portada</label>
+                            <input type="file" class="" name="titulo" id="">                                  
+                        </div> 
+                        <div class="form__bloque__content content">
+                            <label  class="form__label content__label" for="">Galeria de fotos</label>
+                            <input type="file" class="" name="titulo" id="">                                  
+                        </div>                  
                         <div class="main__decoration"></div>
                         <input type="submit" class="form__button form__bloque__button" value="Agregar propiedad">                                                                 
                     </form>

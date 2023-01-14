@@ -96,6 +96,10 @@
     flex-wrap: wrap;
 }
 
+.form__bloque--checkbox{
+    gap: 2em;
+}
+
 
 .form__bloque__content{
     display: flex;
@@ -302,6 +306,14 @@
     color: rgba(63, 60, 60, 0.418);
     pointer-events: none;
   }
+
+  .tox-statusbar__branding{
+    display: none;
+  }
+
+  /* .tox-notifications-container{
+    display: none;
+  } */
 
 /* End Main */
 
