@@ -529,6 +529,77 @@
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="habitacionservicio" value="1">                             
                             </div>                      
                         </div>   
+                        <h2 class="main__h2">Tipo de entorno</h2>
+                        <div class="form__bloque form__bloque--checkbox">  
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Árboles</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="arboles" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Autobuses</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="agua" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Centro comercial</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="centrocomercial" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Colegios</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="colegios" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Costa</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="costa" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Golf</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="golf" value="1">                             
+                            </div>
+                        </div>   
+                        <div class="form__bloque form__bloque--checkbox">  
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Hospitales</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="hospitales" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Subte</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="subte" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Montaña</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="montania" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Urbanización</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="urbanizacion" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Rural</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="rural" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Vista al mar</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="vistamar" value="1">                             
+                            </div>
+                        </div>   
+                        <div class="form__bloque form__bloque--checkbox">  
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Tren</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="tren" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Zonas infantiles</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="zonasinfantiles" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Residencial</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="residencial" value="1">                             
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Barrio cerrado</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="barriocerrado" value="1">                             
+                            </div>                           
+                        </div>                  
                         <h2 class="main__h2">Descripcion General</h2>
                         <div class="form__bloque">  
                             <div class="form__bloque__content content">
