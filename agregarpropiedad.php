@@ -10,7 +10,7 @@
                 </div>
                 <div class="main__decoration"></div>
                 <div class="main__busqueda-propiedad">             
-                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/agregarconsulta.php" enctype="multipart/form-data">
+                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/agregarpropiedad.php" enctype="multipart/form-data">
                         <h2 class="main__h2">Caracteristicas</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -625,7 +625,88 @@
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Galeria de fotos</label>
                             <input type="file" class="" name="titulo" id="">                                  
-                        </div>                  
+                        </div>
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Captado por</label>
+                                <select class="form__select" name="captadopor" id="">                               
+                                        <option value></option>
+                                        <?php                          
+                                            $sentencia = $connect->prepare("SELECT * FROM `usuarios`  WHERE habilitado=1") or die('query failed');
+                                            $sentencia->execute();
+                                            $agentes = $sentencia->fetchAll();                         
+                                            foreach($agentes as $agente){
+                                            $idAgente = $agente['user_id'];
+                                            $agenteNombre = $agente['nombre'];
+                                            $agenteApellido = $agente['apellido'];
+                                            ?>
+                                        <option value="<?php echo $idAgente?>"><?php echo $agenteNombre.' '.$agenteApellido ?></option>
+                                    <?php };?>
+                                </select>
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Contactado por</label>
+                                <select class="form__select" name="contactadopor" id="">                               
+                                    <option value></option>
+                                    <?php                          
+                                        $sentencia = $connect->prepare("SELECT * FROM `usuarios`  WHERE habilitado=1") or die('query failed');
+                                        $sentencia->execute();
+                                        $agentes = $sentencia->fetchAll();                         
+                                        foreach($agentes as $agente){
+                                        $idAgente = $agente['user_id'];
+                                        $agenteNombre = $agente['nombre'];
+                                        $agenteApellido = $agente['apellido'];
+                                        ?>
+                                    <option value="<?php echo $idAgente?>"><?php echo $agenteNombre.' '.$agenteApellido ?></option>
+                                    <?php };?>
+                                </select>
+                            </div>                                          
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Oficina</label>
+                                <select class="form__select content__select" name="ciudad" id="">    
+                                    <option value></option>
+                                    <?php                          
+                                        $sentencia = $connect->prepare("SELECT * FROM `wp_oficinas` WHERE habilitado=1") or die('query failed');
+                                        $sentencia->execute();
+                                        $list_oficinas = $sentencia->fetchAll();                         
+                                        foreach($list_oficinas as $oficina){
+                                        $idOficina = $oficina['id'];
+                                        $oficinaNombre = $oficina['nombre'];
+                                        ?>
+                                    <option value="<?php echo $idOficina?>"><?php echo $oficinaNombre?></option>
+                                <?php };?>
+                                </select>
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Llavero</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="llavero" value="si">                             
+                            </div>                                                                                                          
+                        </div>
+                        <h2 class="main__h2">Caracteristicas</h2>
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Precio del propietario</label>
+                                <input type="text" class="form__text content__text" name="preciopropietario" id="">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Porcentaje sobre compra</label>
+                                <input type="text" class="form__text content__text" name="porcentajesobrecompra" id="">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Comisión fija</label>
+                                <input type="text" class="form__text content__text" name="comisionfija" id="">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Precio anterior</label>
+                                <input type="text" class="form__text content__text" name="precioanterior" id="">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Tasación</label>
+                                <input type="text" class="form__text content__text" name="tasacion" id="">                                  
+                            </div>                        
+                        </div>  
+                        
+                                          
                         <div class="main__decoration"></div>
                         <input type="submit" class="form__button form__bloque__button" value="Agregar propiedad">                                                                 
                     </form>
