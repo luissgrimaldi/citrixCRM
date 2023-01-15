@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+
+/* Colors */
+:root{
+    --color-principal-scrollbar:#09c867;
+    --color-secundario-scrollbar:#0960c8;
+    --color-body-selection:#09c867;
+    --color-principal-header:#0960c8 ;
+    --color-secundario-header:white;
+    --color-terciario-header:#09c867;
+    --color-principal-sidebar:#0960c8;
+    --color-secundario-sidebar:white;
+    --color-terciario-sidebar:#09c867;
+    --body-color: #aecdf3;
+    --body-select-hover-checked:#09c86881;
+    --color-principal-main:#0960c8;
+    --color-secundario-main:#09c867;
+    --color-terciario-main:white;
+}
+
+/* End Colors */
+
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+/* Main */
+.main__container__top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.main__buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.main__buttons__button{
+    color: var(--color-terciario-main);
+    background-color: var(--color-secundario-main);
+    padding: 0.413em .8em;
+    border-radius: 16px;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+}
+
+.main__buttons__button:hover{
+    cursor: pointer;
+    background-color: var(--body-select-hover-checked);
+}
+
+.main__h1--emoji{
+    color: var(--color-principal-main);
+    font-size: 1.875em;
+    margin-right:0.625em ;
+}
+
+.main__h1{
+    display: inline-block;
+    font-size: 1.875em;
+    color: var(--color-principal-main);
+}
+
+.main__perfil{
+    margin: 1.875em 1em;
+}
+
+.main__perfil__container{
+    margin: 1.875em auto;
+    width: 70em;
+}
+
+.perfil__bloque{
+    width: 100%;
+    text-align: center;
+}
+
+.perfil__bloque__content{
+    width: 100%;
+    text-align: center;
+    background-color: var(--color-principal-main);
+    color: var(--color-terciario-main);
+    border-radius: 1.25em;
+    padding: .5em 1em;
+    font-size: 1em;
+}
+
+.perfil__bloque__fake-label{
+    padding: 0 8%;
+    border-top-right-radius:1em;
+    border-top-left-radius:1em;
+    text-align: center;
+    margin: 0 auto;
+    background-color: #09c867;
+    color: white;
+
+}
+
+.propiedades__ul{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #aecdf3;
+    margin: 0 auto;
+    border-radius: 1.25em;
+    padding: 1.25em;
+    gap: 1.25em;
+}
+
+.propiedades__li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #87b0e3;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 1.25em;
+    padding: 1.25em;
+    overflow-x: auto;
+}
+
+.propiedades__img{
+    width: 18em;
+    border-radius: 1em;
+}
+
+.propiedades__nombre-detalles-precio{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1.25em;
+}
+
+.propiedades__estado{
+    padding-right: 1.25em;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.propiedades__edit-hide{
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+    text-align: center;
+}
+
+.propiedades__accion{
+    color: var(--color-principal-main);
+    font-size: 1.25em;
+}
+
+.propiedades__accion:hover{
+    transform: scale(1.3);
+}
+
+
+/* End Main */
+
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+@media screen and (max-width:778px) {
+    .main__perfil__container{
+        width: 90%;
+    }
+}
+
+@media screen and (max-width:584px) {
+    .main__buttons{
+        flex-direction: column;
+        margin: 0.4em;
+    }
+
+    .main__buttons__button{
+        padding: 0.413em .4em ;
+    }
+}
+
+@media screen and (max-width:394px) {
+    .main__container__top{
+        justify-content: center;
+    }
+}
