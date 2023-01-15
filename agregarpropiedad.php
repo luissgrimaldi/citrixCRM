@@ -128,12 +128,12 @@
                         </div>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">  
-                                <label  class="form__label content__label" for="">Esta ocupada?</label>
+                                <label  class="form__label content__label" for="">Ocupada</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="ocupada" value="1">
                             </div>    
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Coordenadas</label>
-                                <input type="text" class="form__text content__text" name="bloque" id="">                                                     
+                                <input type="text" class="form__text content__text" name="coordenadas" id="">                                                     
                             </div>
                         </div>
                         <h2 class="main__h2">Distribucion, superficie y otros datos</h2>
@@ -166,7 +166,7 @@
                             </div>                           
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Metros cocina</label>
-                                <input type="text" class="form__text content__text" name="cocina" id="">                                  
+                                <input type="text" class="form__text content__text" name="mtscocina" id="">                                  
                             </div>                                                     
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Cant. Habitaciones</label>
@@ -176,7 +176,7 @@
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Expensas</label>
-                                <input type="text" class="form__text content__text" name="toilettes" id="">                                  
+                                <input type="text" class="form__text content__text" name="expensas" id="">                                  
                             </div>   
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Cant. Ambientes</label>
@@ -290,10 +290,6 @@
                                 </select>
                             </div>                          
                             <div class="form__bloque__content content">
-                                <label  class="form__label content__label" for="">Visitas</label>
-                                <input type="text" class="form__text content__text" name="visitas" id="">                                  
-                            </div> 
-                            <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Tipo de calefacción</label>
                                 <select class="form__select content__select" name="calefaccion" id="">    
                                     <option value></option>
@@ -313,7 +309,7 @@
                         <div class="form__bloque"> 
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Tipo de cocina</label>
-                                <select class="form__select content__select" name="cocina" id="">    
+                                <select class="form__select content__select" name="tipococina" id="">    
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_tipos_cocina` WHERE habilitado=1") or die('query failed');
@@ -373,7 +369,7 @@
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="parrilla" value="1">                             
                             </div>
                             <div class="form__bloque__content content">
-                                <label  class="form__label content__label" for="">Asensor</label>
+                                <label  class="form__label content__label" for="">Ascensor</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="asensor" value="1">                             
                             </div>
                             <div class="form__bloque__content content">
@@ -392,7 +388,7 @@
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Calefacción frio/calor</label>
-                                <input class="form__checkbox content__checkbox" type="checkbox" name="calefacionfriocalor" value="1">                             
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="calefaccionfriocalor" value="1">                             
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Centrico</label>
@@ -537,7 +533,7 @@
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Autobuses</label>
-                                <input class="form__checkbox content__checkbox" type="checkbox" name="agua" value="1">                             
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="autobuses" value="1">                             
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Centro comercial</label>
@@ -614,17 +610,21 @@
                         </script>   
                         <div class="form__bloque"> 
                             <div class="form__bloque__content content">
-                                <label  class="form__label content__label" for="">Descripcion larga</label>
+                                <label  class="form__label content__label" for="">Descripcion completa</label>
                                 <textarea name="descripcionlarga" id="tinymce"></textarea>
                             </div>                                                                                                                                                                                                      
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Foto de portada</label>
-                            <input type="file" class="" name="titulo" id="">                                  
+                            <input type="file" class="" name="fotoportada" id="">                                  
                         </div> 
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Galeria de fotos</label>
-                            <input type="file" class="" name="titulo" id="">                                  
+                            <input type="file" class="" name="galeriafotos" id="">                                  
+                        </div>
+                        <div class="form__bloque__content content">
+                            <label  class="form__label content__label" for="">Descripcion mediana</label>
+                            <input type="text" class="form__text content__text" name="descripcionmediana" id="">                                  
                         </div>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -663,7 +663,7 @@
                             </div>                                          
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Oficina</label>
-                                <select class="form__select content__select" name="ciudad" id="">    
+                                <select class="form__select content__select" name="oficina" id="">    
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_oficinas` WHERE habilitado=1") or die('query failed');

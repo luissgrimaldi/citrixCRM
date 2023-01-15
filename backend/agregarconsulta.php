@@ -51,10 +51,6 @@ $amueblada = $_POST['amueblada'];
 $balcon = $_POST['balcon'];
 $pileta = $_POST['pileta'];
 
-if(!isset($_POST['plantabaja'])){
-    $_POST['plantabaja']= ' ';
-};
-
 
 $registrar = $connect-> prepare ("INSERT INTO wp_consultas (nombre, apellido , email, telefono, propiedad_id, observaciones, consulta, status_id, situacion, captado_por, canal_id, asignado_a, llamar_desde, llamar_hasta, superficie_construida_desde, superficie_construida_hasta, precio_venta_desde, precio_venta_hasta, planta_baja, garaje, garaje_doble, amueblada, balcon, pileta) VALUES (?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 $registrar->execute([$nombre, $apellido, $email, $telefono, $propiedad, $observaciones, $consulta, $estado, $situacion, $captadoPor, $medioContacto, $asignadoA, $llamarDesde, $llamarHasta, $superficieDesde, $superficieHasta, $precioDesde, $precioHasta, $plantaBaja, $garage, $garageDoble, $amueblada, $balcon, $pileta]);
