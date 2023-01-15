@@ -159,6 +159,10 @@
     transform: scale(1.3);
 }
 
+.ciudad__detalles{
+    font-weight: bold;
+}
+
 
 /* End Main */
 
