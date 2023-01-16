@@ -32,6 +32,15 @@
     flex-wrap: wrap;
 }
 
+.menu__main__buttons{
+    margin: 3vh 3vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .main__buttons{
     display: flex;
     flex-direction: row;
@@ -51,6 +60,12 @@
 .main__buttons__button:hover{
     cursor: pointer;
     background-color: var(--body-select-hover-checked);
+}
+
+.main__buttons__button--active{
+    background-color: var(--color-principal-main);
+    pointer-events: none;
+    user-select: none;
 }
 
 .main__h1--emoji{

@@ -22,7 +22,6 @@ if(!isset($_POST['banios'])){$_POST['banios']= ' ';};
 if(!isset($_POST['anioconstruccion'])){$_POST['anioconstruccion']= ' ';};
 if(!isset($_POST['mtscocina'])){$_POST['mtscocina']= ' ';};
 if(!isset($_POST['habitaciones'])){$_POST['habitaciones']= ' ';};
-
 if(!isset($_POST['expensas'])){$_POST['expensas']= ' ';};
 if(!isset($_POST['ambientes'])){$_POST['ambientes']= ' ';};
 if(!isset($_POST['comedor'])){$_POST['comedor']= ' ';};

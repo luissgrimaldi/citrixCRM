@@ -10,10 +10,17 @@
                 <div class="main__container__top">
                     <div class="main__title"><i class="fa-solid fa-user main__h1--emoji"></i><h1 class="main__h1">Usuarios</h1></div>
                     <div class="main__buttons">
-                        <a class="main__buttons__button" href="adminagregar.php?page=usuario">Agregar usuario</a>
+                        <a class="main__buttons__button <?php if($_GET['page']=='usuario'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=usuario">Usuarios</a>
+                        <a class="main__buttons__button <?php if($_GET['page']=='ciudad'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=ciudad">Ciudades</a>
+                        <a class="main__buttons__button <?php if($_GET['page']=='zona'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=zona">Zonas</a>
                     </div>
                 </div>
                 <div class="main__decoration"></div>
+                <div class="menu__main__buttons">
+                    <div class="main__buttons">
+                        <a class="main__buttons__button" href="adminagregar.php?page=usuario">Agregar usuario</a>
+                    </div>
+                </div>
                     <div class="main__perfil">
                         <div class="main__perfil__container">                         
                             <ul class="propiedades__ul">
@@ -63,10 +70,17 @@
                 <div class="main__container__top">
                     <div class="main__title"><i class="fa-solid fa-user main__h1--emoji"></i><h1 class="main__h1">Ciudades</h1></div>
                     <div class="main__buttons">
-                        <a class="main__buttons__button" href="adminagregar.php?page=ciudad">Agregar ciudad</a>
+                        <a class="main__buttons__button <?php if($_GET['page']=='usuario'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=usuario">Usuarios</a>
+                        <a class="main__buttons__button <?php if($_GET['page']=='ciudad'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=ciudad">Ciudades</a>
+                        <a class="main__buttons__button <?php if($_GET['page']=='zona'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=zona">Zonas</a>
                     </div>
                 </div>
                 <div class="main__decoration"></div>
+                <div class="menu__main__buttons">
+                    <div class="main__buttons">
+                        <a class="main__buttons__button" href="adminagregar.php?page=usuario">Agregar ciudad</a>
+                    </div>
+                </div>
                     <div class="main__perfil">
                         <div class="main__perfil__container">                         
                             <ul class="propiedades__ul">
