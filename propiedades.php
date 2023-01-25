@@ -322,7 +322,7 @@
                             </div>
                             <span class="propiedades__estado"><?php if ($enWeb==1){echo 'En web';}else{echo 'No publicada';}?></span>
                             <div class="propiedades__edit-hide">
-                                <a href=""><i class="propiedades__accion fa-solid fa-pencil"></i></a>
+                                <a href="editarpropiedad.php?ref=<?php echo $refPropiedad;?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
                                 <a href=""><i class="propiedades__accion fa-solid fa-eye-slash"></i></a>
                             </div>
                         </li>

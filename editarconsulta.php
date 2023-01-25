@@ -143,9 +143,9 @@
                                             foreach($list_situaciones as $situacion){
                                             $idSituacion = $situacion['id'];
                                             $situacionNombre = $situacion['nombre'];
-                                            ?>
-                                        <option value="<?php echo $idPropiedad?>"><?php echo $situacionNombre?></option>
-                                    <?php };?>
+                                            if($editarSituacion!=$idSituacion){?>
+                                        <option value="<?php echo $idSituacion?>"><?php echo $situacionNombre?></option>
+                                    <?php };};?>
                                 </select>
                             </div>
                             <div class="form__bloque__content content">
@@ -300,7 +300,7 @@
                                     <?php if($editarLlamarHasta!='21:30'){?><option value="21:30">21:30</option><?php };?>
                                 </select>
                             </div>                                                             
-                        </div>
+                        </div>                        
                         <!-- <h2 class="main__h2">Requisitos del cliente</h2>
                         <span  class="form__span content__span" for="">Tipo de propiedad</span>      
                         <div class="form__bloque"> 

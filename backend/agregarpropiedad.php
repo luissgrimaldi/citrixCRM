@@ -1,6 +1,5 @@
 <?php
 include 'connect.php';
-if(!isset($_POST['ref'])){$_POST['ref']= ' ';};
 if(!isset($_POST['operacion'])){$_POST['operacion']= ' ';};
 if(!isset($_POST['tipo'])){$_POST['tipo']= ' ';};
 if(!isset($_POST['codigopostal'])){$_POST['codigopostal']= ' ';};
@@ -112,8 +111,30 @@ if($_POST['porcentajesobrecompra'] == ''){$_POST['porcentajesobrecompra']= 0;};
 if($_POST['comisionfija'] == ''){$_POST['comisionfija']= 0;};
 if($_POST['precioanterior'] == ''){$_POST['precioanterior']= 0;};
 if($_POST['tasacion'] == ''){$_POST['tasacion']= 0;};
+if($_POST['parcela'] == ''){$_POST['parcela']= 0;};
+if($_POST['lote'] == ''){$_POST['lote']= 0;};
+if($_POST['tomo'] == ''){$_POST['tomo']= 0;};
+if($_POST['libro'] == ''){$_POST['libro']= 0;};
+if($_POST['folio'] == ''){$_POST['folio']= 0;};
+if($_POST['registro'] == ''){$_POST['registro']= 0;};
+if($_POST['ref_catastral'] == ''){$_POST['ref_catastral']= 0;};
+if($_POST['valor_catastral'] == ''){$_POST['valor_catastral']= 0;};
 
-$ref = $_POST['ref'];
+do{
+    $caracteres_permitidos1 = 'ABFGHIJKLMNOPQRSUVYZ';
+    $caracteres_permitidos2 = '0123456789';
+    $longitudLetra = 1;
+    $longitudNumero = 4;
+    $refLetra = substr(str_shuffle($caracteres_permitidos1), 0, $longitudLetra);
+    $refNumero = substr(str_shuffle($caracteres_permitidos2), 0, $longitudNumero);
+    $ref = $refLetra.$refNumero;
+    $verRef = $connect-> prepare ("SELECT `referencia_interna` FROM `wp_propiedades` WHERE referencia_interna = ?");
+    $verRef->execute ([$ref]);
+    $refExiste = $verRef->fetchColumn();
+}while ($refExiste > 0);
+
+
+
 $operacion = $_POST['operacion'];
 $tipo = $_POST['tipo'];
 $codigoPostal = $_POST['codigopostal'];
@@ -225,6 +246,14 @@ $porcentajeSobreCompra = $_POST['porcentajesobrecompra'];
 $comisionFija = $_POST['comisionfija'];
 $precioAnterior = $_POST['precioanterior'];
 $tasacion = $_POST['tasacion'];
+$parcela = $_POST['tasacion'];
+$lote = $_POST['lote'];
+$tomo = $_POST['tomo'];
+$libro = $_POST['libro'];
+$folio = $_POST['folio'];
+$registro = $_POST['registro'];
+$refCatastral = $_POST['ref_catastral'];
+$valorCatastral = $_POST['valor_catastral'];
 
-$registrar = $connect-> prepare ("INSERT INTO wp_propiedades (referencia_interna, operacion_id, tipo_propiedad_id, cod_postal, tipo_calle_id, calle, altura, ciudad_id, zona_id, piso, puerta, bloque, ocupada, coordenadas, nro_toilettes, nro_plantas, metros_utiles, supeficie_construida, nro_banios, anio_contruccion, mts_cocina, cant_habitaciones, expensas, cant_ambientes, mts_comendor, mts_living, mts_lote, planta_baja, estado_general_id, estado_carpinteria_externa_id, tipo_suelo_id, orientacion, agua_caliente_id, estado_carpinteria_interna_id, tipo_calefaccion_id, tipo_cocina_id, alarma, agua, aire_acondicionado_central, aire_acondicionado, bar, alarma_incendio, alarma_robo, altillo, caja_fuerte, parrilla, asensor, balcon, chimenea, electrodomesticos, calefaccion_frio_calor, centrico, garaje, garaje_doble, gas_natural, galeria, hab_juegos, hidromasaje, linea_telefonica, gimnacio, jardin, lavadero, patio, jacuzzi, luz, sauna, preinst_aacc, luminoso, pileta_propia, pileta_compartida, riego_automatico, amueblado, puerta_blindada, porton_automatico, solarium, pergola, tv, videoportero, satelite, vestuario, buardilla, habitacion_servicio, arboles, autobuses, centro_comercial, colegios, costa, golf, hospitales, subte, montania, urbanizacion, rural, vista_al_mar, tren, zonas_infantiles, residencial, barrio_cerrado, descripcion_corta, descripcion_completa, foto_portada, galeria_fotos, descripcion_mediana, captado_por, contactado_por, oficina_id, llavero, precio_propietario, porcentaje_comision, comision_fija, precio_anterior, tasacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$registrar->execute([$ref, $operacion, $tipo, $codigoPostal, $tipoCalle, $calle, $altura, $ciudad, $zona, $piso, $puerta, $bloque, $ocupada, $coordenadas, $toilettes, $plantas, $metrosUtiles, $supConstruida, $rebaniosf, $anioConstruccion, $mtsCocina, $habitaciones, $expensas, $ambientes, $comedor, $living, $lote, $plantaBaja, $estadoGeneral, $carpinteriaExt, $suelo, $orientacion, $aguacaliente, $carpinteriaint, $calefaccion, $tipoCocina, $alarma, $agua, $aireAcondicionadoCentral, $aireAcondicionado, $bar, $alarmaIncendio, $alarmaRobo, $altillo, $cajaFuerte, $parrilla, $asensor, $balcon, $chimenea, $electroDomesticos, $calefaccionFrioCalor, $centrico, $garaje, $garajeDoble, $gasNatural, $galeria, $habJuegos, $hidroMasaje, $lineaTelefonica, $gimnasio, $jardin, $lavadero, $patio, $jacuzzi, $luz, $sauna, $preinstaacc, $luminoso, $piletapropia, $piletacompartida, $riegoautomatico, $amueblado, $puertaBlindada, $portonAutomatico, $solarium, $pergola, $tv, $videoPortero, $satelite, $vestuario, $buardilla, $habitacionServicio, $arboles, $autobuses, $centroComercial, $colegios, $costa, $golf, $hospitales, $subte, $montania, $urbanizacion, $rural, $vistaMar, $tren, $zonasInfantiles, $residencial, $barrioCerrado, $descripcionCorta, $descripcionLarga, $fotoPortada, $galeriaFotos, $descripcionMediana, $captadoPor, $contactadoPor, $oficina, $llavero, $precioproPietario, $porcentajeSobreCompra, $comisionFija, $precioAnterior, $tasacion ]);
+$registrar = $connect-> prepare ("INSERT INTO wp_propiedades (referencia_interna, operacion_id, tipo_propiedad_id, cod_postal, tipo_calle_id, calle, altura, ciudad_id, zona_id, piso, puerta, bloque, ocupada, coordenadas, nro_toilettes, nro_plantas, metros_utiles, supeficie_construida, nro_banios, anio_contruccion, mts_cocina, cant_habitaciones, expensas, cant_ambientes, mts_comendor, mts_living, mts_lote, planta_baja, estado_general_id, estado_carpinteria_externa_id, tipo_suelo_id, orientacion, agua_caliente_id, estado_carpinteria_interna_id, tipo_calefaccion_id, tipo_cocina_id, alarma, agua, aire_acondicionado_central, aire_acondicionado, bar, alarma_incendio, alarma_robo, altillo, caja_fuerte, parrilla, asensor, balcon, chimenea, electrodomesticos, calefaccion_frio_calor, centrico, garaje, garaje_doble, gas_natural, galeria, hab_juegos, hidromasaje, linea_telefonica, gimnacio, jardin, lavadero, patio, jacuzzi, luz, sauna, preinst_aacc, luminoso, pileta_propia, pileta_compartida, riego_automatico, amueblado, puerta_blindada, porton_automatico, solarium, pergola, tv, videoportero, satelite, vestuario, buardilla, habitacion_servicio, arboles, autobuses, centro_comercial, colegios, costa, golf, hospitales, subte, montania, urbanizacion, rural, vista_al_mar, tren, zonas_infantiles, residencial, barrio_cerrado, descripcion_corta, descripcion_completa, foto_portada, galeria_fotos, descripcion_mediana, captado_por, contactado_por, oficina_id, llavero, precio_propietario, porcentaje_comision, comision_fija, precio_anterior, tasacion, parcela, lote, tomo, libro, folio, registro, ref_catastral, valor_catastral) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?)");
+$registrar->execute([$ref, $operacion, $tipo, $codigoPostal, $tipoCalle, $calle, $altura, $ciudad, $zona, $piso, $puerta, $bloque, $ocupada, $coordenadas, $toilettes, $plantas, $metrosUtiles, $supConstruida, $rebaniosf, $anioConstruccion, $mtsCocina, $habitaciones, $expensas, $ambientes, $comedor, $living, $lote, $plantaBaja, $estadoGeneral, $carpinteriaExt, $suelo, $orientacion, $aguacaliente, $carpinteriaint, $calefaccion, $tipoCocina, $alarma, $agua, $aireAcondicionadoCentral, $aireAcondicionado, $bar, $alarmaIncendio, $alarmaRobo, $altillo, $cajaFuerte, $parrilla, $asensor, $balcon, $chimenea, $electroDomesticos, $calefaccionFrioCalor, $centrico, $garaje, $garajeDoble, $gasNatural, $galeria, $habJuegos, $hidroMasaje, $lineaTelefonica, $gimnasio, $jardin, $lavadero, $patio, $jacuzzi, $luz, $sauna, $preinstaacc, $luminoso, $piletapropia, $piletacompartida, $riegoautomatico, $amueblado, $puertaBlindada, $portonAutomatico, $solarium, $pergola, $tv, $videoPortero, $satelite, $vestuario, $buardilla, $habitacionServicio, $arboles, $autobuses, $centroComercial, $colegios, $costa, $golf, $hospitales, $subte, $montania, $urbanizacion, $rural, $vistaMar, $tren, $zonasInfantiles, $residencial, $barrioCerrado, $descripcionCorta, $descripcionLarga, $fotoPortada, $galeriaFotos, $descripcionMediana, $captadoPor, $contactadoPor, $oficina, $llavero, $precioproPietario, $porcentajeSobreCompra, $comisionFija, $precioAnterior, $tasacion, $parcela, $lote, $tomo, $libro, $folio, $registro, $refCatastral, $valorCatastral]);
