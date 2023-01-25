@@ -226,8 +226,8 @@
                     $whereTipo=" AND tipo.id = ".$_GET['tipo'];
                     $whereCiudad=" AND ciudad.id = ".$_GET['ciudad'];
                     $whereZona=" AND zona.id = ".$_GET['zona'];
-                    $wherePrecio=" AND prop.precio_propietario BETWEEN ".trim($_GET['preciodesde'])."AND".trim($_GET['preciohasta']);
-                    $whereHabitaciones=" AND prop.cant_habitaciones BETWEEN ".trim($_GET['habitacionesdesde'])." AND ".trim($_GET['habitacioneshasta']);
+                    $wherePrecio=" AND prop.precio_propietario BETWEEN '".$_GET['preciodesde']."' AND '".$_GET['preciohasta']."'";
+                    $whereHabitaciones=" AND prop.cant_habitaciones BETWEEN '".$_GET['habitacionesdesde']."' AND '".$_GET['habitacioneshasta']."'";
                     $whereDomicilio=" AND prop.calle LIKE '%".trim($_GET['domicilio'])."%'";
                     $whereRef=" AND prop.referencia_interna LIKE '%".trim($_GET['ref'])."%'";
                     $wherePileta=" AND prop.pileta_propia = '".$_GET['pileta']."'";
@@ -245,7 +245,7 @@
                         if($_GET['zona'] != ''){$filtro .= $whereZona;};
                         if($_GET['preciodesde'] != ''){$filtro .= $wherePrecio;};
                         if($_GET['habitacionesdesde'] != ''){$filtro .= $whereHabitaciones;};
-                        if($_GET['domicilio'] != ''){$filtro = $whereDomicilio;};
+                        if($_GET['domicilio'] != ''){$filtro .= $whereDomicilio;};
                         if($_GET['ref'] != ''){$filtro .= $whereRef;};
                         if($_GET['pileta'] != ''){$filtro .= $wherePileta;};
                         if($_GET['llaves'] != ''){$filtro .= $whereLlaves;};

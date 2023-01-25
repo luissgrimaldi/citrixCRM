@@ -187,11 +187,11 @@
                     <ul class="consultas__ul">
                         <?php
                         $whereFecha=" AND con.created BETWEEN ".$_GET['fechadesde']." AND ".$_GET['fechahasta'];         
-                        $whereCliente=" AND con.nombre OR con.apellido OR con.email OR con.telefono LIKE '%".trim($_GET['cliente'])."%'";
+                        $whereCliente=" AND con.nombre LIKE '%".trim($_GET['cliente'])."%' OR con.apellido LIKE '%".trim($_GET['cliente'])."%' OR con.email LIKE '%".trim($_GET['cliente'])."%' OR con.telefono LIKE '%".trim($_GET['cliente'])."%'";
                         $whereCanal=" AND canal.id = ".$_GET['canal'];
                         $whereOp=" AND prop.operacion_id = ".$_GET['op'];
                         $whereTipo=" AND prop.tipo_propiedad_id = ".$_GET['tipo'];
-                        $wherePropiedad=" AND prop.referencia_interna OR prop.calle OR prop.altura OR prop.descripcion_corta LIKE '%".trim($_GET['propiedad'])."%'";
+                        $wherePropiedad=" AND prop.referencia_interna LIKE '%".trim($_GET['propiedad'])."%' OR prop.calle LIKE '%".trim($_GET['propiedad'])."%' OR prop.altura LIKE '%".trim($_GET['propiedad'])."%'  OR prop.descripcion_corta LIKE '%".trim($_GET['propiedad'])."%'";
                         $whereZona=" AND prop.zona_id = ".$_GET['zona'];
                         $whereEstado=" AND con.status_id = ".$_GET['estado'];
                         if($_GET['fechadesde'] == '' AND $_GET['cliente'] == '' AND $_GET['canal'] == '' AND $_GET['op'] == '' AND $_GET['tipo'] == '' AND $_GET['propiedad'] == '' AND $_GET['zona'] == '' AND $_GET['estado'] == ''){$filtro = '';}else{ 

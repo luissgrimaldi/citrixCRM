@@ -383,8 +383,8 @@
                         <input type="submit" class="form__button form__bloque__button" value="Agregar consulta">                                                                 
                     </form>
                 </div>
-                </div>                
-            </div>  
+                </div>
+            </div>
         </main>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* End Main */-->

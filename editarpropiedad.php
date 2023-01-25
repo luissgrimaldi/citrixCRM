@@ -137,7 +137,7 @@
                     $editarValorCatastral = $propiedad['valor_catastral'];                  
                     }
                 ?>            
-                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/agregarpropiedad.php" enctype="multipart/form-data">
+                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/editarpropiedad.php?ref=<?php echo $editarRef;?>" enctype="multipart/form-data">
                         <h2 class="main__h2">Caracteristicas</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -821,7 +821,7 @@
                         <div class="form__bloque">  
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Descripcion corta</label>
-                                <input type="text" class="form__text content__text form__text--propiedad" name="descripcioncorta" id="">                                  
+                                <input type="text" class="form__text content__text form__text--propiedad" name="descripcioncorta" id="" value="<?php echo $editarDescripcionCorta;?>">                                  
                             </div>
                         </div>   
                         <script type="text/javascript">
@@ -832,7 +832,7 @@
                         <div class="form__bloque"> 
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Descripcion completa</label>
-                                <textarea name="descripcionlarga" id="tinymce"></textarea>
+                                <textarea name="descripcionlarga" id="tinymce"><?php echo $editarDescripcionCompleta;?></textarea>
                             </div>                                                                                                                                                                                                      
                         </div>
                         <div class="form__bloque__content content">
@@ -845,7 +845,7 @@
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Descripcion mediana</label>
-                            <input type="text" class="form__text content__text" name="descripcionmediana" id="">                                  
+                            <textarea name="descripcionmediana"><?php echo $editarDescripcionMediana;?></textarea>                                 
                         </div>
                         <h2 class="main__h2">Captación</h2>
                         <div class="form__bloque">
@@ -934,23 +934,23 @@
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Precio del propietario</label>
-                                <input type="text" class="form__text content__text" name="preciopropietario" id="" value="<?php echo $editarPrecioPropietario?>">                                  
+                                <input type="text" class="form__text content__text" name="preciopropietario" id="" value="<?php echo round($editarPrecioPropietario)?>">                                  
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Porcentaje sobre compra</label>
-                                <input type="text" class="form__text content__text" name="porcentajesobrecompra" id="" value="<?php echo $editarPorcentajeComision?>">                                  
+                                <input type="text" class="form__text content__text" name="porcentajesobrecompra" id="" value="<?php echo round($editarPorcentajeComision)?>">                                  
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Comisión fija</label>
-                                <input type="text" class="form__text content__text" name="comisionfija" id="" value="<?php echo $editarComisionFija?>">                                  
+                                <input type="text" class="form__text content__text" name="comisionfija" id="" value="<?php echo round($editarComisionFija)?>">                                  
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Precio anterior</label>
-                                <input type="text" class="form__text content__text" name="precioanterior" id="" value="<?php echo $editarPrecioAnterior?>">                                  
+                                <input type="text" class="form__text content__text" name="precioanterior" id="" value="<?php echo round($editarPrecioAnterior)?>">                                  
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Tasación</label>
-                                <input type="text" class="form__text content__text" name="tasacion" id="" value="<?php echo $editarTasacion?>">                                  
+                                <input type="text" class="form__text content__text" name="tasacion" id="" value="<?php echo round($editarTasacion)?>">                                  
                             </div>                        
                         </div>
                         <h2 class="main__h2">Datos catastrales</h2>
