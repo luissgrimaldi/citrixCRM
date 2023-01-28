@@ -1,0 +1,28 @@
+ssh -p5385 root@66.97.33.132
+
+L7HgmsRZWyFd
+
+cd var/www/vhosts/prod
+
+
+// Copiar archivos //
+
+scp -P 5385 root@66.97.33.132:/home/psiciliano/contenido/home/corpofit/public_html/user_zone_f856k876/home_admin.php .
+scp -P 5385 root@66.97.33.132:/home/psiciliano/contenido/home/corpofit/public_html/plugins/ps_crm_inmobiliaria/templates/home.php .
+scp -P 5385 root@66.97.33.132:/home/psiciliano/contenido/home/corpofit/public_html/plugins/ps_crm_inmobiliaria/templates/header_extras.php .
+
+get_login_template
+
+contenido/home/corpofit/public_html/plugins/ps_crm_inmobiliaria/templates/form_agenda.php
+
+cd home/psiciliano/contenido/home/corpofit/public_html
+grep -R -i "Propiedades" 
+grep -R -i 'onclick="/user_zone_f856k876/home_admin.php?page=crm_lista_consultas"'
+
+onclick="/user_zone_f856k876/home_admin.php?page=crm_lista_consultas"
+
+home_admin.php?page=crm_lista_propiedades
+
+sudo touch hello.php
+
+Fuente: https://www.enmimaquinafunciona.com/pregunta/101255/como-crear-archivos-php-en-la-carpeta-varwww
