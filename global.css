@@ -122,6 +122,18 @@ a{
     font-weight: 900;
 }
 
+.header__form__ul{
+    background-color: white;
+    position: absolute;
+    width: 18.75em;
+    border-radius: 1em;
+    text-align: center;
+    margin-top: .3em;
+    box-shadow: 3px 11px 5px 0px rgba(0,0,0,0.15);
+    -webkit-box-shadow: 3px 11px 5px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 3px 11px 5px 0px rgba(0,0,0,0.15);
+}
+
 .header__ul{
     display: flex;
     gap: 2.5em;

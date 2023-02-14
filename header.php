@@ -29,9 +29,7 @@ if(isset($_SESSION['usuario'])){
     <link rel="stylesheet" href="<?php echo ucfirst(basename($_SERVER['PHP_SELF'], ".php"))?>.css">
     <script src="https://kit.fontawesome.com/53d0376852.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tiny.cloud/1/5azxqpycehfxf9dacvhqmvviotrflw6k4ph59e5tlb79x8pd/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-</head>
-</head>
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  
 </head>
 <body>
     <div class="body__container">
@@ -43,9 +41,10 @@ if(isset($_SESSION['usuario'])){
                 <div class="header__logo">
                     <h2>CITRIXcrm</h2>     
                 </div>
-                <form action="" class="header__form">
-                    <input class="header__search" placeholder="&#XF002" type="text">
-                </form>
+                <form action="" method="POST" class="header__form" autocomplete="off">
+                    <input class="header__form__input header__search" name="campo" placeholder="&#XF002" id="campo" type="text">
+                    <ul class="header__form__ul" id="lista"></ul>
+                </form>           
 
                 <button class="header__plus" id="header__plus">
                     <i class="fa-solid fa-plus"></i>

@@ -740,7 +740,25 @@
                                 <label  class="form__label content__label" for="">Valor catastral</label>
                                 <input type="text" class="form__text content__text" name="valor_catastral" id="">                                  
                             </div>                        
-                        </div>                
+                        </div> 
+                        <h2 class="main__h2">Propietarios</h2>
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                                <select class="form__select content__select" name="orientacion" id="">    
+                                    <option value></option>
+                                    <?php                          
+                                        $sentencia = $connect->prepare("SELECT * FROM `wp_contactos`") or die('query failed');
+                                        $sentencia->execute();
+                                        $list_contactos = $sentencia->fetchAll();                         
+                                        foreach($list_contactos as $contacto){
+                                        $idContacto = $contacto['id'];
+                                        $contactoNombre = $contacto['nombre'];
+                                        ?>
+                                    <option value="<?php echo $idContacto?>"><?php echo $contactoNombre?></option>
+                                    <?php };?>
+                                </select>                   
+                            </div>                          
+                        </div>                               
                                           
                         <div class="main__decoration"></div>
                         <input type="submit" class="form__button form__bloque__button" value="Agregar propiedad">                                                                 

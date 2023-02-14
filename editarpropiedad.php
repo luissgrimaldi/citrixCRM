@@ -988,6 +988,34 @@
                                 <input type="text" class="form__text content__text" name="valor_catastral" id="" value="<?php echo $editarValorCatastral?>">                                  
                             </div>                        
                         </div>                
+                        <h2 class="main__h2">Propietarios</h2>
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                                <select class="form__select" name="captadopor" id="">                               
+                                    <?php
+                                        $sentencia = $connect->prepare("SELECT * FROM `wp_contactos`") or die('query failed');
+                                        $sentencia->execute();
+                                        $list_situaciones = $sentencia->fetchAll();                         
+                                        foreach($list_situaciones as $situacion){
+                                            $propiedadNombre = $situacion['nombre'];
+                                            $propiedadApellido = $situacion['apellido'];?>
+                                        <option value="<?php echo $editarCaptadoPor;?>"><?php echo $propiedadNombre.' '.$propiedadApellido;?></option>
+                                    <?php };?>                              
+                                    <option value></option>
+                                        <?php                          
+                                            $sentencia = $connect->prepare("SELECT * FROM `usuarios`  WHERE habilitado=1") or die('query failed');
+                                            $sentencia->execute();
+                                            $agentes = $sentencia->fetchAll();                         
+                                            foreach($agentes as $agente){
+                                            $idAgente = $agente['user_id'];
+                                            $agenteNombre = $agente['nombre'];
+                                            $agenteApellido = $agente['apellido'];
+                                            if($editarCaptadoPor != $idAgente){?>
+                                        <option value="<?php echo $idAgente?>"><?php echo $agenteNombre.' '.$agenteApellido ?></option>
+                                    <?php };};?>
+                                </select>                               
+                            </div>                          
+                        </div>                
                                           
                         <div class="main__decoration"></div>
                         <input type="submit" class="form__button form__bloque__button" value="Agregar propiedad">                                                                 
