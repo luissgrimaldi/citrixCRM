@@ -5,8 +5,8 @@ $campo = trim($_POST['campo']);
 
 $sentencia = $connect->prepare("SELECT * FROM `wp_propiedades` WHERE `calle` LIKE ? OR `referencia_interna` LIKE ?") or die('query failed');
 $sentencia->execute([$campo . '%', $campo . '%']);
-$sentencia2 = $connect->prepare("SELECT * FROM `wp_contactos` WHERE `nombre` + `apellido` LIKE ?") or die('query failed');
-$sentencia2->execute(['%' . $campo . '%']);
+$sentencia2 = $connect->prepare("SELECT * FROM `wp_contactos` WHERE CONCAT(trim(nombre), ' ', trim(apellido)) LIKE ?") or die('query failed');
+$sentencia2->execute([$campo . '%']);
 
 $html = "";                   
 while($row = $sentencia->fetch(PDO::FETCH_ASSOC)){
