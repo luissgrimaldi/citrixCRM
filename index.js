@@ -31,14 +31,14 @@ document.getElementById("campo").addEventListener("keyup", getCodigos)
 
 function getCodigos() {
 
-    let inputCP = document.getElementById("campo").value
+    let buscador = document.getElementById("campo").value
     let lista = document.getElementById("lista")
 
-    if (inputCP.length > 0) {
+    if (buscador.length > 0) {
 
         let url = "backend/buscador.php"
         let formData = new FormData()
-        formData.append("campo", inputCP)
+        formData.append("campo", buscador)
 
         fetch(url, {
             method: "POST",
@@ -53,4 +53,45 @@ function getCodigos() {
     } else {
         lista.style.display = 'none'
     }
+}
+
+document.getElementById("buscadorcontactos").addEventListener("keyup", getContactos)
+
+function getContactos() {
+
+    let buscador = document.getElementById("buscadorcontactos").value
+    let lista = document.getElementById("listaContactos")
+
+    if (buscador.length > 0) {
+
+        let url2 = "backend/buscadorcontactos.php"
+        let formData2 = new FormData()
+        formData2.append("buscadorcontactos", buscador)
+
+        fetch(url2, {
+            method: "POST",
+            body: formData2,
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response => response.json())
+            .then(data => {
+                lista.style.display = 'block'
+                lista.innerHTML = data
+            })
+            .catch(err => console.log(err))
+    } else {
+        lista.style.display = 'none'
+    }
+}
+
+function seleccionarContacto(id,nombre) {
+
+    let buscador = document.getElementById("buscadorcontactos")
+    let inputhide = document.getElementById("contacto_id")
+    let lista = document.getElementById("listaContactos")
+
+    buscador.value = nombre;
+    inputhide.value = id;
+
+    lista.style.display = 'none'
+    
 }

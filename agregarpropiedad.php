@@ -744,19 +744,9 @@
                         <h2 class="main__h2">Propietarios</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
-                                <select class="form__select content__select" name="orientacion" id="">    
-                                    <option value></option>
-                                    <?php                          
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_contactos`") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_contactos = $sentencia->fetchAll();                         
-                                        foreach($list_contactos as $contacto){
-                                        $idContacto = $contacto['id'];
-                                        $contactoNombre = $contacto['nombre'];
-                                        ?>
-                                    <option value="<?php echo $idContacto?>"><?php echo $contactoNombre?></option>
-                                    <?php };?>
-                                </select>                   
+                            <input type="text" class="form__text content__text" name="buscadorcontactos" id="buscadorcontactos"> 
+                            <input type="hidden" class="form__text content__text" name="contacto_id" id="contacto_id"> 
+                            <ul class="content_ul" id="listaContactos"></ul>                
                             </div>                          
                         </div>                               
                                           

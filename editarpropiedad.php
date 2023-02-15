@@ -15,127 +15,136 @@
                     $sentencia->execute();
                     $list_propiedadesOperacion = $sentencia->fetchAll();                         
                     foreach($list_propiedadesOperacion as $propiedad){
-                    $editarRef = $propiedad['referencia_interna'];
-                    $editarOperacion = $propiedad['operacion_id'];
-                    $editarPropiedad = $propiedad['tipo_propiedad_id'];
-                    $editarCodPostal = $propiedad['cod_postal'];
-                    $editarTipoCalle = $propiedad['tipo_calle_id'];
-                    $editarCalle = $propiedad['calle'];
-                    $editarAltura = $propiedad['altura'];
-                    $editarCiudad = $propiedad['ciudad_id'];
-                    $editarZona = $propiedad['zona_id'];
-                    $editarPiso = $propiedad['piso'];
-                    $editarPuerta = $propiedad['puerta'];
-                    $editarBloque = $propiedad['bloque'];
-                    $editarOcupada = $propiedad['ocupada'];
-                    $editarCoordenadas = $propiedad['coordenadas'];
-                    $editarNroToilettes = $propiedad['nro_toilettes'];
-                    $editarNroPlantas = $propiedad['nro_plantas'];
-                    $editarMetrosUtiles = $propiedad['metros_utiles'];
-                    $editarSuperficieConstruida = $propiedad['supeficie_construida'];
-                    $editarNroBanios = $propiedad['nro_banios'];
-                    $editarAnioConstruccion = $propiedad['anio_contruccion'];
-                    $editarMetrosCocina = $propiedad['mts_cocina'];
-                    $editarCantHabitaciones = $propiedad['cant_habitaciones'];
-                    $editarExpensas = $propiedad['expensas'];
-                    $editarCantAmbientes = $propiedad['cant_ambientes'];
-                    $editarMetrosComedor = $propiedad['mts_comendor'];
-                    $editarMetrosLiving = $propiedad['mts_living'];
-                    $editarMetrosLote = $propiedad['mts_lote'];
-                    $editarPlantaBaja = $propiedad['planta_baja'];
-                    $editarEstadoGeneral = $propiedad['estado_general_id'];
-                    $editarEstadoCarpinteriaExt = $propiedad['estado_carpinteria_externa_id'];
-                    $editarTipoSuelo = $propiedad['tipo_suelo_id'];
-                    $editarOrientacion = $propiedad['orientacion'];
-                    $editarAguaCaliente = $propiedad['agua_caliente_id'];
-                    $editarEstadoCarpinteriaInt = $propiedad['estado_carpinteria_interna_id'];
-                    $editarTipoCalefaccion = $propiedad['tipo_calefaccion_id'];
-                    $editarTipoCocina = $propiedad['tipo_cocina_id'];
-                    $editarAlarma = $propiedad['alarma'];
-                    $editarAgua = $propiedad['agua'];
-                    $editarAireAcondicionadoCentral = $propiedad['aire_acondicionado_central'];
-                    $editarAireAcondicionado = $propiedad['aire_acondicionado'];
-                    $editarBar = $propiedad['bar'];
-                    $editarAlarmaIncendio = $propiedad['alarma_incendio'];
-                    $editarAlarmaRobo = $propiedad['alarma_robo'];
-                    $editarAltillo = $propiedad['altillo'];
-                    $editarCajaFuerte = $propiedad['caja_fuerte'];
-                    $editarParrilla = $propiedad['parrilla'];
-                    $editarAscensor = $propiedad['asensor'];
-                    $editarBalcon = $propiedad['balcon'];
-                    $editarChimenea = $propiedad['chimenea'];
-                    $editarElectrodomesticos = $propiedad['electrodomesticos'];
-                    $editarCalefaccionFrioCalor = $propiedad['calefaccion_frio_calor'];
-                    $editarCentrico = $propiedad['centrico'];
-                    $editarGaraje = $propiedad['garaje'];
-                    $editarGarajeDoble = $propiedad['garaje_doble'];
-                    $editarGasNatural = $propiedad['gas_natural'];
-                    $editargaleria = $propiedad['galeria'];
-                    $editarHabJuegos = $propiedad['hab_juegos'];
-                    $editarhidromasaje = $propiedad['hidromasaje'];
-                    $editarLineaTelefonica = $propiedad['linea_telefonica'];
-                    $editarGimnasio = $propiedad['gimnacio'];
-                    $editarJardin = $propiedad['jardin'];
-                    $editarLavadero = $propiedad['lavadero'];
-                    $editarPatio = $propiedad['patio'];
-                    $editarJacuzzi = $propiedad['jacuzzi'];
-                    $editarLuz = $propiedad['luz'];
-                    $editarSauna = $propiedad['sauna'];
-                    $editarPreinstAacc = $propiedad['preinst_aacc'];
-                    $editarLuminoso = $propiedad['luminoso'];
-                    $editarPiletaPropia = $propiedad['pileta_propia'];
-                    $editarPiletaCompartida = $propiedad['pileta_compartida'];
-                    $editarRiegoAutomatico = $propiedad['riego_automatico'];
-                    $editarAmueblado = $propiedad['amueblado'];
-                    $editarPuertaBlindada = $propiedad['puerta_blindada'];
-                    $editarPortonAutomatico = $propiedad['porton_automatico'];
-                    $editarSolarium = $propiedad['solarium'];
-                    $editarPergola = $propiedad['pergola'];
-                    $editarTv = $propiedad['tv'];
-                    $editarVideoPortero = $propiedad['videoportero'];
-                    $editarSatelite = $propiedad['satelite'];
-                    $editarVestuario = $propiedad['vestuario'];
-                    $editarBuardilla = $propiedad['buardilla'];
-                    $editarHabitacionServicio = $propiedad['habitacion_servicio'];
-                    $editarArboles = $propiedad['arboles'];
-                    $editarAutobuses = $propiedad['autobuses'];
-                    $editarCentroComercial = $propiedad['centro_comercial'];
-                    $editarColegios = $propiedad['colegios'];
-                    $editarCosta = $propiedad['costa'];
-                    $editarGolf = $propiedad['golf'];
-                    $editarHospitales = $propiedad['hospitales'];
-                    $editarSubte = $propiedad['subte'];
-                    $editarMontania = $propiedad['montania'];
-                    $editarUrbanizacion = $propiedad['urbanizacion'];
-                    $editarRural = $propiedad['rural'];
-                    $editarVistaMar = $propiedad['vista_al_mar'];
-                    $editarTren = $propiedad['tren'];
-                    $editarZonasInfantiles = $propiedad['zonas_infantiles'];
-                    $editarResidencial = $propiedad['residencial'];
-                    $editarBarrioCerrado = $propiedad['barrio_cerrado'];
-                    $editarDescripcionCorta = $propiedad['descripcion_corta'];
-                    $editarDescripcionCompleta = $propiedad['descripcion_completa'];
-                    $editarFotoPortada = $propiedad['foto_portada'];
-                    $editarGaleriaFotos = $propiedad['galeria_fotos'];
-                    $editarDescripcionMediana = $propiedad['descripcion_mediana'];
-                    $editarCaptadoPor = $propiedad['captado_por'];
-                    $editarContactadoPor = $propiedad['contactado_por'];
-                    $editarOficina = $propiedad['oficina_id'];
-                    $editarLlavero = $propiedad['llavero'];
-                    $editarPrecioPropietario = $propiedad['precio_propietario'];
-                    $editarPorcentajeComision = $propiedad['porcentaje_comision'];
-                    $editarComisionFija = $propiedad['comision_fija'];
-                    $editarPrecioAnterior = $propiedad['precio_anterior'];
-                    $editarTasacion = $propiedad['tasacion'];
-                    $editarParcela = $propiedad['parcela'];
-                    $editarLote = $propiedad['lote'];
-                    $editarTomo = $propiedad['tomo'];
-                    $editarLibro = $propiedad['libro'];
-                    $editarFolio = $propiedad['folio'];
-                    $editarRegistro = $propiedad['registro'];
-                    $editarRefCatastral = $propiedad['ref_catastral'];
-                    $editarValorCatastral = $propiedad['valor_catastral'];                  
+                        $editarRef = $propiedad['referencia_interna'];
+                        $editarOperacion = $propiedad['operacion_id'];
+                        $editarPropiedad = $propiedad['tipo_propiedad_id'];
+                        $editarCodPostal = $propiedad['cod_postal'];
+                        $editarTipoCalle = $propiedad['tipo_calle_id'];
+                        $editarCalle = $propiedad['calle'];
+                        $editarAltura = $propiedad['altura'];
+                        $editarCiudad = $propiedad['ciudad_id'];
+                        $editarZona = $propiedad['zona_id'];
+                        $editarPiso = $propiedad['piso'];
+                        $editarPuerta = $propiedad['puerta'];
+                        $editarBloque = $propiedad['bloque'];
+                        $editarOcupada = $propiedad['ocupada'];
+                        $editarCoordenadas = $propiedad['coordenadas'];
+                        $editarNroToilettes = $propiedad['nro_toilettes'];
+                        $editarNroPlantas = $propiedad['nro_plantas'];
+                        $editarMetrosUtiles = $propiedad['metros_utiles'];
+                        $editarSuperficieConstruida = $propiedad['supeficie_construida'];
+                        $editarNroBanios = $propiedad['nro_banios'];
+                        $editarAnioConstruccion = $propiedad['anio_contruccion'];
+                        $editarMetrosCocina = $propiedad['mts_cocina'];
+                        $editarCantHabitaciones = $propiedad['cant_habitaciones'];
+                        $editarExpensas = $propiedad['expensas'];
+                        $editarCantAmbientes = $propiedad['cant_ambientes'];
+                        $editarMetrosComedor = $propiedad['mts_comendor'];
+                        $editarMetrosLiving = $propiedad['mts_living'];
+                        $editarMetrosLote = $propiedad['mts_lote'];
+                        $editarPlantaBaja = $propiedad['planta_baja'];
+                        $editarEstadoGeneral = $propiedad['estado_general_id'];
+                        $editarEstadoCarpinteriaExt = $propiedad['estado_carpinteria_externa_id'];
+                        $editarTipoSuelo = $propiedad['tipo_suelo_id'];
+                        $editarOrientacion = $propiedad['orientacion'];
+                        $editarAguaCaliente = $propiedad['agua_caliente_id'];
+                        $editarEstadoCarpinteriaInt = $propiedad['estado_carpinteria_interna_id'];
+                        $editarTipoCalefaccion = $propiedad['tipo_calefaccion_id'];
+                        $editarTipoCocina = $propiedad['tipo_cocina_id'];
+                        $editarAlarma = $propiedad['alarma'];
+                        $editarAgua = $propiedad['agua'];
+                        $editarAireAcondicionadoCentral = $propiedad['aire_acondicionado_central'];
+                        $editarAireAcondicionado = $propiedad['aire_acondicionado'];
+                        $editarBar = $propiedad['bar'];
+                        $editarAlarmaIncendio = $propiedad['alarma_incendio'];
+                        $editarAlarmaRobo = $propiedad['alarma_robo'];
+                        $editarAltillo = $propiedad['altillo'];
+                        $editarCajaFuerte = $propiedad['caja_fuerte'];
+                        $editarParrilla = $propiedad['parrilla'];
+                        $editarAscensor = $propiedad['asensor'];
+                        $editarBalcon = $propiedad['balcon'];
+                        $editarChimenea = $propiedad['chimenea'];
+                        $editarElectrodomesticos = $propiedad['electrodomesticos'];
+                        $editarCalefaccionFrioCalor = $propiedad['calefaccion_frio_calor'];
+                        $editarCentrico = $propiedad['centrico'];
+                        $editarGaraje = $propiedad['garaje'];
+                        $editarGarajeDoble = $propiedad['garaje_doble'];
+                        $editarGasNatural = $propiedad['gas_natural'];
+                        $editargaleria = $propiedad['galeria'];
+                        $editarHabJuegos = $propiedad['hab_juegos'];
+                        $editarhidromasaje = $propiedad['hidromasaje'];
+                        $editarLineaTelefonica = $propiedad['linea_telefonica'];
+                        $editarGimnasio = $propiedad['gimnacio'];
+                        $editarJardin = $propiedad['jardin'];
+                        $editarLavadero = $propiedad['lavadero'];
+                        $editarPatio = $propiedad['patio'];
+                        $editarJacuzzi = $propiedad['jacuzzi'];
+                        $editarLuz = $propiedad['luz'];
+                        $editarSauna = $propiedad['sauna'];
+                        $editarPreinstAacc = $propiedad['preinst_aacc'];
+                        $editarLuminoso = $propiedad['luminoso'];
+                        $editarPiletaPropia = $propiedad['pileta_propia'];
+                        $editarPiletaCompartida = $propiedad['pileta_compartida'];
+                        $editarRiegoAutomatico = $propiedad['riego_automatico'];
+                        $editarAmueblado = $propiedad['amueblado'];
+                        $editarPuertaBlindada = $propiedad['puerta_blindada'];
+                        $editarPortonAutomatico = $propiedad['porton_automatico'];
+                        $editarSolarium = $propiedad['solarium'];
+                        $editarPergola = $propiedad['pergola'];
+                        $editarTv = $propiedad['tv'];
+                        $editarVideoPortero = $propiedad['videoportero'];
+                        $editarSatelite = $propiedad['satelite'];
+                        $editarVestuario = $propiedad['vestuario'];
+                        $editarBuardilla = $propiedad['buardilla'];
+                        $editarHabitacionServicio = $propiedad['habitacion_servicio'];
+                        $editarArboles = $propiedad['arboles'];
+                        $editarAutobuses = $propiedad['autobuses'];
+                        $editarCentroComercial = $propiedad['centro_comercial'];
+                        $editarColegios = $propiedad['colegios'];
+                        $editarCosta = $propiedad['costa'];
+                        $editarGolf = $propiedad['golf'];
+                        $editarHospitales = $propiedad['hospitales'];
+                        $editarSubte = $propiedad['subte'];
+                        $editarMontania = $propiedad['montania'];
+                        $editarUrbanizacion = $propiedad['urbanizacion'];
+                        $editarRural = $propiedad['rural'];
+                        $editarVistaMar = $propiedad['vista_al_mar'];
+                        $editarTren = $propiedad['tren'];
+                        $editarZonasInfantiles = $propiedad['zonas_infantiles'];
+                        $editarResidencial = $propiedad['residencial'];
+                        $editarBarrioCerrado = $propiedad['barrio_cerrado'];
+                        $editarDescripcionCorta = $propiedad['descripcion_corta'];
+                        $editarDescripcionCompleta = $propiedad['descripcion_completa'];
+                        $editarFotoPortada = $propiedad['foto_portada'];
+                        $editarGaleriaFotos = $propiedad['galeria_fotos'];
+                        $editarDescripcionMediana = $propiedad['descripcion_mediana'];
+                        $editarCaptadoPor = $propiedad['captado_por'];
+                        $editarContactadoPor = $propiedad['contactado_por'];
+                        $editarOficina = $propiedad['oficina_id'];
+                        $editarLlavero = $propiedad['llavero'];
+                        $editarPrecioPropietario = $propiedad['precio_propietario'];
+                        $editarPorcentajeComision = $propiedad['porcentaje_comision'];
+                        $editarComisionFija = $propiedad['comision_fija'];
+                        $editarPrecioAnterior = $propiedad['precio_anterior'];
+                        $editarTasacion = $propiedad['tasacion'];
+                        $editarParcela = $propiedad['parcela'];
+                        $editarLote = $propiedad['lote'];
+                        $editarTomo = $propiedad['tomo'];
+                        $editarLibro = $propiedad['libro'];
+                        $editarFolio = $propiedad['folio'];
+                        $editarRegistro = $propiedad['registro'];
+                        $editarRefCatastral = $propiedad['ref_catastral'];
+                        $editarValorCatastral = $propiedad['valor_catastral'];                  
+                        $editarContactoId = $propiedad['propietarios'];                  
                     }
+
+                    $sentencia2 = $connect->prepare("SELECT * FROM `wp_contactos` WHERE id= $editarContactoId") or die('query failed');
+                    $sentencia2->execute();
+                    $list_contactos = $sentencia2->fetchAll();                         
+                    foreach($list_contactos as $contacto){
+                        $editarContactoNombre = trim($contacto['nombre']).' '.trim($contacto['apellido']);
+                    }
+
                 ?>            
                     <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/editarpropiedad.php?ref=<?php echo $editarRef;?>" enctype="multipart/form-data">
                         <h2 class="main__h2">Caracteristicas</h2>
@@ -991,31 +1000,11 @@
                         <h2 class="main__h2">Propietarios</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
-                                <select class="form__select" name="captadopor" id="">                               
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_contactos`") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                            $propiedadNombre = $situacion['nombre'];
-                                            $propiedadApellido = $situacion['apellido'];?>
-                                        <option value="<?php echo $editarCaptadoPor;?>"><?php echo $propiedadNombre.' '.$propiedadApellido;?></option>
-                                    <?php };?>                              
-                                    <option value></option>
-                                        <?php                          
-                                            $sentencia = $connect->prepare("SELECT * FROM `usuarios`  WHERE habilitado=1") or die('query failed');
-                                            $sentencia->execute();
-                                            $agentes = $sentencia->fetchAll();                         
-                                            foreach($agentes as $agente){
-                                            $idAgente = $agente['user_id'];
-                                            $agenteNombre = $agente['nombre'];
-                                            $agenteApellido = $agente['apellido'];
-                                            if($editarCaptadoPor != $idAgente){?>
-                                        <option value="<?php echo $idAgente?>"><?php echo $agenteNombre.' '.$agenteApellido ?></option>
-                                    <?php };};?>
-                                </select>                               
+                            <input type="text" class="form__text content__text" name="buscadorcontactos" id="buscadorcontactos" value="<?php echo $editarContactoNombre?>"> 
+                            <input type="hidden" class="form__text content__text" name="contacto_id" id="contacto_id" value="<?php echo $editarContactoId?>"> 
+                            <ul class="content_ul" id="listaContactos"></ul>                
                             </div>                          
-                        </div>                
+                        </div>                 
                                           
                         <div class="main__decoration"></div>
                         <input type="submit" class="form__button form__bloque__button" value="Agregar propiedad">                                                                 
