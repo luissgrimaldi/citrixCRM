@@ -130,6 +130,25 @@
     font-size: 1em;
 }
 
+.content_ul{
+    background-color: white;
+    position: absolute;
+    width: 15em;
+    border-radius: 1em;
+    text-align: center;
+    margin-top: 2em;
+    box-shadow: 3px 11px 5px 0px rgba(0,0,0,0.15);
+    -webkit-box-shadow: 3px 11px 5px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 3px 11px 5px 0px rgba(0,0,0,0.15);
+}
+
+.content_ul li:hover{
+    cursor: pointer;
+    background-color: var(--color-secundario-main);
+    font-weight: bold;
+    color: white;
+}
+
 .form__text--propiedad{
     width: 32em;
     padding: 0.313em 1em;

@@ -45,20 +45,27 @@
                         <h2 class="main__h2">Datos de contacto</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
+                                <input type="text" placeholder="Ingrese nombre de contacto" class="form__text content__text" name="buscadorcontactos2" id="buscadorcontactos2"> 
+                                <input type="hidden" class="form__text content__text" name="contacto_id" id="contacto_id"> 
+                                <ul class="content_ul" id="listaContactos"></ul>                
+                            </div>  
+                        </div>
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Nombre</label>
-                                <input type="text" class="form__text content__text" name="nombre" id="" value="<?php echo $editarNombre;?>">                                  
+                                <input type="text" class="form__text content__text" name="nombre" id="inputNombre" value="<?php echo $editarNombre;?>" readonly="readonly">                                  
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Apellido</label>
-                                <input type="text" class="form__text content__text" name="apellido" id="" value="<?php echo $editarApellido;?>">                                  
+                                <input type="text" class="form__text content__text" name="apellido" id="inputApellido" value="<?php echo $editarApellido;?>" readonly="readonly">                                  
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Email</label>
-                                <input type="email" class="form__text content__text" name="email" id="" value="<?php echo $editarEmail;?>">                                  
+                                <input type="email" class="form__text content__text" name="email" id="inputEmail" value="<?php echo $editarEmail;?>" readonly="readonly">                                  
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Teléfono</label>
-                                <input type="text" class="form__text content__text" name="telefono" id="" value="<?php echo $editarTelefono;?>">                                  
+                                <input type="text" class="form__text content__text" name="telefono" id="inputTelefono" value="<?php echo $editarTelefono;?>" readonly="readonly">                                  
                             </div>
                         </div>                   
                         <div class="form__bloque">

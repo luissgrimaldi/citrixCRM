@@ -55,7 +55,7 @@ function getCodigos() {
     }
 }
 
-document.getElementById("buscadorcontactos").addEventListener("keyup", getContactos)
+if (document.getElementById("buscadorcontactos") !== null) { document.getElementById("buscadorcontactos").addEventListener("keyup", getContactos)};
 
 function getContactos() {
 
@@ -64,13 +64,41 @@ function getContactos() {
 
     if (buscador.length > 0) {
 
-        let url2 = "backend/buscadorcontactos.php"
-        let formData2 = new FormData()
-        formData2.append("buscadorcontactos", buscador)
+        let url = "backend/buscadorcontactos.php"
+        let formData = new FormData()
+        formData.append("buscadorcontactos", buscador)
 
-        fetch(url2, {
+        fetch(url, {
             method: "POST",
-            body: formData2,
+            body: formData,
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response => response.json())
+            .then(data => {
+                lista.style.display = 'block'
+                lista.innerHTML = data
+            })
+            .catch(err => console.log(err))
+    } else {
+        lista.style.display = 'none'
+    }
+}
+
+if (document.getElementById("buscadorcontactos2") !== null) { document.getElementById("buscadorcontactos2").addEventListener("keyup", getContactos2)};
+
+function getContactos2() {
+
+    let buscador = document.getElementById("buscadorcontactos2").value
+    let lista = document.getElementById("listaContactos")
+
+    if (buscador.length > 0) {
+
+        let url = "backend/buscadorcontactos2.php"
+        let formData = new FormData()
+        formData.append("buscadorcontactos2", buscador)
+
+        fetch(url, {
+            method: "POST",
+            body: formData,
             mode: "cors" //Default cors, no-cors, same-origin
         }).then(response => response.json())
             .then(data => {
@@ -91,6 +119,27 @@ function seleccionarContacto(id,nombre) {
 
     buscador.value = nombre;
     inputhide.value = id;
+
+    lista.style.display = 'none'
+    
+}
+
+function seleccionarContacto2(id,nombre,apellido,email,telefono) {
+
+    let buscador = document.getElementById("buscadorcontactos2")
+    let inputhide = document.getElementById("contacto_id")
+    let inputNombre = document.getElementById("inputNombre")
+    let inputApellido = document.getElementById("inputApellido")
+    let inputEmail = document.getElementById("inputEmail")
+    let inputTelefono = document.getElementById("inputTelefono")
+    let lista = document.getElementById("listaContactos")
+
+    buscador.value = '';
+    inputhide.value = id;
+    inputNombre.value = nombre;
+    inputApellido.value = apellido;
+    inputEmail.value = email;
+    inputTelefono.value = telefono;
 
     lista.style.display = 'none'
     
