@@ -624,7 +624,7 @@
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Descripcion mediana</label>
-                            <input type="text" class="form__text content__text" name="descripcionmediana" id="">                                  
+                            <textarea class="form__textarea content__textarea" name="descripcionmediana" id=""></textarea>                                   
                         </div>
                         <h2 class="main__h2">Captación</h2>
                         <div class="form__bloque">
@@ -744,9 +744,14 @@
                         <h2 class="main__h2">Propietarios</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
-                            <input type="text" class="form__text content__text" name="buscadorcontactos" id="buscadorcontactos" autocomplete="off"> 
-                            <input type="hidden" class="form__text content__text" name="contacto_id" id="contacto_id"> 
+                            <input type="text" class="form__text content__text" placeholder="Ingrese nombre del propietario" name="buscadorcontactos" id="buscadorcontactos" autocomplete="off"> 
                             <ul class="content_ul" id="listaContactos"></ul>                
+                            </div>
+                        </div>                               
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                            <input type="text" class="form__text content__text" name="inputContacto" id="inputContacto" readonly="readonly"> 
+                            <input type="hidden" class="form__text content__text" name="contacto_id" id="contacto_id">               
                             </div>                          
                         </div>                               
                                           

@@ -139,6 +139,7 @@ a{
     background-color: var(--color-secundario-main);
     font-weight: bold;
     color: white;
+    border-radius: 1em;
 }
 
 .header__ul{

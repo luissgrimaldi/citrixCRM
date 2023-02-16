@@ -156,6 +156,16 @@
     padding: 0.313em 1em;
 }
 
+.form__textarea{
+    width: 32em;
+    padding: 0.313em 1em;
+    background-color: var(--color-principal-main);
+    color: white;
+    border-radius: 1em;
+    overflow-wrap: break-word;
+    resize: vertical;
+}
+
 .form__checkbox{
     width: 1.3em;
     height: 1.3em;

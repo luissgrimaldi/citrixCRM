@@ -86,10 +86,12 @@ function getContactos() {
 function seleccionarContacto(id,nombre) {
 
     let buscador = document.getElementById("buscadorcontactos")
+    let inputContacto = document.getElementById("inputContacto")
     let inputHide = document.getElementById("contacto_id")
     let lista = document.getElementById("listaContactos")
 
-    buscador.value = nombre;
+    buscador.value = '';
+    inputContacto.value = nombre;
     inputHide.value = id;
 
     lista.style.display = 'none'

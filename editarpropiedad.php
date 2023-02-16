@@ -854,7 +854,7 @@
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Descripcion mediana</label>
-                            <textarea name="descripcionmediana"><?php echo $editarDescripcionMediana;?></textarea>                                 
+                            <textarea class="form__textarea content__textarea" name="descripcionmediana" id=""><?php echo $editarDescripcionMediana;?></textarea>                                   
                         </div>
                         <h2 class="main__h2">Captación</h2>
                         <div class="form__bloque">
@@ -1007,7 +1007,7 @@
                         </div>                 
                                           
                         <div class="main__decoration"></div>
-                        <input type="submit" class="form__button form__bloque__button" value="Agregar propiedad">                                                                 
+                        <input type="submit" class="form__button form__bloque__button" value="Guardar cambios">                                                                 
                     </form>
                 </div>
                 </div>                
