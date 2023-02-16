@@ -68,7 +68,7 @@
         <main class="main" id="main">
             <div class="main__container">
                 <div class="main__container__top">
-                    <div class="main__title"><i class="fa-solid fa-user main__h1--emoji"></i><h1 class="main__h1">Ciudades</h1></div>
+                    <div class="main__title"><i class="fa-solid fa-city main__h1--emoji"></i><h1 class="main__h1">Ciudades</h1></div>
                     <div class="main__buttons">
                         <a class="main__buttons__button <?php if($_GET['page']=='usuario'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=usuario">Usuarios</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='ciudad'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=ciudad">Ciudades</a>
@@ -78,7 +78,7 @@
                 <div class="main__decoration"></div>
                 <div class="menu__main__buttons">
                     <div class="main__buttons">
-                        <a class="main__buttons__button" href="adminagregar.php?page=usuario">Agregar ciudad</a>
+                        <a class="main__buttons__button" href="adminagregar.php?page=ciudad">Agregar ciudad</a>
                     </div>
                 </div>
                     <div class="main__perfil">
@@ -96,6 +96,65 @@
                                 <li class="propiedades__li">
                                     <div class="propiedades__nombre-detalles-precio">
                                         <span class="propiedades__nombre"><?php echo $nombre;?></span>
+                                        <span class="ciudad__detalles"><?php if($habilitado == 1){echo ' Habilitada';}else{echo 'Deshabilitada';}?></span>
+                                    </div>            
+                                    <div class="propiedades__edit-hide">
+                                        <a href=""><i class="propiedades__accion fa-solid fa-pencil"></i></a>
+                                        <a href=""><i class="propiedades__accion fa-solid fa-trash"></i></a>
+                                    </div>
+                                </li> 
+                                <?php };?>
+                            </ul>     
+                    </div>
+                </div>
+            </div>  
+        </main>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* End Main */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<?php };?>
+<?php if ($_GET['page']  == 'zona'){?>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* Main */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <main class="main" id="main">
+            <div class="main__container">
+                <div class="main__container__top">
+                    <div class="main__title"><i class="fa-solid fa-road main__h1--emoji"></i><h1 class="main__h1">Zonas</h1></div>
+                    <div class="main__buttons">
+                        <a class="main__buttons__button <?php if($_GET['page']=='usuario'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=usuario">Usuarios</a>
+                        <a class="main__buttons__button <?php if($_GET['page']=='ciudad'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=ciudad">Ciudades</a>
+                        <a class="main__buttons__button <?php if($_GET['page']=='zona'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=zona">Zonas</a>
+                    </div>
+                </div>
+                <div class="main__decoration"></div>
+                <div class="menu__main__buttons">
+                    <div class="main__buttons">
+                        <a class="main__buttons__button" href="adminagregar.php?page=zona">Agregar zona</a>
+                    </div>
+                </div>
+                    <div class="main__perfil">
+                        <div class="main__perfil__container">                         
+                            <ul class="propiedades__ul">
+                            <?php           
+                                $sentencia = $connect->prepare("SELECT z.id, z.nombre, z.habilitada, z.ciudad_id,
+                                c.nombre, c.id,
+                                z.id as z_id, z.nombre as z_nombre, z.habilitada as z_habilitada, z.ciudad_id as z_ciudad_id,
+                                c.nombre as c_nombre, c.id as c_id                      
+                                from wp_zonas z
+                                LEFT JOIN wp_ciudades c ON z.ciudad_id = c.id
+                                ORDER BY z.nombre ASC") or die('query failed');
+                                $sentencia->execute();
+                                $list_zonas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+                                foreach($list_zonas as $zona){
+                                    $id = $zona['z_id'];                                                             
+                                    $nombre = $zona['z_nombre'];                                                             
+                                    $habilitado = $zona['z_habilitada'];                                                                                                                        
+                                    $ciudad = $zona['c_nombre'];                                                                                                                        
+                                ?> 
+                                <li class="propiedades__li">
+                                    <div class="propiedades__nombre-detalles-precio">
+                                        <span class="propiedades__nombre"><?php if($ciudad > 0){echo $nombre.' ('.$ciudad.')';}else{echo $nombre;};?></span>
                                         <span class="ciudad__detalles"><?php if($habilitado == 1){echo ' Habilitada';}else{echo 'Deshabilitada';}?></span>
                                     </div>            
                                     <div class="propiedades__edit-hide">
