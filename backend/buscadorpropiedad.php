@@ -10,7 +10,7 @@ $html = "";
 
 while($row = $sentencia->fetch(PDO::FETCH_ASSOC)){
 
-    $html .= '<li onclick="seleccionarContacto2('.$row["id"]. ", '".trim($row["nombre"])."'". ", '".trim($row["apellido"])."'". ", '".trim($row["email"])."'". ", '".trim($row["telefono"])."'".')">'.trim($row["nombre"])." ".trim($row["apellido"]).'</li>';
+    $html .= '<li onclick="seleccionarPropiedad('.$row["id"]. ", '".trim($row["referencia_interna"])."'". ", '".trim($row["descripcion_corta"])."'". ", '".trim($row["calle"])."'". ", '".trim($row["altura"])."'".')">'.$row["calle"]." ".$row["referencia_interna"].'</li>';
 
 };      
  

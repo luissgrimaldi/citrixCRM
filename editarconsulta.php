@@ -41,11 +41,11 @@
                     $editarPileta = $propiedad['pileta'];
                     }
                 ?>
-                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/agregarconsulta.php">
+                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/editarconsulta.php">
                         <h2 class="main__h2">Datos de contacto</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
-                                <input type="text" placeholder="Ingrese nombre de contacto" class="form__text content__text" name="buscadorcontactos2" id="buscadorcontactos2"> 
+                                <input type="text" placeholder="Ingrese nombre de contacto" class="form__text content__text" name="buscadorcontactos2" id="buscadorcontactos2" autocomplete="off"> 
                                 <input type="hidden" class="form__text content__text" name="contacto_id" id="contacto_id"> 
                                 <ul class="content_ul" id="listaContactos"></ul>                
                             </div>  
@@ -67,7 +67,13 @@
                                 <label  class="form__label content__label" for="">Teléfono</label>
                                 <input type="text" class="form__text content__text" name="telefono" id="inputTelefono" value="<?php echo $editarTelefono;?>" readonly="readonly">                                  
                             </div>
-                        </div>                   
+                        </div>
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                                <input type="text" class="form__text content__text form__text--propiedad" placeholder="Ingrese nombre de propiedad" name="buscadorpropiedad" id="buscadorpropiedad" autocomplete="off">                                                                                      
+                                <ul class="content_ul" id="listaPropiedades"></ul>
+                            </div>
+                        </div>               
                         <div class="form__bloque">
                                 <div class="form__bloque__content content">
                                     <label  class="form__label content__label" for="">Propiedad</label>
@@ -90,7 +96,8 @@
                                         };
                                     };
                                     ?>
-                                    <input type="text" class="form__text content__text form__text--propiedad" name="propiedad" id="" value="<?php if($editarPropiedad != '0' or $editarPropiedad != NULL){ echo 'REF '.$propiedadRef.': '.$propiedadTitulo.' ('.$propiedadNombre.' '.$propiedadAltura.')';};?>">                                                    
+                                    <input type="text" class="form__text content__text form__text--propiedad" name="propiedadnombre" id="inputPropiedadNombre" value="<?php if($editarPropiedad != '0' or $editarPropiedad != NULL){ echo 'REF '.$propiedadRef.': '.$propiedadTitulo.' ('.$propiedadNombre.' '.$propiedadAltura.')';};?>">  
+                                    <input type="hidden" class="form__text content__text form__text--propiedad" name="propiedad" id="inputPropiedad" value="<?php echo $editarPropiedad;?>">                                              
                             </div>
                         </div>
                         <div class="form__bloque">

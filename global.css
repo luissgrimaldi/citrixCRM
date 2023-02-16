@@ -134,6 +134,13 @@ a{
     -moz-box-shadow: 3px 11px 5px 0px rgba(0,0,0,0.15);
 }
 
+.header__form__ul li:hover{
+    cursor: pointer;
+    background-color: var(--color-secundario-main);
+    font-weight: bold;
+    color: white;
+}
+
 .header__ul{
     display: flex;
     gap: 2.5em;

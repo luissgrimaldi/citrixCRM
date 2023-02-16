@@ -194,7 +194,7 @@
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Metros lote</label>
-                                <input type="text" class="form__text content__text" name="lote" id="">                                  
+                                <input type="text" class="form__text content__text" name="metros_lote" id="">                                  
                             </div>   
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">¿Es en planta baja?</label>
@@ -744,7 +744,7 @@
                         <h2 class="main__h2">Propietarios</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
-                            <input type="text" class="form__text content__text" name="buscadorcontactos" id="buscadorcontactos"> 
+                            <input type="text" class="form__text content__text" name="buscadorcontactos" id="buscadorcontactos" autocomplete="off"> 
                             <input type="hidden" class="form__text content__text" name="contacto_id" id="contacto_id"> 
                             <ul class="content_ul" id="listaContactos"></ul>                
                             </div>                          

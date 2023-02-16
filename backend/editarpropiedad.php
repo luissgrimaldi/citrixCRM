@@ -28,7 +28,7 @@ if(!isset($_POST['expensas'])){$_POST['expensas']= ' ';};
 if(!isset($_POST['ambientes'])){$_POST['ambientes']= ' ';};
 if(!isset($_POST['comedor'])){$_POST['comedor']= ' ';};
 if(!isset($_POST['living'])){$_POST['living']= ' ';};
-if(!isset($_POST['lote'])){$_POST['lote']= ' ';};
+if(!isset($_POST['metros_lote'])){$_POST['metros_lote']= ' ';};
 if(!isset($_POST['plantabaja'])){$_POST['plantabaja']= ' ';};
 if(!isset($_POST['estadogeneral'])){$_POST['estadogeneral']= ' ';};
 if(!isset($_POST['carpinteriaext'])){$_POST['carpinteriaext']= ' ';};
@@ -276,7 +276,7 @@ if($_POST['contacto_id'] == ''){$_POST['contacto_id']= 0;};
     $NEWambientes = $_POST['ambientes'];
     $NEWcomedor = $_POST['comedor'];
     $NEWliving = $_POST['living'];
-    $NEWlote = $_POST['lote'];
+    $NEWmetroslote = $_POST['metros_lote'];
     $NEWplantaBaja = $_POST['plantabaja'];
     $NEWestadoGeneral = $_POST['estadogeneral'];
     $NEWcarpinteriaExt = $_POST['carpinteriaext'];
@@ -455,8 +455,8 @@ if($NEWoperacion != $editarOperacion OR $NEWtipo != $editarPropiedad OR $NEWcodi
     if($NEWliving != $editarMetrosLiving){
         $update .= ", mts_living = '".$NEWliving."'";
     }
-    if($NEWlote != $editarMetrosLote){
-        $update .= ", mts_lote = '".$NEWlote."'";
+    if($NEWmetroslote != $editarMetrosLote){
+        $update .= ", mts_lote = '".$NEWmetroslote."'";
     }
     if($NEWplantaBaja != $editarPlantaBaja){
         $update .= ", planta_baja = '".$NEWplantaBaja."'";
