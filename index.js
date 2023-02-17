@@ -189,3 +189,44 @@ function seleccionarPropiedad(id,ref,titulo,direccion,altura) {
     lista.style.display = 'none'
     
 }
+
+function delUser(id) {
+        let url = 'backend/admineliminar.php?page=usuario&id='+id;
+        let lista = document.getElementById('li'+id);
+
+        fetch(url, {
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response =>{       
+                lista.style.display = 'none';
+        })
+            .catch(err => console.log(err))
+
+}
+
+function delCiudad(id) {
+        let url = 'backend/admineliminar.php?page=ciudad&id='+id;
+        let lista = document.getElementById('li'+id);
+
+        fetch(url, {
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response =>{       
+                lista.style.display = 'none';
+        })
+            .catch(err => console.log(err))
+
+}
+
+function delZona(id) {
+
+        let url = 'backend/admineliminar.php?page=zona&id='+id;
+        let lista = document.getElementById('li'+id);
+
+        fetch(url, {
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response =>{       
+                lista.style.display = 'none';
+        })
+            .catch(err => console.log(err))
+
+}
+

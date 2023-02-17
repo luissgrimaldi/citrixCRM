@@ -43,14 +43,14 @@
                                     $rol = $usuario['rol_role_id'];                                                             
                                     $rolNombre = ucfirst($usuario['rol_name']);                                                             
                                 ?> 
-                                <li class="propiedades__li">
+                                <li class="propiedades__li" id="li<?php echo $id?>">
                                     <div class="propiedades__nombre-detalles-precio">
                                         <span class="propiedades__nombre"><?php echo $nombre.' '.$apellido.' ('.$rolNombre.')';?></span>
                                         <span class="propiedades__detalles"><?php echo '('.$email.' -'.$celular. ') '?></span>
                                     </div>            
                                     <div class="propiedades__edit-hide">
                                         <a href="admineditar.php?page=usuario&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
-                                        <a onclick="return confirm('Seguro que quieres eliminar este usuario?');" href="backend/admineliminar.php?page=usuario&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-trash"></i></a>
+                                        <i class="propiedades__accion fa-solid fa-trash" onclick="if(confirm('¿Seguro que quieres eliminar este usuario?')) delUser(<?php echo $id?>)"></i>
                                     </div>
                                 </li> 
                                 <?php };?>
@@ -95,14 +95,14 @@
                                     $nombre = $ciudad['nombre'];                                                             
                                     $habilitado = $ciudad['habilitado'];                                                                                                                        
                                 ?> 
-                                <li class="propiedades__li">
+                                <li class="propiedades__li" id="li<?php echo $id?>">
                                     <div class="propiedades__nombre-detalles-precio">
                                         <span class="propiedades__nombre"><?php echo $nombre;?></span>
                                         <span class="ciudad__detalles"><?php if($habilitado == 1){echo ' Habilitada';}else{echo 'Deshabilitada';}?></span>
                                     </div>            
                                     <div class="propiedades__edit-hide">
                                         <a href="admineditar.php?page=ciudad&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
-                                        <a onclick="return confirm('Seguro que quieres eliminar esta ciudad?');" href="backend/admineliminar.php?page=ciudad&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-trash"></i></a>
+                                        <i class="propiedades__accion fa-solid fa-trash" onclick="if(confirm('¿Seguro que quieres eliminar esta ciudad?')) delCiudad(<?php echo $id?>)"></i>
                                     </div>
                                 </li> 
                                 <?php };?>
@@ -154,14 +154,14 @@
                                     $habilitado = $zona['z_habilitada'];                                                                                                                        
                                     $ciudad = $zona['c_nombre'];                                                                                                                        
                                 ?> 
-                                <li class="propiedades__li">
+                                <li class="propiedades__li" id="li<?php echo $id?>">
                                     <div class="propiedades__nombre-detalles-precio">
                                         <span class="propiedades__nombre"><?php if($ciudad > 0){echo $nombre.' ('.$ciudad.')';}else{echo $nombre;};?></span>
                                         <span class="ciudad__detalles"><?php if($habilitado == 1){echo ' Habilitada';}else{echo 'Deshabilitada';}?></span>
                                     </div>            
                                     <div class="propiedades__edit-hide">
                                         <a href="admineditar.php?page=zona&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
-                                        <a onclick="return confirm('Seguro que quieres eliminar esta zona?');" href="backend/admineliminar.php?page=zona&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-trash"></i></a>
+                                        <i class="propiedades__accion fa-solid fa-trash" onclick="if(confirm('Seguro que quieres eliminar esta zona?')) delZona(<?php echo $id?>)"></i>
                                     </div>
                                 </li> 
                                 <?php };?>
