@@ -230,3 +230,31 @@ function delZona(id) {
 
 }
 
+function delConsulta(id) {
+
+        let url = 'backend/eliminarconsulta.php?id='+id;
+        let lista = document.getElementById('li'+id);
+
+        fetch(url, {
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response =>{       
+                lista.style.display = 'none';
+        })
+            .catch(err => console.log(err))
+
+}
+
+function delPropiedad(id) {
+
+        let url = 'backend/eliminarpropiedad.php?id='+id;
+        let lista = document.getElementById('li'+id);
+
+        fetch(url, {
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response =>{       
+                lista.style.display = 'none';
+        })
+            .catch(err => console.log(err))
+
+}
+

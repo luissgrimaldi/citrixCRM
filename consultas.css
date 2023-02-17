@@ -219,6 +219,7 @@
 
 .consultas__accion:hover{
     transform: scale(1.3);
+    cursor: pointer;
 }
 
 .pagination{

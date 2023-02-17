@@ -299,6 +299,7 @@
                         $sentencia->execute();
                         $list_propiedades = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                         foreach($list_propiedades as $propiedad){
+                            $idPropiedad = $propiedad['prop_id'];
                             $imgPropiedad = strval($propiedad['prop_foto_portada']);
                             $imgPropiedad = str_replace('"', '', $imgPropiedad);;
                             $imgPropiedad = str_replace("[", "", $imgPropiedad);
@@ -313,7 +314,7 @@
                             $operacionPropiedad = $propiedad['op_nombre'];
                             $zonaPropiedad = $propiedad['zona_nombre'];                                                                   
                         ?>                           
-                        <li class="propiedades__li">
+                        <li class="propiedades__li" id="li<?php echo $idPropiedad;?>">
                             <img class="propiedades__img" src="<?php echo 'https://projectandbrokers.com/wp-content/uploads/thumbnails/mediano__'.$imgPropiedad?>" alt="">
                             <div class="propiedades__nombre-detalles-precio">
                                 <span class="propiedades__nombre"><?php echo $tipoPropiedad.' en '.$operacionPropiedad.' '.$zonaPropiedad. ' '.$refPropiedad;?></span>
@@ -324,6 +325,7 @@
                             <div class="propiedades__edit-hide">
                                 <a href="editarpropiedad.php?ref=<?php echo $refPropiedad;?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
                                 <a href=""><i class="propiedades__accion fa-solid fa-eye-slash"></i></a>
+                                <i class="propiedades__accion fa-solid fa-trash" onclick="if(confirm('¿Seguro que quieres eliminar esta propiedad?')) delPropiedad(<?php echo $idPropiedad?>)"></i>
                             </div>
                         </li>
                     <?php };?>

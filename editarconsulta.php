@@ -15,6 +15,7 @@
                     $sentencia->execute();
                     $list_propiedadesOperacion = $sentencia->fetchAll();                         
                     foreach($list_propiedadesOperacion as $propiedad){
+                    $editarId = $propiedad['id'];
                     $editarNombre = $propiedad['nombre'];
                     $editarApellido = $propiedad['apellido'];
                     $editarEmail = $propiedad['email'];
@@ -41,7 +42,7 @@
                     $editarPileta = $propiedad['pileta'];
                     }
                 ?>
-                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/editarconsulta.php">
+                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/editarconsulta.php?consulta=<?php echo $editarId;?>">
                         <h2 class="main__h2">Datos de contacto</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -394,7 +395,7 @@
                             </div>                                                                             
                         </div>
                         <div class="main__decoration"></div>
-                        <input type="submit" class="form__button form__bloque__button" value="Agregar consulta">                                                                 
+                        <input type="submit" class="form__button form__bloque__button" value="Guardar cambios">                                                                 
                     </form>
                 </div>
                 </div>

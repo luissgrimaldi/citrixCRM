@@ -31,7 +31,7 @@
                                 rol.role_id as rol_role_id, rol.name as rol_name                          
                                 FROM usuarios us 
                                 LEFT JOIN roles rol ON  us.rol = rol.role_id
-                                WHERE us.nombre != ' ' AND us.apellido != ' ' ORDER BY us.nombre ASC") or die('query failed');
+                                ORDER BY us.nombre ASC") or die('query failed');
                                 $sentencia->execute();
                                 $list_usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 foreach($list_usuarios as $usuario){

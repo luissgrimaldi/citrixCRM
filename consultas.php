@@ -261,7 +261,7 @@
                                 $alturaPropiedad = $consulta['prop_altura'];
                                 $situacionConsulta = $consulta['sit_nombre'];                             
                             ?>                          
-                        <li class="consultas__li">
+                        <li class="consultas__li" id="li<?php echo $idConsulta;?>">
                             <div class="consultas__bloque">
                                 <div class="consultas__bloque__content">
                                 <span class="consultas__consulta"> <?php echo $tipoConsulta. ' | '. $refPropiedad.' ('.$callePropiedad.' '.$alturaPropiedad.') | '.$fechaConsulta?></span>
@@ -275,6 +275,7 @@
                                     <a href="editarconsulta.php?consulta=<?php echo $idConsulta?>"><i class="consultas__accion fa-solid fa-pencil"></i></a>
                                     <a href=""><i class="consultas__accion fa-solid fa-search"></i></a>
                                     <a href=""><i class="consultas__accion fa-solid fa-rotate"></i></a>
+                                    <i class="consultas__accion fa-solid fa-trash" onclick="if(confirm('¿Seguro que quieres eliminar esta consulta?')) delConsulta(<?php echo $idConsulta?>)"></i>
                                 </div>   
                             </div>
                         </li>

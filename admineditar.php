@@ -5,7 +5,8 @@
     $sentencia = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id= '".$_GET['id']."'") or die('query failed');
     $sentencia->execute();
     $list_usuarios = $sentencia->fetchAll();                         
-    foreach($list_usuarios as $usuario){                
+    foreach($list_usuarios as $usuario){   
+        $editarId = $_GET['id'];             
         $editarNickname = $usuario['nickname'];
         $editarNombreAgente = $usuario['nombre'];
         $editarApellidoAgente = $usuario['apellido'];
@@ -35,7 +36,7 @@
                 </div>
                 <div class="main__decoration"></div>
                     <div class="main__perfil">                   
-                        <form class="main__perfil__container" method="POST" action="backend/admineditar.php?page=usuario">
+                        <form class="main__perfil__container" method="POST" action="backend/admineditar.php?page=usuario&id=<?php echo $editarId?>">
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Username</span>
                                 <div class="perfil__bloque__content">
@@ -137,7 +138,8 @@
     $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE id= '".$_GET['id']."'") or die('query failed');
     $sentencia->execute();
     $list_usuarios = $sentencia->fetchAll();                         
-    foreach($list_usuarios as $usuario){                
+    foreach($list_usuarios as $usuario){  
+        $editarId = $_GET['id'];               
         $editarNombreCiudad = $usuario['nombre'];
         $editarHabilitar = $usuario['habilitado'];               
     }
@@ -154,7 +156,7 @@
         </div>
         <div class="main__decoration"></div>
             <div class="main__perfil">                   
-                <form class="main__perfil__container" method="POST" action="backend/admineditar.php?page=ciudad">
+                <form class="main__perfil__container" method="POST" action="backend/admineditar.php?page=ciudad&id=<?Php echo $editarId;?>">
                     <div class="perfil__bloque">
                         <span class="perfil__bloque__fake-label">Ciudad</span>
                         <div class="perfil__bloque__content">
@@ -169,7 +171,7 @@
                     </div>
                     <div class="perfil__bloque">
                         <div class="perfil__bloque__content--submit">
-                            <input type="submit" class="perfil__bloque__content__submit" value="Agregar ciudad">                         
+                            <input type="submit" class="perfil__bloque__content__submit" value="Guardar cambios">                         
                         </div>
                     </div>
                     <div class="perfil__bloque">
@@ -193,7 +195,8 @@
     $sentencia = $connect->prepare("SELECT * FROM `wp_zonas` WHERE id= '".$_GET['id']."'") or die('query failed');
     $sentencia->execute();
     $list_zonas = $sentencia->fetchAll();                         
-    foreach($list_zonas as $zona){                
+    foreach($list_zonas as $zona){        
+        $editarId = $_GET['id'];         
         $editarNombreZona = $zona['nombre'];
         $editarHabilitar = $zona['habilitada'];   
         $editarCiudadId = $zona ['ciudad_id'];         
@@ -218,7 +221,7 @@
         </div>
         <div class="main__decoration"></div>
             <div class="main__perfil">                   
-                <form class="main__perfil__container" method="POST" action="backend/admineditar.php?page=zona">
+                <form class="main__perfil__container" method="POST" action="backend/admineditar.php?page=zona&id=<?php echo $editarId;?>">
                     <div class="perfil__bloque">
                         <span class="perfil__bloque__fake-label">Zona</span>
                         <div class="perfil__bloque__content">
@@ -261,7 +264,7 @@
                     </div>                                                                    
                     <div class="perfil__bloque">
                         <div class="perfil__bloque__content--submit">
-                            <input type="submit" class="perfil__bloque__content__submit" value="Agregar zona">                            
+                            <input type="submit" class="perfil__bloque__content__submit" value="Guardar cambios">                            
                         </div>
                     </div>
                     <div class="perfil__bloque">

@@ -1,7 +1,5 @@
 <?php 
 include 'connect.php';
-if(!isset($_SESSION)) {session_start();};
-if (isset($_SESSION['usuario'])){
 
 if($_GET['page']=='usuario'){
     $id = $_GET['id'];
@@ -29,5 +27,4 @@ if($_GET['page']=='zona'){
     
 };
 
-}else{echo '<script> alert("Para ingresar a la pagina debe tener una sesión iniciada"); window.location = "../login.php"; </script>';};
 ?>
