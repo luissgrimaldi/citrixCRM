@@ -132,13 +132,31 @@ a{
     box-shadow: 3px 11px 5px 0px rgba(0,0,0,0.15);
     -webkit-box-shadow: 3px 11px 5px 0px rgba(0,0,0,0.15);
     -moz-box-shadow: 3px 11px 5px 0px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    padding: .3em 0;
 }
 
-.header__form__ul li:hover{
+.header__form__ul__li{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 0 1em;
+}
+
+.header__form__ul__li:hover{
     cursor: pointer;
     background-color: var(--color-secundario-main);
     font-weight: bold;
     color: white;
+    border-radius: 1em;
+}
+
+.header__form__ul__li__img{
+    width: 5em;
+    text-align: center;
+    padding-right: .3em;
     border-radius: 1em;
 }
 

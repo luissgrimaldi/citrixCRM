@@ -17,25 +17,25 @@
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Username</span>
                                 <div class="perfil__bloque__content">
-                                    <input type="text" name="nickname" class="perfil__bloque__content__username">
+                                    <input type="text" name="nickname" class="perfil__bloque__content__username" required>
                                 </div>
                             </div>
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Nombre</span>
                                 <div class="perfil__bloque__content">
-                                    <input type="text" name="nombre" class="perfil__bloque__content__nombre" >
+                                    <input type="text" name="nombre" class="perfil__bloque__content__nombre" required>
                                 </div>
                             </div>
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Apellido</span>
                                 <div class="perfil__bloque__content">
-                                    <input type="text" name="apellido" class="perfil__bloque__content__apellido" >
+                                    <input type="text" name="apellido" class="perfil__bloque__content__apellido" required>
                                 </div>
                             </div>
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Email</span>
                                 <div class="perfil__bloque__content">
-                                    <input type="text" name="email" class="perfil__bloque__content__email" >
+                                    <input type="text" name="email" class="perfil__bloque__content__email">
                                 </div>
                             </div>
                             <div class="perfil__bloque">
@@ -47,20 +47,20 @@
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Contraseña</span>
                                 <div class="perfil__bloque__content">
-                                    <input type="password" name="contrasenia" class="perfil__bloque__content__nombre">
+                                    <input type="password" name="contrasenia" class="perfil__bloque__content__nombre" required>
                                 </div>
                             </div>
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Repetir Contraseña</span>
                                 <div class="perfil__bloque__content">
-                                    <input type="password" name="repetircontrasenia" class="perfil__bloque__content__apellido">
+                                    <input type="password" name="repetircontrasenia" class="perfil__bloque__content__apellido" required>
                                 </div>
                             </div>
                             <div class="perfil__bloque"> 
                                 <span class="perfil__bloque__fake-label">Rol</span>
                                 <div class="perfil__bloque__content">
                                     <select class="perfil__select content__select" name="rol" id="">                                             
-                                        <option value></option>
+                                        <option value="0"></option>
                                         <?php                          
                                             $sentencia = $connect->prepare("SELECT * FROM `roles`") or die('query failed');
                                             $sentencia->execute();
@@ -118,7 +118,7 @@
                     <div class="perfil__bloque">
                         <span class="perfil__bloque__fake-label">Ciudad</span>
                         <div class="perfil__bloque__content">
-                            <input type="text" name="zona" class="perfil__bloque__content__username">
+                            <input type="text" name="ciudad" class="perfil__bloque__content__username" required>
                         </div>                 
                     </div>                                                                 
                     <div class="perfil__bloque">
@@ -164,14 +164,14 @@
                     <div class="perfil__bloque">
                         <span class="perfil__bloque__fake-label">Zona</span>
                         <div class="perfil__bloque__content">
-                            <input type="text" name="zona" class="perfil__bloque__content__username">
+                            <input type="text" name="zona" class="perfil__bloque__content__username" required>
                         </div>                 
                     </div>
                     <div class="perfil__bloque"> 
                         <span class="perfil__bloque__fake-label">Ciudad a la que pertenece</span>
                         <div class="perfil__bloque__content">
                             <select class="perfil__select content__select" name="ciudad" id="">                                             
-                                <option value></option>
+                                <option value ="0"></option>
                                 <?php                          
                                     $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE habilitado=1") or die('query failed');
                                     $sentencia->execute();

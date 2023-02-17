@@ -1,6 +1,6 @@
 <?php include 'header.php' ?>
-<?php include 'sidebar.php' ?>
 <?php if (!$_GET){header('Location:controladmin.php?page=usuario');}?>
+<?php include 'sidebar.php' ?>
 <?php if ($_GET['page']  == 'usuario'){?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
@@ -35,20 +35,22 @@
                                 $sentencia->execute();
                                 $list_usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 foreach($list_usuarios as $usuario){
+                                    $id = $usuario['us_user_id'];                                                             
                                     $nombre = $usuario['us_nombre'];                                                             
                                     $apellido = $usuario['us_apellido'];                                                             
                                     $celular = $usuario['us_celular'];                                                             
                                     $email = $usuario['us_email'];                                                             
                                     $rol = $usuario['rol_role_id'];                                                             
+                                    $rolNombre = ucfirst($usuario['rol_name']);                                                             
                                 ?> 
                                 <li class="propiedades__li">
                                     <div class="propiedades__nombre-detalles-precio">
-                                        <span class="propiedades__nombre"><?php echo $nombre.' '.$apellido;?></span>
+                                        <span class="propiedades__nombre"><?php echo $nombre.' '.$apellido.' ('.$rolNombre.')';?></span>
                                         <span class="propiedades__detalles"><?php echo '('.$email.' -'.$celular. ') '?></span>
                                     </div>            
                                     <div class="propiedades__edit-hide">
-                                        <a href=""><i class="propiedades__accion fa-solid fa-pencil"></i></a>
-                                        <a href=""><i class="propiedades__accion fa-solid fa-trash"></i></a>
+                                        <a href="admineditar.php?page=usuario&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
+                                        <a onclick="return confirm('Seguro que quieres eliminar este usuario?');" href="backend/admineliminar.php?page=usuario&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-trash"></i></a>
                                     </div>
                                 </li> 
                                 <?php };?>
@@ -99,8 +101,8 @@
                                         <span class="ciudad__detalles"><?php if($habilitado == 1){echo ' Habilitada';}else{echo 'Deshabilitada';}?></span>
                                     </div>            
                                     <div class="propiedades__edit-hide">
-                                        <a href=""><i class="propiedades__accion fa-solid fa-pencil"></i></a>
-                                        <a href=""><i class="propiedades__accion fa-solid fa-trash"></i></a>
+                                        <a href="admineditar.php?page=ciudad&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
+                                        <a onclick="return confirm('Seguro que quieres eliminar esta ciudad?');" href="backend/admineliminar.php?page=ciudad&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-trash"></i></a>
                                     </div>
                                 </li> 
                                 <?php };?>
@@ -158,8 +160,8 @@
                                         <span class="ciudad__detalles"><?php if($habilitado == 1){echo ' Habilitada';}else{echo 'Deshabilitada';}?></span>
                                     </div>            
                                     <div class="propiedades__edit-hide">
-                                        <a href=""><i class="propiedades__accion fa-solid fa-pencil"></i></a>
-                                        <a href=""><i class="propiedades__accion fa-solid fa-trash"></i></a>
+                                        <a href="admineditar.php?page=zona&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
+                                        <a onclick="return confirm('Seguro que quieres eliminar esta zona?');" href="backend/admineliminar.php?page=zona&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-trash"></i></a>
                                     </div>
                                 </li> 
                                 <?php };?>

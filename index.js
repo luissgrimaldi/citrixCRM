@@ -46,7 +46,7 @@ function getCodigos() {
             mode: "cors" //Default cors, no-cors, same-origin
         }).then(response => response.json())
             .then(data => {
-                lista.style.display = 'block'
+                lista.style.display = 'flex'
                 lista.innerHTML = data
             })
             .catch(err => console.log(err))

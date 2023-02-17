@@ -11,7 +11,7 @@ if(!isset($_POST['email'])){$_POST['email']= ' ';};
 if(!isset($_POST['celular'])){$_POST['celular']= ' ';};
 if(!isset($_POST['contrasenia'])){$_POST['contrasenia']= ' ';};
 if(!isset($_POST['repetircontrasenia'])){$_POST['repetircontrasenia']= ' ';};
-if(!isset($_POST['rol'])){$_POST['rol']=0;};
+if(!isset($_POST['rol'])){$_POST['rol']= ' ';};
 if($_POST['habilitar'] == ''){$_POST['habilitar']= 0;};
     // Variables de sección información //
     $nickname = $_POST['nickname'];
@@ -23,7 +23,6 @@ if($_POST['habilitar'] == ''){$_POST['habilitar']= 0;};
     $Repetircontraseña =  $_POST['repetircontrasenia'];
     $rolAgente =  $_POST['rol'];
     $habilitar = $_POST['habilitar'];
-
 
     // IF para ver si cumple los requisitos //
     if($contraseña != $Repetircontraseña){

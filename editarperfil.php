@@ -1,6 +1,6 @@
 <?php include 'header.php' ?>
-<?php include 'sidebar.php' ?>
 <?php if(!isset($_GET) || $_GET["pagina"]==''){header('Location:editarperfil.php?pagina=info');}?>
+<?php include 'sidebar.php' ?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->

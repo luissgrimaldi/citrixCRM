@@ -1,5 +1,4 @@
 <?php include 'header.php' ?>
-<?php include 'sidebar.php' ?>
 <?php  $sentencia = $connect->prepare("SELECT * FROM `wp_consultas`") or die('query failed');
         $sentencia->execute();
         $consultasXpagina = 40;
@@ -9,8 +8,9 @@
         if(!isset($_POST['buscarFechaDesde'])){$_POST['buscarFechaDesde'] = '';}; if(!isset($_POST['buscarFechaHasta'])){$_POST['buscarFechaHasta'] = '';}; if(!isset($_POST['buscarCliente'])){$_POST['buscarCliente'] = '';}; if(!isset($_POST['seleccionarCanal'])){$_POST['seleccionarCanal'] = '';}; if(!isset($_POST['seleccionarOperacion'])){$_POST['seleccionarOperacion'] = '';}; if(!isset($_POST['seleccionarZona'])){$_POST['seleccionarZona'] = '';}; if(!isset($_POST['seleccionarTipo'])){$_POST['seleccionarTipo'] = '';}; if(!isset($_POST['buscarPropiedad'])){$_POST['buscarPropiedad'] = '';}; if(!isset($_POST['seleccionarEstado'])){$_POST['seleccionarEstado'] = '';};
         if(!$_GET ||$_GET["pagina"]<1){header('Location:consultas.php?pagina=1&fechadesde='.$_POST['buscarFechaDesde'].'&fechahasta='.$_POST['buscarFechaHasta'].'&cliente='.$_POST['buscarCliente'].'&canal='.$_POST['seleccionarCanal'].'&op='.$_POST['seleccionarOperacion'].'&zona='.$_POST['seleccionarZona'].'&tipo='.$_POST['seleccionarTipo'].'&propiedad='.$_POST['buscarPropiedad'].'&estado='.$_POST['seleccionarEstado']);}elseif($_GET['pagina']>$paginas){header('Location:consultas.php?pagina=1&fechadesde='.$_POST['buscarFechaDesde'].'&fechahasta='.$_POST['buscarFechaHasta'].'&cliente='.$_POST['buscarCliente'].'&canal='.$_POST['seleccionarCanal'].'&op='.$_POST['seleccionarOperacion'].'&zona='.$_POST['seleccionarZona'].'&tipo='.$_POST['seleccionarTipo'].'&propiedad='.$_POST['buscarPropiedad'].'&estado='.$_POST['seleccionarEstado']);}
         else if (!isset($_GET['fechadesde']) || !isset($_GET['fechahasta']) || !isset($_GET['cliente']) || !isset($_GET['canal']) || !isset($_GET['op']) || !isset($_GET['zona']) || !isset($_GET['tipo']) || !isset($_GET['propiedad']) || !isset($_GET['estado'])){header('Location:consultas.php?pagina=1&fechadesde='.$_POST['buscarFechaDesde'].'&fechahasta='.$_POST['buscarFechaHasta'].'&cliente='.$_POST['buscarCliente'].'&canal='.$_POST['seleccionarCanal'].'&op='.$_POST['seleccionarOperacion'].'&zona='.$_POST['seleccionarZona'].'&tipo='.$_POST['seleccionarTipo'].'&propiedad='.$_POST['buscarPropiedad'].'&estado='.$_POST['seleccionarEstado']);};
-            
-?>
+        
+        ?>
+<?php include 'sidebar.php' ?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
