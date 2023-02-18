@@ -52,6 +52,7 @@
                 </div>
                 <div class="main__decoration"></div>
                 <h2 style="text-align:center;font-size:3em;">ACA IRIA LA AGENDA QUE CREO PABLO, PERO MODIFICADA</h2>
+                <div id="calendar"></div>
             </div>  
         </main>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
