@@ -29,25 +29,7 @@ if(isset($_SESSION['usuario'])){
     <link rel="stylesheet" href="<?php echo ucfirst(basename($_SERVER['PHP_SELF'], ".php"))?>.css">
     <script src="https://kit.fontawesome.com/53d0376852.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tiny.cloud/1/5azxqpycehfxf9dacvhqmvviotrflw6k4ph59e5tlb79x8pd/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
-    <script>
-
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          headerToolbar:{
-            left:'prev, next, today',
-            center:'title',
-            right:'dayGridMonth, timeGridWeek, listWeek',
-            locale:'es',
-          }
-        });
-        calendar.render();
-      });
-
-    </script>
 </head>
 <body>
     <div class="body__container">

@@ -51,7 +51,6 @@
                     </form>
                 </div>
                 <div class="main__decoration"></div>
-                <h2 style="text-align:center;font-size:3em;">ACA IRIA LA AGENDA QUE CREO PABLO, PERO MODIFICADA</h2>
                 <div id="calendar"></div>
             </div>  
         </main>
@@ -60,5 +59,22 @@
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     </div>
     <script src="index.js"></script>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          locale:'es',
+          headerToolbar:{
+            left:'prev,next,today',
+            center:'title',
+            right:'dayGridMonth,timeGridWeek,listWeek',
+          }
+        });
+        calendar.render();
+      });
+
+    </script>
 </body>
 </html>
