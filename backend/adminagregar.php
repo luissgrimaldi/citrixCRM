@@ -34,7 +34,11 @@ if($_POST['habilitar'] == ''){$_POST['habilitar']= 0;};
         $query = $connect-> prepare ("INSERT INTO usuarios (nombre, apellido, nickname, pass, rol, celular, email, habilitado) values (?, ?, ?, ?, ?, ?, ?, ?)");
         $query->execute([$nombreAgente, $apellidoAgente, $nickname, $contraseña, $rolAgente, $celularAgente, $emailAgente, $habilitar]);
 
-        echo '<script> alert("Usuario Agregado con éxito"); window.location = "../controladmin.php?page=usuario"; </script>';
+        if($query){
+            echo '<script> alert("Usuario Agregado con éxito"); window.location = "../controladmin.php?page=usuario"; </script>';
+        }else{
+            echo '<script> alert("Ha ocurrido un error al agregar el usuario"); window.location = "../controladmin.php?page=usuario"; </script>';
+        }
     
 };
 
@@ -52,7 +56,11 @@ if($_GET['page']=='ciudad'){
             $query = $connect-> prepare ("INSERT INTO wp_ciudades (nombre, habilitado) values (?, ?)");
             $query->execute([$ciudad, $habilitar]);
     
-            echo '<script> alert("Ciudad agregada con exito"); window.location = "../controladmin.php?page=ciudad"; </script>';
+            if($query){
+                echo '<script> alert("Ciudad agregada con exito"); window.location = "../controladmin.php?page=ciudad"; </script>';
+            }else{
+                echo '<script> alert("Ha ocurrido un error al agregar la ciudad"); window.location = "../controladmin.php?page=ciudad"; </script>';
+            }
         
 };
 
@@ -72,7 +80,11 @@ if($_GET['page']=='zona'){
             $query = $connect-> prepare ("INSERT INTO wp_zonas (nombre, habilitada, ciudad_id) values (?, ?, ?)");
             $query->execute([$zona, $habilitar, $ciudad]);
     
-            echo '<script> alert("Zona agregada con exito"); window.location = "../controladmin.php?page=zona"; </script>';
+            if($query){
+                echo '<script> alert("Zona agregada con exito"); window.location = "../controladmin.php?page=zona"; </script>';
+            }else{
+                echo '<script> alert("Ha ocurrido un error al agregar la zona"); window.location = "../controladmin.php?page=zona"; </script>';
+            }
         
 };
 

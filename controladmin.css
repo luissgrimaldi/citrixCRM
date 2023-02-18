@@ -201,10 +201,22 @@
     .main__buttons__button{
         padding: 0.413em .4em ;
     }
+
+    .main__perfil{
+        margin: 0 auto;
+    }
+
+    .main__perfil__container{
+        width: 100%;
+    }
+
+    .propiedades__li{
+        padding-left: .2em ;
+    }
 }
 
 @media screen and (max-width:394px) {
     .main__container__top{
         justify-content: center;
     }
-}
+} 

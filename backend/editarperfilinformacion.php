@@ -53,7 +53,11 @@ if (isset($_SESSION['usuario'])){
         $query = $connect-> prepare ("UPDATE usuarios SET $update WHERE user_id = $idAgente");
         $query->execute();
 
-        echo '<script> alert("Cambios Realizados con éxito"); window.location = "../perfil.php"; </script>';
+        if($query){
+            echo '<script> alert("Cambios Realizados con éxito"); window.location = "../perfil.php"; </script>';
+        }else{
+            echo '<script> alert("Ha ocurrido un error al editar el perfil"); window.location = "../perfil.php"; </script>';
+        }
 
     }else{echo '<script> alert("No se han realizado cambios"); window.location = "../perfil.php"; </script>';}
     

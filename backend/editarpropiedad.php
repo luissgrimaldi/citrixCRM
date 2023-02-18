@@ -350,7 +350,11 @@ if($_POST['contacto_id'] == ''){$_POST['contacto_id']= 0;};
     $NEWbarrioCerrado = $_POST['barriocerrado'];
     $NEWdescripcionCorta = $_POST['descripcioncorta'];
     $NEWdescripcionLarga = $_POST['descripcionlarga'];
-    $NEWfotoPortada = $_POST['fotoportada'];
+    $NEWfotoPortadaNombre = $_FILES['fotoportada']['name'];
+    if($NEWfotoPortadaNombre != '' or $NEWfotoPortadaNombre != ' '){
+        $NEWfotoPortada = '["'.$NEWfotoPortadaNombre.'"]';
+        $NEWfotoPortadaIMG = $_FILES['fotoportada']['tmp_name'];    
+    }
     $NEWgaleriaFotos = $_POST['galeriafotos'];
     $NEWdescripcionMediana = $_POST['descripcionmediana'];
     $NEWcaptadoPor = $_POST['captadopor'];
@@ -677,7 +681,7 @@ if($NEWoperacion != $editarOperacion OR $NEWtipo != $editarPropiedad OR $NEWcodi
     if($NEWdescripcionLarga != $editarDescripcionCompleta){
         $update .= ", descripcion_completa = '".$NEWdescripcionLarga."'";
     }
-    if($NEWfotoPortada != $editarFotoPortada){
+    if($NEWfotoPortadaNombre = $_FILES['fotoportada']['name'] != NULL){  
         $update .= ", foto_portada = '".$NEWfotoPortada."'";
     }
     if($NEWgaleriaFotos != $editarGaleriaFotos){
@@ -746,7 +750,14 @@ if($NEWoperacion != $editarOperacion OR $NEWtipo != $editarPropiedad OR $NEWcodi
     $query = $connect-> prepare ("UPDATE wp_propiedades SET $update WHERE referencia_interna= '".$_GET['ref']."'");
     $query->execute();
 
-    echo '<script> alert("Cambios Realizados con éxito"); window.location = "../propiedades.php"; </script>';
+    if($query){
+        if($NEWfotoPortadaNombre = $_FILES['fotoportada']['name'] != NULL){
+            move_uploaded_file($NEWfotoPortadaIMG,'../content/'.$NEWfotoPortadaNombre);
+        }
+        echo '<script> alert("Cambios Realizados con éxito"); window.location = "../propiedades.php"; </script>';
+    }else{
+        echo '<script> alert("Ha ocurrido un error al editar la propiedad"); window.location = "../propiedades.php"; </script>';
+    }
 
 }else{echo '<script> alert("No se han realizado cambios"); window.location = "../propiedades.php"; </script>';}
 

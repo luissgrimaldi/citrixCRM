@@ -6,7 +6,7 @@
         <main class="main" id="main">
             <div class="main__container">
                 <div class="main__container__top">
-                    <div class="main__title"><i class="fa-solid fa-envelope main__h1--emoji"></i><h1 class="main__h1">Editar propiedad</h1></div>                    
+                    <div class="main__title"><i class="fa-solid fa-building main__h1--emoji"></i><h1 class="main__h1">Editar propiedad</h1></div>                    
                 </div>
                 <div class="main__decoration"></div>
                 <div class="main__busqueda-propiedad">
@@ -844,13 +844,13 @@
                                 <textarea name="descripcionlarga" id="tinymce"><?php echo $editarDescripcionCompleta;?></textarea>
                             </div>                                                                                                                                                                                                      
                         </div>
-                        <div class="form__bloque__content content">
+                        <div class="form__bloque__content content content--fotoportada">
                             <label  class="form__label content__label" for="">Foto de portada</label>
-                            <input type="file" class="" name="fotoportada" id="">                                  
+                            <input type="file" class="content--fotoportada__fotoportada" name="fotoportada" id="">                                  
                         </div> 
-                        <div class="form__bloque__content content">
+                        <div class="form__bloque__content content content--galeriafotos">
                             <label  class="form__label content__label" for="">Galeria de fotos</label>
-                            <input type="file" class="" name="galeriafotos" id="">                                  
+                            <input type="file" class="content--galeriafotos__galeriafotos" name="galeriafotos" id="">                                  
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Descripcion mediana</label>

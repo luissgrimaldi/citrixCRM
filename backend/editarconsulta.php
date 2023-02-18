@@ -167,7 +167,12 @@ if($NEWnombre != $editarNombre OR $NEWapellido != $editarApellido OR $NEWemail !
     $query = $connect-> prepare ("UPDATE wp_consultas SET $update WHERE id= '".$_GET['consulta']."'");
     $query->execute();
 
-    echo '<script> alert("Cambios Realizados con éxito"); window.location = "../consultas.php"; </script>';
+    if($query){
+        echo '<script> alert("Cambios Realizados con éxito"); window.location = "../consultas.php"; </script>';
+    }else{
+        echo '<script> alert("Ha ocurrido un error al editar la consulta"); window.location = "../consultas.php"; </script>';
+    }
+    ?>
 
 }else{echo '<script> alert("No se han realizado cambios"); window.location = "../consultas.php"; </script>';}
 

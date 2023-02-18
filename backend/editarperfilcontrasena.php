@@ -37,9 +37,13 @@ if (isset($_SESSION['usuario'])){
         // Hago el update en la DB //
         $query = $connect-> prepare ("UPDATE usuarios SET pass = ? WHERE user_id = $idAgente");
         $query->execute([$passwordNew]);
-        echo '<script> alert("La contraseña se ha actualizado con éxito"); window.location = "../login.php";</script>';
+        if($query){
+            echo '<script> alert("Cambios Realizados con éxito"); window.location = "../login.php"; </script>';
+        }else{
+            echo '<script> alert("Ha ocurrido un error al editar la contraseña"); window.location = "../editarperfil.php?pagina=contrasena";</script>';
+        }
     }else{
-        echo '<script> alert("Ha ocurrido un error al actualizar la contraseña"); window.location = "../editarperfil.php?pagina=contrasena";</script>';
+        echo '<script> alert("Ha ocurrido un error al editar la contraseña"); window.location = "../editarperfil.php?pagina=contrasena";</script>';
     }
     
 

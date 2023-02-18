@@ -417,8 +417,20 @@
     }
 }
 
+@media screen and (max-width:531px) {
+    .form__textarea{
+        width: 20em;
+    }
+}
+
 @media screen and (max-width:394px) {
     .main__container__top{
         justify-content: center;
+    }
+}
+
+@media screen and (max-width:339px) {
+    .form__textarea{
+        width: 15em;
     }
 }

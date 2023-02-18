@@ -68,7 +68,11 @@ if($NEWnickname != $editarNickname OR $NEWnombre != $editarNombre OR $NEWapellid
         $query = $connect-> prepare ("UPDATE usuarios SET $update WHERE user_id= '".$_GET['id']."'");
         $query->execute();
     
-        echo '<script> alert("Cambios Realizados con éxito"); window.location = "../controladmin.php?page=usuario"; </script>';
+        if($query){
+            echo '<script> alert("Cambios Realizados con éxito"); window.location = "../controladmin.php?page=usuario"; </script>';
+        }else{
+            echo '<script> alert("Ha ocurrido un error al editar el usuario"); window.location = "../controladmin.php?page=usuario";</script>';
+        }
     }else{echo '<script> alert("Las contraseñas no coinciden"); window.location = "../admineditar.php?page=usuario&id='.$_GET['id'].'"; </script>';}
 
 
@@ -106,7 +110,11 @@ if($NEWciudad != $editarCiudad OR $NEWhabilitado != $editarHabilitado){
     $query = $connect-> prepare ("UPDATE wp_ciudades SET $update WHERE id= '".$_GET['id']."'");
     $query->execute();
 
-    echo '<script> alert("Cambios Realizados con éxito"); window.location = "../controladmin.php?page=ciudad"; </script>';
+    if($query){
+        echo '<script> alert("Cambios Realizados con éxito"); window.location = "../controladmin.php?page=ciudad"; </script>';
+    }else{
+        echo '<script> alert("Ha ocurrido un error al editar la ciudad"); window.location = "../controladmin.php?page=ciudad";</script>';
+    }
 
 }else{echo '<script> alert("No se han realizado cambios"); window.location = "../controladmin.php?page=ciudad"; </script>';}
               
@@ -147,7 +155,11 @@ if($NEWzona != $editarZona OR $NEWciudad != $editarCiudad OR $NEWhabilitada != $
     $query = $connect-> prepare ("UPDATE wp_zonas SET $update WHERE id= '".$_GET['id']."'");
     $query->execute();
 
-    echo '<script> alert("Cambios Realizados con éxito"); window.location = "../controladmin.php?page=zona"; </script>';
+    if($query){
+        echo '<script> alert("Cambios Realizados con éxito"); window.location = "../controladmin.php?page=zona"; </script>';
+    }else{
+        echo '<script> alert("Ha ocurrido un error al editar la zona"); window.location = "../controladmin.php?page=zona";</script>';
+    }
 
 }else{echo '<script> alert("No se han realizado cambios"); window.location = "../controladmin.php?page=zona"; </script>';}
           

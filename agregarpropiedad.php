@@ -6,7 +6,7 @@
         <main class="main" id="main">
             <div class="main__container">
                 <div class="main__container__top">
-                    <div class="main__title"><i class="fa-solid fa-envelope main__h1--emoji"></i><h1 class="main__h1">Agregar propiedad</h1></div>                    
+                    <div class="main__title"><i class="fa-solid fa-building main__h1--emoji"></i><h1 class="main__h1">Agregar propiedad</h1></div>                    
                 </div>
                 <div class="main__decoration"></div>
                 <div class="main__busqueda-propiedad">             
@@ -133,8 +133,10 @@
                             </div>    
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Coordenadas</label>
-                                <input type="text" class="form__text content__text" name="coordenadas" id="">                                                     
+                                <button type="button">SELECCORD</button>
+                                <input type="text" class="form__text content__text" name="coordenadas" id="">
                             </div>
+                            <div id="map"></div>                                           
                         </div>
                         <h2 class="main__h2">Distribucion, superficie y otros datos</h2>
                         <div class="form__bloque">
@@ -614,13 +616,13 @@
                                 <textarea name="descripcionlarga" id="tinymce"></textarea>
                             </div>                                                                                                                                                                                                      
                         </div>
-                        <div class="form__bloque__content content">
+                        <div class="form__bloque__content content content--fotoportada">
                             <label  class="form__label content__label" for="">Foto de portada</label>
-                            <input type="file" class="" name="fotoportada" id="">                                  
+                            <input type="file" class="content--fotoportada__fotoportada" name="fotoportada" id="">                                  
                         </div> 
-                        <div class="form__bloque__content content">
+                        <div class="form__bloque__content content content--galeriafotos">
                             <label  class="form__label content__label" for="">Galeria de fotos</label>
-                            <input type="file" class="" name="galeriafotos" id="">                                  
+                            <input type="file" class="content--galeriafotos__galeriafotos" name="galeriafotos" id="" multiple>                                  
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Descripcion mediana</label>
@@ -767,5 +769,54 @@
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     </div>
     <script src="index.js"></script>
+<script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEVUedCZ0UVFBtM7LaeIQPvRJEx1DCsBQ&libraries=places&callback=initMap">
+    </script>
+<script>
+        var vMarker
+        var map
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 14,
+                center: new google.maps.LatLng(19.4326296, -99.1331785),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            vMarker = new google.maps.Marker({
+                position: new google.maps.LatLng(19.4326296, -99.1331785),
+                draggable: true
+            });
+            google.maps.event.addListener(vMarker, 'dragend', function (evt) {
+                $("#txtLat").val(evt.latLng.lat().toFixed(6));
+                $("#txtLng").val(evt.latLng.lng().toFixed(6));
+
+                map.panTo(evt.latLng);
+            });
+            map.setCenter(vMarker.position);
+            vMarker.setMap(map);
+
+            $("#txtCiudad, #txtEstado, #txtDireccion").change(function () {
+                movePin();
+            });
+
+            function movePin() {
+            var geocoder = new google.maps.Geocoder();
+            var textSelectM = $("#txtCiudad").text();
+            var textSelectE = $("#txtEstado").val();
+            var inputAddress = $("#txtDireccion").val() + ' ' + textSelectM + ' ' + textSelectE;
+            geocoder.geocode({
+                "address": inputAddress
+            }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    vMarker.setPosition(new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
+                    map.panTo(new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
+                    $("#txtLat").val(results[0].geometry.location.lat());
+                    $("#txtLng").val(results[0].geometry.location.lng());
+                }
+
+            });
+        }
+    }
+    
+        </script>
 </body>
 </html>

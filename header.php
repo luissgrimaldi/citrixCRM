@@ -29,7 +29,7 @@ if(isset($_SESSION['usuario'])){
     <link rel="stylesheet" href="<?php echo ucfirst(basename($_SERVER['PHP_SELF'], ".php"))?>.css">
     <script src="https://kit.fontawesome.com/53d0376852.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tiny.cloud/1/5azxqpycehfxf9dacvhqmvviotrflw6k4ph59e5tlb79x8pd/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
     <div class="body__container">
