@@ -444,6 +444,7 @@ a{
 .consultas__accion{
     color: var(--color-principal-main);
     font-size: 1.25em;
+    cursor: pointer;
 }
 
 .consultas__accion:hover{

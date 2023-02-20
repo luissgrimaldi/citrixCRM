@@ -29,15 +29,6 @@
                             <div class="form__bloque__content content"> 
                                 <label  class="form__label content__label" for="">Operación</label>
                                 <select class="form__select content__select" name="seleccionarOperacion" id="">                      
-                                <?php if($_GET['op'] != ''){
-                                    $id= $_GET['op'];
-                                    $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_operacion` WHERE id= $id") or die('query failed');
-                                    $sentencia->execute();
-                                    $list_propiedades = $sentencia->fetchAll();                         
-                                    foreach($list_propiedades as $propiedad){
-                                    $propiedadNombre = $propiedad['nombre'];?>
-                                    <option value="<?php echo $_GET['op'];?>"><?php echo $propiedadNombre;?></option>
-                                <?php };};?>
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_operacion` WHERE habilitado=1") or die('query failed');
@@ -46,23 +37,14 @@
                                         foreach($list_propiedades as $propiedad){
                                         $idPropiedad = $propiedad['id'];
                                         $propiedadNombre = $propiedad['nombre'];
-                                        if($_GET['op']!=$idPropiedad){?>
-                                    <option value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
-                                <?php };};?>
+                                        ?>
+                                    <option <?php if($_GET['op']==$idPropiedad){echo 'selected';}?> value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
+                                <?php };?>
                                 </select>
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Tipo</label>
                                 <select class="form__select content__select" name="seleccionarTipo" id="">    
-                                <?php if($_GET['tipo'] != ''){
-                                    $id= $_GET['tipo'];
-                                    $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_tipo` WHERE id= $id") or die('query failed');
-                                    $sentencia->execute();
-                                    $list_propiedades = $sentencia->fetchAll();                         
-                                    foreach($list_propiedades as $propiedad){
-                                    $propiedadNombre = $propiedad['nombre'];?>
-                                    <option value="<?php echo $_GET['tipo'];?>"><?php echo $propiedadNombre;?></option>
-                                <?php };};?>
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_tipo` WHERE habilitado=1") or die('query failed');
@@ -71,23 +53,14 @@
                                         foreach($list_propiedadesOperacion as $propiedad){
                                         $idPropiedad = $propiedad['id'];
                                         $propiedadNombre = $propiedad['nombre'];
-                                        if($_GET['tipo']!=$idPropiedad){?>
-                                    <option value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
-                                <?php };};?>
+                                        ?>
+                                    <option <?php if($_GET['tipo']==$idPropiedad){echo 'selected';}?> value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
+                                <?php };?>
                                 </select>
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Ciudad</label>
                                 <select class="form__select content__select" name="seleccionarCiudad" id="">
-                                <?php if($_GET['ciudad'] != ''){
-                                        $id= $_GET['ciudad'];
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE id= $id") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_propiedades = $sentencia->fetchAll();                         
-                                        foreach($list_propiedades as $propiedad){
-                                        $propiedadNombre = $propiedad['nombre'];?>
-                                        <option value="<?php echo $_GET['ciudad'];?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };};?>
                                         <option value></option>
                                         <?php                          
                                             $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE habilitado=1") or die('query failed');
@@ -96,23 +69,14 @@
                                             foreach($list_propiedadesOperacion as $propiedad){
                                             $idPropiedad = $propiedad['id'];
                                             $propiedadNombre = $propiedad['nombre'];
-                                            if($_GET['ciudad']!=$idPropiedad){?>
-                                        <option value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
-                                    <?php };};?>
+                                            ?>
+                                        <option <?php if($_GET['ciudad']==$idPropiedad){echo 'selected';}?> value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
+                                    <?php };?>
                                 </select>
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Zona</label>
                                 <select class="form__select content__select" name="seleccionarZona" id="">
-                                <?php if($_GET['zona'] != ''){
-                                        $id= $_GET['zona'];
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_zonas` WHERE id= $id") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_propiedades = $sentencia->fetchAll();                         
-                                        foreach($list_propiedades as $propiedad){
-                                        $propiedadNombre = $propiedad['nombre'];?>
-                                        <option value="<?php echo $_GET['zona'];?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };};?>
                                         <option value></option>
                                         <?php                          
                                             $sentencia = $connect->prepare("SELECT * FROM `wp_zonas` WHERE habilitada=1") or die('query failed');
@@ -121,9 +85,9 @@
                                             foreach($list_propiedadesOperacion as $propiedad){
                                             $idPropiedad = $propiedad['id'];
                                             $propiedadNombre = $propiedad['nombre'];
-                                            if($_GET['zona']!=$idPropiedad){?>
-                                        <option value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
-                                    <?php };};?>
+                                            ?>
+                                        <option <?php if($_GET['zona']==$idPropiedad){echo 'selected';}?> value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
+                                    <?php };?>
                                 </select>
                             </div>
                         </div>
@@ -185,15 +149,6 @@
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Estado de publicación</label>
                                 <select class="form__select" name="buscarEstado">
-                                <?php if($_GET['estado'] != ''){
-                                        $id= $_GET['estado'];
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_estados_publicacion` WHERE id= $id") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_propiedades = $sentencia->fetchAll();                         
-                                        foreach($list_propiedades as $propiedad){
-                                        $propiedadNombre = $propiedad['nombre'];?>
-                                        <option value="<?php echo $_GET['estado'];?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };};?>
                                         <option value></option>
                                         <?php                          
                                             $sentencia = $connect->prepare("SELECT * FROM `wp_estados_publicacion` WHERE habilitado=1") or die('query failed');
@@ -202,9 +157,9 @@
                                             foreach($list_propiedadesOperacion as $propiedad){
                                             $idPropiedad = $propiedad['id'];
                                             $propiedadNombre = $propiedad['nombre'];
-                                            if($_GET['estado']!=$idPropiedad){?>
-                                        <option value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
-                                    <?php };};?>
+                                            ?>
+                                        <option <?php if($_GET['estado']==$idPropiedad){echo 'selected';}?> value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
+                                    <?php };?>
                                 </select>
                             </div>
                         </div>
@@ -230,7 +185,7 @@
                     $whereHabitaciones=" AND prop.cant_habitaciones BETWEEN '".$_GET['habitacionesdesde']."' AND '".$_GET['habitacioneshasta']."'";
                     $whereDomicilio=" AND prop.calle LIKE '%".trim($_GET['domicilio'])."%'";
                     $whereRef=" AND prop.referencia_interna LIKE '%".trim($_GET['ref'])."%'";
-                    $wherePileta=" AND prop.pileta_propia = '".$_GET['pileta']."'";
+                    $wherePileta=" AND prop.pileta_propia = ('".$_GET['pileta']."' OR  prop.pileta_compartida ='".$_GET['pileta']."')";
                     $whereLlaves=" AND prop.llavero = '".$_GET['llaves']."'";
                     $whereOcupada=" AND prop.ocupada = ".$_GET['ocupada'];
                     $wherePlantaBaja=" AND prop.planta_baja = ".$_GET['plantabaja'];
@@ -239,6 +194,7 @@
                         
                         $filtro = "WHERE status_id= 1 ";
 
+                        if($_GET['pileta'] != ''){$filtro .= $wherePileta;};
                         if($_GET['op'] != ''){$filtro .= $whereOp;};
                         if($_GET['tipo'] != ''){$filtro .= $whereTipo;};
                         if($_GET['ciudad'] != ''){$filtro .= $whereCiudad;};
@@ -247,7 +203,6 @@
                         if($_GET['habitacionesdesde'] != ''){$filtro .= $whereHabitaciones;};
                         if($_GET['domicilio'] != ''){$filtro .= $whereDomicilio;};
                         if($_GET['ref'] != ''){$filtro .= $whereRef;};
-                        if($_GET['pileta'] != ''){$filtro .= $wherePileta;};
                         if($_GET['llaves'] != ''){$filtro .= $whereLlaves;};
                         if($_GET['ocupada'] != ''){$filtro .= $whereOcupada;};
                         if($_GET['plantabaja'] != ''){$filtro .= $wherePlantaBaja;};
