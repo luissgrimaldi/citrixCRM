@@ -4,8 +4,11 @@ let sidebarBtn = document.querySelector(".header__logo")
 sidebarBtn.addEventListener("click", function(){
     let sidebar=document.getElementById("sidebar");
     let main=document.getElementById("main");
+    let modal=document.getElementById("modal");
     sidebar.classList.toggle("sidebar--toggle");
     main.classList.toggle("main--toggle")
+    if(modal){modal.classList.toggle("modal--toggle");}
+    
 });
 
 let headerBtn = document.getElementById("header__plus")
