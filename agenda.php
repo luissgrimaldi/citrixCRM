@@ -1,5 +1,14 @@
 <?php include 'header.php' ?>
+<?php 
+    if(!isset($_POST['tipoSearch'])){$_POST['tipoSearch'] = '0';}; if(!isset($_POST['agenteSearch'])){$_POST['agenteSearch'] = $idAgente;}; if(!isset($_POST['realizadasSearch'])){$_POST['realizadasSearch'] = '0';}; if(!isset($_POST['asuntoSearch'])){$_POST['asuntoSearch'] = '';};
+    if(!$_GET){header('Location:agenda.php?tipo='.$_POST['tipoSearch'].'&agente='.$_POST['agenteSearch'].'&realizadas='.$_POST['realizadasSearch'].'&asunto='.$_POST['asuntoSearch']);}
+    else if (!isset($_GET['tipo']) || !isset($_GET['agente'])|| !isset($_GET['realizadas'])|| !isset($_GET['asunto'])){header('Location:agenda.php?tipo='.$_POST['tipoSearch'].'&agente='.$_POST['agenteSearch'].'&realizadas='.$_POST['realizadasSearch'].'&asunto='.$_POST['asuntoSearch']);};
+?>
 <?php include 'sidebar.php' ?>
+<?php $getTipo= $_GET['tipo'];?>
+<?php $getAgente= $_GET['agente'];?>
+<?php $getRealizadas= $_GET['realizadas'];?>
+<?php $getAsunto= $_GET['asunto'];?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -8,7 +17,7 @@
                 <i class="fa-solid fa-address-book main__h1--emoji"></i><h1 class="main__h1">Agenda</h1>
                 <div class="main__decoration"></div>
                 <div class="main__busqueda-agenda">
-                    <form id="form_busqueda_agenda" class="form__busqueda-agenda form">
+                    <form id="form_busqueda_agenda" method="POST" action="agenda.php" class="form__busqueda-agenda form">
                         <div class="form__container-left">
                             <button class="form__container-left__button">Nueva Actividad</button>
                         </div>
@@ -16,20 +25,34 @@
                             <div class="form__container-right--bloque">
                                 <div class="form__container-right--bloque__content">
                                     <label  class="form__container-right__label" for="">Agente</label>
-                                    <select class="form__container-right__select" name="" id="">
-                                        <option value="0">Todos</option>
-                                        <option value="1">Fulanito 1</option>
-                                        <option value="2">Fulanito 2</option>
-                                        <option value="3">Fulanito 3</option>
+                                    <select class="form__container-right__select" name="agenteSearch" id="">
+                                    <?php                          
+                                    $sentencia = $connect->prepare("SELECT * FROM `usuarios`  WHERE habilitado=1") or die('query failed');
+                                    $sentencia->execute();
+                                    $agentes = $sentencia->fetchAll();                         
+                                    foreach($agentes as $agente){
+                                        $idAgente = $agente['user_id'];
+                                        $agenteNombre = $agente['nombre'];
+                                        $agenteApellido = $agente['apellido'];
+                                    ?>
+                                <option <?php if($getAgente == $idAgente){echo 'selected';};?> value="<?php echo $idAgente?>"><?php echo $agenteNombre.' '.$agenteApellido ?></option>
+                            <?php };?>
                                     </select>
                                 </div>
                                 <div class="form__container-right--bloque__content">
                                     <label class="form__container-right__label" for="">Tipo de tarea</label>
-                                    <select class="form__container-right__select" name="" id="">
-                                        <option value="0">Todas</option>
-                                        <option value="1">Visita</option>
-                                        <option value="2">Captación</option>
-                                        <option value="3">Etc</option>
+                                    <select class="form__container-right__select" name="tipoSearch" id="">
+                                    <option value="0">Todas</option>
+                                            <?php                          
+                                                $sentencia = $connect->prepare("SELECT * FROM `wp_agenda_tipo_tarea`  WHERE habilitada=1") or die('query failed');
+                                                $sentencia->execute();
+                                                $agentes = $sentencia->fetchAll();                         
+                                                foreach($agentes as $agente){
+                                                $id = $agente['id'];
+                                                $nombre = $agente['nombre'];
+                                                ?>
+                                            <option <?php if($getTipo == $id){echo 'selected';};?> value="<?php echo $id?>"><?php echo $nombre;?></option>
+                                        <?php };?>
                                     </select>
                                 </div>
                             </div>
@@ -37,11 +60,11 @@
                             <div class="form__container-right--bloque">
                                 <div class="form__container-right--bloque__content">
                                     <label class="form__container-right__label" for="">Asunto / Observaciones</label>
-                                    <input class="form__container-right__text" type="text" name="" id="">
+                                    <input class="form__container-right__text" type="text" name="asuntoSearch" value="<?php echo $getAsunto?>" id="">
                                 </div>
                                 <div class="form__container-right--bloque__content">
                                     <label class="form__container-right__label" for="">Solo activas</label>
-                                    <input class="form__container-right__checkbox" type="checkbox">
+                                    <input class="form__container-right__checkbox" name="realizadasSearch" value="1" <?php if($getRealizadas==1){echo 'checked="check"';}?> type="checkbox">
                                 </div>                 
                                 <div class="form__container-right--bloque__content">
                                     <button class="form__container-right__button" >Buscar</button>

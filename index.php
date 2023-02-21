@@ -1,13 +1,13 @@
 <?php include 'header.php' ?>
 <?php  $sentencia = $connect->prepare("SELECT * FROM `wp_consultas`") or die('query failed');
         $sentencia->execute();
-        $consultasXpagina = 40;
+        $consultasXpagina = 20;
         $consultasTotales = $sentencia->rowCount();
         $paginas = $consultasTotales/$consultasXpagina;
         $paginas = ceil($paginas);
-        if(!isset($_POST['tipo'])){$_POST['tipo'] = '3';}; if(!isset($_POST['agente'])){$_POST['agente'] = $idAgente;}; if(!isset($_POST['fecha'])){$_POST['fecha'] = '';}; if(!isset($_POST['asunto'])){$_POST['asunto'] = '';};
+        if(!isset($_POST['tipo'])){$_POST['tipo'] = '1';}; if(!isset($_POST['agente'])){$_POST['agente'] = $idAgente;}; if(!isset($_POST['fecha'])){$_POST['fecha'] = '';}; if(!isset($_POST['asunto'])){$_POST['asunto'] = '';};
         if(!$_GET || $_GET["pagina"]<1){header('Location:index.php?pagina=1&tipo='.$_POST['tipo'].'&agente='.$_POST['agente'].'&fecha='.$_POST['fecha'].'&asunto='.$_POST['asunto']);}elseif($_GET['pagina']>$paginas){header('Location:index.php?pagina=1&tipo='.$_POST['tipo'].'&agente='.$_POST['agente'].'&fecha='.$_POST['fecha'].'&asunto='.$_POST['asunto']);}
-        else if (!isset($_GET['tipo']) || !isset($_GET['agente'])){header('Location:index.php?pagina=1&tipo='.$_POST['tipo'].'&agente='.$_POST['agente'].'&fecha='.$_POST['fecha'].'&asunto='.$_POST['asunto']);};
+        else if (!isset($_GET['tipo']) || !isset($_GET['agente'])|| !isset($_GET['fecha'])|| !isset($_GET['asunto'])){header('Location:index.php?pagina=1&tipo='.$_POST['tipo'].'&agente='.$_POST['agente'].'&fecha='.$_POST['fecha'].'&asunto='.$_POST['asunto']);};
         ?>
 <?php include 'sidebar.php' ?>
 <?php $getTipo= $_GET['tipo'];?>
@@ -108,10 +108,10 @@
                         if($tareas){?> 
                             <form action="backend/finalizareventos.php" method="POST" class="tareas--pendientes__form">
                                 <ul class="tareas--pendientes__list">
-                            <div class="tareas--pendientes__select-all">
+                            <?php if($getTipo!=2){?><div class="tareas--pendientes__select-all">
                                 <label for="">Seleccionar todas</label>
                                 <input class="tareas--pendientes__checkbox" id="chk_all" name="chk_all" value="<?php echo $tareaId;?>" type="checkbox">
-                            </div>
+                            </div><?php ;};?>
                     <?php           
                         $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
                         $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones,
@@ -143,7 +143,7 @@
                     </ul>
                     <input type="submit" style="display:none" id="realizadas_form">
                     </form>
-                    <button type="button" onClick="document.getElementById('realizadas_form').click()" class="tareas--pendientes__btn">Pasar a realizada</button>
+                    <?php if($getTipo!=2){?><button type="button" onClick="document.getElementById('realizadas_form').click()" class="tareas--pendientes__btn">Pasar a realizada</button><?php ;}?>
                     <?php }else{?>
                         <h4 class="no--tareas">No hay tareas</h4>
                         <?php };?>
