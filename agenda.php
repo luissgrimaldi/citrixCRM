@@ -17,7 +17,7 @@
                 <i class="fa-solid fa-address-book main__h1--emoji"></i><h1 class="main__h1">Agenda</h1>
                 <div class="main__decoration"></div>
                 <div class="main__busqueda-agenda">
-                    <form id="form_busqueda_agenda" method="POST" action="agenda.php" class="form__busqueda-agenda form">
+                    <form id="formBuscarEvento" action="agenda.php" method="POST" class="form__busqueda-agenda form">
                         <div class="form__container-left">
                             <button class="form__container-left__button">Nueva Actividad</button>
                         </div>
@@ -138,7 +138,7 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: 'dayGridMonth',
           locale:'es',
-          events: 'backend/agenda.php',
+          events: 'backend/agenda.php?<?php echo 'tipo='.$_GET['tipo'].'&agente='.$_GET['agente'].'&realizadas='.$_GET['realizadas'].'&asunto='.$_GET['asunto']?>',
           headerToolbar:{
             left:'prev,next,today',
             center:'title',
@@ -156,46 +156,53 @@
           }
         });
         calendar.render();
+
+
+        $(document).on("click",function(e) {
+                    
+                    var modal = $("#modal");
+                    var salir = $("#salir");
+                    var agenda = $("#calendar");
+                    
+                    if (salir.is(e.target)) { 
+                        modal.removeAttr('style');  
+                        agenda.removeAttr('style');  
+                                  
+                    }
+                    if (!modal.is(e.target) && modal.has(e.target).length === 0) { 
+                        modal.removeAttr('style');             
+                        agenda.removeAttr('style');             
+                    }
+                });
+
+                
+                let formEvento= document.getElementById('formEvento')
+                formEvento.addEventListener("submit", function(e){
+                    e.preventDefault();
+                    let url = 'backend/agregarevento.php';
+                    let datos = new FormData(formEvento);
+                    var modal = $("#modal");
+                    var agenda = $("#calendar");
+        
+                    fetch(url, {
+                        method:'POST',
+                        body: datos,
+                        mode: "cors" //Default cors, no-cors, same-origin
+                    }).then(response => response.json())
+                    .then(data => {
+                        alert(data);
+                        calendar.refetchEvents();
+                        formEvento.reset();
+                        modal.removeAttr('style');             
+                        agenda.removeAttr('style');  
+                    })
+                    .catch(err => console.log(err))
+                    
+                });
+
+
       });
 
-      $(document).on("click",function(e) {
-                    
-            var modal = $("#modal");
-            var salir = $("#salir");
-            var agenda = $("#calendar");
-            
-            if (salir.is(e.target)) { 
-                modal.removeAttr('style');  
-                agenda.removeAttr('style');  
-                          
-            }
-            if (!modal.is(e.target) && modal.has(e.target).length === 0) { 
-                modal.removeAttr('style');             
-                agenda.removeAttr('style');             
-            }
-        });
-        let formEvento= document.getElementById('formEvento')
-        formEvento.addEventListener("submit", function(e){
-            e.preventDefault();
-            let url = 'backend/agregarevento.php';
-            let datos = new FormData(formEvento);
-            var modal = $("#modal");
-            var agenda = $("#calendar");
-
-            fetch(url, {
-                method:'POST',
-                body: datos,
-                mode: "cors" //Default cors, no-cors, same-origin
-            }).then(response => response.json())
-            .then(data => {
-                alert(data);
-                formEvento.reset();
-                modal.removeAttr('style');             
-                agenda.removeAttr('style');    
-            })
-            .catch(err => console.log(err))
-            
-        });
     </script>
 </body>
 </html>
