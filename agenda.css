@@ -284,13 +284,13 @@
 .modal{
     display: none;
     position: fixed;
-    margin: 0 auto;
-    width: 50vw;
+    margin: 20vh auto;
+    width: 50em;
     right: 0;
     left: 12.5em;
-    top: 30vh;
+    top: 0;
     background-color: white;
-    z-index: 1;
+    z-index: 10000;
     border-radius:1em;
     padding: 1em;
     box-shadow: 0px 0px 39px 3px rgba(0,0,0,0.72);
@@ -510,7 +510,6 @@
 }
 
 
-
 @media screen and (max-width:1350px) {
 
     .form__container-right__text{
@@ -528,6 +527,15 @@
     .form__container-right--bloque{
         flex-direction: column;
         gap: 1em;
+    }
+
+    .modal{
+        width: calc(95vw - 12.5em);
+        margin: 10vh auto;
+    }
+    .modal--toggle{
+        left: 0;
+        width: 95vw;
     }
 }
 
@@ -593,9 +601,25 @@
 @media screen and (max-width:768px) {
     .modal{
         left: 0;
+        width: 95vw;
     }
     .modal--toggle{
         left: 12.5em;
+        width: calc(95vw - 12.5em);
+    }
+
+
+    .form__bloque{
+        width: 100%;
+    }
+
+
+    .form__bloque__content{
+        width: 90%;
+    }
+
+    .form__textarea{
+        width: 100%;
     }
 }
 
@@ -645,5 +669,17 @@
     .form__busqueda-agenda{
         flex-direction: column;
         gap: 2em;
+    }
+}
+
+
+@media screen and (max-height:640px) {
+    .form__busqueda-propiedad{
+        min-height: 100%;
+    }
+    .modal{
+        max-height: 95%;
+        overflow: scroll;
+        margin: 5vh auto;
     }
 }
