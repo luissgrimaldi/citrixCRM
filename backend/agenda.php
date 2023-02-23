@@ -25,9 +25,9 @@ if (isset($_SESSION['usuario'])){
         if($_GET['asunto'] != ''){$filtro .= $whereAsuntos;};
     }
 
-    $sentencia = $connect->prepare("SELECT e.id, e.asunto, e.fecha, e.tipo_tarea_id, e.user_id, e.tarea_terminada,
+    $sentencia = $connect->prepare("SELECT e.id, e.asunto, e.fecha, e.tipo_tarea_id, e.user_id, e.tarea_terminada, e.observaciones, e.hora_inicio,
         t.tipo_tarea_id, t.color_background, t.user_id,
-        e.id as id, e.asunto as title, e.fecha as start,
+        e.id as id, e.asunto as title, e.fecha as start, e.observaciones as descripcion, e.tipo_tarea_id as tarea_id, e.tarea_terminada as tarea_terminada, e.hora_inicio as hora,
         t.color_background as backgroundColor
         FROM wp_agenda e
         LEFT JOIN wp_agenda_tipo_tarea_custom_colors t ON  e.tipo_tarea_id =t.tipo_tarea_id
@@ -51,9 +51,9 @@ if (isset($_SESSION['usuario'])){
         }
 
 
-        $sentencia2 = $connect->prepare("SELECT e.id, e.asunto, e.fecha, e.tipo_tarea_id, e.user_id, e.tarea_terminada,
+        $sentencia2 = $connect->prepare("SELECT e.id, e.asunto, e.fecha, e.tipo_tarea_id, e.user_id, e.tarea_terminada, e.observaciones, e.hora_inicio,
         t.id, t.color_background_default, 
-        e.id as id, e.asunto as title, e.fecha as start,
+        e.id as id, e.asunto as title, e.fecha as start, e.observaciones as descripcion, e.tipo_tarea_id as tarea_id, e.tarea_terminada as tarea_terminada, e.hora_inicio as hora,
         t.color_background_default as backgroundColor
         FROM wp_agenda e
         LEFT JOIN wp_agenda_tipo_tarea t ON  e.tipo_tarea_id =t.id
