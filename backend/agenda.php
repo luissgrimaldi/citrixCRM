@@ -5,23 +5,24 @@ if (isset($_SESSION['usuario'])){
     $userId = $_SESSION['usuario'];
     if(!isset($_GET['tipo'])){$_GET['tipo'] = '0';}; 
     if(!isset($_GET['agente'])){$_GET['agente'] = $userId;}; 
-    if(!isset($_GET['realizadas'])){$_GET['realizadas'] = '0';}; 
+    if(!isset($_GET['realizadas'])){$_GET['realizadas'] = '';}; 
     if(!isset($_GET['asunto'])){$_GET['asunto'] = '';};
+    $getRealizadas=$_GET['realizadas'];
 
 
     $whereTipo=" AND e.tipo_tarea_id = ".$_GET['tipo'];
     $whereAgente=" AND e.user_id = ".$_GET['agente'];         
     $whereAsuntos=" AND e.asunto LIKE '%".trim($_GET['asunto'])."%'";
-    $whereRealizadas=" AND e.tarea_terminada = ".$_GET['realizadas'];      
+    if($getRealizadas==2){$whereRealizadas=" AND e.tarea_terminada = 1";}else if($getRealizadas==1){$whereRealizadas=" AND e.tarea_terminada = 0";}else{$whereRealizadas="";};  
     
     
-    if($_GET['tipo'] == '0' AND $_GET['agente'] == '' AND $_GET['realizadas'] == '0' AND $_GET['asunto'] == ''){$filtro = '';}else{ 
+    if($_GET['tipo'] == '0' AND $_GET['agente'] == '' AND $_GET['realizadas'] == '' AND $_GET['asunto'] == ''){$filtro = '';}else{ 
         
         $filtro = "WHERE t.user_id=".$userId;
 
+        if($_GET['realizadas'] != ''){$filtro .= $whereRealizadas;};
         if($_GET['tipo'] != '0'){$filtro .= $whereTipo;};
         if($_GET['agente'] != ''){$filtro .= $whereAgente;};
-        if($_GET['realizadas'] != '0'){$filtro .= $whereRealizadas;};
         if($_GET['asunto'] != ''){$filtro .= $whereAsuntos;};
     }
 
@@ -38,15 +39,15 @@ if (isset($_SESSION['usuario'])){
 
         $whereTipo=" AND e.tipo_tarea_id = ".$_GET['tipo'];    
         $whereAsuntos=" AND e.asunto LIKE '%".trim($_GET['asunto'])."%'";
-        $whereRealizadas=" AND e.tarea_terminada = ".$_GET['realizadas'];      
+        if($getRealizadas==2){$whereRealizadas=" AND e.tarea_terminada = 1";}else if($getRealizadas==1){$whereRealizadas=" AND e.tarea_terminada = 0";}else{$whereRealizadas="";};        
         
         
-        if($_GET['tipo'] == '' AND $_GET['agente'] == '' AND $_GET['realizadas'] == '0' AND $_GET['asunto'] == ''){$filtro = '';}else{ 
+        if($_GET['tipo'] == '' AND $_GET['agente'] == '' AND $_GET['realizadas'] == '' AND $_GET['asunto'] == ''){$filtro = '';}else{ 
             
             $filtro = "WHERE e.user_id=".$_GET['agente'];
     
             if($_GET['tipo'] != '0'){$filtro .= $whereTipo;};
-            if($_GET['realizadas'] != '0'){$filtro .= $whereRealizadas;};
+            if($_GET['realizadas'] != ''){$filtro .= $whereRealizadas;};
             if($_GET['asunto'] != ''){$filtro .= $whereAsuntos;};
         }
 

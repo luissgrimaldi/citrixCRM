@@ -27,4 +27,13 @@ if($_GET['page']=='zona'){
     
 };
 
+
+if($_GET['page']=='contacto'){
+    $id = $_GET['id'];
+    
+    $query = $connect-> prepare ("DELETE FROM wp_contactos WHERE id=?");
+    $query->execute([$id]);
+    
+};
+
 ?>

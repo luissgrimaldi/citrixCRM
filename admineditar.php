@@ -280,6 +280,95 @@
 <!--/* End Main */-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <?php };?>
+
+<?php if($_GET["page"]=='contacto'){
+
+    $sentencia = $connect->prepare("SELECT * FROM `wp_contactos` WHERE id= '".$_GET['id']."'") or die('query failed');
+    $sentencia->execute();
+    $list_contactos = $sentencia->fetchAll();                         
+    foreach($list_contactos as $contacto){   
+        $editarId = $_GET['id'];             
+        $editarNombre = $contacto['nombre'];
+        $editarApellido = $contacto['apellido'];
+        $editarTelefono = $contacto['telefono'];
+        $editarEmail = $contacto['email'];
+        $editarDireccion = $contacto['direccion'];
+        $editarNoEmails =  $contacto['no_emails'];
+        $editarObservaciones = $contacto['observaciones'];               
+    }
+
+?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--/* Main */-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<main class="main" id="main">
+    <div class="main__container">
+        <div class="main__container__top">
+            <div class="main__title"><i class="fa-solid fa-user main__h1--emoji"></i><h1 class="main__h1">Agregar contacto</h1></div>
+        </div>
+        <div class="main__decoration"></div>
+            <div class="main__perfil">                   
+                <form class="main__perfil__container" method="POST" action="backend/admineditar.php?page=contacto&id=<?php echo $editarId?>">
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Nombre</span>
+                        <div class="perfil__bloque__content">
+                            <input type="text" name="nombre" class="perfil__bloque__content__nombre" required value="<?php echo $editarNombre;?>">
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Apellido</span>
+                        <div class="perfil__bloque__content">
+                            <input type="text" name="apellido" class="perfil__bloque__content__apellido" value="<?php echo $editarApellido;?>">
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Telefono</span>
+                        <div class="perfil__bloque__content">
+                            <input type="text" name="telefono" class="perfil__bloque__content__telefono-celular" value="<?php echo $editarTelefono;?>">
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Email</span>
+                        <div class="perfil__bloque__content">
+                            <input type="text" name="email" class="perfil__bloque__content__email" value="<?php echo $editarEmail;?>">
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Direccion</span>
+                        <div class="perfil__bloque__content">
+                            <input type="direccion" name="direccion" class="perfil__bloque__content__nombre" value="<?php echo $editarDireccion;?>">
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Observaciones</span>
+                        <div class="perfil__bloque__content--observaciones">
+                            <textarea class="form__textarea content__textarea" name="observaciones" id=""><?php echo $editarObservaciones;?></textarea>
+                        </div>
+                    </div>                  
+                    <div class="perfil__bloque">
+                        <label class="perfil__bloque__label">Enviar emails</span>
+                        <div class="perfil__bloque__content--submit">
+                            <input class="form__checkbox content__checkbox" type="checkbox" name="no_emails" <?php if($editarNoEmails == 0){echo 'checked=check';};?> value="0">                          
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <div class="perfil__bloque__content--submit">
+                            <input type="submit" class="perfil__bloque__content__submit" value="Guardar cambios">                            
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <div class="perfil__bloque__content--notsubmit">
+                        <a class="perfil__bloque__content__notsubmit" href="controladmin.php?page=contacto">Volver al control de contactos</a>
+                    </div>
+            </div>
+                </div>
+            </div>
+    </div>  
+</main>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--/* End Main */-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<?php };?>
     </div>
     <script src="index.js"></script>
 </body>

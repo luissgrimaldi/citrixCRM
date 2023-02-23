@@ -69,7 +69,6 @@
                         if($list_situaciones){
                             foreach($list_situaciones as $situacion){
                             $contactoDireccion = $situacion['direccion'];
-                            $contactoCelular = $situacion['celular'];
                             $contactoConyuge = $situacion['conyuge'];
                             $contactoConyugeEmail = $situacion['conyuge_email'];
                             $contactoConyugeCelular = $situacion['conyuge_cel'];
@@ -77,7 +76,6 @@
                             $emails = $situacion['no_emails'];
                         }; }else{
                             $contactoDireccion ='';
-                            $contactoCelular = '';
                             $contactoConyuge = '';
                             $contactoConyugeEmail = '';
                             $contactoConyugeCelular = '';
@@ -112,9 +110,6 @@
                                 <span>Telefono:</span><span class="main__user__content__bloque__content__respuesta"><?php if($editarTelefono != '' and $editarTelefono != NULL and isset($editarTelefono)){echo $editarTelefono;}else{echo 'No se estableció ningun numero de telefono';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
-                                <span>Celular:</span><span class="main__user__content__bloque__content__respuesta"><?php if($contactoCelular != '' and $contactoCelular != NULL and isset($contactoCelular)){echo $contactoCelular;}else{echo 'No se estableció ningun numero de celular';}?></span>
-                            </div>
-                            <div class="main__user__content__bloque__content">
                                 <span>Email:</span><span class="main__user__content__bloque__content__respuesta"><?php if($editarEmail != '' or $editarEmail != NULL or isset($editarEmail)){echo $editarEmail;}else{echo 'No se estableció ningun email';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
@@ -129,19 +124,16 @@
                         </div>
                         <div class="main__user__content__bloque">
                             <div class="main__user__content__bloque__content">
-                                <span>Conyuge:</span><span class="main__user__content__bloque__content__respuesta"><?php if($contactoConyuge != '' and $contactoConyuge != NULL and isset($contactoConyuge)){echo $contactoConyuge;}else{'No se estableció ningun nombre';}?></span>
+                                <span>Conyuge:</span><span class="main__user__content__bloque__content__respuesta"><?php if(!empty($contactoConyuge)){echo $contactoConyuge;}else{echo 'No se estableció ningun nombre';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
-                                <span>Conyuge telefono:</span><span class="main__user__content__bloque__content__respuesta"><?php if($contactoConyugeTelefono != '' or $contactoConyugeTelefono != NULL or !isset($editarTelefono)){echo $contactoConyugeTelefono;}else{echo 'No se estableció ningun numero de telefono';}?></span>
+                                <span>Conyuge telefono:</span><span class="main__user__content__bloque__content__respuesta"><?php if($contactoConyugeTelefono != '' or $contactoConyugeTelefono != NULL or !isset($contactoConyugeTelefono)){echo $contactoConyugeTelefono;}else{echo 'No se estableció ningun numero de telefono';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
-                                <span>Conyuge celular:</span><span class="main__user__content__bloque__content__respuesta"><?php if($contactoConyugeCelular != '' or $contactoConyugeCelular != NULL or !isset($editarTelefono)){echo $contactoConyugeCelular;}else{echo 'No se estableció ningun numero de celular';}?></span>
+                                <span>Conyuge email:</span><span class="main__user__content__bloque__content__respuesta"><?php if($contactoConyugeEmail != '' or $contactoConyugeEmail != NULL or !isset($contactoConyugeEmail)){echo $contactoConyugeEmail;}else{echo 'No se estableció ningun email';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
-                                <span>Conyuge email:</span><span class="main__user__content__bloque__content__respuesta"><?php if($contactoConyugeEmail != '' or $contactoConyugeEmail != NULL or !isset($editarTelefono)){echo $contactoConyugeEmail;}else{echo 'No se estableció ningun email';}?></span>
-                            </div>
-                            <div class="main__user__content__bloque__content">
-                                <span>Enviar emails:</span><span class="main__user__content__bloque__content__respuesta"><?php if($emails ==''){if($emails == '0' ){echo 'Si';}else if($emails == '1'){echo 'No';};}else{echo 'No establecido';}?></span>
+                                <span>Enviar emails:</span><span class="main__user__content__bloque__content__respuesta"><?php if($emails != ''){if($emails == '0' ){echo 'Si';}else if($emails == '1'){echo 'No';};}else{echo 'No establecido';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
                                 <span>LLamar desde:</span><span class="main__user__content__bloque__content__respuesta"><?php if($editarLlamarDesde != '0' or $editarLlamarDesde != NULL){ echo $editarLlamarDesde;};?></span>

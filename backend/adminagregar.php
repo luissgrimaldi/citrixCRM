@@ -4,13 +4,13 @@ if(!isset($_SESSION)) {session_start();};
 if (isset($_SESSION['usuario'])){
 
 if($_GET['page']=='usuario'){
-if(!isset($_POST['nickname'])){$_POST['nickname']= ' ';};
-if(!isset($_POST['nombre'])){$_POST['nombre']= ' ';};
-if(!isset($_POST['apellido'])){$_POST['apellido']= ' ';};
-if(!isset($_POST['email'])){$_POST['email']= ' ';};
-if(!isset($_POST['celular'])){$_POST['celular']= ' ';};
-if(!isset($_POST['contrasenia'])){$_POST['contrasenia']= ' ';};
-if(!isset($_POST['repetircontrasenia'])){$_POST['repetircontrasenia']= ' ';};
+if(!isset($_POST['nickname'])){$_POST['nickname']= '';};
+if(!isset($_POST['nombre'])){$_POST['nombre']= '';};
+if(!isset($_POST['apellido'])){$_POST['apellido']= '';};
+if(!isset($_POST['email'])){$_POST['email']= '';};
+if(!isset($_POST['celular'])){$_POST['celular']= '';};
+if(!isset($_POST['contrasenia'])){$_POST['contrasenia']= '';};
+if(!isset($_POST['repetircontrasenia'])){$_POST['repetircontrasenia']= '';};
 if(!isset($_POST['rol'])){$_POST['rol']=0;};
 if($_POST['habilitar'] == ''){$_POST['habilitar']= 0;};
     // Variables de sección información //
@@ -37,13 +37,13 @@ if($_POST['habilitar'] == ''){$_POST['habilitar']= 0;};
         if($query){
             echo '<script> alert("Usuario Agregado con éxito"); window.location = "../controladmin.php?page=usuario"; </script>';
         }else{
-            echo '<script> alert("Ha ocurrido un error al agregar el usuario"); window.location = "../controladmin.php?page=usuario"; </script>';
+            echo '<script> alert("Ha ocurrido un error al agregar usuario"); window.location = "../controladmin.php?page=usuario"; </script>';
         }
     
 };
 
 if($_GET['page']=='ciudad'){
-    if(!isset($_POST['ciudad'])){$_POST['ciudad']= ' ';};
+    if(!isset($_POST['ciudad'])){$_POST['ciudad']= '';};
     if($_POST['habilitar'] == ''){$_POST['habilitar']= 0;};
         
     // Variables de sección información //
@@ -65,8 +65,8 @@ if($_GET['page']=='ciudad'){
 };
 
 if($_GET['page']=='zona'){
-    if(!isset($_POST['zona'])){$_POST['zona']= ' ';};
-    if(!isset($_POST['ciudad'])){$_POST['ciudad']= ' ';};
+    if(!isset($_POST['zona'])){$_POST['zona']= '';};
+    if(!isset($_POST['ciudad'])){$_POST['ciudad']= '';};
     if($_POST['habilitar'] == ''){$_POST['habilitar']= 0;};
         
     // Variables de sección información //
@@ -87,6 +87,37 @@ if($_GET['page']=='zona'){
             }
         
 };
+
+if($_GET['page']=='contacto'){
+    if(!isset($_POST['nombre'])){$_POST['nombre']= '';};
+    if(!isset($_POST['apellido'])){$_POST['apellido']= '';};
+    if(!isset($_POST['telefono'])){$_POST['telefono']= '';};
+    if(!isset($_POST['email'])){$_POST['email']= '';};
+    if(!isset($_POST['direccion'])){$_POST['direccion']= '';};
+    if(!isset($_POST['no_emails'])){$_POST['no_emails']= '1';};
+    if(!isset($_POST['observaciones'])){$_POST['observaciones']='';};
+        // Variables de sección información //
+        $nombre = $_POST['nombre'];
+        $apellido = $_POST['apellido'];
+        $telefono = $_POST['telefono'];
+        $email = $_POST['email'];
+        $direccion =  $_POST['direccion'];
+        $no_emails =  $_POST['no_emails'];
+        $observaciones =  $_POST['observaciones'];
+    
+        // IF para ver si cumple los requisitos //
+
+            // Hago el insert en la DB //
+            $query = $connect-> prepare ("INSERT INTO wp_contactos (nombre, apellido, telefono, email, direccion, no_emails, observaciones) values (?, ?, ?, ?, ?, ?, ?)");
+            $query->execute([$nombre, $apellido, $telefono, $email, $direccion, $no_emails, $observaciones]);
+    
+            if($query){
+                echo '<script> alert("Contacto Agregado con éxito"); window.location = "../controladmin.php?page=contacto"; </script>';
+            }else{
+                echo '<script> alert("Ha ocurrido un error al agregar contacto"); window.location = "../controladmin.php?page=usuario"; </script>';
+            }
+        
+    };
 
 }else{echo '<script> alert("Para ingresar a la pagina debe tener una sesión iniciada"); window.location = "../login.php"; </script>';};
 ?>

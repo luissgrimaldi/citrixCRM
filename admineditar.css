@@ -199,7 +199,15 @@ textarea{
     display: inline-block;
 }
 
-
+.form__textarea{
+    width: 100%;
+    padding: 0.313em 1em;
+    background-color: var(--color-principal-main);
+    color: white;
+    border-radius: 1em;
+    overflow-wrap: break-word;
+    resize: vertical;
+} 
 
 
 

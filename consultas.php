@@ -48,7 +48,7 @@
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Canal</label>
                                 <select class="form__select" name="seleccionarCanal">
-                                        <option value></option>
+                                    <option value>Todos</option>
                                         <?php                          
                                             $sentencia = $connect->prepare("SELECT * FROM `wp_medios_contacto` WHERE habilitado=1") or die('query failed');
                                             $sentencia->execute();
@@ -64,7 +64,7 @@
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Operación</label>
                                 <select class="form__select" name="seleccionarOperacion" id="">
-                                    <option value></option>
+                                    <option value>Todos</option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_operacion` WHERE habilitado=1") or die('query failed');
                                         $sentencia->execute();
@@ -80,7 +80,7 @@
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Zona</label>
                                 <select class="form__select" name="seleccionarZona" id="">
-                                        <option value></option>
+                                    <option value>Todas</option>
                                         <?php                          
                                             $sentencia = $connect->prepare("SELECT * FROM `wp_zonas` WHERE habilitada=1") or die('query failed');
                                             $sentencia->execute();
@@ -98,7 +98,7 @@
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Tipo de propiedad</label>
                                 <select class="form__select" name="seleccionarTipo" id="">
-                                    <option value></option>
+                                    <option value>Todos</option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_tipo` WHERE habilitado=1") or die('query failed');
                                         $sentencia->execute();
@@ -118,7 +118,7 @@
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Estado</label>
                                 <select class="form__select" name="seleccionarEstado" id="">
-                                        <option value></option>
+                                        <option value>Todos</option>
                                         <?php                          
                                             $sentencia = $connect->prepare("SELECT * FROM `wp_molt_multiform_status` WHERE table_id=3") or die('query failed');
                                             $sentencia->execute();
@@ -229,7 +229,6 @@
                                 <div class="consultas__bloque__content consultas__edit-search-reload">
                                     <a href="editarconsulta.php?consulta=<?php echo $idConsulta?>"><i class="consultas__accion fa-solid fa-pencil"></i></a>
                                     <a href="consultasinfo.php?consulta=<?php echo $idConsulta?>"><i class="consultas__accion fa-solid fa-search"></i></a>
-                                    <a href=""><i class="consultas__accion fa-solid fa-rotate"></i></a>
                                     <i class="consultas__accion fa-solid fa-trash" onclick="if(confirm('¿Seguro que quieres eliminar esta consulta?')) delConsulta(<?php echo $idConsulta?>)"></i>
                                 </div>   
                             </div>

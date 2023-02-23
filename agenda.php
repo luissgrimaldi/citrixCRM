@@ -1,6 +1,6 @@
 <?php include 'header.php' ?>
 <?php 
-    if(!isset($_POST['tipoSearch'])){$_POST['tipoSearch'] = '0';}; if(!isset($_POST['agenteSearch'])){$_POST['agenteSearch'] = $idAgente;}; if(!isset($_POST['realizadasSearch'])){$_POST['realizadasSearch'] = '0';}; if(!isset($_POST['asuntoSearch'])){$_POST['asuntoSearch'] = '';};
+    if(!isset($_POST['tipoSearch'])){$_POST['tipoSearch'] = '0';}; if(!isset($_POST['agenteSearch'])){$_POST['agenteSearch'] = $idAgente;}; if(!isset($_POST['realizadasSearch'])){$_POST['realizadasSearch'] = '3';}; if(!isset($_POST['asuntoSearch'])){$_POST['asuntoSearch'] = '';};
     if(!$_GET){header('Location:agenda.php?tipo='.$_POST['tipoSearch'].'&agente='.$_POST['agenteSearch'].'&realizadas='.$_POST['realizadasSearch'].'&asunto='.$_POST['asuntoSearch']);}
     else if (!isset($_GET['tipo']) || !isset($_GET['agente'])|| !isset($_GET['realizadas'])|| !isset($_GET['asunto'])){header('Location:agenda.php?tipo='.$_POST['tipoSearch'].'&agente='.$_POST['agenteSearch'].'&realizadas='.$_POST['realizadasSearch'].'&asunto='.$_POST['asuntoSearch']);};
 ?>
@@ -163,7 +163,11 @@
                                 </div>
                                 <div class="form__container-right--bloque__content">
                                     <label class="form__container-right__label" for="">Solo activas</label>
-                                    <input class="form__container-right__checkbox" name="realizadasSearch" value="1" <?php if($getRealizadas==1){echo 'checked="check"';}?> type="checkbox">
+                                    <select name="realizadasSearch" class="form__container-right__select">
+                                        <option value="1" <?php if($getRealizadas == 1){echo 'selected';};?>>Pendientes</option>
+                                        <option value="2" <?php if($getRealizadas == 2){echo 'selected';};?>>Realizadas</option>
+                                        <option value="3" <?php if($getRealizadas == 3){echo 'selected';};?>>Todas</option>
+                                    </select>
                                 </div>                 
                                 <div class="form__container-right--bloque__content">
                                     <button class="form__container-right__button" >Buscar</button>

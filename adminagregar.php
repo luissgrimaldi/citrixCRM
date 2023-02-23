@@ -2,7 +2,6 @@
 <?php include 'sidebar.php' ?>
 <?php if($_GET["page"]=='usuario'){?>
 
-
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -97,7 +96,7 @@
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* End Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-        <?php };?>
+<?php };?>
 
 
 
@@ -209,6 +208,82 @@
 <!--/* End Main */-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <?php };?>
+
+<?php if($_GET["page"]=='contacto'){?>
+
+
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--/* Main */-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<main class="main" id="main">
+    <div class="main__container">
+        <div class="main__container__top">
+            <div class="main__title"><i class="fa-solid fa-user main__h1--emoji"></i><h1 class="main__h1">Agregar contacto</h1></div>
+        </div>
+        <div class="main__decoration"></div>
+            <div class="main__perfil">                   
+                <form class="main__perfil__container" method="POST" action="backend/adminagregar.php?page=contacto">
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Nombre</span>
+                        <div class="perfil__bloque__content">
+                            <input type="text" name="nombre" class="perfil__bloque__content__nombre" required>
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Apellido</span>
+                        <div class="perfil__bloque__content">
+                            <input type="text" name="apellido" class="perfil__bloque__content__apellido">
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Telefono</span>
+                        <div class="perfil__bloque__content">
+                            <input type="text" name="telefono" class="perfil__bloque__content__telefono-celular">
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Email</span>
+                        <div class="perfil__bloque__content">
+                            <input type="text" name="email" class="perfil__bloque__content__email">
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Direccion</span>
+                        <div class="perfil__bloque__content">
+                            <input type="direccion" name="direccion" class="perfil__bloque__content__nombre">
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Observaciones</span>
+                        <div class="perfil__bloque__content--observaciones">
+                            <textarea class="form__textarea content__textarea" name="observaciones" id=""></textarea>
+                        </div>
+                    </div>                  
+                    <div class="perfil__bloque">
+                        <label class="perfil__bloque__label">Enviar emails</span>
+                        <div class="perfil__bloque__content--submit">
+                            <input class="form__checkbox content__checkbox" type="checkbox" name="no_emails" value="0">                          
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <div class="perfil__bloque__content--submit">
+                            <input type="submit" class="perfil__bloque__content__submit" value="Agregar usuario">                            
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <div class="perfil__bloque__content--notsubmit">
+                        <a class="perfil__bloque__content__notsubmit" href="controladmin.php?page=contacto">Volver al control de usuarios</a>
+                    </div>
+            </div>
+                </div>
+            </div>
+    </div>  
+</main>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--/* End Main */-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<?php };?>
+
     </div>
     <script src="index.js"></script>
 </body>

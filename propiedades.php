@@ -29,7 +29,7 @@
                             <div class="form__bloque__content content"> 
                                 <label  class="form__label content__label" for="">Operación</label>
                                 <select class="form__select content__select" name="seleccionarOperacion" id="">                      
-                                    <option value></option>
+                                    <option value>Todas</option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_operacion` WHERE habilitado=1") or die('query failed');
                                         $sentencia->execute();
@@ -45,7 +45,7 @@
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Tipo</label>
                                 <select class="form__select content__select" name="seleccionarTipo" id="">    
-                                    <option value></option>
+                                    <option value>Todos</option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_tipo` WHERE habilitado=1") or die('query failed');
                                         $sentencia->execute();
@@ -61,7 +61,7 @@
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Ciudad</label>
                                 <select class="form__select content__select" name="seleccionarCiudad" id="">
-                                        <option value></option>
+                                    <option value>Todas</option>
                                         <?php                          
                                             $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE habilitado=1") or die('query failed');
                                             $sentencia->execute();
@@ -77,7 +77,7 @@
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Zona</label>
                                 <select class="form__select content__select" name="seleccionarZona" id="">
-                                        <option value></option>
+                                    <option value>Todas</option>
                                         <?php                          
                                             $sentencia = $connect->prepare("SELECT * FROM `wp_zonas` WHERE habilitada=1") or die('query failed');
                                             $sentencia->execute();

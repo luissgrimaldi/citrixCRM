@@ -1,5 +1,6 @@
 <?php
 include 'connect.php';
+if(!isset($_POST['contacto_id'])){$_POST['contacto_id']= ' ';};
 if(!isset($_POST['nombre'])){$_POST['nombre']= ' ';};
 if(!isset($_POST['apellido'])){$_POST['apellido']= ' ';};
 if(!isset($_POST['email'])){$_POST['email']= ' ';};
@@ -26,6 +27,7 @@ if(!isset($_POST['balcon'])){$_POST['balcon']= ' ';};
 if(!isset($_POST['pileta'])){$_POST['pileta']= ' ';};
 
 
+$contactoId = $_POST['contacto_id'];
 $nombre = $_POST['nombre'];
 $apellido = $_POST['apellido'];
 $email = $_POST['email'];
@@ -52,8 +54,8 @@ $balcon = $_POST['balcon'];
 $pileta = $_POST['pileta'];
 
 
-$query = $connect-> prepare ("INSERT INTO wp_consultas (nombre, apellido , email, telefono, propiedad_id, observaciones, consulta, status_id, situacion, captado_por, canal_id, asignado_a, llamar_desde, llamar_hasta, superficie_construida_desde, superficie_construida_hasta, precio_venta_desde, precio_venta_hasta, planta_baja, garaje, garaje_doble, amueblada, balcon, pileta) VALUES (?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$query->execute([$nombre, $apellido, $email, $telefono, $propiedad, $observaciones, $consulta, $estado, $situacion, $captadoPor, $medioContacto, $asignadoA, $llamarDesde, $llamarHasta, $superficieDesde, $superficieHasta, $precioDesde, $precioHasta, $plantaBaja, $garage, $garageDoble, $amueblada, $balcon, $pileta]);
+$query = $connect-> prepare ("INSERT INTO wp_consultas (nombre, apellido , email, telefono, propiedad_id, observaciones, consulta, status_id, situacion, captado_por, canal_id, asignado_a, llamar_desde, llamar_hasta, superficie_construida_desde, superficie_construida_hasta, precio_venta_desde, precio_venta_hasta, planta_baja, garaje, garaje_doble, amueblada, balcon, pileta, contacto_id) VALUES (?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$query->execute([$nombre, $apellido, $email, $telefono, $propiedad, $observaciones, $consulta, $estado, $situacion, $captadoPor, $medioContacto, $asignadoA, $llamarDesde, $llamarHasta, $superficieDesde, $superficieHasta, $precioDesde, $precioHasta, $plantaBaja, $garage, $garageDoble, $amueblada, $balcon, $pileta, $contactoId]);
 
 if($query){
     echo '<script> alert("Consulta agregada con exito"); window.location = "../consultas.php"; </script>';

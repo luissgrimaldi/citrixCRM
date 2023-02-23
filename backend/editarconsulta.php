@@ -1,6 +1,6 @@
 <?php 
 include 'connect.php';
-
+if(!isset($_POST['contacto_id'])){$_POST['contacto_id']= ' ';};
 if(!isset($_POST['nombre'])){$_POST['nombre']= ' ';};
 if(!isset($_POST['apellido'])){$_POST['apellido']= ' ';};
 if(!isset($_POST['email'])){$_POST['email']= ' ';};
@@ -30,6 +30,7 @@ if(!isset($_POST['pileta'])){$_POST['pileta']= ' ';};
     $sentencia->execute();
     $list_consultas = $sentencia->fetchAll();                         
     foreach($list_consultas as $consulta){
+        $editarContactoId = $consulta['contacto_id'];
         $editarNombre = $consulta['nombre'];
         $editarApellido = $consulta['apellido'];
         $editarEmail = $consulta['email'];
@@ -57,6 +58,7 @@ if(!isset($_POST['pileta'])){$_POST['pileta']= ' ';};
     }         
 
     // Variables de sección información //
+$NEWcontactoId = $_POST['contacto_id'];
 $NEWnombre = $_POST['nombre'];
 $NEWapellido = $_POST['apellido'];
 $NEWemail = $_POST['email'];
@@ -84,12 +86,15 @@ $NEWpileta = $_POST['pileta'];
 
 
 // IF para ver si cumple los requisitos //
-if($NEWnombre != $editarNombre OR $NEWapellido != $editarApellido OR $NEWemail != $editarEmail OR $NEWtelefono != $editarTelefono OR $NEWpropiedad != $editarPropiedad OR $NEWobservaciones != $editarObservaciones OR $NEWconsulta != $editarConsulta OR $NEWestado != $editarEstado OR $NEWsituacion != $editarSituacion OR $NEWcaptadoPor != $editarCaptadoPor OR $NEWmedioContacto != $editarMedioContacto OR $NEWasignadoA != $editarAsignadoA OR $NEWllamarDesde != $editarLlamarDesde OR $NEWllamarHasta != $editarLlamarHasta OR $NEWsuperficieDesde != $editarSuperficieDesde OR $NEWsuperficieHasta != $editarSuperficieHasta OR $NEWprecioDesde != $editarPrecioDesde OR $NEWprecioHasta != $editarPrecioHasta OR $NEWplantaBaja != $editarPlantaBaja OR $NEWgaraje != $editargaraje OR $NEWgarajeDoble != $editargarajeDoble OR $NEWamueblada != $editarAmueblada OR $NEWbalcon != $editarBalcon OR $NEWpileta != $editarPileta){  
+if($NEWnombre != $editarNombre OR $NEWapellido != $editarApellido OR $NEWemail != $editarEmail OR $NEWtelefono != $editarTelefono OR $NEWpropiedad != $editarPropiedad OR $NEWobservaciones != $editarObservaciones OR $NEWconsulta != $editarConsulta OR $NEWestado != $editarEstado OR $NEWsituacion != $editarSituacion OR $NEWcaptadoPor != $editarCaptadoPor OR $NEWmedioContacto != $editarMedioContacto OR $NEWasignadoA != $editarAsignadoA OR $NEWllamarDesde != $editarLlamarDesde OR $NEWllamarHasta != $editarLlamarHasta OR $NEWsuperficieDesde != $editarSuperficieDesde OR $NEWsuperficieHasta != $editarSuperficieHasta OR $NEWprecioDesde != $editarPrecioDesde OR $NEWprecioHasta != $editarPrecioHasta OR $NEWplantaBaja != $editarPlantaBaja OR $NEWgaraje != $editargaraje OR $NEWgarajeDoble != $editargarajeDoble OR $NEWamueblada != $editarAmueblada OR $NEWbalcon != $editarBalcon OR $NEWpileta != $editarPileta OR $NEWcontactoId != $editarContactoId){  
         
 
     // Update en mi información //
     $update = " casilla_email_destino = NULL";
 
+    if($NEWcontactoId != $editarContactoId){
+        $update .= ", contacto_id = '".$NEWcontactoId."'";
+    }
     if($NEWnombre != $editarNombre){
         $update .= ", nombre = '".$NEWnombre."'";
     }
@@ -172,7 +177,7 @@ if($NEWnombre != $editarNombre OR $NEWapellido != $editarApellido OR $NEWemail !
     }else{
         echo '<script> alert("Ha ocurrido un error al editar la consulta"); window.location = "../consultas.php"; </script>';
     }
-    ?>
+
 
 }else{echo '<script> alert("No se han realizado cambios"); window.location = "../consultas.php"; </script>';}
 

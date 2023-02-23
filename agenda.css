@@ -509,6 +509,10 @@
     background-color: rgba(255, 0, 0, 0.514);
 }
 
+#calendar{
+    margin: 1.875em 1em;
+}
+
 
 @media screen and (max-width:1350px) {
 

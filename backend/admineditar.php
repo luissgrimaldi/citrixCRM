@@ -30,16 +30,16 @@ $NEWnickname = $_POST['nickname'];
 $NEWnombre = $_POST['nombre'];
 $NEWapellido = $_POST['apellido'];
 $NEWemail = $_POST['email'];
-$NEWcelular = $_POST['celular'];
-$NEWcontrasenia = $_POST['contrasenia'];
-$NEWrepetircontrasenia = $_POST['repetircontrasenia'];
-$NEWrol = $_POST['rol'];
+$NEWtelefono = $_POST['celular'];
+$NEWdireccion = $_POST['contrasenia'];
+$NEWnoEmails = $_POST['repetircontrasenia'];
+$NEWobservaciones = $_POST['rol'];
 $NEWhabilitado = $_POST['habilitar'];
 
-if($NEWnickname != $editarNickname OR $NEWnombre != $editarNombre OR $NEWapellido != $editarApellido OR $NEWemail != $editarEmail OR $NEWcelular != $editarCelular OR $NEWcontrasenia != '' OR $NEWrepetircontrasenia != '' OR $NEWrol != $editarRol OR $NEWhabilitado != $editarHabilitado){  
+if($NEWnickname != $editarNickname OR $NEWnombre != $editarNombre OR $NEWapellido != $editarApellido OR $NEWemail != $editarEmail OR $NEWtelefono != $editarCelular OR $NEWdireccion != '' OR $NEWnoEmails != '' OR $NEWobservaciones != $editarRol OR $NEWhabilitado != $editarHabilitado){  
         
-    if($NEWcontrasenia == $NEWrepetircontrasenia){       
-        $NEWcontrasenia = hash('SHA512', $NEWcontrasenia);
+    if($NEWdireccion == $NEWnoEmails){       
+        $NEWdireccion = hash('SHA512', $NEWdireccion);
         // Update en mi información //
         $update = " habilitado = '".$NEWhabilitado."'";
     
@@ -55,14 +55,14 @@ if($NEWnickname != $editarNickname OR $NEWnombre != $editarNombre OR $NEWapellid
         if($NEWemail != $editarEmail){
             $update .= ", email = '".$NEWemail."'";
         }
-        if($NEWcelular != $editarCelular){
-            $update .= ", celular = '".$NEWcelular."'";
+        if($NEWtelefono != $editarCelular){
+            $update .= ", celular = '".$NEWtelefono."'";
         }
-        if($NEWcontrasenia != $editarContrasenia){
-            $update .= ", pass = '".$NEWcontrasenia."'";
+        if($NEWdireccion != $editarContrasenia){
+            $update .= ", pass = '".$NEWdireccion."'";
         }
-        if($NEWrol != $editarRol){
-            $update .= ", rol = '".$NEWrol."'";
+        if($NEWobservaciones != $editarRol){
+            $update .= ", rol = '".$NEWobservaciones."'";
         }
         // Hago el update en la DB //
         $query = $connect-> prepare ("UPDATE usuarios SET $update WHERE user_id= '".$_GET['id']."'");
@@ -164,4 +164,77 @@ if($NEWzona != $editarZona OR $NEWciudad != $editarCiudad OR $NEWhabilitada != $
 }else{echo '<script> alert("No se han realizado cambios"); window.location = "../controladmin.php?page=zona"; </script>';}
           
 }
+
+if($_GET['page']=='contacto'){
+    if(!isset($_POST['nombre'])){$_POST['nombre']= '';};
+    if(!isset($_POST['apellido'])){$_POST['apellido']= '';};
+    if(!isset($_POST['telefono'])){$_POST['telefono']= '';};
+    if(!isset($_POST['email'])){$_POST['email']= '';};
+    if(!isset($_POST['direccion'])){$_POST['direccion']= '';};
+    if(!isset($_POST['no_emails'])){$_POST['no_emails']= '1';};
+    if(!isset($_POST['observaciones'])){$_POST['observaciones']='';};
+        
+    $sentencia = $connect->prepare("SELECT * FROM `wp_contactos` WHERE id= '".$_GET['id']."'") or die('query failed');
+        $sentencia->execute();
+        $list_consultas = $sentencia->fetchAll();                         
+        foreach($list_consultas as $consulta){
+            $editarNombre = $consulta['nombre'];
+            $editarApellido = $consulta['apellido'];
+            $editarTelefono = $consulta['telefono'];
+            $editarEmail = $consulta['email'];
+            $editarDireccion = $consulta['direccion'];
+            $editarNoEmails = $consulta['no_emails'];
+            $editarObservaciones = $consulta['observaciones'];         
+        }  
+        
+    $NEWnombre = $_POST['nombre'];
+    $NEWapellido = $_POST['apellido'];
+    $NEWtelefono = $_POST['telefono'];
+    $NEWemail = $_POST['email'];
+    $NEWdireccion = $_POST['direccion'];
+    $NEWnoEmails = $_POST['no_emails'];
+    $NEWobservaciones = $_POST['observaciones'];
+    
+    if($NEWnombre != $editarNombre OR $NEWapellido != $editarApellido OR $NEWtelefono != $editarTelefono OR $NEWemail != $editarEmail OR $NEWdireccion != $editarDireccion OR $NEWnoEmails != $editarNoEmails OR $NEWobservaciones != $editarObservaciones){  
+                
+
+            $update = " localidad = NULL";
+        
+            if($NEWnombre != $editarNombre){
+                $update .= ", nombre = '".$NEWnombre."'";
+            }
+            if($NEWapellido != $editarApellido){
+                $update .= ", apellido = '".$NEWapellido."'";
+            }
+            if($NEWtelefono != $editarTelefono){
+                $update .= ", telefono = '".$NEWtelefono."'";
+            }
+            if($NEWemail != $editarEmail){
+                $update .= ", email = '".$NEWemail."'";
+            }
+            if($NEWdireccion != $editarDireccion){
+                $update .= ", direccion = '".$NEWdireccion."'";
+            }
+            if($NEWnoEmails != $editarNoEmails){
+                $update .= ", no_emails = '".$NEWnoEmails."'";
+            }
+            if($NEWobservaciones != $editarObservaciones){
+                $update .= ", observaciones = '".$NEWobservaciones."'";
+            }
+
+            // Hago el update en la DB //
+            $query = $connect-> prepare ("UPDATE wp_contactos SET $update WHERE id= '".$_GET['id']."'");
+            $query->execute();
+        
+            if($query){
+                echo '<script> alert("Cambios Realizados con éxito"); window.location = "../controladmin.php?page=contacto"; </script>';
+            }else{
+                echo '<script> alert("Ha ocurrido un error al editar el contacto"); window.location = "../controladmin.php?page=contacto";</script>';
+            }
+    
+    
+    
+    }else{echo '<script> alert("No se han realizado cambios"); window.location = "../controladmin.php?page=contacto"; </script>';}
+        
+    };
 ?>

@@ -13,6 +13,7 @@
                         <a class="main__buttons__button <?php if($_GET['page']=='usuario'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=usuario">Usuarios</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='ciudad'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=ciudad">Ciudades</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='zona'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=zona">Zonas</a>
+                        <a class="main__buttons__button <?php if($_GET['page']=='contacto'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=contacto">Contacto</a>
                     </div>
                 </div>
                 <div class="main__decoration"></div>
@@ -31,7 +32,7 @@
                                 rol.role_id as rol_role_id, rol.name as rol_name                          
                                 FROM usuarios us 
                                 LEFT JOIN roles rol ON  us.rol = rol.role_id
-                                ORDER BY us.nombre ASC") or die('query failed');
+                                ORDER BY us_user_id DESC") or die('query failed');
                                 $sentencia->execute();
                                 $list_usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 foreach($list_usuarios as $usuario){
@@ -75,6 +76,7 @@
                         <a class="main__buttons__button <?php if($_GET['page']=='usuario'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=usuario">Usuarios</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='ciudad'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=ciudad">Ciudades</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='zona'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=zona">Zonas</a>
+                        <a class="main__buttons__button <?php if($_GET['page']=='contacto'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=contacto">Contacto</a>
                     </div>
                 </div>
                 <div class="main__decoration"></div>
@@ -87,7 +89,7 @@
                         <div class="main__perfil__container">                         
                             <ul class="propiedades__ul">
                             <?php           
-                                $sentencia = $connect->prepare("SELECT * from wp_ciudades ORDER BY nombre ASC") or die('query failed');
+                                $sentencia = $connect->prepare("SELECT * from wp_ciudades ORDER BY id DESC") or die('query failed');
                                 $sentencia->execute();
                                 $list_ciudades = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 foreach($list_ciudades as $ciudad){
@@ -127,6 +129,7 @@
                         <a class="main__buttons__button <?php if($_GET['page']=='usuario'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=usuario">Usuarios</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='ciudad'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=ciudad">Ciudades</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='zona'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=zona">Zonas</a>
+                        <a class="main__buttons__button <?php if($_GET['page']=='contacto'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=contacto">Contacto</a>
                     </div>
                 </div>
                 <div class="main__decoration"></div>
@@ -145,7 +148,7 @@
                                 c.nombre as c_nombre, c.id as c_id                      
                                 from wp_zonas z
                                 LEFT JOIN wp_ciudades c ON z.ciudad_id = c.id
-                                ORDER BY z.nombre ASC") or die('query failed');
+                                ORDER BY z.id DESC") or die('query failed');
                                 $sentencia->execute();
                                 $list_zonas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                                 foreach($list_zonas as $zona){
@@ -162,6 +165,62 @@
                                     <div class="propiedades__edit-hide">
                                         <a href="admineditar.php?page=zona&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
                                         <i class="propiedades__accion fa-solid fa-trash" onclick="if(confirm('Seguro que quieres eliminar esta zona?')) delZona(<?php echo $id?>)"></i>
+                                    </div>
+                                </li> 
+                                <?php };?>
+                            </ul>     
+                    </div>
+                </div>
+            </div>  
+        </main>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* End Main */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<?php };?>
+<?php if ($_GET['page']  == 'contacto'){?>
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--/* Main */-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <main class="main" id="main">
+            <div class="main__container">
+                <div class="main__container__top">
+                    <div class="main__title"><i class="fa-solid fa-user main__h1--emoji"></i><h1 class="main__h1">Contactos</h1></div>
+                    <div class="main__buttons">
+                        <a class="main__buttons__button <?php if($_GET['page']=='usuario'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=usuario">Usuarios</a>
+                        <a class="main__buttons__button <?php if($_GET['page']=='ciudad'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=ciudad">Ciudades</a>
+                        <a class="main__buttons__button <?php if($_GET['page']=='zona'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=zona">Zonas</a>
+                        <a class="main__buttons__button <?php if($_GET['page']=='contacto'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=contacto">Contacto</a>
+                    </div>
+                </div>
+                <div class="main__decoration"></div>
+                <div class="menu__main__buttons">
+                    <div class="main__buttons">
+                        <a class="main__buttons__button" href="adminagregar.php?page=contacto">Agregar contacto</a>
+                    </div>
+                </div>
+                    <div class="main__perfil">
+                        <div class="main__perfil__container">                         
+                            <ul class="propiedades__ul">
+                            <?php           
+                                $sentencia = $connect->prepare("SELECT * from wp_contactos ORDER BY id DESC") or die('query failed');
+                                $sentencia->execute();
+                                $list_usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+                                foreach($list_usuarios as $usuario){
+                                    $id = $usuario['id'];                                                             
+                                    $nombre = $usuario['nombre'];                                                             
+                                    $apellido = $usuario['apellido'];                                                             
+                                    $celular = $usuario['telefono'];                                                             
+                                    $email = $usuario['email'];                                                                                                                       
+                                ?> 
+                                <li class="propiedades__li" id="li<?php echo $id?>">
+                                    <div class="propiedades__nombre-detalles-precio">
+                                        <span class="propiedades__nombre"><?php echo $nombre.' '.$apellido;?></span>
+                                        <span class="propiedades__detalles"><?php echo '('.$email.' -'.$celular. ') '?></span>
+                                    </div>            
+                                    <div class="propiedades__edit-hide">
+                                        <a href="admineditar.php?page=contacto&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
+                                        <a href="contactosinfo.php?contacto=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-search"></i></a>
+                                        <i class="propiedades__accion fa-solid fa-trash" onclick="if(confirm('¿Seguro que quieres eliminar este contacto?')) delContacto(<?php echo $id?>)"></i>
                                     </div>
                                 </li> 
                                 <?php };?>

@@ -233,6 +233,20 @@ function delZona(id) {
 
 }
 
+function delContacto(id) {
+
+        let url = 'backend/admineliminar.php?page=contacto&id='+id;
+        let lista = document.getElementById('li'+id);
+
+        fetch(url, {
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response =>{       
+                lista.style.display = 'none';
+        })
+            .catch(err => console.log(err))
+
+}
+
 function delConsulta(id) {
 
         let url = 'backend/eliminarconsulta.php?id='+id;
