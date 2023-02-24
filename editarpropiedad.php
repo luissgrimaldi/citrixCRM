@@ -146,7 +146,7 @@
                     }
 
                 ?>            
-                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/editarpropiedad.php?ref=<?php echo $editarRef;?>" enctype="multipart/form-data">
+                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/editar.php?page=propiedad&ref=<?php echo $editarRef;?>" enctype="multipart/form-data">
                         <h2 class="main__h2">Caracteristicas</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -1000,14 +1000,18 @@
                         <h2 class="main__h2">Propietarios</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
-                            <input type="text" class="form__text content__text" name="buscadorcontactos" id="buscadorcontactos" value="<?php echo $editarContactoNombre?>" autocomplete="off"> 
-                            <input type="hidden" class="form__text content__text" name="contacto_id" id="contacto_id" value="<?php echo $editarContactoId?>"> 
+                            <input type="text" class="form__text content__text" placeholder="Ingrese nombre del propietario" name="buscadorcontactos" id="buscadorcontactos" autocomplete="off"> 
                             <ul class="content_ul" id="listaContactos"></ul>                
+                            </div>
+                        </div>                               
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                            <input type="text" class="form__text content__text" value="<?php echo $editarContactoNombre;?>" name="inputContacto" id="inputContacto" readonly="readonly"> 
+                            <input type="hidden" class="form__text content__text" value="<?php echo $editarContactoId;?>" name="contacto_id" id="contacto_id">               
                             </div>                          
-                        </div>                 
-                                          
+                        </div>                                       
                         <div class="main__decoration"></div>
-                        <input type="submit" class="form__button form__bloque__button" value="Guardar cambios">                                                                 
+                        <input type="submit" class="form__button form__bloque__button" name="submit" value="Guardar cambios">                                                                 
                     </form>
                 </div>
                 </div>                

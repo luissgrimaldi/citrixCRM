@@ -194,7 +194,7 @@ function seleccionarPropiedad(id,ref,titulo,direccion,altura) {
 }
 
 function delUser(id) {
-        let url = 'backend/admineliminar.php?page=usuario&id='+id;
+        let url = 'backend/eliminar.php?page=usuario&id='+id;
         let lista = document.getElementById('li'+id);
 
         fetch(url, {
@@ -207,7 +207,7 @@ function delUser(id) {
 }
 
 function delCiudad(id) {
-        let url = 'backend/admineliminar.php?page=ciudad&id='+id;
+        let url = 'backend/eliminar.php?page=ciudad&id='+id;
         let lista = document.getElementById('li'+id);
 
         fetch(url, {
@@ -221,7 +221,7 @@ function delCiudad(id) {
 
 function delZona(id) {
 
-        let url = 'backend/admineliminar.php?page=zona&id='+id;
+        let url = 'backend/eliminar.php?page=zona&id='+id;
         let lista = document.getElementById('li'+id);
 
         fetch(url, {
@@ -235,7 +235,7 @@ function delZona(id) {
 
 function delContacto(id) {
 
-        let url = 'backend/admineliminar.php?page=contacto&id='+id;
+        let url = 'backend/eliminar.php?page=contacto&id='+id;
         let lista = document.getElementById('li'+id);
 
         fetch(url, {
@@ -249,7 +249,7 @@ function delContacto(id) {
 
 function delConsulta(id) {
 
-        let url = 'backend/eliminarconsulta.php?id='+id;
+        let url = 'backend/eliminar.php?page=consulta&id='+id;
         let lista = document.getElementById('li'+id);
 
         fetch(url, {
@@ -263,7 +263,7 @@ function delConsulta(id) {
 
 function delPropiedad(id) {
 
-        let url = 'backend/eliminarpropiedad.php?id='+id;
+        let url = 'backend/eliminar.php?page=propiedad&id='+id;
         let lista = document.getElementById('li'+id);
 
         fetch(url, {

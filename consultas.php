@@ -177,7 +177,7 @@
                         LEFT JOIN wp_medios_contacto canal ON  con.canal_id=canal.id
                         $filtro") or die('query failed');
                         $sentencia->execute();
-                        $list_propiedades = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+                        $list_propiedades = $sentencia->fetchAll();
                         $consultasTotales = $sentencia->rowCount();
                         $paginas = $consultasTotales/$consultasXpagina;
                         $paginas = ceil($paginas);
@@ -202,7 +202,7 @@
                             LEFT JOIN wp_medios_contacto canal ON  con.canal_id=canal.id
                             $filtro ORDER BY con_id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
                             $sentencia->execute();
-                            $list_consultas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+                            $list_consultas = $sentencia->fetchAll();
                             foreach($list_consultas as $consulta){   
                                 $idConsulta = $consulta['con_id'];
                                 $tipoConsulta = $consulta['con_consulta'];

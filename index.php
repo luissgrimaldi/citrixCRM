@@ -104,7 +104,7 @@
                         $consultasTotales = $sentencia->rowCount();
                         $paginas = $consultasTotales/$consultasXpagina;
                         $paginas = ceil($paginas);
-                        $tareas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+                        $tareas = $sentencia->fetchAll();
                         if($tareas){?> 
                             <form action="backend/finalizareventos.php" method="POST" class="tareas--pendientes__form">
                                 <ul class="tareas--pendientes__list">
@@ -125,7 +125,7 @@
                         LEFT JOIN usuarios a ON  t.user_id=a.user_id
                         $filtro ORDER BY t_id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
                         $sentencia->execute();
-                        $tareas = $sentencia->fetchAll(PDO::FETCH_ASSOC);                        
+                        $tareas = $sentencia->fetchAll();                        
                             foreach($tareas as $tarea){
                                 $tareaId = $tarea['t_id'];
                                 $agenteNombre = $tarea['a_nombre'];

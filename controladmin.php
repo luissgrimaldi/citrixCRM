@@ -1,7 +1,8 @@
 <?php include 'header.php' ?>
-<?php if (!$_GET){header('Location:controladmin.php?page=usuario');}?>
+<?php if($rolAgente == 1 or $rolAgente == 3){if (!$_GET){header('Location:controladmin.php?page=usuario');};}else{if (!$_GET){header('Location:controladmin.php?page=contacto');}}?>
 <?php include 'sidebar.php' ?>
-<?php if ($_GET['page']  == 'usuario'){?>
+<?php if ($_GET['page']  == 'usuario'){
+    if($rolAgente == 1 or $rolAgente == 3){?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -10,10 +11,12 @@
                 <div class="main__container__top">
                     <div class="main__title"><i class="fa-solid fa-user main__h1--emoji"></i><h1 class="main__h1">Usuarios</h1></div>
                     <div class="main__buttons">
+                    <?php if($rolAgente == 1 or $rolAgente == 3){?>
                         <a class="main__buttons__button <?php if($_GET['page']=='usuario'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=usuario">Usuarios</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='ciudad'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=ciudad">Ciudades</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='zona'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=zona">Zonas</a>
-                        <a class="main__buttons__button <?php if($_GET['page']=='contacto'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=contacto">Contacto</a>
+                    <?php ;}?>
+                        <a class="main__buttons__button <?php if($_GET['page']=='contacto'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=contacto">Contactos</a>
                     </div>
                 </div>
                 <div class="main__decoration"></div>
@@ -34,7 +37,7 @@
                                 LEFT JOIN roles rol ON  us.rol = rol.role_id
                                 ORDER BY us_user_id DESC") or die('query failed');
                                 $sentencia->execute();
-                                $list_usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+                                $list_usuarios = $sentencia->fetchAll();
                                 foreach($list_usuarios as $usuario){
                                     $id = $usuario['us_user_id'];                                                             
                                     $nombre = $usuario['us_nombre'];                                                             
@@ -63,8 +66,10 @@
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* End Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-<?php };?>
-<?php if ($_GET['page']  == 'ciudad'){?>
+<?php ;}else{echo '<script> alert("Acceso denegado"); window.location = "controladmin.php"; </script>';} ;};?>
+
+<?php if ($_GET['page']  == 'ciudad'){
+    if($rolAgente == 1 or $rolAgente == 3){?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -73,10 +78,12 @@
                 <div class="main__container__top">
                     <div class="main__title"><i class="fa-solid fa-city main__h1--emoji"></i><h1 class="main__h1">Ciudades</h1></div>
                     <div class="main__buttons">
+                    <?php if($rolAgente == 1 or $rolAgente == 3){?>
                         <a class="main__buttons__button <?php if($_GET['page']=='usuario'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=usuario">Usuarios</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='ciudad'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=ciudad">Ciudades</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='zona'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=zona">Zonas</a>
-                        <a class="main__buttons__button <?php if($_GET['page']=='contacto'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=contacto">Contacto</a>
+                    <?php ;}?>
+                        <a class="main__buttons__button <?php if($_GET['page']=='contacto'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=contacto">Contactos</a>
                     </div>
                 </div>
                 <div class="main__decoration"></div>
@@ -91,7 +98,7 @@
                             <?php           
                                 $sentencia = $connect->prepare("SELECT * from wp_ciudades ORDER BY id DESC") or die('query failed');
                                 $sentencia->execute();
-                                $list_ciudades = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+                                $list_ciudades = $sentencia->fetchAll();
                                 foreach($list_ciudades as $ciudad){
                                     $id = $ciudad['id'];                                                             
                                     $nombre = $ciudad['nombre'];                                                             
@@ -116,8 +123,9 @@
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* End Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-<?php };?>
-<?php if ($_GET['page']  == 'zona'){?>
+<?php ;}else{echo '<script> alert("Acceso denegado"); window.location = "controladmin.php"; </script>';} ;};?>
+<?php if ($_GET['page']  == 'zona'){
+    if($rolAgente == 1 or $rolAgente == 3){?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -126,10 +134,12 @@
                 <div class="main__container__top">
                     <div class="main__title"><i class="fa-solid fa-road main__h1--emoji"></i><h1 class="main__h1">Zonas</h1></div>
                     <div class="main__buttons">
+                    <?php if($rolAgente == 1 or $rolAgente == 3){?>
                         <a class="main__buttons__button <?php if($_GET['page']=='usuario'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=usuario">Usuarios</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='ciudad'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=ciudad">Ciudades</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='zona'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=zona">Zonas</a>
-                        <a class="main__buttons__button <?php if($_GET['page']=='contacto'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=contacto">Contacto</a>
+                    <?php ;}?>
+                        <a class="main__buttons__button <?php if($_GET['page']=='contacto'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=contacto">Contactos</a>
                     </div>
                 </div>
                 <div class="main__decoration"></div>
@@ -150,7 +160,7 @@
                                 LEFT JOIN wp_ciudades c ON z.ciudad_id = c.id
                                 ORDER BY z.id DESC") or die('query failed');
                                 $sentencia->execute();
-                                $list_zonas = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+                                $list_zonas = $sentencia->fetchAll();
                                 foreach($list_zonas as $zona){
                                     $id = $zona['z_id'];                                                             
                                     $nombre = $zona['z_nombre'];                                                             
@@ -176,7 +186,7 @@
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* End Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-<?php };?>
+<?php ;}else{echo '<script> alert("Acceso denegado"); window.location = "controladmin.php"; </script>';} ;};?>
 <?php if ($_GET['page']  == 'contacto'){?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
@@ -186,10 +196,12 @@
                 <div class="main__container__top">
                     <div class="main__title"><i class="fa-solid fa-user main__h1--emoji"></i><h1 class="main__h1">Contactos</h1></div>
                     <div class="main__buttons">
+                    <?php if($rolAgente == 1 or $rolAgente == 3){?>
                         <a class="main__buttons__button <?php if($_GET['page']=='usuario'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=usuario">Usuarios</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='ciudad'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=ciudad">Ciudades</a>
                         <a class="main__buttons__button <?php if($_GET['page']=='zona'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=zona">Zonas</a>
-                        <a class="main__buttons__button <?php if($_GET['page']=='contacto'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=contacto">Contacto</a>
+                    <?php ;}?>
+                        <a class="main__buttons__button <?php if($_GET['page']=='contacto'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=contacto">Contactos</a>
                     </div>
                 </div>
                 <div class="main__decoration"></div>
@@ -204,7 +216,7 @@
                             <?php           
                                 $sentencia = $connect->prepare("SELECT * from wp_contactos ORDER BY id DESC") or die('query failed');
                                 $sentencia->execute();
-                                $list_usuarios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+                                $list_usuarios = $sentencia->fetchAll();
                                 foreach($list_usuarios as $usuario){
                                     $id = $usuario['id'];                                                             
                                     $nombre = $usuario['nombre'];                                                             

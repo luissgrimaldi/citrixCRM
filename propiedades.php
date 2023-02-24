@@ -252,7 +252,7 @@
                         LEFT JOIN wp_ciudades ciudad ON  prop.ciudad_id=ciudad.id
                         $filtro ORDER BY prop_id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
                         $sentencia->execute();
-                        $list_propiedades = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+                        $list_propiedades = $sentencia->fetchAll();
                         foreach($list_propiedades as $propiedad){
                             $idPropiedad = $propiedad['prop_id'];
                             $imgPropiedad = strval($propiedad['prop_foto_portada']);

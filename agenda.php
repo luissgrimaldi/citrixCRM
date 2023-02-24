@@ -19,8 +19,8 @@
                             <div class="form__bloque">
                                 <div class="form__bloque__content content">
                                     <label  class="form__label content__label" for="">Tipo de tarea</label>
-                                    <select class="form__select" name="tipo_tarea_id" id="">                               
-                                            <option value="0"></option>
+                                    <select class="form__select" name="tipo_tarea_id" id="" required>                               
+                                            <option></option>
                                             <?php                          
                                                 $sentencia = $connect->prepare("SELECT * FROM `wp_agenda_tipo_tarea`  WHERE habilitada=1") or die('query failed');
                                                 $sentencia->execute();
@@ -54,6 +54,7 @@
                                     <label  class="form__label content__label" for="">Terminada</label>
                                     <input class="form__checkbox content__checkbox" type="checkbox" name="tarea_terminada" value="1">
                                 </div>  
+                                <input type="hidden" name="submit">
                             </div> 
                             
                             <div class="main__decoration"></div>
@@ -69,8 +70,8 @@
                             <div class="form__bloque">
                                 <div class="form__bloque__content content">
                                     <label  class="form__label content__label" for="">Tipo de tarea</label>
-                                    <select class="form__select" name="tareaEditar" id="tareaEditar">                               
-                                            <option value="0"></option>
+                                    <select class="form__select" name="tareaEditar" id="tareaEditar" required>                               
+                                            <option></option>
                                             <?php                          
                                                 $sentencia = $connect->prepare("SELECT * FROM `wp_agenda_tipo_tarea`  WHERE habilitada=1") or die('query failed');
                                                 $sentencia->execute();
@@ -105,7 +106,7 @@
                                     <input class="form__checkbox content__checkbox" type="checkbox" name="finalizadaEditar" id="finalizadaEditar" value="1">
                                 </div>  
                             </div> 
-                            
+                            <input type="hidden" name="submit">
                             <div class="main__decoration"></div>
                             <input type="submit" class="form__button" value="Guardar cambios">  
                             <button type="button" class="form__button form__button--salir" id="salirEditar">Salir</button>                                                          
@@ -214,7 +215,6 @@
             $('#observacionesEditar').text(info.event.extendedProps.descripcion);
             $('#tareaEditar option[value='+ info.event.extendedProps.tarea_id +']').attr('selected',true);
             if(info.event.extendedProps.tarea_terminada == 1){$('#finalizadaEditar').attr('checked',true);}else{$('#finalizadaEditar').attr('checked',false);};
-            console.log(info.event.extendedProps);
             let modalEditar = document.getElementById('modalEditar');
             modalEditar.style.display='block';
             
@@ -254,7 +254,7 @@
         let formEvento= document.getElementById('formEvento');
         formEvento.addEventListener("submit", function(e){
             e.preventDefault();
-            let url = 'backend/agregarevento.php';
+            let url = 'backend/agregar.php?page=evento';
             let datos = new FormData(formEvento);
             var modal = $("#modal");
             var agenda = $("#calendar");
@@ -278,7 +278,7 @@
         let formEventoEditar= document.getElementById('formEventoEditar');
         formEventoEditar.addEventListener("submit", function(e){
             e.preventDefault();
-            let url = 'backend/editarevento.php';
+            let url = 'backend/editar.php?page=evento';
             let datos = new FormData(formEventoEditar);
             var modal = $("#modalEditar");
             var agenda = $("#calendar");

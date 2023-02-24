@@ -1,6 +1,7 @@
 <?php include 'header.php' ?>
 <?php include 'sidebar.php' ?>
-<?php if($_GET["page"]=='usuario'){?>
+<?php if($_GET["page"]=='usuario'){
+    if($rolAgente == 1 or $rolAgente == 3){?>
 <?php                          
     $sentencia = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id= '".$_GET['id']."'") or die('query failed');
     $sentencia->execute();
@@ -36,7 +37,7 @@
                 </div>
                 <div class="main__decoration"></div>
                     <div class="main__perfil">                   
-                        <form class="main__perfil__container" method="POST" action="backend/admineditar.php?page=usuario&id=<?php echo $editarId?>">
+                        <form class="main__perfil__container" method="POST" action="backend/editar.php?page=usuario&id=<?php echo $editarId?>">
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Username</span>
                                 <div class="perfil__bloque__content">
@@ -113,7 +114,7 @@
                             </div>
                             <div class="perfil__bloque">
                                 <div class="perfil__bloque__content--submit">
-                                    <input type="submit" class="perfil__bloque__content__submit" value="Guardar cambios">                            
+                                    <input type="submit" class="perfil__bloque__content__submit" name="submit"  value="Guardar cambios">                            
                                 </div>
                             </div>
                             <div class="perfil__bloque">
@@ -128,11 +129,12 @@
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* End Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-        <?php };?>
+        <?php ;}else{echo '<script> alert("Acceso denegado"); window.location = "controladmin.php"; </script>';} ;};?>
 
 
 
-<?php if($_GET["page"]=='ciudad'){?>
+<?php if($_GET["page"]=='ciudad'){
+    if($rolAgente == 1 or $rolAgente == 3){?>
 
 <?php                          
     $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE id= '".$_GET['id']."'") or die('query failed');
@@ -156,7 +158,7 @@
         </div>
         <div class="main__decoration"></div>
             <div class="main__perfil">                   
-                <form class="main__perfil__container" method="POST" action="backend/admineditar.php?page=ciudad&id=<?Php echo $editarId;?>">
+                <form class="main__perfil__container" method="POST" action="backend/editar.php?page=ciudad&id=<?Php echo $editarId;?>">
                     <div class="perfil__bloque">
                         <span class="perfil__bloque__fake-label">Ciudad</span>
                         <div class="perfil__bloque__content">
@@ -171,7 +173,7 @@
                     </div>
                     <div class="perfil__bloque">
                         <div class="perfil__bloque__content--submit">
-                            <input type="submit" class="perfil__bloque__content__submit" value="Guardar cambios">                         
+                            <input type="submit" class="perfil__bloque__content__submit" name="submit"  value="Guardar cambios">                         
                         </div>
                     </div>
                     <div class="perfil__bloque">
@@ -186,10 +188,11 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--/* End Main */-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-<?php };?>
+<?php ;}else{echo '<script> alert("Acceso denegado"); window.location = "controladmin.php"; </script>';} ;};?>
 
 
-<?php if($_GET["page"]=='zona'){?>
+<?php if($_GET["page"]=='zona'){
+    if($rolAgente == 1 or $rolAgente == 3){?>
 
 <?php                          
     $sentencia = $connect->prepare("SELECT * FROM `wp_zonas` WHERE id= '".$_GET['id']."'") or die('query failed');
@@ -221,7 +224,7 @@
         </div>
         <div class="main__decoration"></div>
             <div class="main__perfil">                   
-                <form class="main__perfil__container" method="POST" action="backend/admineditar.php?page=zona&id=<?php echo $editarId;?>">
+                <form class="main__perfil__container" method="POST" action="backend/editar.php?page=zona&id=<?php echo $editarId;?>">
                     <div class="perfil__bloque">
                         <span class="perfil__bloque__fake-label">Zona</span>
                         <div class="perfil__bloque__content">
@@ -264,7 +267,7 @@
                     </div>                                                                    
                     <div class="perfil__bloque">
                         <div class="perfil__bloque__content--submit">
-                            <input type="submit" class="perfil__bloque__content__submit" value="Guardar cambios">                            
+                            <input type="submit" class="perfil__bloque__content__submit" name="submit" value="Guardar cambios">                            
                         </div>
                     </div>
                     <div class="perfil__bloque">
@@ -279,7 +282,7 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--/* End Main */-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-<?php };?>
+<?php ;}else{echo '<script> alert("Acceso denegado"); window.location = "controladmin.php"; </script>';} ;};?>
 
 <?php if($_GET["page"]=='contacto'){
 
@@ -308,7 +311,7 @@
         </div>
         <div class="main__decoration"></div>
             <div class="main__perfil">                   
-                <form class="main__perfil__container" method="POST" action="backend/admineditar.php?page=contacto&id=<?php echo $editarId?>">
+                <form class="main__perfil__container" method="POST" action="backend/editar.php?page=contacto&id=<?php echo $editarId?>">
                     <div class="perfil__bloque">
                         <span class="perfil__bloque__fake-label">Nombre</span>
                         <div class="perfil__bloque__content">
@@ -353,7 +356,7 @@
                     </div>
                     <div class="perfil__bloque">
                         <div class="perfil__bloque__content--submit">
-                            <input type="submit" class="perfil__bloque__content__submit" value="Guardar cambios">                            
+                            <input type="submit" class="perfil__bloque__content__submit" name="submit"  value="Guardar cambios">                            
                         </div>
                     </div>
                     <div class="perfil__bloque">

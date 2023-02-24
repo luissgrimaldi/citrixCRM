@@ -42,7 +42,7 @@
                     $editarPileta = $propiedad['pileta'];
                     }
                 ?>
-                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/editarconsulta.php?consulta=<?php echo $editarId;?>">
+                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/editar.php?page=consulta&consulta=<?php echo $editarId;?>">
                         <h2 class="main__h2">Datos de contacto</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -395,7 +395,7 @@
                             </div>                                                                             
                         </div>
                         <div class="main__decoration"></div>
-                        <input type="submit" class="form__button form__bloque__button" value="Guardar cambios">                                                                 
+                        <input type="submit" name="submit"  class="form__button form__bloque__button" value="Guardar cambios">                                                                 
                     </form>
                 </div>
                 </div>

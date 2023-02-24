@@ -60,7 +60,7 @@
                                 <span>Dirección del contacto:</span><span class="main__user__content__bloque__content__respuesta"><?php if($contactoDireccion != '' and $contactoDireccion != NULL and isset($contactoDireccion)){echo $contactoDireccion;}else{echo 'No se estableció ninguna dirección';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
-                                <span>Propiedad:</span>
+                                <span>Propiedades:</span>
                                 <?php
                                     $sentencia = $connect->prepare("SELECT * FROM `wp_propiedades` WHERE propietarios= '".$_GET['contacto']."'") or die('query failed');
                                     $sentencia->execute();

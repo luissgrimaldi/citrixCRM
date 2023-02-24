@@ -5,7 +5,7 @@ if(isset($_SESSION['usuario'])){
     $idAgente= $_SESSION['usuario'];
     $datos= $connect-> prepare ("SELECT * FROM usuarios WHERE user_id= ?");
     $datos->execute([$idAgente]);
-    $agente = $datos->fetch(PDO::FETCH_ASSOC);
+    $agente = $datos->fetch();
     $nickname = $agente['nickname'];
     $nombreAgente = $agente['nombre'];
     $apellidoAgente = $agente['apellido'];
