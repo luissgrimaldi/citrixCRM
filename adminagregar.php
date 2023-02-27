@@ -13,7 +13,7 @@
                 </div>
                 <div class="main__decoration"></div>
                     <div class="main__perfil">                   
-                        <form class="main__perfil__container" method="POST" action="backend/agregar.php?page=usuario">
+                        <form class="main__perfil__container" method="POST" action="backend/agregar.php?page=usuario" enctype="multipart/form-data">
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Username</span>
                                 <div class="perfil__bloque__content">
@@ -54,6 +54,18 @@
                                 <span class="perfil__bloque__fake-label">Repetir Contraseña</span>
                                 <div class="perfil__bloque__content">
                                     <input type="password" name="repetircontrasenia" class="perfil__bloque__content__apellido" required>
+                                </div>
+                            </div>
+                            <div class="perfil__bloque">
+                                <span class="perfil__bloque__fake-label">Sobre mi</span>
+                                <div class="perfil__bloque__content">
+                                    <textarea class="form__textarea content__textarea" name="sobre_mi" id=""></textarea>
+                                </div>
+                            </div>
+                            <div class="perfil__bloque">
+                                <span class="perfil__bloque__fake-label--foto">Foto de perfil</span>
+                                <div class="perfil__bloque__content--foto">
+                                    <input type="file" name="foto" class="perfil__bloque__content__foto">
                                 </div>
                             </div>
                             <div class="perfil__bloque"> 
@@ -251,7 +263,7 @@
                     <div class="perfil__bloque">
                         <span class="perfil__bloque__fake-label">Direccion</span>
                         <div class="perfil__bloque__content">
-                            <input type="direccion" name="direccion" class="perfil__bloque__content__nombre">
+                            <input type="text" name="direccion" class="perfil__bloque__content__nombre">
                         </div>
                     </div>
                     <div class="perfil__bloque">
@@ -259,7 +271,25 @@
                         <div class="perfil__bloque__content--observaciones">
                             <textarea class="form__textarea content__textarea" name="observaciones" id=""></textarea>
                         </div>
-                    </div>                  
+                    </div>
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Conyuge</span>
+                        <div class="perfil__bloque__content">
+                            <input type="text" name="conyuge" class="perfil__bloque__content__nombre">
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Telefono conyuge</span>
+                        <div class="perfil__bloque__content">
+                            <input type="text" name="telefono_conyuge" class="perfil__bloque__content__nombre">
+                        </div>
+                    </div>               
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Email conyuge</span>
+                        <div class="perfil__bloque__content">
+                            <input type="text" name="email_conyuge" class="perfil__bloque__content__nombre">
+                        </div>
+                    </div>               
                     <div class="perfil__bloque">
                         <label class="perfil__bloque__label">Enviar emails</span>
                         <div class="perfil__bloque__content--submit">

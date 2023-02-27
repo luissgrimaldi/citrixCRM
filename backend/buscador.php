@@ -22,7 +22,7 @@ while($row = $sentencia->fetch()){
                  
 while($row = $sentencia2->fetch()){
 
-    $html .= '<li class="header__form__ul__li">'.$row["nombre"]." ".$row["apellido"].'</li>';
+    $html .= '<li class="header__form__ul__li"><a href="contactosinfo.php?contacto='.$row["id"].'">'.$row["nombre"]." ".$row["apellido"].'</a></li>';
 
 };      
  

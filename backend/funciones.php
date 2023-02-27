@@ -100,8 +100,8 @@ function agregarPropiedad($connect): void{
     if(!isset($_POST['barriocerrado'])){$_POST['barriocerrado']= '';};
     if(!isset($_POST['descripcioncorta'])){$_POST['descripcioncorta']= '';};
     if(!isset($_POST['descripcionlarga'])){$_POST['descripcionlarga']= '';};
-    if(!isset($_POST['fotoportada'])){$_POST['fotoportada']= '';};
-    if(!isset($_POST['galeriafotos'])){$_POST['galeriafotos']= '';};
+    if(!isset($_POST['fotoportada'])){$_POST['fotoportada']= NULL;};
+    if(!isset($_POST['galeriafotos'])){$_POST['galeriafotos']= NULL;};
     if(!isset($_POST['descripcionmediana'])){$_POST['descripcionmediana']= '';};
     if(!isset($_POST['captadopor'])){$_POST['captadopor']= '';};
     if(!isset($_POST['contactadopor'])){$_POST['contactadopor']= '';};
@@ -236,7 +236,7 @@ function agregarPropiedad($connect): void{
     $barrioCerrado = $_POST['barriocerrado'];
     $descripcionCorta = $_POST['descripcioncorta'];
     $descripcionLarga = $_POST['descripcionlarga'];
-    if($fotoPortadaNombre = $_FILES['fotoportada']['name'] != NULL){
+    if($_FILES['fotoportada']['name'] != NULL){
         $fotoPortadaNombre = $_FILES['fotoportada']['name'];
         $fotoPortada = '["'.$fotoPortadaNombre.'"]';
         $fotoPortadaIMG = $_FILES['fotoportada']['tmp_name'];
@@ -351,6 +351,8 @@ function agregarUsuario($connect) : void{
     if(!isset($_POST['celular'])){$_POST['celular']= '';};
     if(!isset($_POST['contrasenia'])){$_POST['contrasenia']= '';};
     if(!isset($_POST['repetircontrasenia'])){$_POST['repetircontrasenia']= '';};
+    if(!isset($_POST['sobre_mi'])){$_POST['sobre_mi']= '';};
+    if(!isset($_POST['foto'])){$_POST['foto']= NULL;};
     if(!isset($_POST['rol'])){$_POST['rol']=0;};
     if($_POST['habilitar'] == ''){$_POST['habilitar']= 0;};
     
@@ -362,6 +364,13 @@ function agregarUsuario($connect) : void{
     $celularAgente = $_POST['celular'];
     $contraseña =  $_POST['contrasenia'];
     $Repetircontraseña =  $_POST['repetircontrasenia'];
+    $sobreMi =  $_POST['sobre_mi'];
+    if($_FILES['foto']['name'] != NULL){
+        $foto = $_FILES['foto']['name'];
+        $fotoIMG = $_FILES['foto']['tmp_name'];
+    }else{
+        $foto = NULL;
+    }
     $rolAgente =  $_POST['rol'];
     $habilitar = $_POST['habilitar'];
     
@@ -373,8 +382,8 @@ function agregarUsuario($connect) : void{
 
     // Hago el insert en la DB //
     $contraseña = hash('SHA512', $contraseña);
-    $query = $connect-> prepare ("INSERT INTO usuarios (nombre, apellido, nickname, pass, rol, celular, email, habilitado) values (?, ?, ?, ?, ?, ?, ?, ?)");
-    $query->execute([$nombreAgente, $apellidoAgente, $nickname, $contraseña, $rolAgente, $celularAgente, $emailAgente, $habilitar]);
+    $query = $connect-> prepare ("INSERT INTO usuarios (nombre, apellido, nickname, pass, rol, celular, email, sobre_mi, foto, habilitado) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $query->execute([$nombreAgente, $apellidoAgente, $nickname, $contraseña, $rolAgente, $celularAgente, $emailAgente, $sobreMi, $foto, $habilitar]);
     
     if($query){
         echo '<script> alert("Usuario Agregado con éxito"); window.location = "../controladmin.php?page=usuario"; </script>';
@@ -434,23 +443,29 @@ function agregarContacto($connect) : void{
     if(!isset($_POST['telefono'])){$_POST['telefono']= '';};
     if(!isset($_POST['email'])){$_POST['email']= '';};
     if(!isset($_POST['direccion'])){$_POST['direccion']= '';};
-    if(!isset($_POST['no_emails'])){$_POST['no_emails']= '1';};
     if(!isset($_POST['observaciones'])){$_POST['observaciones']='';};
+    if(!isset($_POST['conyuge'])){$_POST['conyuge']='';};
+    if(!isset($_POST['telefono_conyuge'])){$_POST['telefono_conyuge']='';};
+    if(!isset($_POST['email_conyuge'])){$_POST['email_conyuge']='';};
+    if(!isset($_POST['no_emails'])){$_POST['no_emails']= '1';};
     
     // Variables de sección información //
-    $nombre = $_POST['nombre'];
-    $apellido = $_POST['apellido'];
-    $telefono = $_POST['telefono'];
-    $email = $_POST['email'];
-    $direccion =  $_POST['direccion'];
-    $no_emails =  $_POST['no_emails'];
-    $observaciones =  $_POST['observaciones'];
+    $nombre = trim($_POST['nombre']);
+    $apellido = trim($_POST['apellido']);
+    $telefono = trim($_POST['telefono']);
+    $email = trim($_POST['email']);
+    $direccion = trim($_POST['direccion']);
+    $observaciones = trim($_POST['observaciones']);
+    $conyuge =  trim($_POST['conyuge']);
+    $telefono_conyuge =  trim($_POST['telefono_conyuge']);
+    $email_conyuge =  trim($_POST['email_conyuge']);
+    $no_emails = trim($_POST['no_emails']);
     
     // IF para ver si cumple los requisitos //
 
     // Hago el insert en la DB //
-    $query = $connect-> prepare ("INSERT INTO wp_contactos (nombre, apellido, telefono, email, direccion, no_emails, observaciones) values (?, ?, ?, ?, ?, ?, ?)");
-    $query->execute([$nombre, $apellido, $telefono, $email, $direccion, $no_emails, $observaciones]);
+    $query = $connect-> prepare ("INSERT INTO wp_contactos (nombre, apellido, telefono, email, direccion, no_emails, observaciones, conyuge, conyuge_tel, conyuge_email) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $query->execute([$nombre, $apellido, $telefono, $email, $direccion, $no_emails, $observaciones, $conyuge, $telefono_conyuge, $email_conyuge]);
     
     if($query){
         echo '<script> alert("Contacto Agregado con éxito"); window.location = "../controladmin.php?page=contacto"; </script>';
@@ -607,8 +622,8 @@ function editarPropiedad($connect): void{
     if(!isset($_POST['barriocerrado'])){$_POST['barriocerrado']= '';};
     if(!isset($_POST['descripcioncorta'])){$_POST['descripcioncorta']= '';};
     if(!isset($_POST['descripcionlarga'])){$_POST['descripcionlarga']= '';};
-    if(!isset($_POST['fotoportada'])){$_POST['fotoportada']= '';};
-    if(!isset($_POST['galeriafotos'])){$_POST['galeriafotos']= '';};
+    if(!isset($_POST['fotoportada'])){$_POST['fotoportada']= NULL;};
+    if(!isset($_POST['galeriafotos'])){$_POST['galeriafotos']= NULL;};
     if(!isset($_POST['descripcionmediana'])){$_POST['descripcionmediana']= '';};
     if(!isset($_POST['captadopor'])){$_POST['captadopor']= '';};
     if(!isset($_POST['contactadopor'])){$_POST['contactadopor']= '';};
@@ -856,7 +871,7 @@ function editarPropiedad($connect): void{
         $NEWdescripcionCorta = $_POST['descripcioncorta'];
         $NEWdescripcionLarga = $_POST['descripcionlarga'];
         $NEWfotoPortadaNombre = $_FILES['fotoportada']['name'];
-        if($NEWfotoPortadaNombre != '' or $NEWfotoPortadaNombre != ''){
+        if($NEWfotoPortadaNombre != '' or $NEWfotoPortadaNombre != NULL){
             $NEWfotoPortada = '["'.$NEWfotoPortadaNombre.'"]';
             $NEWfotoPortadaIMG = $_FILES['fotoportada']['tmp_name'];    
         }
@@ -1467,6 +1482,7 @@ function editarUsuario($connect) : void{
         $editarContrasenia = $consulta['pass'];
         $editarRol = $consulta['rol'];
         $editarHabilitado = $consulta['habilitado'];         
+        $editarSobreMi = $consulta['sobre_mi'];         
     }  
     
     $NEWnickname = $_POST['nickname'];
@@ -1476,10 +1492,16 @@ function editarUsuario($connect) : void{
     $NEWcelular = $_POST['celular'];
     $NEWcontrasenia = $_POST['contrasenia'];
     $NEWrepetircontrasenia = $_POST['repetircontrasenia'];
+    $NEWsobreMi =  $_POST['sobre_mi'];
+    if($_FILES['foto']['name'] != NULL){
+        $NEWfoto = $_FILES['foto']['name'];
+        $NEWfotoIMG = $_FILES['foto']['tmp_name'];
+    }else{
+        $NEWfoto = NULL;
+    }
     $NEWrol = $_POST['rol'];
     $NEWhabilitado = $_POST['habilitar'];
 
-    if($NEWnickname != $editarNickname OR $NEWnombre != $editarNombre OR $NEWapellido != $editarApellido OR $NEWemail != $editarEmail OR $NEWcelular != $editarCelular OR $NEWcontrasenia != '' OR $NEWrepetircontrasenia != '' OR $NEWrol != $editarRol OR $NEWhabilitado != $editarHabilitado){  
         
         if($NEWcontrasenia == $NEWrepetircontrasenia){       
             $NEWcontrasenia = hash('SHA512', $NEWcontrasenia);
@@ -1504,6 +1526,12 @@ function editarUsuario($connect) : void{
             if($NEWcontrasenia != $editarContrasenia){
                 $update .= ", pass = '".$NEWcontrasenia."'";
             }
+            if($NEWsobreMi != $editarSobreMi){
+                $update .= ", sobre_mi = '".$NEWsobreMi."'";
+            }
+            if($NEWfoto != NULL){
+                $update .= ", foto = '".$NEWfoto."'";
+            }
             if($NEWrol != $editarRol){
                 $update .= ", rol = '".$NEWrol."'";
             }
@@ -1518,9 +1546,6 @@ function editarUsuario($connect) : void{
             }
         }else{echo '<script> alert("Las contraseñas no coinciden"); window.location = "../admineditar.php?page=usuario&id='.$_GET['id'].'"; </script>';}
 
-
-
-    }else{echo '<script> alert("No se han realizado cambios"); window.location = "../controladmin.php?page=usuario"; </script>';}
 }
 
 // Editar ciudad //
@@ -1610,8 +1635,11 @@ function editarContacto($connect) : void{
     if(!isset($_POST['telefono'])){$_POST['telefono']= '';};
     if(!isset($_POST['email'])){$_POST['email']= '';};
     if(!isset($_POST['direccion'])){$_POST['direccion']= '';};
-    if(!isset($_POST['no_emails'])){$_POST['no_emails']= '1';};
     if(!isset($_POST['observaciones'])){$_POST['observaciones']='';};
+    if(!isset($_POST['conyuge'])){$_POST['conyuge']='';};
+    if(!isset($_POST['telefono_conyuge'])){$_POST['telefono_conyuge']='';};
+    if(!isset($_POST['email_conyuge'])){$_POST['email_conyuge']='';};
+    if(!isset($_POST['no_emails'])){$_POST['no_emails']= '1';};
         
     $sentencia = $connect->prepare("SELECT * FROM `wp_contactos` WHERE id= '".$_GET['id']."'") or die('query failed');
     $sentencia->execute();
@@ -1622,43 +1650,56 @@ function editarContacto($connect) : void{
         $editarTelefono = $consulta['telefono'];
         $editarEmail = $consulta['email'];
         $editarDireccion = $consulta['direccion'];
-        $editarNoEmails = $consulta['no_emails'];
         $editarObservaciones = $consulta['observaciones'];         
+        $editarNoEmails = $consulta['no_emails'];
+        $editarConyuge = $consulta['conyuge'];               
+        $editarTelefonoConyuge = $consulta['conyuge_tel'];               
+        $editarEmailConyuge = $consulta['conyuge_email']; 
     }  
         
-    $NEWnombre = $_POST['nombre'];
-    $NEWapellido = $_POST['apellido'];
-    $NEWtelefono = $_POST['telefono'];
-    $NEWemail = $_POST['email'];
-    $NEWdireccion = $_POST['direccion'];
-    $NEWnoEmails = $_POST['no_emails'];
-    $NEWobservaciones = $_POST['observaciones'];
-    
-    if($NEWnombre != $editarNombre OR $NEWapellido != $editarApellido OR $NEWtelefono != $editarTelefono OR $NEWemail != $editarEmail OR $NEWdireccion != $editarDireccion OR $NEWnoEmails != $editarNoEmails OR $NEWobservaciones != $editarObservaciones){  
-                
-            $update = " localidad = NULL";
-        
-            if($NEWnombre != $editarNombre){
-                $update .= ", nombre = '".$NEWnombre."'";
-            }
-            if($NEWapellido != $editarApellido){
-                $update .= ", apellido = '".$NEWapellido."'";
-            }
-            if($NEWtelefono != $editarTelefono){
-                $update .= ", telefono = '".$NEWtelefono."'";
-            }
-            if($NEWemail != $editarEmail){
-                $update .= ", email = '".$NEWemail."'";
-            }
-            if($NEWdireccion != $editarDireccion){
-                $update .= ", direccion = '".$NEWdireccion."'";
-            }
-            if($NEWnoEmails != $editarNoEmails){
-                $update .= ", no_emails = '".$NEWnoEmails."'";
-            }
-            if($NEWobservaciones != $editarObservaciones){
-                $update .= ", observaciones = '".$NEWobservaciones."'";
-            }
+    $NEWnombre = trim($_POST['nombre']);
+    $NEWapellido = trim($_POST['apellido']);
+    $NEWtelefono = trim($_POST['telefono']);
+    $NEWemail = trim($_POST['email']);
+    $NEWdireccion = trim($_POST['direccion']);
+    $NEWobservaciones = trim($_POST['observaciones']);
+    $NEWconyuge =  trim($_POST['conyuge']);
+    $NEWTelefonoConyuge =  trim($_POST['telefono_conyuge']);
+    $NEWEmailConyuge =  trim($_POST['email_conyuge']);
+    $NEWnoEmails = trim($_POST['no_emails']);
+                  
+    $update = " localidad = NULL";
+
+    if($NEWnombre != $editarNombre){
+        $update .= ", nombre = '".$NEWnombre."'";
+    }
+    if($NEWapellido != $editarApellido){
+        $update .= ", apellido = '".$NEWapellido."'";
+    }
+    if($NEWtelefono != $editarTelefono){
+        $update .= ", telefono = '".$NEWtelefono."'";
+    }
+    if($NEWemail != $editarEmail){
+        $update .= ", email = '".$NEWemail."'";
+    }
+    if($NEWdireccion != $editarDireccion){
+        $update .= ", direccion = '".$NEWdireccion."'";
+    }
+    if($NEWconyuge != $editarConyuge){
+        $update .= ", conyuge = '".$NEWconyuge."'";
+    }
+    if($NEWTelefonoConyuge != $editarTelefonoConyuge){
+        $update .= ", conyuge_tel = '".$NEWTelefonoConyuge."'";
+    }
+    if($NEWEmailConyuge != $editarEmailConyuge){
+        $update .= ", conyuge_email = '".$NEWEmailConyuge."'";
+    }
+    if($NEWnoEmails != $editarNoEmails){
+        $update .= ", no_emails = '".$NEWnoEmails."'";
+    }
+    if($NEWobservaciones != $editarObservaciones){
+        $update .= ", observaciones = '".$NEWobservaciones."'";
+    }
 
             // Hago el update en la DB //
             $query = $connect-> prepare ("UPDATE wp_contactos SET $update WHERE id= '".$_GET['id']."'");
@@ -1670,7 +1711,6 @@ function editarContacto($connect) : void{
                 echo '<script> alert("Ha ocurrido un error al editar el contacto"); window.location = "../controladmin.php?page=contacto";</script>';
             }
        
-    }else{echo '<script> alert("No se han realizado cambios"); window.location = "../controladmin.php?page=contacto"; </script>';}
 }
 
 // Editar evento //
@@ -1826,15 +1866,14 @@ function editarPerfilInformacion($connect) : void{
     $sobreMiAgente = $agente['sobre_mi'];
 
     // Variables de sección información //
-    $nicknameNuevo = $_POST['nickname'];
-    $nombreAgenteNuevo = $_POST['nombre'];
-    $apellidoAgenteNuevo = $_POST['apellido'];
-    $emailAgenteNuevo = $_POST['email'];
-    $celularAgenteNuevo = $_POST['celular'];  
+    $nicknameNuevo = trim($_POST['nickname']);
+    $nombreAgenteNuevo = trim($_POST['nombre']);
+    $apellidoAgenteNuevo = trim($_POST['apellido']);
+    $emailAgenteNuevo = trim($_POST['email']);
+    $celularAgenteNuevo = trim($_POST['celular']);  
+    $sobreMiAgenteNuevo = trim($_POST['sobre_mi']);  
+    $fotoAgenteNuevo = $_POST['foto'];  
 
-    // IF para ver si cumple los requisitos //
-    if($nicknameNuevo != $nickname AND $nicknameNuevo!= '' AND $nicknameNuevo!=NULL OR $nombreAgenteNuevo != $nombreAgente AND $nombreAgenteNuevo!= '' AND $nombreAgenteNuevo!=NULL OR $apellidoAgenteNuevo != $apellidoAgente AND $apellidoAgenteNuevo!= '' AND $apellidoAgenteNuevo!=NULL OR $emailAgenteNuevo != $emailAgente AND $emailAgenteNuevo!= '' AND $emailAgenteNuevo!=NULL OR $celularAgenteNuevo != $celularAgente AND $celularAgenteNuevo!= '' AND $celularAgenteNuevo!=NULL){  
-        
 
         // Update en mi información //
         $update = " habilitado = 1";
@@ -1854,6 +1893,12 @@ function editarPerfilInformacion($connect) : void{
         if($celularAgenteNuevo != $celularAgente AND $celularAgenteNuevo!= '' AND $celularAgenteNuevo!=NULL){
             $update .= ", celular = '".$celularAgenteNuevo."'";
         }
+        if($sobreMiAgenteNuevo != $celularAgente AND $sobreMiAgenteNuevo!= '' AND $sobreMiAgenteNuevo!=NULL){
+            $update .= ", sobre_mi = '".$sobreMiAgenteNuevo."'";
+        }
+        if($fotoAgenteNuevo != $fotoAgente AND $fotoAgenteNuevo!= '' AND $fotoAgenteNuevo!=NULL){
+            $update .= ", foto = '".$fotoAgenteNuevo."'";
+        }
 
         // Hago el update en la DB //
         $query = $connect-> prepare ("UPDATE usuarios SET $update WHERE user_id = $idAgente");
@@ -1864,9 +1909,6 @@ function editarPerfilInformacion($connect) : void{
         }else{
             echo '<script> alert("Ha ocurrido un error al editar el perfil"); window.location = "../perfil.php"; </script>';
         }
-
-    }else{echo '<script> alert("No se han realizado cambios"); window.location = "../perfil.php"; </script>';}
-    
 
 }
 

@@ -15,6 +15,7 @@
         $editarCelularAgente = $usuario['celular'];
         $editarRolAgente =  $usuario['rol'];
         $editarHabilitar = $usuario['habilitado'];               
+        $editarSobreMi = $usuario['sobre_mi'];               
     }
 
     $sentencia2 = $connect->prepare("SELECT * FROM `roles` WHERE role_id= $editarRolAgente") or die('query failed');
@@ -37,7 +38,7 @@
                 </div>
                 <div class="main__decoration"></div>
                     <div class="main__perfil">                   
-                        <form class="main__perfil__container" method="POST" action="backend/editar.php?page=usuario&id=<?php echo $editarId?>">
+                        <form class="main__perfil__container" method="POST" action="backend/editar.php?page=usuario&id=<?php echo $editarId?>" enctype="multipart/form-data">
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Username</span>
                                 <div class="perfil__bloque__content">
@@ -78,6 +79,18 @@
                                 <span class="perfil__bloque__fake-label">Repetir Contraseña</span>
                                 <div class="perfil__bloque__content">
                                     <input type="password" name="repetircontrasenia" class="perfil__bloque__content__apellido">
+                                </div>
+                            </div>
+                            <div class="perfil__bloque">
+                                <span class="perfil__bloque__fake-label">Sobre mi</span>
+                                <div class="perfil__bloque__content">
+                                    <textarea class="form__textarea content__textarea" name="sobre_mi" id=""><?php echo $editarSobreMi;?></textarea>
+                                </div>
+                            </div>
+                            <div class="perfil__bloque">
+                                <span class="perfil__bloque__fake-label--foto">Foto de perfil</span>
+                                <div class="perfil__bloque__content--foto">
+                                    <input type="file" name="foto" class="perfil__bloque__content__foto">
                                 </div>
                             </div>
                             <div class="perfil__bloque"> 
@@ -298,6 +311,9 @@
         $editarDireccion = $contacto['direccion'];
         $editarNoEmails =  $contacto['no_emails'];
         $editarObservaciones = $contacto['observaciones'];               
+        $editarConyuge = $contacto['conyuge'];               
+        $editarTelefonoConyuge = $contacto['conyuge_tel'];               
+        $editarEmailConyuge = $contacto['conyuge_email'];               
     }
 
 ?>
@@ -347,7 +363,25 @@
                         <div class="perfil__bloque__content--observaciones">
                             <textarea class="form__textarea content__textarea" name="observaciones" id=""><?php echo $editarObservaciones;?></textarea>
                         </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Conyuge</span>
+                        <div class="perfil__bloque__content">
+                            <input type="text" name="conyuge" class="perfil__bloque__content__nombre" value="<?php echo $editarConyuge;?>">
+                        </div>
+                    </div>
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Telefono conyuge</span>
+                        <div class="perfil__bloque__content">
+                            <input type="text" name="telefono_conyuge" class="perfil__bloque__content__nombre" value="<?php echo $editarTelefonoConyuge;?>">
+                        </div>
                     </div>                  
+                    <div class="perfil__bloque">
+                        <span class="perfil__bloque__fake-label">Email conyuge</span>
+                        <div class="perfil__bloque__content">
+                            <input type="text" name="email_conyuge" class="perfil__bloque__content__nombre" value="<?php echo $editarEmailConyuge;?>">
+                        </div>
+                    </div>               
                     <div class="perfil__bloque">
                         <label class="perfil__bloque__label">Enviar emails</span>
                         <div class="perfil__bloque__content--submit">

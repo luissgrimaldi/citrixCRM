@@ -163,6 +163,7 @@ a{
 .header__ul{
     display: flex;
     gap: 2.5em;
+    align-items: center;
 }
 
 .header__li{
@@ -187,6 +188,10 @@ a{
     border-bottom-left-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
     text-align: center;
+}
+
+.header__li-user__ul--foto{
+    left: -2.2;
 }
 
 .header__li-user__ul--toggle{
@@ -221,6 +226,19 @@ select{
     background-size: .85em auto, 100%;
 }
 
+.header__li__foto{
+    width: 2.2em;
+    height:auto;
+    border-radius: 50%;
+}
+
+.header__li-user--foto{
+    background-color: white;
+    padding: .15em;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
 /* End Header */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -358,6 +376,10 @@ textarea{
     .header__li-user__ul{
         left: -2.5em;
         width: 7em;
+    }
+
+    .header__li-user__ul--foto{
+        left: -1.9em;
     }
 
 }

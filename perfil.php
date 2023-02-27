@@ -42,20 +42,14 @@
                             <span class="perfil__bloque__fake-label">Telefono celular</span>
                             <div class="perfil__bloque__content">
                                 <span class="perfil__bloque__content__telefono-celular"><?php echo $celularAgente?></span>
-                            </div>
                         </div>
-                        <!-- <div class="perfil__bloque">
-                            <span class="perfil__bloque__fake-label">Telefono de linea</span>
-                            <div class="perfil__bloque__content">
-                                <span class="perfil__bloque__content__telefono-hogar"></span>
-                            </div>
-                        </div>
+                        </div>                  
                         <div class="perfil__bloque">
-                            <span class="perfil__bloque__fake-label">Telefono de oficina</span>
+                            <span class="perfil__bloque__fake-label">Sobre mi</span>
                             <div class="perfil__bloque__content">
-                                <span class="perfil__bloque__content__telefono-oficina"></span>
-                            </div>
-                        </div> -->                   
+                            <textarea class="form__textarea content__textarea" readonly name="sobre_mi" id=""><?php echo $sobreMiAgente;?></textarea>
+                        </div>
+                    </div>                                      
                     </div>
                 </div>
             </div>  

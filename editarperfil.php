@@ -48,11 +48,12 @@
                                     <input type="text" name="celular" class="perfil__bloque__content__telefono-celular" value="<?php echo $celularAgente?>">
                                 </div>
                             </div>
-                            <!-- <div class="perfil__bloque">
+                            <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Sobre mi</span>
                                 <div class="perfil__bloque__content">
-                                    <textarea rows="3" ><?php echo $sobreMiAgente?></textarea>
-                            </div> -->
+                                    <textarea class="form__textarea content__textarea" name="sobre_mi" id=""><?php echo $sobreMiAgente;?></textarea>
+                                </div>
+                            </div>
                             <div class="perfil__bloque">
                                 <div class="perfil__bloque__content--submit">
                                     <input type="submit" class="perfil__bloque__content__submit" name="submit" value="Guardar">                            

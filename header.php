@@ -52,9 +52,14 @@ if(isset($_SESSION['usuario'])){
                 </button>
                 <nav class="header__nav" id="header__nav">
                     <ul class="header__ul">
-                        <li class="header__li header__li-user ">
+                        <?php if($fotoAgente != NULL){?>
+                        <li class="header__li header__li-user header__li-user--foto ">                           
+                        <img class="header__li__foto" src="https://projectandbrokers.com/wp-content/uploads/asesores/<?php echo $fotoAgente?>" alt="">
+                        <?php ;}else{?>
+                            <li class="header__li header__li-user ">
                             <span class="header__span"><i class="fa-solid fa-user"></i></span>
-                            <ul class="header__li-user__ul header__li-user__ul--toggle user">
+                        <?php ;}?>
+                            <ul class="header__li-user__ul <?php if($fotoAgente != NULL){echo 'header__li-user__ul--foto';}?> header__li-user__ul--toggle user">
                                 <li class="user__li"><span class="user__span" href="profile.php"><?php echo $nombreAgente.' '.$apellidoAgente?></span></li>
                                 <li class="user__li"><a class="user__a" href="perfil.php">Ver mi perfil</a></li>
                                 <li class="user__li"><a class="user__a" onclick="return confirm('Seguro que quieres cerrar sesión?');" href="backend/logout.php">Cerrar sesión</a></li>
