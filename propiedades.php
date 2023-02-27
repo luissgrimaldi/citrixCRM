@@ -279,6 +279,7 @@
                             <span class="propiedades__estado"><?php if ($enWeb==1){echo 'En web';}else{echo 'No publicada';}?></span>
                             <div class="propiedades__edit-hide">
                                 <a href="editarpropiedad.php?ref=<?php echo $refPropiedad;?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
+                                <a href="propiedadesinfo.php?ref=<?php echo $refPropiedad;?>"><i class="propiedades__accion fa-solid fa-search"></i></a>
                                 <a href=""><i class="propiedades__accion fa-solid <?php if ($enWeb==1){echo 'fa-eye-slash';}else{echo 'fa-eye';}?>"></i></a>
                                 <i class="propiedades__accion fa-solid fa-trash" onclick="if(confirm('¿Seguro que quieres eliminar esta propiedad?')) delPropiedad(<?php echo $idPropiedad?>)"></i>
                             </div>

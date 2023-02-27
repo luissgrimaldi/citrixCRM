@@ -2,16 +2,7 @@
 <?php include 'sidebar.php' ?>
 <?php                          
 
-                    $whereZonas=" AND zonas = ".$editarBuscarZona;         
-                    $whereTipo=" AND tipos_propiedad = ".$editarBuscarTipo;
-                    $wherePrecio=" AND prop.cant_habitaciones BETWEEN '".$editarPrecioDesde."' AND '".$editarprecioHasta."'";
-                    $whereSuperficie=" AND prop.cant_habitaciones BETWEEN '".$editarSupDesde."' AND '".$editarSupHasta."'";
-                    
-
-                if($editarBuscarZona !=NULL AND $editarBuscarZona !="")
-
-
-
+       
                     $sentencia = $connect->prepare("SELECT * FROM `wp_consultas` WHERE id= '".$_GET['consulta']."'") or die('query failed');
                     $sentencia->execute();
                     $list_propiedadesOperacion = $sentencia->fetchAll();                         
@@ -42,10 +33,33 @@
                     $editarBalcon = $propiedad['balcon'];
                     $editarPileta = $propiedad['pileta'];
                     $editarContacto = $propiedad['contacto_id'];
-                    $editarBuscarZona = $propiedad['zonas'];
-                    $editarBuscarZona = explode ( "," , $editarBuscarZona);
+                    $editarBuscarZona = $propiedad['zonas'];               
                     $editarBuscarTipo = $propiedad['tipos_propiedad'];
-                    $editarBuscarTipo = explode ( "," , $editarBuscarTipo);
+                    }
+                    $whereZonas=" AND zona_id in(".$editarBuscarZona.")";         
+                    $whereTipo=" AND tipo_propiedad_id in(".$editarBuscarTipo.")";
+                    $wherePrecio=" AND precio_propietario BETWEEN '".$editarPrecioDesde."' AND '".$editarprecioHasta."'";
+                    $whereSuperficie=" AND supeficie_construida BETWEEN '".$editarSupDesde."' AND '".$editarSupHasta."'";
+                    $wherePlantaBaja=" AND planta_baja = ".$editarPlantaBaja;
+                    $whereGaraje=" AND garaje = ".$editarGaraje;
+                    $whereGarajeDoble=" AND garaje_doble = ".$editargarajeDoble;
+                    $whereAmueblada=" AND amueblado = ".$editarAmueblada;
+                    $whereBalcon=" AND balcon = ".$editarBalcon;
+                    $wherePileta=" AND pileta_propia = ('".$editarPileta."' OR  pileta_compartida ='".$editarPileta."')";
+
+                    if(($editarBuscarZona == NULL AND $editarBuscarZona =="")AND($editarBuscarTipo ==NULL AND $editarBuscarTipo =="")AND($editarPrecioDesde ==NULL AND $editarPrecioDesde =="")AND($editarSupDesde ==NULL AND $editarSupDesde =="")AND($editarPlantaBaja ==NULL AND $editarPlantaBaja =="")AND($editarGaraje ==NULL AND $editarGaraje =="")AND($editargarajeDoble ==NULL AND $editargarajeDoble =="")AND($editarAmueblada ==NULL AND $editarAmueblada =="")AND($editarBalcon ==NULL AND $editarBalcon =="")AND($editarPileta ==NULL AND $editarPileta =="")){$filtro = '';}else{
+                        $filtro = "WHERE id > 0 ";
+                        if($editarBuscarZona !=NULL AND $editarBuscarZona !=""){$filtro .= $whereZonas;};
+                        if($editarBuscarTipo !=NULL AND $editarBuscarTipo !=""){$filtro .= $whereTipo;};
+                        if($editarPrecioDesde !=NULL AND $editarPrecioDesde !="" AND $editarprecioHasta !=NULL AND $editarprecioHasta !="" ){$filtro .= $wherePrecio;};
+                        if($editarSupDesde !=NULL AND $editarSupDesde !="" AND $editarSupHasta !=NULL AND $editarSupHasta !=""){$filtro .= $whereSuperficie;};
+                        if($editarPlantaBaja !=NULL AND $editarPlantaBaja !=""){$filtro .= $wherePlantaBaja;};
+                        if($editarGaraje !=NULL AND $editarGaraje !=""){$filtro .= $whereGaraje;};
+                        if($editargarajeDoble !=NULL AND $editargarajeDoble !=""){$filtro .= $whereGarajeDoble;};
+                        if($editarAmueblada !=NULL AND $editarAmueblada !=""){$filtro .= $whereAmueblada;};
+                        if($editarBalcon !=NULL AND $editarBalcon !=""){$filtro .= $whereBalcon;};
+                        if($editarPileta !=NULL AND $editarPileta !=""){$filtro .= $wherePileta;};
+                        
                     }
                 ?>
                 <?php 
@@ -133,9 +147,23 @@
                             <div class="main__user__content__bloque__content">
                                 <span>Propiedad:<a href=""></a></span><span class="main__user__content__bloque__content__respuesta"><?php if($editarPropiedad != '0' and $editarPropiedad != NULL and isset($editarPropiedad)){ echo 'REF '.$propiedadRef.': '.$propiedadTitulo.' ('.$propiedadNombre.' '.$propiedadAltura.')';}else{echo 'No se estableció ninguna propiedad';};?></span>
                             </div>
-                            <div class="main__user__content__bloque__content">
+                            <div class="main__user__content__bloque__content main__user__content__bloque__content--cruces">
                                 <span>Cruces:</span>
-                                <span class="main__user__content__bloque__content__respuesta"><?php if($propiedadCalle == ''){?><a href=""><?php echo 'REF '.$propiedadRef.$coma;?></a><?php ;}else{echo 'No se encontraron cruces';};?>
+                                <span class="main__user__content__bloque__content__respuesta">
+                                <?php 
+                                $sentencia = $connect->prepare("SELECT * FROM `wp_propiedades` $filtro") or die('query failed');
+                                $sentencia->execute();
+                                $cruces = $sentencia->fetchAll();
+                                if(!$cruces){
+                                    echo 'No se encontraron cruces';
+                                }else{                  
+                                    foreach($cruces as $cruce){
+                                    $propiedadRef = $cruce['referencia_interna'];
+                                    $coma = ' | ';?>
+                                    <a href="propiedadesinfo.php?ref=<?php echo $propiedadRef?>"><?php 
+                                    echo $propiedadRef.$coma; }?>
+                                </a>
+                                    <?php ;}?>
                             </div> 
                         </div>
                         <div class="main__user__content__bloque">

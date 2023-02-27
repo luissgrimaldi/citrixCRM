@@ -78,7 +78,7 @@
                                             $propiedadRef = $propiedad['referencia_interna'];
                                             $coma = ' | ';
                                     ?>                         
-                                        <span class="main__user__content__bloque__content__respuesta"><?php if($propiedadCalle == ''){?><a href=""><?php echo 'REF '.$propiedadRef.': '.$propiedadCalle.' '.$propiedadAltura.$coma;?></a><?php ;}else{echo 'No se estableció ninguna propiedad';};?>
+                                        <span class="main__user__content__bloque__content__respuesta"><?php if($propiedadCalle != ''){?><a href="propiedadesinfo.php?ref=<?php echo $propiedadRef;?>"><?php echo 'REF '.$propiedadRef.': '.$propiedadCalle.' '.$propiedadAltura.$coma;?></a><?php ;}else{echo 'No se estableció ninguna propiedad';};?>
                                     <?php }; }?>
                                 </span>
                             </div>

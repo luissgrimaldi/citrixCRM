@@ -16,7 +16,7 @@ while($row = $sentencia->fetch()){
     $imgPropiedad = str_replace("[", "", $imgPropiedad);
     $imgPropiedad = str_replace("]", "", $imgPropiedad);
 
-    $html .= '<li class="header__form__ul__li"><img class="header__form__ul__li__img" src="https://projectandbrokers.com/wp-content/uploads/thumbnails/mediano__'.$imgPropiedad.'"><a href="editarpropiedad.php?ref='.$row["referencia_interna"].'">'.$row["calle"]." ".$row["referencia_interna"].'</a></li>';
+    $html .= '<li class="header__form__ul__li"><img class="header__form__ul__li__img" src="https://projectandbrokers.com/wp-content/uploads/thumbnails/mediano__'.$imgPropiedad.'"><a href="propiedadesinfo.php?ref='.$row["referencia_interna"].'">'.$row["calle"]." ".$row["referencia_interna"].'</a></li>';
 
 };      
                  
