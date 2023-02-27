@@ -323,7 +323,7 @@
 <main class="main" id="main">
     <div class="main__container">
         <div class="main__container__top">
-            <div class="main__title"><i class="fa-solid fa-user main__h1--emoji"></i><h1 class="main__h1">Agregar contacto</h1></div>
+            <div class="main__title"><i class="fa-solid fa-address-book main__h1--emoji"></i><h1 class="main__h1">Editar contacto</h1></div>
         </div>
         <div class="main__decoration"></div>
             <div class="main__perfil">                   

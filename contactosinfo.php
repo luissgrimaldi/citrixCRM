@@ -38,7 +38,7 @@
         <main class="main" id="main">
             <div class="main__container">
                 <div class="main__container__top">
-                    <div class="main__title"><i class="fa-solid fa-envelope main__h1--emoji"></i><h1 class="main__h1">Contacto # <?php echo $_GET['contacto'];?></h1></div>
+                    <div class="main__title"><i class="fa-solid fa-address-book main__h1--emoji"></i><h1 class="main__h1">Contacto # <?php echo $_GET['contacto'];?></h1></div>
                     <div class="main__buttons">
                         <a href="admineditar.php?page=contacto&id=<?php echo $_GET['contacto'];?>" class="main__buttons__button">Editar contacto</a>
                     </div>

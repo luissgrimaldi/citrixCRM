@@ -1,6 +1,17 @@
 <?php include 'header.php' ?>
 <?php include 'sidebar.php' ?>
 <?php                          
+
+                    $whereZonas=" AND zonas = ".$editarBuscarZona;         
+                    $whereTipo=" AND tipos_propiedad = ".$editarBuscarTipo;
+                    $wherePrecio=" AND prop.cant_habitaciones BETWEEN '".$editarPrecioDesde."' AND '".$editarprecioHasta."'";
+                    $whereSuperficie=" AND prop.cant_habitaciones BETWEEN '".$editarSupDesde."' AND '".$editarSupHasta."'";
+                    
+
+                if($editarBuscarZona !=NULL AND $editarBuscarZona !="")
+
+
+
                     $sentencia = $connect->prepare("SELECT * FROM `wp_consultas` WHERE id= '".$_GET['consulta']."'") or die('query failed');
                     $sentencia->execute();
                     $list_propiedadesOperacion = $sentencia->fetchAll();                         
@@ -31,6 +42,10 @@
                     $editarBalcon = $propiedad['balcon'];
                     $editarPileta = $propiedad['pileta'];
                     $editarContacto = $propiedad['contacto_id'];
+                    $editarBuscarZona = $propiedad['zonas'];
+                    $editarBuscarZona = explode ( "," , $editarBuscarZona);
+                    $editarBuscarTipo = $propiedad['tipos_propiedad'];
+                    $editarBuscarTipo = explode ( "," , $editarBuscarTipo);
                     }
                 ?>
                 <?php 
@@ -119,8 +134,9 @@
                                 <span>Propiedad:<a href=""></a></span><span class="main__user__content__bloque__content__respuesta"><?php if($editarPropiedad != '0' and $editarPropiedad != NULL and isset($editarPropiedad)){ echo 'REF '.$propiedadRef.': '.$propiedadTitulo.' ('.$propiedadNombre.' '.$propiedadAltura.')';}else{echo 'No se estableció ninguna propiedad';};?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
-                                <span>Cruces:<a href=""></a></span><span class="main__user__content__bloque__content__respuesta"><?php if($contactoConyugeCelular != '' or $contactoConyugeCelular != NULL or isset($contactoConyugeCelular)){echo $contactoConyugeCelular;}else{echo 'No se encontraron cruces';}?></span>
-                            </div>
+                                <span>Cruces:</span>
+                                <span class="main__user__content__bloque__content__respuesta"><?php if($propiedadCalle == ''){?><a href=""><?php echo 'REF '.$propiedadRef.$coma;?></a><?php ;}else{echo 'No se encontraron cruces';};?>
+                            </div> 
                         </div>
                         <div class="main__user__content__bloque">
                             <div class="main__user__content__bloque__content">

@@ -217,7 +217,7 @@
                                 </select>
                             </div>                                                             
                         </div>
-                        <!-- <h2 class="main__h2">Requisitos del cliente</h2>
+                        <h2 class="main__h2">Requisitos del cliente</h2>
                         <span  class="form__span content__span" for="">Tipo de propiedad</span>      
                         <div class="form__bloque"> 
                             <?php                          
@@ -230,7 +230,7 @@
                             ?>
                                 <div class="form__bloque__content content">  
                                     <label  class="form__label content__label" for=""><?php echo $propiedadNombre?></label>
-                                    <input class="form__checkbox content__checkbox" type="checkbox" name="buscarTipo" value="<?php echo $idPropiedad?>">
+                                    <input class="form__checkbox content__checkbox" type="checkbox" name="buscarTipo[]" value="<?php echo $idPropiedad?>">
                                 </div> 
                             <?php };?>                                                                            
                         </div>                       
@@ -246,10 +246,10 @@
                             ?>
                                 <div class="form__bloque__content content">  
                                     <label  class="form__label content__label" for=""><?php echo $propiedadNombre?></label>
-                                    <input class="form__checkbox content__checkbox" type="checkbox" name="buscarPileta" value="1">
+                                    <input class="form__checkbox content__checkbox" type="checkbox" name="buscarZona[]" value="<?php echo $idPropiedad?>">
                                 </div> 
                             <?php };?>                                                                            
-                        </div> -->
+                        </div>
                         <h2 class="main__h2">Preferencias</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">

@@ -293,6 +293,8 @@ function agregarConsulta($connect) : void{
     if(!isset($_POST['asignadoa'])){$_POST['asignadoa']= '';};
     if(!isset($_POST['llamardesde'])){$_POST['llamardesde']= '';};
     if(!isset($_POST['llamarhasta'])){$_POST['llamarhasta']= '';};
+    if(!isset($_POST['buscarTipo'])){$_POST['buscarTipo']= NULL;};
+    if(!isset($_POST['buscarZona'])){$_POST['buscarZona']= NULL;};
     if($_POST['superficiedesde'] == ''){$_POST['superficiedesde']= NULL;};
     if($_POST['superficiehasta'] == ''){$_POST['superficiehasta']= NULL;};
     if($_POST['preciodesde'] == ''){$_POST['preciodesde']=NULL;};
@@ -330,10 +332,14 @@ function agregarConsulta($connect) : void{
     $amueblada = $_POST['amueblada'];
     $balcon = $_POST['balcon'];
     $pileta = $_POST['pileta'];
+    $buscarZona = $_POST['buscarZona'];
+    $buscarZona = implode(",", $buscarZona);
+    $buscarTipo = $_POST['buscarTipo'];
+    $buscarTipo = implode(",", $buscarTipo);
 
 
-    $query = $connect-> prepare ("INSERT INTO wp_consultas (nombre, apellido , email, telefono, propiedad_id, observaciones, consulta, status_id, situacion, captado_por, canal_id, asignado_a, llamar_desde, llamar_hasta, superficie_construida_desde, superficie_construida_hasta, precio_venta_desde, precio_venta_hasta, planta_baja, garaje, garaje_doble, amueblada, balcon, pileta, contacto_id) VALUES (?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $query->execute([$nombre, $apellido, $email, $telefono, $propiedad, $observaciones, $consulta, $estado, $situacion, $captadoPor, $medioContacto, $asignadoA, $llamarDesde, $llamarHasta, $superficieDesde, $superficieHasta, $precioDesde, $precioHasta, $plantaBaja, $garage, $garageDoble, $amueblada, $balcon, $pileta, $contactoId]);
+    $query = $connect-> prepare ("INSERT INTO wp_consultas (nombre, apellido , email, telefono, propiedad_id, observaciones, consulta, status_id, situacion, captado_por, canal_id, asignado_a, llamar_desde, llamar_hasta, superficie_construida_desde, superficie_construida_hasta, precio_venta_desde, precio_venta_hasta, planta_baja, garaje, garaje_doble, amueblada, balcon, pileta, contacto_id, zonas, tipos_propiedad) VALUES (?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $query->execute([$nombre, $apellido, $email, $telefono, $propiedad, $observaciones, $consulta, $estado, $situacion, $captadoPor, $medioContacto, $asignadoA, $llamarDesde, $llamarHasta, $superficieDesde, $superficieHasta, $precioDesde, $precioHasta, $plantaBaja, $garage, $garageDoble, $amueblada, $balcon, $pileta, $contactoId, $buscarZona, $buscarTipo]);
 
     if($query){
         echo '<script> alert("Consulta agregada con exito"); window.location = "../consultas.php"; </script>';
@@ -1309,6 +1315,8 @@ function editarConsulta($connect) : void{
     if(!isset($_POST['amueblada'])){$_POST['amueblada']= '';};
     if(!isset($_POST['balcon'])){$_POST['balcon']= '';};
     if(!isset($_POST['pileta'])){$_POST['pileta']= '';};
+    if(!isset($_POST['buscarTipo'])){$_POST['buscarTipo']= NULL;};
+    if(!isset($_POST['buscarZona'])){$_POST['buscarZona']= NULL;};
                     
     $sentencia = $connect->prepare("SELECT * FROM `wp_consultas` WHERE id= '".$_GET['consulta']."'") or die('query failed');
     $sentencia->execute();
@@ -1338,7 +1346,7 @@ function editarConsulta($connect) : void{
         $editargarajeDoble = $consulta['garaje_doble'];
         $editarAmueblada = $consulta['amueblada'];
         $editarBalcon = $consulta['balcon'];
-        $editarPileta = $consulta['pileta'];           
+        $editarPileta = $consulta['pileta'];   
     }         
     
     // Variables de sección información //
@@ -1367,12 +1375,13 @@ function editarConsulta($connect) : void{
     $NEWamueblada = $_POST['amueblada'];
     $NEWbalcon = $_POST['balcon'];
     $NEWpileta = $_POST['pileta'];
+    $NEWbuscarZona = $_POST['buscarZona'];
+    $NEWbuscarZona = implode(",", $NEWbuscarZona);
+    $NEWbuscarTipo = $_POST['buscarTipo'];
+    $NEWbuscarTipo = implode(",", $NEWbuscarTipo);
     
     
-    // IF para ver si cumple los requisitos //
-    if($NEWnombre != $editarNombre OR $NEWapellido != $editarApellido OR $NEWemail != $editarEmail OR $NEWtelefono != $editarTelefono OR $NEWpropiedad != $editarPropiedad OR $NEWobservaciones != $editarObservaciones OR $NEWconsulta != $editarConsulta OR $NEWestado != $editarEstado OR $NEWsituacion != $editarSituacion OR $NEWcaptadoPor != $editarCaptadoPor OR $NEWmedioContacto != $editarMedioContacto OR $NEWasignadoA != $editarAsignadoA OR $NEWllamarDesde != $editarLlamarDesde OR $NEWllamarHasta != $editarLlamarHasta OR $NEWsuperficieDesde != $editarSuperficieDesde OR $NEWsuperficieHasta != $editarSuperficieHasta OR $NEWprecioDesde != $editarPrecioDesde OR $NEWprecioHasta != $editarPrecioHasta OR $NEWplantaBaja != $editarPlantaBaja OR $NEWgaraje != $editargaraje OR $NEWgarajeDoble != $editargarajeDoble OR $NEWamueblada != $editarAmueblada OR $NEWbalcon != $editarBalcon OR $NEWpileta != $editarPileta OR $NEWcontactoId != $editarContactoId){  
             
-        // Update en mi información //
         $update = " casilla_email_destino = NULL";
     
         if($NEWcontactoId != $editarContactoId){
@@ -1450,6 +1459,12 @@ function editarConsulta($connect) : void{
         if($NEWpileta != $editarPileta){
             $update .= ", pileta = '".$NEWpileta."'";
         }  
+        if($NEWbuscarZona != NULL){
+            $update .= ", zonas = '".$NEWbuscarZona."'";
+        }  
+        if($NEWbuscarTipo != NULL){
+            $update .= ", tipos_propiedad = '".$NEWbuscarTipo."'";
+        }  
     
         // Hago el update en la DB //
         $query = $connect-> prepare ("UPDATE wp_consultas SET $update WHERE id= '".$_GET['consulta']."'");
@@ -1461,8 +1476,6 @@ function editarConsulta($connect) : void{
             echo '<script> alert("Ha ocurrido un error al editar la consulta"); window.location = "../consultas.php"; </script>';
         }
     
-    
-    }else{echo '<script> alert("No se han realizado cambios"); window.location = "../consultas.php"; </script>';}
 }
 
 // Editar usuario //

@@ -194,7 +194,7 @@
         <main class="main" id="main">
             <div class="main__container">
                 <div class="main__container__top">
-                    <div class="main__title"><i class="fa-solid fa-addres-book main__h1--emoji"></i><h1 class="main__h1">Contactos</h1></div>
+                    <div class="main__title"><i class="fa-solid fa-address-book main__h1--emoji"></i><h1 class="main__h1">Contactos</h1></div>
                     <div class="main__buttons">
                     <?php if($rolAgente == 1 or $rolAgente == 3){?>
                         <a class="main__buttons__button <?php if($_GET['page']=='usuario'){echo 'main__buttons__button--active';};?>" href="controladmin.php?page=usuario">Usuarios</a>
