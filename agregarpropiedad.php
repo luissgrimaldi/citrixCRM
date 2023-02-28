@@ -238,10 +238,6 @@
                                 </select>
                             </div>                          
                             <div class="form__bloque__content content">
-                                <label  class="form__label content__label" for="">Tipo de suelo</label>
-                                <input type="text" class="form__text content__text" name="suelo" id="">                                  
-                            </div> 
-                            <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Orientacion</label>
                                 <select class="form__select content__select" name="orientacion" id="">    
                                     <option value></option>
@@ -622,7 +618,7 @@
                         </div> 
                         <div class="form__bloque__content content content--galeriafotos">
                             <label  class="form__label content__label" for="">Galeria de fotos</label>
-                            <input type="file" class="content--galeriafotos__galeriafotos" name="galeriafotos" id="" multiple>                                  
+                            <input type="file" class="content--galeriafotos__galeriafotos" name="galeriafotos[]" id="" multiple>                                  
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Descripcion mediana</label>
@@ -745,6 +741,7 @@
                         </div> 
                         <h2 class="main__h2">Propietarios</h2>
                         <div class="form__bloque">
+                            <a target="_blank" href="adminagregar.php?page=contacto"><i class="fa-solid fa-user-plus add-user"></i></a>         
                             <div class="form__bloque__content content">
                             <input type="text" class="form__text content__text" placeholder="Ingrese nombre del propietario" name="buscadorcontactos" id="buscadorcontactos" autocomplete="off"> 
                             <ul class="content_ul" id="listaContactos"></ul>                
@@ -753,7 +750,7 @@
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
                             <input type="text" class="form__text content__text" name="inputContacto" id="inputContacto" readonly="readonly"> 
-                            <input type="hidden" class="form__text content__text" name="contacto_id" id="contacto_id">               
+                            <input type="hidden" class="form__text content__text" name="contacto_id" id="contacto_id">
                             </div>                          
                         </div>
                         <div class="main__decoration"></div>

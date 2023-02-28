@@ -145,6 +145,16 @@ a{
     padding: 0 1em;
 }
 
+.header__form__ul__li--titulo{
+    text-align: center;
+    justify-content: center;
+    font-size: 1.25em;
+    font-weight: bold;
+    color: var(--color-secundario-main);
+    pointer-events: none;
+    
+}
+
 .header__form__ul__li:hover{
     cursor: pointer;
     background-color: var(--color-secundario-main);
@@ -239,6 +249,8 @@ select{
     align-items: center;
     cursor: pointer;
 }
+
+
 /* End Header */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */

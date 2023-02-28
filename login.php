@@ -46,7 +46,7 @@ session_destroy(); ?>
                         </div>
                     </form>
                 </div>
-                <div class="login__bloque">
+                <div class="login__bloque login__bloque--img">
                     <img class="login__img" src="loginimg.svg" alt="">
                 </div>
             </div>

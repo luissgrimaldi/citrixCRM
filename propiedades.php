@@ -165,11 +165,6 @@
                         </div>
                         <div class="form__bloque form__bloque--5">
                             <input type="submit" class="form__button form__bloque__button" value="Buscar">
-                            <input type="button" class="form__button form__bloque__button" value="Guardar filtros">
-                            <input class="form__text form__bloque__text" type="text" placeholder="Nombre del filtro">
-                            <select class="form__select form__bloque__select" name="" id="">
-                                <option value="1">Filtros guardados</option>
-                            </select>
                         </div>
                     </form>
                 </div>

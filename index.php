@@ -67,7 +67,6 @@
                         <select name="fecha" class="tareas__select">
                             <option value="0" <?php if($getFecha == ''){echo 'selected';};?>></option>
                             <option value="1" <?php if($getFecha == 1){echo 'selected';};?>>Hoy</option>
-                            <option value="2" <?php if($getFecha == 2){echo 'selected';};?>>Esta semana</option>
                             <option value="3" <?php if($getFecha == 3){echo 'selected';};?>>Este mes</option>
                         </select>
                 

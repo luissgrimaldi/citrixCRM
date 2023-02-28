@@ -31,11 +31,11 @@
                                 <div class="fecha__container">
                                     <div class="form__bloque__content fecha__container__content">
                                         <label  class="form__label fecha__container__content__label" for="">Desde</label>
-                                        <input class="form__text fecha__container__content__text" name="buscarFechaDesde" value="<?php echo trim($_GET['fechadesde'])?>" type="text">
+                                        <input class="form__text fecha__container__content__text" name="buscarFechaDesde" value="<?php echo trim($_GET['fechadesde'])?>" type="date">
                                     </div>
                                     <div class="form__bloque__content fecha__container__content">
                                         <label  class="form__label fecha__container__content__label" for="">Hasta</label>
-                                        <input class="form__text fecha__container__content__text" name="buscarFechaHasta" value="<?php echo trim($_GET['fechahasta'])?>" type="text">
+                                        <input class="form__text fecha__container__content__text" name="buscarFechaHasta" value="<?php echo trim($_GET['fechahasta'])?>" type="date">
                                     </div>
                                 </div>                            
                             </div>
@@ -141,7 +141,7 @@
                 <div class="consultas">
                     <ul class="consultas__ul">
                         <?php
-                        $whereFecha=" AND con.created BETWEEN ".$_GET['fechadesde']." AND ".$_GET['fechahasta'];         
+                        $whereFecha=" AND con.created BETWEEN '".$_GET['fechadesde']."' AND '".$_GET['fechahasta']."'";         
                         $whereCliente=" AND con.nombre LIKE '%".trim($_GET['cliente'])."%' OR con.apellido LIKE '%".trim($_GET['cliente'])."%' OR con.email LIKE '%".trim($_GET['cliente'])."%' OR con.telefono LIKE '%".trim($_GET['cliente'])."%'";
                         $whereCanal=" AND canal.id = ".$_GET['canal'];
                         $whereOp=" AND prop.operacion_id = ".$_GET['op'];
@@ -163,7 +163,7 @@
                             if($_GET['estado'] != ''){$filtro .= $whereEstado;};
                         }
 
-                        $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, con.created, con.situacion, con.canal_id, con.status_id,
+                        $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, CAST(con.created AS DATE) , con.situacion, con.canal_id, con.status_id,
                         prop.id, prop.referencia_interna, prop.calle, prop.altura, prop.descripcion_corta, prop.operacion_id,
                         sit.id, sit.nombre,
                         canal.id,
