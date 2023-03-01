@@ -219,17 +219,24 @@
                         <li class="consultas__li" id="li<?php echo $idConsulta;?>">
                             <div class="consultas__bloque">
                                 <div class="consultas__bloque__content">
-                                <span class="consultas__consulta"> <?php echo $tipoConsulta. ' | '. $refPropiedad.' ('.$callePropiedad.' '.$alturaPropiedad.') | '.$fechaConsulta?></span>
+                                <span class="consultas__consulta"> <?php echo $nombreConsulta. ' '. $apellidoConsulta;?></span>
                                 </div>
                                 <div class="consultas__bloque__content">                           
-                                <span class="consultas__datos-cliente"><?php echo $nombreConsulta. ' '. $apellidoConsulta. ' ('. $emailConsulta. ' - '. $telefonoConsulta.') | Situación: '.$situacionConsulta?></span>
+                                <span class="consultas__datos-cliente"><?php echo ' ('. $telefonoConsulta.')'?></span>
                                 </div>
                             </div>
                             <div class="consultas__bloque">
                                 <div class="consultas__bloque__content consultas__edit-search-reload">
-                                    <a href="editarconsulta.php?consulta=<?php echo $idConsulta?>"><i class="consultas__accion fa-solid fa-pencil"></i></a>
-                                    <a href="consultasinfo.php?consulta=<?php echo $idConsulta?>"><i class="consultas__accion fa-solid fa-search"></i></a>
-                                    <i class="consultas__accion fa-solid fa-trash" onclick="if(confirm('¿Seguro que quieres eliminar esta consulta?')) delConsulta(<?php echo $idConsulta?>)"></i>
+                                    <?php if (!empty($situacionConsulta)){?><span class="consultas__datos-cliente__situacion"><?php echo $situacionConsulta?></span><?php };?>
+                                    <div class="consultas__accion__cruces__container"><i class="consultas__accion__cruces fa-solid fa-rotate"></i><span><?php?> Cruces</span></div>
+                                    <span class="consultas__consulta"> <?php echo $fechaConsulta?></span>
+                                </div>
+                            </div>
+                            <div class="consultas__bloque consultas__bloque--edit-search-reload"> 
+                                <div class="consultas__bloque__content consultas__edit-search-reload">
+                                    <a class="consultas__edit-search-reload__content" href="editarconsulta.php?consulta=<?php echo $idConsulta?>"><i class="consultas__accion fa-solid fa-pencil"></i><span>Editar</span></a>
+                                    <a class="consultas__edit-search-reload__content" href="consultasinfo.php?consulta=<?php echo $idConsulta?>"><i class="consultas__accion fa-solid fa-search"></i><span>Detalles</span></a>
+                                    <a onclick="if(confirm('¿Seguro que quieres eliminar esta consulta?')) delConsulta(<?php echo $idConsulta?>)" class="consultas__edit-search-reload__content"><i class="consultas__accion fa-solid fa-trash"></i><span>Eliminar</span></a>
                                 </div>   
                             </div>
                         </li>

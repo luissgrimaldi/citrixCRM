@@ -103,6 +103,7 @@
                             $contactoConyugeCelular = $situacion['conyuge_cel'];
                             $contactoConyugeTelefono = $situacion['conyuge_tel'];
                             $emails = $situacion['no_emails'];
+                            $created = $situacion['created'];
                         }; }else{
                             $contactoDireccion ='';
                             $contactoConyuge = '';
@@ -111,7 +112,21 @@
                             $contactoConyugeTelefono = '';
                             $emails = '';
                         };
-                    
+
+                        $sentencia = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = '".$editarCaptado."'") or die('query failed');
+                        $sentencia->execute();
+                        $agentes = $sentencia->fetchAll();                         
+                        foreach($agentes as $agente){
+                            $agenteNombre = $agente['nombre'];
+                            $agenteApellido = $agente['apellido'];
+                        }
+
+                        $sentencia = $connect->prepare("SELECT * FROM `wp_medios_contacto` WHERE id = '".$editarMedio."'") or die('query failed');
+                        $sentencia->execute();
+                        $medios = $sentencia->fetchAll();                         
+                        foreach($medios as $medio){
+                            $medioNombre = $medio['nombre'];
+                        }
            
                 ?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -130,63 +145,86 @@
                     <div class="main__user__content">
                         <div class="main__user__content__bloque">
                             <div class="main__user__content__bloque__content">
-                                <span>Nombre:</span><span class="main__user__content__bloque__content__respuesta"><?php echo $editarNombre.' '.$editarApellido;?></span>
+                                <span>Cliente:</span><span class="main__user__content__bloque__content__respuesta"><?php echo $editarNombre.' '.$editarApellido;?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
-                                <span>Situacion:</span><span class="main__user__content__bloque__content__respuesta"><?php if(isset($editarSituacion)){echo $situacionNombre;}?></span>
+                                <span>Situacion:</span><span class="main__user__content__bloque__content__respuesta <?php if(!empty($editarSituacion)){echo 'main__user__content__bloque__content__respuesta--situacion';}?>"><?php if(!empty($editarSituacion)){echo $situacionNombre;}else{echo 'No se establecio ninguna situacion';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
-                                <span>Telefono:</span><span class="main__user__content__bloque__content__respuesta"><?php if($editarTelefono != '' and $editarTelefono != NULL and isset($editarTelefono)){echo $editarTelefono;}else{echo 'No se estableció ningun numero de telefono';}?></span>
+                                <span>Precio:</span><span class="main__user__content__bloque__content__respuesta"><?php if($editarPrecioDesde != '' or $editarPrecioDesde != NULL){echo 'De '?><span class="main__user__content__bloque__content__respuesta--precio"><?php echo '$'.number_format($editarPrecioDesde,0,",", ".");?></span> a <span class="main__user__content__bloque__content__respuesta--precio"><?php echo '$'.number_format($editarprecioHasta,0,",", ".");?></span><?php }else{echo 'No se estableció ningun precio';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
-                                <span>Email:</span><span class="main__user__content__bloque__content__respuesta"><?php if($editarEmail != '' or $editarEmail != NULL or isset($editarEmail)){echo $editarEmail;}else{echo 'No se estableció ningun email';}?></span>
-                            </div>
-                            <div class="main__user__content__bloque__content">
-                                <span>Dirección del contacto:</span><span class="main__user__content__bloque__content__respuesta"><?php if($contactoDireccion != '' and $contactoDireccion != NULL and isset($contactoDireccion)){echo $contactoDireccion;}else{echo 'No se estableció ninguna dirección';}?></span>
-                            </div>
-                            <div class="main__user__content__bloque__content">
-                                <span>Propiedad:<a href=""></a></span><span class="main__user__content__bloque__content__respuesta"><?php if($editarPropiedad != '0' and $editarPropiedad != NULL and isset($editarPropiedad)){ echo 'REF '.$propiedadRef.': '.$propiedadTitulo.' ('.$propiedadNombre.' '.$propiedadAltura.')';}else{echo 'No se estableció ninguna propiedad';};?></span>
-                            </div>
-                            <div class="main__user__content__bloque__content main__user__content__bloque__content--cruces">
-                                <span>Cruces:</span>
-                                <span class="main__user__content__bloque__content__respuesta">
-                                <?php 
-                                $sentencia = $connect->prepare("SELECT * FROM `wp_propiedades` $filtro") or die('query failed');
-                                $sentencia->execute();
-                                $cruces = $sentencia->fetchAll();
-                                if(!$cruces){
-                                    echo 'No se encontraron cruces';
-                                }else{                  
-                                    foreach($cruces as $cruce){
-                                    $propiedadRef = $cruce['referencia_interna'];
-                                    $coma = ' | ';?>
-                                    <a href="propiedadesinfo.php?ref=<?php echo $propiedadRef?>"><?php 
-                                    echo $propiedadRef.$coma; }?>
-                                </a>
-                                    <?php ;}?>
-                            </div> 
-                        </div>
-                        <div class="main__user__content__bloque">
-                            <div class="main__user__content__bloque__content">
-                                <span>Conyuge:</span><span class="main__user__content__bloque__content__respuesta"><?php if(!empty($contactoConyuge)){echo $contactoConyuge;}else{echo 'No se estableció ningun nombre';}?></span>
-                            </div>
-                            <div class="main__user__content__bloque__content">
-                                <span>Conyuge telefono:</span><span class="main__user__content__bloque__content__respuesta"><?php if($contactoConyugeTelefono != '' or $contactoConyugeTelefono != NULL or !isset($contactoConyugeTelefono)){echo $contactoConyugeTelefono;}else{echo 'No se estableció ningun numero de telefono';}?></span>
-                            </div>
-                            <div class="main__user__content__bloque__content">
-                                <span>Conyuge email:</span><span class="main__user__content__bloque__content__respuesta"><?php if($contactoConyugeEmail != '' or $contactoConyugeEmail != NULL or !isset($contactoConyugeEmail)){echo $contactoConyugeEmail;}else{echo 'No se estableció ningun email';}?></span>
-                            </div>
-                            <div class="main__user__content__bloque__content">
-                                <span>Enviar emails:</span><span class="main__user__content__bloque__content__respuesta"><?php if($emails != ''){if($emails == '0' ){echo 'Si';}else if($emails == '1'){echo 'No';};}else{echo 'No establecido';}?></span>
+                                <span>Fecha de alta:</span><span class="main__user__content__bloque__content__respuesta"><?php {echo $created;}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
                                 <span>LLamar desde:</span><span class="main__user__content__bloque__content__respuesta"><?php if($editarLlamarDesde != '0' or $editarLlamarDesde != NULL){ echo $editarLlamarDesde;};?></span>
+                            </div>
+                        </div>                  
+                        <div class="main__user__content__bloque">
+                            <div class="main__user__content__bloque__content">
+                                <span>Medio de contacto:</span><span class="main__user__content__bloque__content__respuesta"><?php if(!empty($editarMedio)){echo $medioNombre;}else{echo 'No se estableció ningun medio';}?></span>
+                            </div>
+                            <div class="main__user__content__bloque__content">
+                                <span>Captado por:</span><span class="main__user__content__bloque__content__respuesta"><?php if(!empty($editarCaptado)){echo $agenteNombre.' '.$agenteApellido;}else{echo 'No se estableció ningun agente';}?></span>
+                            </div>
+                            <div class="main__user__content__bloque__content">
+                                <span>Consulta:</span><span class="main__user__content__bloque__content__respuesta"><?php echo $editarConsulta?></span>
+                            </div>
+                            <div class="main__user__content__bloque__content">
+                                <span>Enviar emails:</span><span class="main__user__content__bloque__content__respuesta"><?php if($emails != ''){if($emails == '0' ){echo 'Si';}else if($emails == '1'){echo 'No';};}else{echo 'No establecido';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
                                 <span>LLamar hasta:</span><span class="main__user__content__bloque__content__respuesta"><?php if($editarLlamarHasta != '00:00' or $editarLlamarHasta != NULL){ echo $editarLlamarHasta;};?></span>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="main__seguimiento">
+                    <div class="main__buttons">
+                        <a class="main__buttons__button"><i class="fa-solid fa-plus"></i> Nuevo seguimiento</a>
+                    </div>
+                    <div class="main__container__top main__container__top--seguimiento">
+                        <div class="main__title"><i class="fa-solid fa-signal main__h1--emoji"></i><h1 class="main__h1">Listado de seguimientos</h1></div>
+                    </div>
+                    <div class="main__decoration"></div>
+                    <ul class="tareas--pendientes__list">
+                    <?php           
+                        $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones,t.cliente_id,
+                        g.id, g.nombre,
+                        a.user_id, a.nombre, a.apellido,
+                        t.id as t_id, t.user_id as t_user_id, t.fecha as t_fecha, t.asunto as t_asunto, t.tipo_tarea_id as t_tipo_tarea, t.hora_inicio as t_hora_inicio, t.observaciones as t_observaciones,
+                        g.id as g_id, g.nombre as g_nombre,
+                        a.user_id as a_user_id, a.nombre as a_nombre, a.apellido as a_apellido
+                        FROM wp_agenda t 
+                        LEFT JOIN wp_agenda_tipo_tarea g ON  t.tipo_tarea_id =g.id
+                        LEFT JOIN usuarios a ON  t.user_id=a.user_id
+                        WHERE t.cliente_id=$editarContacto ORDER BY t.id DESC") or die('query failed');
+                        $sentencia->execute();
+                        $tareas = $sentencia->fetchAll();                        
+                            foreach($tareas as $tarea){
+                                $tareaId = $tarea['t_id'];
+                                $agenteNombre = $tarea['a_nombre'];
+                                $agenteApellido = $tarea['a_apellido'];
+                                $tareaFecha = $tarea['t_fecha'];               
+                                $tareaFecha = date("d-m-Y", strtotime($tareaFecha));              
+                                $tareaAsunto = $tarea['t_asunto'];
+                                $tareaMotivo = $tarea['g_nombre'];
+                                $tareaHora = $tarea['t_hora_inicio'];
+                                $tareaHora = substr($tareaHora, 0, -3);
+                                $tareaObservaciones = $tarea['t_observaciones'];                
+                    ?>
+                                <li class="tareas--pendientes__li">
+                                    <div class="tareas--pendientes__tarea">
+                                        <h4><?php echo $tareaAsunto;?></h4>
+                                        <span><?php echo $tareaFecha;?></span>
+                                        <span><?php echo $tareaHora;?></span>
+                                        <span><?php echo 'Agente: '.$agenteNombre.' '.$agenteApellido;?></span>
+                                    </div>
+                                    <span class="tareas--pendientes__tarea__tipo"><?php echo $tareaMotivo;?></span>
+                                    <h5 class="tareas--pendientes__nombre"><?php echo $agenteNombre.' '.$agenteApellido;?></h5>
+                                </li>                         
+                            <?php };?>
+                    </ul>
                 </div>
             </div>  
         </main>

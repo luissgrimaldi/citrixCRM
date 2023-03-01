@@ -90,6 +90,7 @@
     display: flex;
     flex-direction: row;
     gap: .5em;
+    align-items: center;
 }
 
 .main__user__content__bloque__content--cruces{
@@ -101,7 +102,69 @@
     color: var(--color-secundario-main);
 }
 
+.main__user__content__bloque__content__respuesta--situacion{
+    padding: .3em;
+    border: 2px solid var(--color-principal-main);
+    border-radius: 50%;
+}
 
+.main__user__content__bloque__content__respuesta--precio{
+    color:var(--color-principal-main);
+}
+
+.consultas__datos-cliente__situacion{
+    padding: .25em;
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
+.main__seguimiento{
+    margin-top: 8vh;
+}
+
+.main__container__top--seguimiento{
+    margin-top: 1vh;
+}
+
+.tareas--pendientes__list{
+    background-color: #aecdf3;
+    width: 100%;
+    border-radius: 1.25em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.25em;
+    gap: 1.25em;
+    margin: 0 auto;
+    color: var(--color-terciario-main);
+    font-size: 1em;
+}
+
+.tareas--pendientes__li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #87b0e3;
+    border-radius: 1.25em;
+    padding: 1.25em;
+    overflow-x: auto;
+}
+
+.tareas--pendientes__tarea{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-right: 1.25em;
+}
+
+.tareas--pendientes__tarea__tipo{
+    text-align: center;
+    font-weight: bold;
+}
+
+.tareas--pendientes__nombre{
+    padding-right: 1.25em;
+}
 
 /* End Main */
 

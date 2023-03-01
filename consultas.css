@@ -197,6 +197,13 @@
     font-weight: bold;
 }
 
+
+.consultas__datos-cliente__situacion{
+    padding: .25em;
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
 .consultas__estado{
     padding-right: 1.25em;
     color: white;
@@ -210,14 +217,34 @@
     gap: 1.25em;
     text-align: center;
     padding-right: 3em;
+    align-items: flex-start;
 }
 
-.consultas__accion{
+.consultas__accion, .consultas__accion__cruces{
     color: var(--color-principal-main);
     font-size: 1.25em;
 }
 
-.consultas__accion:hover{
+.consultas__accion__cruces__container{
+    display: flex;
+    flex-direction: row;
+    gap: .25em;
+    align-items: center;
+}
+
+.consultas__accion__cruces__container:hover{
+    transform: scale(1.3);
+    cursor: pointer;
+}
+
+.consultas__edit-search-reload__content{
+    display: flex;
+    gap: .5em;
+    align-items: center;
+}
+
+
+.consultas__edit-search-reload__content:hover{
     transform: scale(1.3);
     cursor: pointer;
 }
@@ -332,6 +359,14 @@
 @media screen and (max-width:394px) {
     .main__container__top{
         justify-content: center;
+    }
+
+    .consultas__accion__cruces__container{
+        flex-direction: column;
+    }
+
+    .consultas__edit-search-reload__content{
+        flex-direction: column;
     }
 }
 
