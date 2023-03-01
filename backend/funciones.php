@@ -514,9 +514,10 @@ function agregarEvento($connect) : void{
     $observaciones = $_POST['observaciones'];
     $horaInicio = $_POST['hora_inicio'];
     $tareaTerminada = $_POST['tarea_terminada'];
+    $asiganadaEl=date("Y-m-d H:i:s");
 
-    $query = $connect-> prepare ("INSERT INTO wp_agenda (tipo_tarea_id, asunto, fecha, observaciones, hora_inicio, tarea_terminada, asignada_por, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $query->execute([$tipoTareaId, $asunto, $fecha, $observaciones, $horaInicio, $tareaTerminada, $asiganadaPor, $userId]);
+    $query = $connect-> prepare ("INSERT INTO wp_agenda (tipo_tarea_id, asunto, fecha, observaciones, hora_inicio, tarea_terminada, asignada_por, user_id, asignada_el) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)");
+    $query->execute([$tipoTareaId, $asunto, $fecha, $observaciones, $horaInicio, $tareaTerminada, $asiganadaPor, $userId, $asiganadaEl]);
     if($query){
         echo json_encode("Evento agregado con exito");
     }else{

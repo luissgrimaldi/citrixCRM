@@ -189,10 +189,10 @@
                     <div class="main__decoration"></div>
                     <ul class="tareas--pendientes__list">
                     <?php           
-                        $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones,t.cliente_id,
+                        $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.cliente_id, t.asignada_el,
                         g.id, g.nombre,
                         a.user_id, a.nombre, a.apellido,
-                        t.id as t_id, t.user_id as t_user_id, t.fecha as t_fecha, t.asunto as t_asunto, t.tipo_tarea_id as t_tipo_tarea, t.hora_inicio as t_hora_inicio, t.observaciones as t_observaciones,
+                        t.id as t_id, t.user_id as t_user_id, t.fecha as t_fecha, t.asunto as t_asunto, t.tipo_tarea_id as t_tipo_tarea, t.hora_inicio as t_hora_inicio, t.observaciones as t_observaciones, t.asignada_el as t_asignada_el,
                         g.id as g_id, g.nombre as g_nombre,
                         a.user_id as a_user_id, a.nombre as a_nombre, a.apellido as a_apellido
                         FROM wp_agenda t 
@@ -212,16 +212,22 @@
                                 $tareaHora = $tarea['t_hora_inicio'];
                                 $tareaHora = substr($tareaHora, 0, -3);
                                 $tareaObservaciones = $tarea['t_observaciones'];                
+                                $tareaCreado = $tarea['t_asignada_el'];                
                     ?>
                                 <li class="tareas--pendientes__li">
                                     <div class="tareas--pendientes__tarea">
-                                        <h4><?php echo $tareaAsunto;?></h4>
-                                        <span><?php echo $tareaFecha;?></span>
-                                        <span><?php echo $tareaHora;?></span>
-                                        <span><?php echo 'Agente: '.$agenteNombre.' '.$agenteApellido;?></span>
+                                        <span class="tareas--pendientes__tarea--bold"><?php echo $tareaFecha;?></span>
+                                        <span class="tareas--pendientes__tarea--bold"><?php echo $tareaHora;?></span>
+                                        <span><span class="tareas--pendientes__tarea--bold">Agente: </span><?php echo $agenteNombre.' '.$agenteApellido;?></span>
                                     </div>
-                                    <span class="tareas--pendientes__tarea__tipo"><?php echo $tareaMotivo;?></span>
-                                    <h5 class="tareas--pendientes__nombre"><?php echo $agenteNombre.' '.$agenteApellido;?></h5>
+                                    <div class="tareas--pendientes__tarea">                                
+                                        <span class="tareas--pendientes__tarea--bold"><?php echo $tareaMotivo;?></span>                                 
+                                    </div>
+                                    <div class="tareas--pendientes__tarea tareas--pendientes__tarea">
+                                        <h4 class="generico"><span class="tareas--pendientes__tarea--bold">Asunto: </span><?php echo $tareaAsunto;?></h4>
+                                        <span class="generico"><span class="tareas--pendientes__tarea--bold">Observacion: </span><?php echo $tareaObservaciones;?></span>
+                                        <span class="tareas--pendientes__tarea--bold"><?php echo $tareaCreado;?></span>
+                                    </div>
                                 </li>                         
                             <?php };?>
                     </ul>

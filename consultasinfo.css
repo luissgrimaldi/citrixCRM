@@ -123,31 +123,32 @@
 }
 
 .main__container__top--seguimiento{
-    margin-top: 1vh;
+    margin-top: 1.875em;
 }
 
 .tareas--pendientes__list{
+    margin-top:1.875em;
     background-color: #aecdf3;
     width: 100%;
     border-radius: 1.25em;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 1.25em;
     gap: 1.25em;
-    margin: 0 auto;
     color: var(--color-terciario-main);
     font-size: 1em;
 }
 
 .tareas--pendientes__li{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     background-color: #87b0e3;
     border-radius: 1.25em;
     padding: 1.25em;
     overflow-x: auto;
+    flex-basis: 33.33%;
 }
 
 .tareas--pendientes__tarea{
@@ -155,16 +156,19 @@
     flex-direction: column;
     flex-wrap: wrap;
     padding-right: 1.25em;
+    align-items: flex-start;
+    width: 100%;
 }
 
-.tareas--pendientes__tarea__tipo{
-    text-align: center;
+.tareas--pendientes__tarea--bold{
+    text-align: left;
     font-weight: bold;
 }
 
 .tareas--pendientes__nombre{
     padding-right: 1.25em;
 }
+
 
 /* End Main */
 
@@ -183,6 +187,10 @@
         flex-direction: column;
         justify-content: start;
         margin: 0 auto;
+    }
+
+    .generico{
+        width: 20em;
     }
 }
 
