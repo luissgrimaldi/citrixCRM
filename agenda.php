@@ -15,7 +15,7 @@
         <main class="main" id="main">
         <div id="modal" class="modal">            
                     <form class="form__busqueda-propiedad form" id="formEvento" name="form" method="POST">
-                            <h2 class="main__h2">Evento</h2> 
+                            <h2 class="main__h2">Ficha de agenda</h2> 
                             <div class="form__bloque">
                                 <div class="form__bloque__content content">
                                     <label  class="form__label content__label" for="">Tipo de tarea</label>
@@ -66,7 +66,7 @@
                 <div id="modalEditar" class="modal">      
                     <form class="form__busqueda-propiedad form" id="formEventoEditar" method="POST">
                         <input type="hidden" value="" id="idEditar" name="idEditar">      
-                            <h2 class="main__h2">Editar evento</h2>
+                            <h2 class="main__h2">Ficha de agenda</h2>
                             <div class="form__bloque">
                                 <div class="form__bloque__content content">
                                     <label  class="form__label content__label" for="">Tipo de tarea</label>
@@ -119,7 +119,7 @@
                 <div class="main__busqueda-agenda">
                     <form id="formBuscarEvento" action="agenda.php" method="POST" class="form__busqueda-agenda form">
                         <div class="form__container-left">
-                            <button class="form__container-left__button">Nueva Actividad</button>
+                            <button class="form__container-left__button"><i class="fa-solid fa-plus"></i> Nueva Actividad</button> 
                         </div>
                         <div class="form__container-right">
                             <div class="form__container-right--bloque">

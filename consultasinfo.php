@@ -181,7 +181,7 @@
                 </div>
                 <div class="main__seguimiento">
                     <div class="main__buttons">
-                        <a class="main__buttons__button"><i class="fa-solid fa-plus"></i> Nuevo seguimiento</a>
+                        <button type="button" class="main__buttons__button"><i class="fa-solid fa-plus"></i> Nuevo seguimiento</button>
                     </div>
                     <div class="main__container__top main__container__top--seguimiento">
                         <div class="main__title"><i class="fa-solid fa-signal main__h1--emoji"></i><h1 class="main__h1">Listado de seguimientos</h1></div>

@@ -24,7 +24,7 @@
                 </div>
                 <div class="main__decoration"></div>
                 <div class="main__busqueda-consulta">
-                    <form id="form_calc_4" class="form__busqueda-consulta form" name="form" method="POST" action="consultas.php">
+                    <form class="form__busqueda-consulta form" name="form" method="POST" action="consultas.php">
                         <div class="form__bloque form__bloque--1">
                             <div class="form__bloque__fecha fecha">
                                 <h2 class="fecha__h2">Fecha</h2>
@@ -219,7 +219,7 @@
                         <li class="consultas__li" id="li<?php echo $idConsulta;?>">
                             <div class="consultas__bloque">
                                 <div class="consultas__bloque__content">
-                                <span class="consultas__consulta"> <?php echo $nombreConsulta. ' '. $apellidoConsulta;?></span>
+                                <a href="consultasinfo.php?consulta=<?php echo $idConsulta?>" class="consultas__consulta"> <?php echo $nombreConsulta. ' '. $apellidoConsulta;?></a>
                                 </div>
                                 <div class="consultas__bloque__content">                           
                                 <span class="consultas__datos-cliente"><?php echo ' ('. $telefonoConsulta.')'?></span>

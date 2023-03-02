@@ -1,5 +1,14 @@
 <?php include 'header.php' ?>
 <?php if($rolAgente == 1 or $rolAgente == 3){if (!$_GET){header('Location:controladmin.php?page=usuario');};}else{if (!$_GET){header('Location:controladmin.php?page=contacto');}}?>
+<?php
+    if(!isset($_POST['nombre'])){$_POST['nombre'] = '';}
+    if(!isset($_POST['email'])){$_POST['email'] = '';}
+    if(!isset($_POST['telefono'])){$_POST['telefono'] = '';}
+    if(!isset($_POST['celular'])){$_POST['celular'] = '';}
+    if(!isset($_POST['direccion'])){$_POST['direccion'] = '';}
+    if(!isset($_POST['medioContacto'])){$_POST['medioContacto'] = '';}
+    if(!isset($_POST['agenteAsignado'])){$_POST['agenteAsignado'] = '';}
+?>
 <?php include 'sidebar.php' ?>
 <?php if ($_GET['page']  == 'usuario'){
     if($rolAgente == 1 or $rolAgente == 3){?>
@@ -22,9 +31,9 @@
                 <div class="main__decoration"></div>
                 <div class="menu__main__buttons">
                     <div class="main__buttons">
-                        <a class="main__buttons__button" href="adminagregar.php?page=usuario">Agregar usuario</a>
+                        <a class="main__buttons__button" href="adminagregar.php?page=usuario"><i class="fa-solid fa-plus"></i> Nuevo usuario</a> 
                     </div>
-                </div>
+                </div>               
                     <div class="main__perfil">
                         <div class="main__perfil__container">                         
                             <ul class="propiedades__ul">
@@ -89,7 +98,7 @@
                 <div class="main__decoration"></div>
                 <div class="menu__main__buttons">
                     <div class="main__buttons">
-                        <a class="main__buttons__button" href="adminagregar.php?page=ciudad">Agregar ciudad</a>
+                        <a class="main__buttons__button" href="adminagregar.php?page=ciudad"><i class="fa-solid fa-plus"></i> Nueva ciudad</a> 
                     </div>
                 </div>
                     <div class="main__perfil">
@@ -145,7 +154,7 @@
                 <div class="main__decoration"></div>
                 <div class="menu__main__buttons">
                     <div class="main__buttons">
-                        <a class="main__buttons__button" href="adminagregar.php?page=zona">Agregar zona</a>
+                        <a class="main__buttons__button" href="adminagregar.php?page=zona"><i class="fa-solid fa-plus"></i> Nueva zona</a>                       
                     </div>
                 </div>
                     <div class="main__perfil">
@@ -207,9 +216,72 @@
                 <div class="main__decoration"></div>
                 <div class="menu__main__buttons">
                     <div class="main__buttons">
-                        <a class="main__buttons__button" href="adminagregar.php?page=contacto">Agregar contacto</a>
+                        <a class="main__buttons__button" href="adminagregar.php?page=contacto"><i class="fa-solid fa-plus"></i> Nuevo contacto</a>
                     </div>
                 </div>
+                <div class="main__decoration"></div>
+                <form class="form__busqueda-consulta form" name="form" method="POST" action="controladmin.php?page=contacto" autocomplete="off">
+                        <div class="form__bloque form__bloque--1">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Nombre Completo</label>
+                                <input class="form__text content__text" name="nombre" value="<?php echo $_POST['nombre']?>" type="text">
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Email</label>
+                                <input class="form__text content__text" name="email" type="text">
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Telefono</label>
+                                <input class="form__text content__text" name="telefono" type="text">
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Celular</label>
+                                <input class="form__text content__text" name="celular" type="text">
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Dirección</label>
+                                <input class="form__text content__text" name="direccion" type="text">
+                            </div>
+                        </div>
+                        <div class="form__bloque form__bloque--2">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Medio contacto</label>
+                                <select class="form__select" name="medioContacto">
+                                    <option value>Todos</option>
+                                        <?php                          
+                                            $sentencia = $connect->prepare("SELECT * FROM `wp_medios_contacto` WHERE habilitado=1") or die('query failed');
+                                            $sentencia->execute();
+                                            $list_consultas = $sentencia->fetchAll();                         
+                                            foreach($list_consultas as $consulta){
+                                            $id = $consulta['id'];
+                                            $nombre = $consulta['nombre'];
+                                            ?>
+                                        <option value="<?php echo $id?>"><?php echo $nombre?></option>
+                                    <?php };?>
+                                </select>
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Agente asignado</label>
+                                <select class="form__select" name="agenteAsignado">
+                                    <option value>Todos</option>
+                                        <?php                          
+                                            $sentencia = $connect->prepare("SELECT * FROM `usuarios` WHERE habilitado=1") or die('query failed');
+                                            $sentencia->execute();
+                                            $list_consultas = $sentencia->fetchAll();                         
+                                            foreach($list_consultas as $consulta){
+                                            $id = $consulta['user_id'];
+                                            $nombre = $consulta['nombre'].' '.$consulta['apellido'];
+                                            ?>
+                                        <option value="<?php echo $id?>"><?php echo $nombre?></option>
+                                    <?php };?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form__bloque form__bloque--4">
+                            <input type="submit" class="form__button form__bloque__button" value="Buscar">
+                        </div>
+                    </form>
+                    <div class="main__decoration"></div>
                     <div class="main__perfil">
                         <div class="main__perfil__container">                         
                             <ul class="propiedades__ul">

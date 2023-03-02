@@ -52,7 +52,7 @@
 .form__container-left__button{
     color: var(--color-terciario-main);
     background-color: var(--color-secundario-main);
-    padding: 0.313em 0.4em;
+    padding: 0.413em .8em;
     border-radius: 16px;
     font-size: 1em;
 }
