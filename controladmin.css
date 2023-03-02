@@ -86,7 +86,6 @@
 
 .main__perfil__container{
     margin: 1.875em auto;
-    width: 70em;
 }
 
 .perfil__bloque{
@@ -264,11 +263,59 @@
     background-color: var(--body-select-hover-checked);
 }
 
+.consultas__bloque__content{
+    color: white;
+    display: flex;
+    flex-direction: row;
+    padding: 0 1.25em;
+    padding-bottom: .5em;
+}
+.consultas__edit-search-reload{
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+    text-align: center;
+    padding-right: 3em;
+    align-items: flex-start;
+}
+
+.consultas__edit-search-reload__content{
+    display: flex;
+    gap: .5em;
+    align-items: center;
+}
+.consultas__edit-search-reload__content:hover{
+    transform: scale(1.3);
+    cursor: pointer;
+}
+
+.consultas__accion{
+    color: var(--color-principal-main);
+    font-size: 1.25em;
+}
+
+ 
 
 /* End Main */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+@media screen and (max-width:900px) {
+    .propiedades__li{
+        flex-direction: column;
+        text-align: center;
+        gap: 1em;
+    }
+
+
+    .consultas__edit-search-reload{
+        flex-direction: row;
+        gap: 1.5em;
+        order: 4;  
+        padding: 0;
+    }
+}
 
 @media screen and (max-width:778px) {
     .main__perfil__container{
@@ -302,5 +349,10 @@
 @media screen and (max-width:394px) {
     .main__container__top{
         justify-content: center;
+    }
+
+    
+    .consultas__edit-search-reload__content{
+        flex-direction: column;
     }
 } 

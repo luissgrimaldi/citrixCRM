@@ -1,15 +1,6 @@
 <?php include 'header.php' ?>
 <?php if($rolAgente == 1 or $rolAgente == 3){if (!$_GET){header('Location:controladmin.php?page=usuario');};}else{if (!$_GET){header('Location:controladmin.php?page=contacto');}}?>
-<?php
-    if(!isset($_POST['nombre'])){$_POST['nombre'] = '';}
-    if(!isset($_POST['email'])){$_POST['email'] = '';}
-    if(!isset($_POST['telefono'])){$_POST['telefono'] = '';}
-    if(!isset($_POST['celular'])){$_POST['celular'] = '';}
-    if(!isset($_POST['direccion'])){$_POST['direccion'] = '';}
-    if(!isset($_POST['medioContacto'])){$_POST['medioContacto'] = '';}
-    if(!isset($_POST['agenteAsignado'])){$_POST['agenteAsignado'] = '';}
-?>
-<?php include 'sidebar.php' ?>
+<?php include 'sidebar.php';?>
 <?php if ($_GET['page']  == 'usuario'){
     if($rolAgente == 1 or $rolAgente == 3){?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -196,7 +187,36 @@
         <!--/* End Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <?php ;}else{echo '<script> alert("Acceso denegado"); window.location = "controladmin.php"; </script>';} ;};?>
-<?php if ($_GET['page']  == 'contacto'){?>
+<?php if ($_GET['page']  == 'contacto'){
+
+if(!isset($_POST['nombre'])){$_POST['nombre'] = '';}
+if(!isset($_POST['email'])){$_POST['email'] = '';}
+if(!isset($_POST['telefono'])){$_POST['telefono'] = '';}
+if(!isset($_POST['celular'])){$_POST['celular'] = '';}
+if(!isset($_POST['direccion'])){$_POST['direccion'] = '';}
+if(!isset($_POST['medioContacto'])){$_POST['medioContacto'] = '';}
+if(!isset($_POST['agenteAsignado'])){$_POST['agenteAsignado'] = '';}
+
+$whereNombre=" AND CONCAT(trim(a.nombre), ' ', trim(a.apellido)) = '".$_POST['nombre']."'";         
+$whereEmail=" AND a.email = '".$_POST['email']."'";
+$whereTel=" AND a.telefono = '".$_POST['telefono']."'";
+$whereCel=" AND a.celular = '".$_POST['celular']."'";
+$whereDireccion=" AND a.direccion = '".$_POST['direccion']."'";
+$whereMedio=" AND a.medio_contacto_id = '".$_POST['medioContacto']."'";;
+$whereAgente=" AND a.agente_asignado_id = ".$_POST['agenteAsignado'];
+if($_POST['nombre'] == '' AND $_POST['email'] == '' AND $_POST['telefono'] == '' AND $_POST['celular'] == '' AND $_POST['direccion'] == '' AND $_POST['medioContacto'] == '' AND $_POST['agenteAsignado'] == ''){$filtro = '';}else{ 
+    
+    $filtro = "WHERE a.id > 0 ";
+    
+    if($_POST['nombre'] != ''){$filtro .= $whereNombre;};
+    if($_POST['email'] != ''){$filtro .= $whereEmail;};
+    if($_POST['telefono'] != ''){$filtro .= $whereTel;};
+    if($_POST['celular'] != ''){$filtro .= $whereCel;};
+    if($_POST['direccion'] != ''){$filtro .= $whereDireccion;};
+    if($_POST['medioContacto'] != ''){$filtro .= $whereMedio;};
+    if($_POST['agenteAsignado'] != ''){$filtro .= $whereAgente;};
+}
+    ?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -228,19 +248,19 @@
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Email</label>
-                                <input class="form__text content__text" name="email" type="text">
+                                <input class="form__text content__text" name="email" value="<?php echo $_POST['email']?>" type="text">
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Telefono</label>
-                                <input class="form__text content__text" name="telefono" type="text">
+                                <input class="form__text content__text" name="telefono" value="<?php echo $_POST['telefono']?>" type="text">
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Celular</label>
-                                <input class="form__text content__text" name="celular" type="text">
+                                <input class="form__text content__text" name="celular" value="<?php echo $_POST['celular']?>" type="text">
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Dirección</label>
-                                <input class="form__text content__text" name="direccion" type="text">
+                                <input class="form__text content__text" name="direccion" value="<?php echo $_POST['direccion']?>" type="text">
                             </div>
                         </div>
                         <div class="form__bloque form__bloque--2">
@@ -256,7 +276,7 @@
                                             $id = $consulta['id'];
                                             $nombre = $consulta['nombre'];
                                             ?>
-                                        <option value="<?php echo $id?>"><?php echo $nombre?></option>
+                                        <option <?php if($_POST['medioContacto'] == $id){echo 'selected';}?> value="<?php echo $id?>"><?php echo $nombre?></option>
                                     <?php };?>
                                 </select>
                             </div>
@@ -272,7 +292,7 @@
                                             $id = $consulta['user_id'];
                                             $nombre = $consulta['nombre'].' '.$consulta['apellido'];
                                             ?>
-                                        <option value="<?php echo $id?>"><?php echo $nombre?></option>
+                                        <option <?php if($_POST['agenteAsignado'] == $id){echo 'selected';}?> value="<?php echo $id?>"><?php echo $nombre?></option>
                                     <?php };?>
                                 </select>
                             </div>
@@ -286,25 +306,38 @@
                         <div class="main__perfil__container">                         
                             <ul class="propiedades__ul">
                             <?php           
-                                $sentencia = $connect->prepare("SELECT * from wp_contactos ORDER BY id DESC") or die('query failed');
+                                $sentencia = $connect->prepare("SELECT a.id, a.nombre as a_nombre, a.apellido, a.telefono, a.celular, a.email, a.direccion, a.medio_contacto_id, a.agente_asignado_id,
+                                b.id, b.nombre as b_nombre,
+                                c.user_id, c.nombre as c_nombre
+                                from wp_contactos a
+                                LEFT JOIN wp_medios_contacto b ON  a.medio_contacto_id =b.id
+                                LEFT JOIN usuarios c ON  a.agente_asignado_id = c.user_id
+                                $filtro ORDER BY a.id DESC") or die('query failed');
                                 $sentencia->execute();
                                 $list_usuarios = $sentencia->fetchAll();
                                 foreach($list_usuarios as $usuario){
                                     $id = $usuario['id'];                                                             
-                                    $nombre = $usuario['nombre'];                                                             
-                                    $apellido = $usuario['apellido'];                                                             
-                                    $celular = $usuario['telefono'];                                                             
-                                    $email = $usuario['email'];                                                                                                                       
+                                    $nombre = $usuario['a_nombre'];                                                             
+                                    $apellido = $usuario['apellido'];                                                                                                                        
+                                    $email = $usuario['email'];
+                                    $direccion = $usuario['direccion'];
+                                    $medioContacto = $usuario['b_nombre'];                                                                                                                        
+                                    $agenteAsignado = $usuario['c_nombre'];                                                                                                                        
                                 ?> 
                                 <li class="propiedades__li" id="li<?php echo $id?>">
                                     <div class="propiedades__nombre-detalles-precio">
                                         <span class="propiedades__nombre"><?php echo $nombre.' '.$apellido;?></span>
-                                        <span class="propiedades__detalles"><?php echo '('.$email.' -'.$celular. ') '?></span>
+                                        <span class="propiedades__detalles"><?php echo $email?></span>
+                                        <span class="propiedades__detalles"><?php echo 'Agente: ' .$agenteAsignado?></span>
+                                        <span class="propiedades__detalles"><?php echo $direccion?></span>
+                                        <span class="propiedades__detalles"><?php echo 'Medio de contacto: ' .$medioContacto?></span>
                                     </div>            
-                                    <div class="propiedades__edit-hide">
-                                        <a href="admineditar.php?page=contacto&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
-                                        <a href="contactosinfo.php?contacto=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-search"></i></a>
-                                        <i class="propiedades__accion fa-solid fa-trash" onclick="if(confirm('¿Seguro que quieres eliminar este contacto?')) delContacto(<?php echo $id?>)"></i>
+                                    <div class="consultas__bloque consultas__bloque--edit-search-reload"> 
+                                        <div class="consultas__bloque__content consultas__edit-search-reload">
+                                            <a class="consultas__edit-search-reload__content" href="admineditar.php?page=contacto&id=<?php echo $id?>"><i class="consultas__accion fa-solid fa-pencil"></i><span>Editar</span></a>
+                                            <a class="consultas__edit-search-reload__content" href="contactosinfo.php?contacto=<?php echo $id?>"><i class="consultas__accion fa-solid fa-search"></i><span>Detalles</span></a>
+                                            <a onclick="if(confirm('¿Seguro que quieres eliminar este contacto?')) delContacto(<?php echo $id?>)" class="consultas__edit-search-reload__content"><i class="consultas__accion fa-solid fa-trash"></i><span>Eliminar</span></a>
+                                        </div>   
                                     </div>
                                 </li> 
                                 <?php };?>
