@@ -275,4 +275,43 @@ function delPropiedad(id) {
 
 }
 
+function tipoTarea(tarea) {
+    if(tarea==1){
+        $("#tareaAgregar option").attr('selected', false);
+        $('#tareaAgregar option[value=5]').attr('selected',true);
+    }else if(tarea==2){
+        $("#tareaAgregar option").attr('selected', false);
+        $('#tareaAgregar option[value=1]').attr('selected',true);
+    }
+}
+
+function tipoTareaEdit(tarea) {
+    if(tarea==1){
+        $("#tareaEditar option").attr('selected', false);
+        $('#tareaEditar option[value=5]').attr('selected',true);
+    }else if(tarea==2){
+        $("#tareaEditar option").attr('selected', false);
+        $('#tareaEditar option[value=1]').attr('selected',true);
+    }
+}
+
+
+if (document.getElementById("tareaEditar") !== null){document.getElementById("tareaEditar").addEventListener("change", selectRadio);};
+
+function selectRadio(){
+    let tareaEditar = document.getElementById("tareaEditar");
+
+    if(tareaEditar.selectedIndex == 5){
+        $("#tareaEditar option").attr('selected', false);
+        $('#radioTareaEditar').attr('checked',false);
+        $('#radioVisitaEditar').attr('checked',true);
+    }else{
+        $("#tareaEditar option").attr('selected', false);
+        $('#radioVisitaEditar').attr('checked',false);
+        $('#radioTareaEditar').attr('checked',true);
+    }
+
+}
+
+
 

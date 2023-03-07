@@ -17,15 +17,15 @@
                     <form class="form__busqueda-propiedad form" id="formEvento" name="form" method="POST">
                             <h2 class="main__h2">Ficha de agenda</h2> 
                             <div class="form__bloque">
-                                <div class="form__bloque__content content">
+                                <div class="form__bloque__content--radio content">
                                     <label  class="form__label content__label" for="">Visita</label>
-                                    <input type="radio" name="tipoActividad" value="1">
+                                    <input type="radio" name="tipoActividad" onclick=" tipoTarea(1); " value="1" >
                                     <label  class="form__label content__label" for="">Tarea</label>
-                                    <input type="radio" name="tipoActividad" value="1">
+                                    <input type="radio" name="tipoActividad" onclick=" tipoTarea(2); " value="1" checked>
                                 </div>                 
                                 <div class="form__bloque__content content">
                                     <label  class="form__label content__label" for="">Tipo de tarea</label>
-                                    <select class="form__select" name="tipo_tarea_id" id="" required>                               
+                                    <select class="form__select" name="tipo_tarea_id" id="tareaAgregar" required>                               
                                             <option></option>
                                             <?php                          
                                                 $sentencia = $connect->prepare("SELECT * FROM `wp_agenda_tipo_tarea`  WHERE habilitada=1") or die('query failed');
@@ -35,7 +35,7 @@
                                                 $id = $agente['id'];
                                                 $nombre = $agente['nombre'];
                                                 ?>
-                                            <option value="<?php echo $id?>"><?php echo $nombre;?></option>
+                                            <option value="<?php echo $id?>" <?php if($id==1){echo 'selected';}?>><?php echo $nombre;?></option>
                                         <?php };?>
                                     </select>
                                 </div>                 
@@ -74,6 +74,12 @@
                         <input type="hidden" value="" id="idEditar" name="idEditar">      
                             <h2 class="main__h2">Ficha de agenda</h2>
                             <div class="form__bloque">
+                                <div class="form__bloque__content--radio content">
+                                    <label  class="form__label content__label" for="">Visita</label>
+                                    <input type="radio" name="tipoActividad" id="radioVisitaEditar" onclick=" tipoTareaEdit(1); " value="1">
+                                    <label  class="form__label content__label" for="">Tarea</label>
+                                    <input type="radio" name="tipoActividad" id="radioTareaEditar" onclick=" tipoTareaEdit(2); " value="1">
+                                </div>  
                                 <div class="form__bloque__content content">
                                     <label  class="form__label content__label" for="">Tipo de tarea</label>
                                     <select class="form__select" name="tareaEditar" id="tareaEditar" required>                               
@@ -208,7 +214,7 @@
           dateClick: function(date){
             let modal = document.getElementById('modal');
             let fecha = document.getElementById('fecha');
-            let agenda = document.getElementById('calendar');        
+            let agenda = document.getElementById('calendar');              
             modal.style.display='block';
             fecha.value=date.dateStr;
             agenda.style.pointerEvents ='none';
@@ -220,6 +226,13 @@
             $('#horaEditar').val(info.event.extendedProps.hora);
             $('#observacionesEditar').text(info.event.extendedProps.descripcion);
             $('#tareaEditar option[value='+ info.event.extendedProps.tarea_id +']').attr('selected',true);
+            let tareaValue = $('#tareaEditar option[value='+ info.event.extendedProps.tarea_id +']')
+            tareaValue = tareaValue.val();
+            if(tareaValue == 5){
+                $('#radioVisitaEditar').attr('checked',true);
+            }else{
+                $('#radioTareaEditar').attr('checked',true);
+            }
             if(info.event.extendedProps.tarea_terminada == 1){$('#finalizadaEditar').attr('checked',true);}else{$('#finalizadaEditar').attr('checked',false);};
             let modalEditar = document.getElementById('modalEditar');
             modalEditar.style.display='block';
@@ -227,6 +240,7 @@
           }
         });
         calendar.render();
+
 
 
         let salir = document.getElementById('salir');
@@ -262,8 +276,8 @@
             e.preventDefault();
             let url = 'backend/agregar.php?page=evento';
             let datos = new FormData(formEvento);
-            var modal = $("#modal");
-            var agenda = $("#calendar");
+            let modal = $("#modal");
+            let agenda = $("#calendar");
 
             fetch(url, {
                 method:'POST',
@@ -304,6 +318,7 @@
             .catch(err => console.log(err))
                     
         });
+
 
     });
 
