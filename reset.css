@@ -41,6 +41,9 @@ table {
 }
 
 /* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
+input{
+    appearance: auto;
+}
 input, textarea {
     -webkit-user-select: auto;
 }
