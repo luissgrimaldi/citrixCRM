@@ -4,10 +4,8 @@ let sidebarBtn = document.querySelector(".header__logo")
 sidebarBtn.addEventListener("click", function(){
     let sidebar=document.getElementById("sidebar");
     let main=document.getElementById("main");
-    let modal=document.getElementById("modal");
     sidebar.classList.toggle("sidebar--toggle");
     main.classList.toggle("main--toggle")
-    if(modal){modal.classList.toggle("modal--toggle");}
     
 });
 
@@ -289,11 +287,13 @@ function tipoTarea(tarea) {
 
 function tipoTareaEdit(tarea) {
     if(tarea==1){
-        $("#tareaEditar option").attr('selected', false);
-        $('#tareaEditar option[value=5]').attr('selected',true);
+        $("#radioVisitaEditar").prop('checked', true);
+        $("#tareaEditar option").prop('selected', false);
+        $('#tareaEditar option[value=5]').prop('selected', true);
     }else if(tarea==2){
-        $("#tareaEditar option").attr('selected', false);
-        $('#tareaEditar option[value=1]').attr('selected',true);
+        $("#radioTareaEditar").prop('checked', true);
+        $("#tareaEditar option").prop('selected', false);
+        $('#tareaEditar option[value=19]').prop('selected', true);
     }
 }
 
@@ -304,13 +304,9 @@ function selectRadioEditar(){
     let tareaEditar = document.getElementById("tareaEditar");
 
     if(tareaEditar.selectedIndex == 5){
-        $("#tareaEditar option").attr('selected', false);
-        $('#radioTareaEditar').attr('checked',false);
-        $('#radioVisitaEditar').attr('checked',true);
+        $("#radioVisitaEditar").prop('checked', true);
     }else{
-        $("#tareaEditar option").attr('selected', false);
-        $('#radioVisitaEditar').attr('checked',false);
-        $('#radioTareaEditar').attr('checked',true);
+        $("#radioTareaEditar").prop('checked', true);
     }
 
 }
