@@ -19,9 +19,9 @@
                             <div class="form__bloque">
                                 <div class="form__bloque__content--radio content">
                                     <label  class="form__label content__label" for="">Visita</label>
-                                    <input type="radio" name="tipoActividad" onclick=" tipoTarea(1); " value="1" >
+                                    <input type="radio" name="tipoActividad" id="radioVisitaAgregar" onclick=" tipoTarea(1); " value="5" >
                                     <label  class="form__label content__label" for="">Tarea</label>
-                                    <input type="radio" name="tipoActividad" onclick=" tipoTarea(2); " value="1" checked>
+                                    <input type="radio" name="tipoActividad" id="radioTareaAgregar" onclick=" tipoTarea(2); " value="19">
                                 </div>                 
                                 <div class="form__bloque__content content">
                                     <label  class="form__label content__label" for="">Tipo de tarea</label>
@@ -35,7 +35,7 @@
                                                 $id = $agente['id'];
                                                 $nombre = $agente['nombre'];
                                                 ?>
-                                            <option value="<?php echo $id?>" <?php if($id==1){echo 'selected';}?>><?php echo $nombre;?></option>
+                                            <option value="<?php echo $id?>"><?php echo $nombre;?></option>
                                         <?php };?>
                                     </select>
                                 </div>                 
@@ -218,6 +218,8 @@
             modal.style.display='block';
             fecha.value=date.dateStr;
             agenda.style.pointerEvents ='none';
+            $("#radioTareaAgregar").prop('checked', true);
+            $('#tareaAgregar option[value=19]').prop('selected', true);
           },
           eventClick: function(info){
             $('#idEditar').val(info.event.id);

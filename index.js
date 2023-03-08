@@ -277,11 +277,13 @@ function delPropiedad(id) {
 
 function tipoTarea(tarea) {
     if(tarea==1){
-        $("#tareaAgregar option").attr('selected', false);
-        $('#tareaAgregar option[value=5]').attr('selected',true);
+        $("#radioVisitaAgregar").prop('checked', true);
+        $("#tareaAgregar option").prop('selected', false);
+        $('#tareaAgregar option[value=5]').prop('selected', true);
     }else if(tarea==2){
-        $("#tareaAgregar option").attr('selected', false);
-        $('#tareaAgregar option[value=1]').attr('selected',true);
+        $("#radioTareaAgregar").prop('checked', true);
+        $("#tareaAgregar option").prop('selected', false);
+        $('#tareaAgregar option[value=19]').prop('selected', true);
     }
 }
 
@@ -296,9 +298,9 @@ function tipoTareaEdit(tarea) {
 }
 
 
-if (document.getElementById("tareaEditar") !== null){document.getElementById("tareaEditar").addEventListener("change", selectRadio);};
+if (document.getElementById("tareaEditar") !== null){document.getElementById("tareaEditar").addEventListener("change", selectRadioEditar);};
 
-function selectRadio(){
+function selectRadioEditar(){
     let tareaEditar = document.getElementById("tareaEditar");
 
     if(tareaEditar.selectedIndex == 5){
@@ -309,6 +311,19 @@ function selectRadio(){
         $("#tareaEditar option").attr('selected', false);
         $('#radioVisitaEditar').attr('checked',false);
         $('#radioTareaEditar').attr('checked',true);
+    }
+
+}
+
+if (document.getElementById("tareaAgregar") !== null){document.getElementById("tareaAgregar").addEventListener("change", selectRadioAgregar);};
+
+function selectRadioAgregar(){
+    let tareaAgregar = document.getElementById("tareaAgregar");
+
+    if(tareaAgregar.selectedIndex == 5){
+        $("#radioVisitaAgregar").prop('checked', true);
+    }else{
+        $("#radioTareaAgregar").prop('checked', true);
     }
 
 }
