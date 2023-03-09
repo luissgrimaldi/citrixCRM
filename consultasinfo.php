@@ -136,61 +136,113 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <main class="main" id="main">
         <div id="modal" class="modal-BG">
-                <div class="modal">            
-                    <form class="form__busqueda-propiedad form" id="formEvento" name="form" method="POST">
-                        <h2 class="main__h2">Ficha de agenda</h2> 
-                        <div class="form__bloque">               
-                            <div class="form__bloque__content content">
-                                <label  class="form__label content__label" for="">Tipo de tarea</label>
-                                <select class="form__select" name="tipo_tarea_id" id="tareaAgregar" required>                               
-                                        <option></option>
-                                        <?php                          
-                                            $sentencia = $connect->prepare("SELECT * FROM `wp_agenda_tipo_tarea`  WHERE habilitada=1") or die('query failed');
-                                            $sentencia->execute();
-                                            $agentes = $sentencia->fetchAll();                         
-                                            foreach($agentes as $agente){
-                                            $id = $agente['id'];
-                                            $nombre = $agente['nombre'];
-                                            ?>
-                                        <option value="<?php echo $id?>"><?php echo $nombre;?></option>
-                                    <?php };?>
-                                </select>
-                            </div>
-                        </div>                
-                        <div class="form__bloque">
-                            <div class="form__bloque__content content">
-                                <label  class="form__label content__label" for="">Asunto</label>
-                                <input type="text" class="form__text content__text" name="asunto" id="">                                  
-                            </div>
-                            <div class="form__bloque__content content">
-                                <label  class="form__label content__label" for="">Fecha</label>
-                                <input type="date" class="form__text content__text" name="fecha" id="fecha">                                  
-                            </div>
-                            <div class="form__bloque__content content">
-                                <label  class="form__label content__label" for="">Observaciones</label>
-                                <textarea name="observaciones" class="form__textarea content__textarea" ></textarea>                                 
-                            </div>
-                            <div class="form__bloque__content content">
-                                <label  class="form__label content__label" for="">Hora de inicio</label>
-                                <input type="time" class="form__text content__text" name="hora_inicio" id="">                                  
-                            </div>
-                            <div class="form__bloque__content content">  
-                                <label  class="form__label content__label" for="">Terminada</label>
-                                <input class="form__checkbox content__checkbox" type="checkbox" name="tarea_terminada" value="1">
-                            </div>  
-                            <input type="hidden" name="submit">
+            <div class="modal">            
+                <form class="form__busqueda-propiedad form" id="formSeguimiento" name="form" method="POST" autocomplete="off">
+                    <h2 class="main__h2">Nuevo seguimiento</h2> 
+                    <div class="form__bloque">               
+                        <div class="form__bloque__content content">
+                            <label  class="form__label content__label" for="">Tipo de tarea</label>
+                            <select class="form__select" name="tipo_tarea_id" required>                               
+                                    <option></option>
+                                    <?php                          
+                                        $sentencia = $connect->prepare("SELECT * FROM `wp_agenda_tipo_tarea`  WHERE habilitada=1") or die('query failed');
+                                        $sentencia->execute();
+                                        $agentes = $sentencia->fetchAll();                         
+                                        foreach($agentes as $agente){
+                                        $id = $agente['id'];
+                                        $nombre = $agente['nombre'];
+                                        ?>
+                                    <?php if($id !=5){?><option value="<?php echo $id?>"><?php echo $nombre;?></option><?php };
+                                };?>
+                            </select>
                         </div>
-                        <div class="form__bloque">
-                            <div class="form__bloque__content content">
-                                <input type="hidden" class="form__text content__text" name="consulta_id" id="consulta_id">                               
-                            </div>
-                        </div>                                      
-                        <div class="main__decoration"></div>
-                        <input type="submit" class="form__button" value="Agregar evento">  
-                        <button type="button" onclick="sacarSeguimiento();" class="form__button form__button--salir" id="salir">Salir</button>                                                          
-                    </form>
-                </div>
+                    </div>                
+                    <div class="form__bloque">
+                        <div class="form__bloque__content content">
+                            <label  class="form__label content__label" for="">Asunto</label>
+                            <input type="text" class="form__text content__text" name="asunto" >                                  
+                        </div>
+                        <div class="form__bloque__content content">
+                            <label  class="form__label content__label" for="">Fecha</label>
+                            <input type="date" class="form__text content__text" name="fecha" >                                  
+                        </div>
+                        <div class="form__bloque__content content">
+                            <label  class="form__label content__label" for="">Observaciones</label>
+                            <textarea name="observaciones" class="form__textarea content__textarea" ></textarea>                                 
+                        </div>
+                        <div class="form__bloque__content content">
+                            <label  class="form__label content__label" for="">Hora de inicio</label>
+                            <input type="time" class="form__text content__text" name="hora_inicio" >                                  
+                        </div>
+                        <div class="form__bloque__content content">  
+                            <label  class="form__label content__label" for="">Terminada</label>
+                            <input class="form__checkbox content__checkbox" type="checkbox" name="tarea_terminada" value="1">
+                        </div>  
+                        <input type="hidden" name="submit">
+                    </div>
+                    <div class="form__bloque">
+                        <div class="form__bloque__content content">
+                            <input type="hidden" class="form__text content__text" name="consulta_id" value="<?php echo $editarContacto?>">                               
+                        </div>
+                    </div>                                      
+                    <div class="main__decoration"></div>
+                    <input type="submit" class="form__button" value="Agregar evento">  
+                    <button type="button" onclick="sacarSeguimiento();" class="form__button form__button--salir" id="salir">Salir</button>                                                          
+                </form>
             </div>
+        </div>
+        <div id="modalVisita" class="modal-BG">
+            <div class="modal">            
+                <form class="form__busqueda-propiedad form" id="formVisita" name="form" method="POST" autocomplete="off">
+                    <h2 class="main__h2">Nueva visita</h2> 
+                    <div class="form__bloque">               
+                        <div class="form__bloque__content content">
+                            <label  class="form__label content__label" for="">Tipo de tarea</label>
+                            <select class="form__select" name="tipo_tarea_id" required>                               
+                                    <option value="5">Visita</option>
+                            </select>
+                        </div>
+                    </div>                
+                    <div class="form__bloque">
+                        <div class="form__bloque__content content">
+                            <label  class="form__label content__label" for="">Asunto</label>
+                            <input type="text" class="form__text content__text" name="asunto" >                                  
+                        </div>
+                        <div class="form__bloque__content content">
+                            <label  class="form__label content__label" for="">Fecha</label>
+                            <input type="date" class="form__text content__text" name="fecha">                                  
+                        </div>
+                        <div class="form__bloque__content content">
+                            <label  class="form__label content__label" for="">Observaciones</label>
+                            <textarea name="observaciones" class="form__textarea content__textarea" ></textarea>                                 
+                        </div>
+                        <div class="form__bloque__content content">
+                            <label  class="form__label content__label" for="">Hora de inicio</label>
+                            <input type="time" class="form__text content__text" name="hora_inicio">                                  
+                        </div>
+                        <div class="form__bloque__content content">  
+                            <label  class="form__label content__label" for="">Terminada</label>
+                            <input class="form__checkbox content__checkbox" type="checkbox" name="tarea_terminada" value="1">
+                        </div>  
+                        <input type="hidden" name="submit">
+                    </div>
+                    <div class="form__bloque">
+                        <div class="form__bloque__content content">
+                            <label  class="form__label content__label" for="">Propiedad</label>
+                            <input type="text" class="form__text content__text" name="buscadorpropiedad3" id="buscadorpropiedad3">
+                            <input type="hidden" class="form__text content__text" name="editar_propiedad_id" id="editar_propiedad_id">  
+                            <ul class="content_ul" id="listaPropiedadesEditar"></ul>                                                          
+                        </div>
+                        <div class="form__bloque__content content">
+                            <input type="hidden" class="form__text content__text" name="consulta_id" value="<?php echo $editarContacto?>">                               
+                        </div>
+                    </div>                                      
+                    <div class="main__decoration"></div>
+                    <input type="submit" class="form__button" value="Agregar evento">  
+                    <button type="button" onclick="sacarVisita();" class="form__button form__button--salir" id="salir2">Salir</button>                                                          
+                </form>
+            </div>
+        </div>
             <div class="main__container">
                 <div class="main__container__top">
                     <div class="main__title"><i class="fa-solid fa-envelope main__h1--emoji"></i><h1 class="main__h1">Consulta # <?php echo $_GET['consulta'];?></h1></div>
@@ -238,8 +290,8 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                     </div>
                 </div>
                 <div class="panel__segumiento-visita">
-                    <a href="consultasinfo.php?consulta=<?php echo $_GET['consulta'];?>&page=seguimiento" class="panel__segumiento-visita__button <?php if($_GET["page"] == 'seguimiento'){echo 'panel__segumiento-visita__button--active';}?>" type="button">Seguimiento</a>
-                    <a href="consultasinfo.php?consulta=<?php echo $_GET['consulta'];?>&page=visita" class="panel__segumiento-visita__button <?php if($_GET["page"] == 'visita'){echo 'panel__segumiento-visita__button--active';}?>" type="button">Visita</a>
+                    <a href="consultasinfo.php?consulta=<?php echo $_GET['consulta'];?>&page=seguimiento" class="panel__segumiento-visita__button <?php if($_GET["page"] == 'seguimiento'){echo 'panel__segumiento-visita__button--active';}?>" type="button"><i class="fa-solid fa-signal"></i> Seguimiento</a>
+                    <a href="consultasinfo.php?consulta=<?php echo $_GET['consulta'];?>&page=visita" class="panel__segumiento-visita__button <?php if($_GET["page"] == 'visita'){echo 'panel__segumiento-visita__button--active';}?>" type="button"><i class="fa-solid fa-envelope"></i> Visita</a>
                 </div>
                 <div class="main__decoration"></div>
                 <?php if ($_GET['page']== 'seguimiento'){?>
@@ -251,7 +303,6 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         <div class="main__title"><i class="fa-solid fa-signal main__h1--emoji"></i><h1 class="main__h1">Listado de seguimientos</h1></div>
                     </div>
                     <div class="main__decoration"></div>
-                    <ul class="tareas--pendientes__list">
                     <?php           
                         $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.cliente_id, t.asignada_el,
                         g.id, g.nombre,
@@ -262,8 +313,71 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         FROM wp_agenda t 
                         LEFT JOIN wp_agenda_tipo_tarea g ON  t.tipo_tarea_id =g.id
                         LEFT JOIN usuarios a ON  t.user_id=a.user_id
-                        WHERE t.cliente_id=$editarContacto ORDER BY t.id DESC") or die('query failed');
+                        WHERE t.cliente_id=$editarContacto AND t.tipo_tarea_id != 5 ORDER BY t.id DESC") or die('query failed');
                         $sentencia->execute();
+                        $seguimientos = $sentencia->rowCount();
+                        if($seguimientos > 0){?>
+                            <ul class="tareas--pendientes__list">
+                        <?php ;};
+                        $tareas = $sentencia->fetchAll();                        
+                            foreach($tareas as $tarea){
+                                $tareaId = $tarea['t_id'];
+                                $agenteNombre = $tarea['a_nombre'];
+                                $agenteApellido = $tarea['a_apellido'];
+                                $tareaFecha = $tarea['t_fecha'];               
+                                $tareaFecha = date("d-m-Y", strtotime($tareaFecha));              
+                                $tareaAsunto = $tarea['t_asunto'];
+                                $tareaMotivo = $tarea['g_nombre'];
+                                $tareaHora = $tarea['t_hora_inicio'];
+                                $tareaHora = substr($tareaHora, 0, -3);
+                                $tareaObservaciones = $tarea['t_observaciones'];                
+                                $tareaCreado = $tarea['t_asignada_el'];
+                                $tareaCreado=date("d-m-Y H:i:s",strtotime($tareaCreado));              
+                    ?>
+                                <li class="tareas--pendientes__li">
+                                    <div class="tareas--pendientes__tarea">
+                                        <span class="tareas--pendientes__tarea--bold"><?php echo $tareaFecha;?></span>
+                                        <span class="tareas--pendientes__tarea--bold"><?php echo $tareaHora;?></span>
+                                        <span><span class="tareas--pendientes__tarea--bold">Agente: </span><?php echo $agenteNombre.' '.$agenteApellido;?></span>
+                                    </div>
+                                    <div class="tareas--pendientes__tarea">                                
+                                        <span class="tareas--pendientes__tarea--bold"><?php echo $tareaMotivo;?></span>                                 
+                                    </div>
+                                    <div class="tareas--pendientes__tarea tareas--pendientes__tarea">
+                                        <h4 class="generico"><span class="tareas--pendientes__tarea--bold">Asunto: </span><?php echo $tareaAsunto;?></h4>
+                                        <span class="generico"><span class="tareas--pendientes__tarea--bold">Observacion: </span><?php echo $tareaObservaciones;?></span>
+                                        <span class="tareas--pendientes__tarea--bold"><?php echo $tareaCreado;?></span>
+                                    </div>
+                                </li>                         
+                            <?php };?>
+                    </ul>
+                </div>
+                <?php ;}?>
+                <?php if ($_GET['page']== 'visita'){?>
+                <div class="main__seguimiento">
+                    <div class="main__buttons">
+                        <button onclick="nuevaVisita();" type="button" class="main__buttons__button"><i class="fa-solid fa-plus"></i> Nueva visita</button>
+                    </div>
+                    <div class="main__container__top main__container__top--seguimiento">
+                        <div class="main__title"><i class="fa-solid fa-envelope main__h1--emoji"></i><h1 class="main__h1">Listado de visitas</h1></div>
+                    </div>
+                    <div class="main__decoration"></div>                    
+                    <?php           
+                        $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.cliente_id, t.asignada_el,
+                        g.id, g.nombre,
+                        a.user_id, a.nombre, a.apellido,
+                        t.id as t_id, t.user_id as t_user_id, t.fecha as t_fecha, t.asunto as t_asunto, t.tipo_tarea_id as t_tipo_tarea, t.hora_inicio as t_hora_inicio, t.observaciones as t_observaciones, t.asignada_el as t_asignada_el,
+                        g.id as g_id, g.nombre as g_nombre,
+                        a.user_id as a_user_id, a.nombre as a_nombre, a.apellido as a_apellido
+                        FROM wp_agenda t 
+                        LEFT JOIN wp_agenda_tipo_tarea g ON  t.tipo_tarea_id =g.id
+                        LEFT JOIN usuarios a ON  t.user_id=a.user_id
+                        WHERE t.cliente_id=$editarContacto AND t.tipo_tarea_id = 5  ORDER BY t.id DESC") or die('query failed');
+                        $sentencia->execute();
+                        $visitas = $sentencia->rowCount();
+                        if($visitas > 0){?>
+                            <ul class="tareas--pendientes__list">
+                        <?php ;};
                         $tareas = $sentencia->fetchAll();                        
                             foreach($tareas as $tarea){
                                 $tareaId = $tarea['t_id'];
@@ -305,5 +419,52 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     </div>
     <script src="index.js"></script>
+    <script>
+        let formSeguimiento= document.getElementById('formSeguimiento');
+        formSeguimiento.addEventListener("submit", function(e){
+            e.preventDefault();
+            let url = 'backend/agregar.php?page=evento';
+            let datos = new FormData(formSeguimiento);
+            let modal = $("#modal");
+            
+
+            fetch(url, {
+                method:'POST',
+                body: datos,
+                mode: "cors" //Default cors, no-cors, same-origin
+            }).then(response => response.json())
+            .then(data => {
+                alert(data);
+                formSeguimiento.reset();
+                modal.removeAttr('style');             
+                
+            })
+            .catch(err => console.log(err))
+                    
+        });
+
+        let formVisita= document.getElementById('formVisita');
+        formVisita.addEventListener("submit", function(e){
+            e.preventDefault();
+            let url = 'backend/agregar.php?page=evento';
+            let datos = new FormData(formVisita);
+            let modal = $("#modalVisita");
+            
+
+            fetch(url, {
+                method:'POST',
+                body: datos,
+                mode: "cors" //Default cors, no-cors, same-origin
+            }).then(response => response.json())
+            .then(data => {
+                alert(data);
+                formVisita.reset();
+                modal.removeAttr('style');             
+                
+            })
+            .catch(err => console.log(err))
+                    
+        });
+    </script>
 </body>
 </html>

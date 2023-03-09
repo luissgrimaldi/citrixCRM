@@ -65,7 +65,7 @@
                             <input type="hidden" name="submit">
                         </div>
                         <div class="form__bloque">
-                            <div class="form__bloque__content content">
+                            <div class="form__bloque__content content" id="propiedadContent" style="display:none">
                                 <label  class="form__label content__label" for="">Propiedad</label>
                                 <input type="text" class="form__text content__text" name="buscadorpropiedad2" id="buscadorpropiedad2">
                                 <input type="hidden" class="form__text content__text" name="propiedad_id" id="propiedad_id">  
@@ -137,7 +137,7 @@
                             </div>  
                         </div>
                         <div class="form__bloque">
-                            <div class="form__bloque__content content">
+                            <div class="form__bloque__content content" id="propiedadContentEditar" style="display:none">
                                 <label  class="form__label content__label" for="">Propiedad</label>
                                 <input type="text" class="form__text content__text" name="buscadorpropiedad3" id="buscadorpropiedad3">
                                 <input type="hidden" class="form__text content__text" name="editar_propiedad_id" id="editar_propiedad_id">  
@@ -284,9 +284,13 @@
             let modal = document.getElementById('modal');
             let agenda = document.getElementById('calendar');  
             let formEvento= document.getElementById('formEvento');
+            let propiedad = document.getElementById("propiedad_id");
+            let consulta = document.getElementById("consulta_id");
 
             modal.removeAttribute('style');  
             agenda.removeAttribute('style');
+            propiedad.removeAttribute('value')
+            consulta.removeAttribute('value')
             formEvento.reset();
 
         });
@@ -297,10 +301,14 @@
             let modal = document.getElementById('modalEditar');
             let agenda = document.getElementById('calendar');
             let formEventoEditar= document.getElementById('formEventoEditar');
+            let propiedad = document.getElementById("editar_propiedad_id");
+            let consulta = document.getElementById("editar_consulta_id");
 
             modal.removeAttribute('style');  
             agenda.removeAttribute('style');
             $('#tareaEditar option').removeAttr('selected')
+            propiedad.removeAttribute('value')
+            consulta.removeAttribute('value')
             formEventoEditar.reset();
 
         });
@@ -313,6 +321,9 @@
             let datos = new FormData(formEvento);
             let modal = $("#modal");
             let agenda = $("#calendar");
+            let propiedad = document.getElementById("propiedad_id");
+            let consulta = document.getElementById("consulta_id");
+            
 
             fetch(url, {
                 method:'POST',
@@ -324,7 +335,10 @@
                 calendar.refetchEvents();
                 formEvento.reset();
                 modal.removeAttr('style');             
-                agenda.removeAttr('style');  
+                agenda.removeAttr('style');
+                propiedad.removeAttribute('value')
+                consulta.removeAttribute('value')
+                
             })
             .catch(err => console.log(err))
                     
@@ -337,6 +351,8 @@
             let datos = new FormData(formEventoEditar);
             var modal = $("#modalEditar");
             var agenda = $("#calendar");
+            let propiedad = document.getElementById("editar_propiedad_id");
+            let consulta = document.getElementById("editar_consulta_id");
         
             fetch(url, {
                 method:'POST',
@@ -349,6 +365,8 @@
                 formEventoEditar.reset();
                 modal.removeAttr('style');             
                 agenda.removeAttr('style');  
+                propiedad.removeAttribute('value')
+                consulta.removeAttribute('value')
             })
             .catch(err => console.log(err))
                     

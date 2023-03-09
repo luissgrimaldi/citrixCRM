@@ -278,10 +278,12 @@ function tipoTarea(tarea) {
         $("#radioVisitaAgregar").prop('checked', true);
         $("#tareaAgregar option").prop('selected', false);
         $('#tareaAgregar option[value=5]').prop('selected', true);
+        $("#propiedadContent").show();
     }else if(tarea==2){
         $("#radioTareaAgregar").prop('checked', true);
         $("#tareaAgregar option").prop('selected', false);
         $('#tareaAgregar option[value=19]').prop('selected', true);
+        $("#propiedadContent").hide();
     }
 }
 
@@ -290,10 +292,12 @@ function tipoTareaEdit(tarea) {
         $("#radioVisitaEditar").prop('checked', true);
         $("#tareaEditar option").prop('selected', false);
         $('#tareaEditar option[value=5]').prop('selected', true);
+        $("#propiedadContentEditar").show();
     }else if(tarea==2){
         $("#radioTareaEditar").prop('checked', true);
         $("#tareaEditar option").prop('selected', false);
         $('#tareaEditar option[value=19]').prop('selected', true);
+        $("#propiedadContentEditar").hide();
     }
 }
 
@@ -305,8 +309,10 @@ function selectRadioEditar(){
 
     if(tareaEditar.selectedIndex == 5){
         $("#radioVisitaEditar").prop('checked', true);
+        $("#propiedadContentEditar").show();
     }else{
         $("#radioTareaEditar").prop('checked', true);
+        $("#propiedadContentEditar").hide();
     }
 
 }
@@ -318,8 +324,11 @@ function selectRadioAgregar(){
 
     if(tareaAgregar.selectedIndex == 5){
         $("#radioVisitaAgregar").prop('checked', true);
+        $("#propiedadContent").show();
     }else{
         $("#radioTareaAgregar").prop('checked', true);
+        $("#propiedadContent").hide();
+        
     }
 
 }
@@ -498,6 +507,16 @@ function nuevoSeguimiento(){
 
 function sacarSeguimiento(){
     let modal = document.getElementById('modal');          
+    modal.removeAttribute('style');
+}
+
+function nuevaVisita(){
+    let modal = document.getElementById('modalVisita');          
+    modal.style.display='block';
+}
+
+function sacarVisita(){
+    let modal = document.getElementById('modalVisita');          
     modal.removeAttribute('style');
 }
 
