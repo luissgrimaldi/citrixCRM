@@ -500,11 +500,13 @@ function agregarContacto($connect) : void{
 // Agregar evento //
 function agregarEvento($connect) : void{
     if(!isset($_POST['tipo_tarea_id'])){$_POST['tipo_tarea_id']= '1';};
-    if(!isset($_POST['asunto'])){$_POST['asunto']= 'No se establecio asunto';};
-    if(!isset($_POST['fecha'])){$_POST['fecha']= ' ';};
-    if(!isset($_POST['observaciones'])){$_POST['observaciones']= ' ';};
-    if(!isset($_POST['hora_inicio'])){$_POST['hora_inicio']= ' ';};
+    if(!isset($_POST['asunto'])){$_POST['asunto']= '';};
+    if(!isset($_POST['fecha'])){$_POST['fecha']= '';};
+    if(!isset($_POST['observaciones'])){$_POST['observaciones']= '';};
+    if(!isset($_POST['hora_inicio'])){$_POST['hora_inicio']= '';};
     if(!isset($_POST['tarea_terminada']) || $_POST['tarea_terminada'] == ''){$_POST['tarea_terminada']= 0;};
+    if(!isset($_POST['consulta_id'])){$_POST['consulta_id']= '0';};
+    if(!isset($_POST['propiedad_id'])){$_POST['propiedad_id']= '0';};
 
     $tipoTareaId = $_POST['tipo_tarea_id'];
     $asiganadaPor = $_SESSION['usuario'];
@@ -515,9 +517,11 @@ function agregarEvento($connect) : void{
     $horaInicio = $_POST['hora_inicio'];
     $tareaTerminada = $_POST['tarea_terminada'];
     $asiganadaEl=date("Y-m-d H:i:s");
+    $clienteId = $_POST['consulta_id'];
+    $propiedadId = $_POST['propiedad_id'];
 
-    $query = $connect-> prepare ("INSERT INTO wp_agenda (tipo_tarea_id, asunto, fecha, observaciones, hora_inicio, tarea_terminada, asignada_por, user_id, asignada_el) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)");
-    $query->execute([$tipoTareaId, $asunto, $fecha, $observaciones, $horaInicio, $tareaTerminada, $asiganadaPor, $userId, $asiganadaEl]);
+    $query = $connect-> prepare ("INSERT INTO wp_agenda (tipo_tarea_id, asunto, fecha, observaciones, hora_inicio, tarea_terminada, asignada_por, user_id, asignada_el, cliente_id, propiedad_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $query->execute([$tipoTareaId, $asunto, $fecha, $observaciones, $horaInicio, $tareaTerminada, $asiganadaPor, $userId, $asiganadaEl, $clienteId, $propiedadId]);
     if($query){
         echo json_encode("Evento agregado con exito");
     }else{

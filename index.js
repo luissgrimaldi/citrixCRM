@@ -324,5 +324,182 @@ function selectRadioAgregar(){
 
 }
 
+if (document.getElementById("buscadorconsulta") !== null) { document.getElementById("buscadorconsulta").addEventListener("keyup", getConsulta)};
+
+function getConsulta() {
+
+    let buscador = document.getElementById("buscadorconsulta").value
+    let lista = document.getElementById("listaConsultas")
+
+    if (buscador.length > 0) {
+
+        let url = "backend/buscadorconsulta.php"
+        let formData = new FormData()
+        formData.append("buscadorconsulta", buscador)
+
+        fetch(url, {
+            method: "POST",
+            body: formData,
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response => response.json())
+            .then(data => {
+                lista.style.display = 'block'
+                lista.innerHTML = data
+            })
+            .catch(err => console.log(err))
+    } else {
+        lista.style.display = 'none'
+    }
+}
+
+
+function seleccionarConsulta(id,nombre,apellido,contactoId) {
+    let buscador = document.getElementById("buscadorconsulta")
+    let inputHide = document.getElementById("consulta_id")
+    let lista = document.getElementById("listaConsultas")
+
+    buscador.value = id+' - '+nombre+' '+apellido;
+    inputHide.value = contactoId;
+
+    lista.style.display = 'none'  
+}
+
+
+if (document.getElementById("buscadorpropiedad2") !== null) { document.getElementById("buscadorpropiedad2").addEventListener("keyup", getPropiedad2)};
+
+function getPropiedad2() {
+
+    let buscador = document.getElementById("buscadorpropiedad2").value
+    let lista = document.getElementById("listaPropiedades")
+
+    if (buscador.length > 0) {
+
+        let url = "backend/buscadorpropiedad2.php"
+        let formData = new FormData()
+        formData.append("buscadorpropiedad2", buscador)
+
+        fetch(url, {
+            method: "POST",
+            body: formData,
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response => response.json())
+            .then(data => {
+                lista.style.display = 'block'
+                lista.innerHTML = data
+            })
+            .catch(err => console.log(err))
+    } else {
+        lista.style.display = 'none'
+    }
+}
+
+
+function seleccionarPropiedad2(id,calle,referencia) {
+    let buscador = document.getElementById("buscadorpropiedad2")
+    let inputHide = document.getElementById("propiedad_id")
+    let lista = document.getElementById("listaPropiedades")
+
+    buscador.value = referencia+' - '+calle;
+    inputHide.value = id;
+
+    lista.style.display = 'none'  
+}
+
+
+
+
+
+
+if (document.getElementById("buscadorconsulta2") !== null) { document.getElementById("buscadorconsulta2").addEventListener("keyup", getConsulta2)};
+
+function getConsulta2() {
+
+    let buscador = document.getElementById("buscadorconsulta2").value
+    let lista = document.getElementById("listaConsultasEditar")
+
+    if (buscador.length > 0) {
+
+        let url = "backend/buscadorconsulta2.php"
+        let formData = new FormData()
+        formData.append("buscadorconsulta2", buscador)
+
+        fetch(url, {
+            method: "POST",
+            body: formData,
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response => response.json())
+            .then(data => {
+                lista.style.display = 'block'
+                lista.innerHTML = data
+            })
+            .catch(err => console.log(err))
+    } else {
+        lista.style.display = 'none'
+    }
+}
+
+
+function seleccionarConsulta2(id,nombre,apellido,contactoId) {
+    let buscador = document.getElementById("buscadorconsulta2")
+    let inputHide = document.getElementById("editar_consulta_id")
+    let lista = document.getElementById("listaConsultasEditar")
+
+    buscador.value = id+' - '+nombre+' '+apellido;
+    inputHide.value = contactoId;
+
+    lista.style.display = 'none'  
+}
+
+
+if (document.getElementById("buscadorpropiedad3") !== null) { document.getElementById("buscadorpropiedad3").addEventListener("keyup", getPropiedad3)};
+
+function getPropiedad3() {
+
+    let buscador = document.getElementById("buscadorpropiedad3").value
+    let lista = document.getElementById("listaPropiedadesEditar")
+
+    if (buscador.length > 0) {
+
+        let url = "backend/buscadorpropiedad3.php"
+        let formData = new FormData()
+        formData.append("buscadorpropiedad3", buscador)
+
+        fetch(url, {
+            method: "POST",
+            body: formData,
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response => response.json())
+            .then(data => {
+                lista.style.display = 'block'
+                lista.innerHTML = data
+            })
+            .catch(err => console.log(err))
+    } else {
+        lista.style.display = 'none'
+    }
+}
+
+
+function seleccionarPropiedad3(id,calle,referencia) {
+    let buscador = document.getElementById("buscadorpropiedad3")
+    let inputHide = document.getElementById("editar_propiedad_id")
+    let lista = document.getElementById("listaPropiedadesEditar")
+
+    buscador.value = referencia+' - '+calle;
+    inputHide.value = id;
+
+    lista.style.display = 'none'  
+}
+
+function nuevoSeguimiento(){
+    let modal = document.getElementById('modal');          
+    modal.style.display='block';
+}
+
+function sacarSeguimiento(){
+    let modal = document.getElementById('modal');          
+    modal.removeAttribute('style');
+}
+
 
 

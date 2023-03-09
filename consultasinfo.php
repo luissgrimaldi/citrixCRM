@@ -1,7 +1,8 @@
-<?php include 'header.php' ?>
+<?php include 'header.php';
+if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento');};
+?>
 <?php include 'sidebar.php' ?>
 <?php                          
-
        
                     $sentencia = $connect->prepare("SELECT * FROM `wp_consultas` WHERE id= '".$_GET['consulta']."'") or die('query failed');
                     $sentencia->execute();
@@ -104,6 +105,7 @@
                             $contactoConyugeTelefono = $situacion['conyuge_tel'];
                             $emails = $situacion['no_emails'];
                             $created = $situacion['created'];
+                            $created = date("d-m-Y", strtotime($created));  
                         }; }else{
                             $contactoDireccion ='';
                             $contactoConyuge = '';
@@ -133,6 +135,62 @@
         <!--/* Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <main class="main" id="main">
+        <div id="modal" class="modal-BG">
+                <div class="modal">            
+                    <form class="form__busqueda-propiedad form" id="formEvento" name="form" method="POST">
+                        <h2 class="main__h2">Ficha de agenda</h2> 
+                        <div class="form__bloque">               
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Tipo de tarea</label>
+                                <select class="form__select" name="tipo_tarea_id" id="tareaAgregar" required>                               
+                                        <option></option>
+                                        <?php                          
+                                            $sentencia = $connect->prepare("SELECT * FROM `wp_agenda_tipo_tarea`  WHERE habilitada=1") or die('query failed');
+                                            $sentencia->execute();
+                                            $agentes = $sentencia->fetchAll();                         
+                                            foreach($agentes as $agente){
+                                            $id = $agente['id'];
+                                            $nombre = $agente['nombre'];
+                                            ?>
+                                        <option value="<?php echo $id?>"><?php echo $nombre;?></option>
+                                    <?php };?>
+                                </select>
+                            </div>
+                        </div>                
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Asunto</label>
+                                <input type="text" class="form__text content__text" name="asunto" id="">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Fecha</label>
+                                <input type="date" class="form__text content__text" name="fecha" id="fecha">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Observaciones</label>
+                                <textarea name="observaciones" class="form__textarea content__textarea" ></textarea>                                 
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Hora de inicio</label>
+                                <input type="time" class="form__text content__text" name="hora_inicio" id="">                                  
+                            </div>
+                            <div class="form__bloque__content content">  
+                                <label  class="form__label content__label" for="">Terminada</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="tarea_terminada" value="1">
+                            </div>  
+                            <input type="hidden" name="submit">
+                        </div>
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                                <input type="hidden" class="form__text content__text" name="consulta_id" id="consulta_id">                               
+                            </div>
+                        </div>                                      
+                        <div class="main__decoration"></div>
+                        <input type="submit" class="form__button" value="Agregar evento">  
+                        <button type="button" onclick="sacarSeguimiento();" class="form__button form__button--salir" id="salir">Salir</button>                                                          
+                    </form>
+                </div>
+            </div>
             <div class="main__container">
                 <div class="main__container__top">
                     <div class="main__title"><i class="fa-solid fa-envelope main__h1--emoji"></i><h1 class="main__h1">Consulta # <?php echo $_GET['consulta'];?></h1></div>
@@ -179,9 +237,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="panel__segumiento-visita">
+                    <a href="consultasinfo.php?consulta=<?php echo $_GET['consulta'];?>&page=seguimiento" class="panel__segumiento-visita__button <?php if($_GET["page"] == 'seguimiento'){echo 'panel__segumiento-visita__button--active';}?>" type="button">Seguimiento</a>
+                    <a href="consultasinfo.php?consulta=<?php echo $_GET['consulta'];?>&page=visita" class="panel__segumiento-visita__button <?php if($_GET["page"] == 'visita'){echo 'panel__segumiento-visita__button--active';}?>" type="button">Visita</a>
+                </div>
+                <div class="main__decoration"></div>
+                <?php if ($_GET['page']== 'seguimiento'){?>
                 <div class="main__seguimiento">
                     <div class="main__buttons">
-                        <button type="button" class="main__buttons__button"><i class="fa-solid fa-plus"></i> Nuevo seguimiento</button>
+                        <button onclick="nuevoSeguimiento();" type="button" class="main__buttons__button"><i class="fa-solid fa-plus"></i> Nuevo seguimiento</button>
                     </div>
                     <div class="main__container__top main__container__top--seguimiento">
                         <div class="main__title"><i class="fa-solid fa-signal main__h1--emoji"></i><h1 class="main__h1">Listado de seguimientos</h1></div>
@@ -212,7 +276,8 @@
                                 $tareaHora = $tarea['t_hora_inicio'];
                                 $tareaHora = substr($tareaHora, 0, -3);
                                 $tareaObservaciones = $tarea['t_observaciones'];                
-                                $tareaCreado = $tarea['t_asignada_el'];                
+                                $tareaCreado = $tarea['t_asignada_el'];
+                                $tareaCreado=date("d-m-Y H:i:s",strtotime($tareaCreado));                 
                     ?>
                                 <li class="tareas--pendientes__li">
                                     <div class="tareas--pendientes__tarea">
@@ -232,6 +297,7 @@
                             <?php };?>
                     </ul>
                 </div>
+                <?php ;}?>
             </div>  
         </main>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->

@@ -50,7 +50,7 @@
                         <h2 class="main__h2">Datos de contacto</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
-                                <input type="text" placeholder="Ingrese nombre de contacto" class="form__text content__text" name="buscadorcontactos2" id="buscadorcontactos2" autocomplete="off"> 
+                                <input type="text" placeholder="Ingrese nombre de contacto" class="form__text content__text" name="buscadorcontactos" id="buscadorcontactos2" autocomplete="off"> 
                                 <input type="hidden" class="form__text content__text" name="contacto_id" id="contacto_id"> 
                                 <ul class="content_ul" id="listaContactos"></ul>                
                             </div>  

@@ -211,6 +211,7 @@
                                 $emailConsulta = $consulta['con_email'];
                                 $telefonoConsulta = $consulta['con_telefono'];
                                 $fechaConsulta = $consulta['con_created'];
+                                $fechaConsulta = date("d-m-Y", strtotime($fechaConsulta)); 
                                 $refPropiedad = $consulta['prop_referencia_interna'];
                                 $callePropiedad = $consulta['prop_calle'];
                                 $alturaPropiedad = $consulta['prop_altura'];

@@ -13,122 +13,151 @@
         <!--/* Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <main class="main" id="main">
-        <div id="modal" class="modal-BG">
-            <div class="modal">            
-                        <form class="form__busqueda-propiedad form" id="formEvento" name="form" method="POST">
-                                <h2 class="main__h2">Ficha de agenda</h2> 
-                                <div class="form__bloque">
-                                    <div class="form__bloque__content--radio content">
-                                        <label  class="form__label content__label" for="">Visita</label>
-                                        <input type="radio" name="tipoActividad" id="radioVisitaAgregar" onclick=" tipoTarea(1); " value="5" >
-                                        <label  class="form__label content__label" for="">Tarea</label>
-                                        <input type="radio" name="tipoActividad" id="radioTareaAgregar" onclick=" tipoTarea(2); " value="19">
-                                    </div>                 
-                                    <div class="form__bloque__content content">
-                                        <label  class="form__label content__label" for="">Tipo de tarea</label>
-                                        <select class="form__select" name="tipo_tarea_id" id="tareaAgregar" required>                               
-                                                <option></option>
-                                                <?php                          
-                                                    $sentencia = $connect->prepare("SELECT * FROM `wp_agenda_tipo_tarea`  WHERE habilitada=1") or die('query failed');
-                                                    $sentencia->execute();
-                                                    $agentes = $sentencia->fetchAll();                         
-                                                    foreach($agentes as $agente){
-                                                    $id = $agente['id'];
-                                                    $nombre = $agente['nombre'];
-                                                    ?>
-                                                <option value="<?php echo $id?>"><?php echo $nombre;?></option>
-                                            <?php };?>
-                                        </select>
-                                </div>                 
-                                <div class="form__bloque">
-                                    <div class="form__bloque__content content">
-                                        <label  class="form__label content__label" for="">Asunto</label>
-                                        <input type="text" class="form__text content__text" name="asunto" id="">                                  
-                                    </div>
-                                    <div class="form__bloque__content content">
-                                        <label  class="form__label content__label" for="">Fecha</label>
-                                        <input type="date" class="form__text content__text" name="fecha" id="fecha">                                  
-                                    </div>
-                                    <div class="form__bloque__content content">
-                                        <label  class="form__label content__label" for="">Observaciones</label>
-                                        <textarea name="observaciones" class="form__textarea content__textarea" ></textarea>                                 
-                                    </div>
-                                    <div class="form__bloque__content content">
-                                        <label  class="form__label content__label" for="">Hora de inicio</label>
-                                        <input type="time" class="form__text content__text" name="hora_inicio" id="">                                  
-                                    </div>
-                                    <div class="form__bloque__content content">  
-                                        <label  class="form__label content__label" for="">Terminada</label>
-                                        <input class="form__checkbox content__checkbox" type="checkbox" name="tarea_terminada" value="1">
-                                    </div>  
-                                    <input type="hidden" name="submit">
-                                </div> 
-                                
-                                <div class="main__decoration"></div>
-                                <input type="submit" class="form__button" value="Agregar evento">  
-                                <button type="button" class="form__button form__button--salir" id="salir">Salir</button>                                                          
-                            </form>
+            <div id="modal" class="modal-BG">
+                <div class="modal">            
+                    <form class="form__busqueda-propiedad form" id="formEvento" name="form" method="POST">
+                        <h2 class="main__h2">Ficha de agenda</h2> 
+                        <div class="form__bloque">
+                            <div class="form__bloque__content--radio content">
+                                <label  class="form__label content__label" for="">Visita</label>
+                                <input type="radio" name="tipoActividad" id="radioVisitaAgregar" onclick=" tipoTarea(1); " value="5" >
+                                <label  class="form__label content__label" for="">Tarea</label>
+                                <input type="radio" name="tipoActividad" id="radioTareaAgregar" onclick=" tipoTarea(2); " value="19">
+                            </div>                 
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Tipo de tarea</label>
+                                <select class="form__select" name="tipo_tarea_id" id="tareaAgregar" required>                               
+                                        <option></option>
+                                        <?php                          
+                                            $sentencia = $connect->prepare("SELECT * FROM `wp_agenda_tipo_tarea`  WHERE habilitada=1") or die('query failed');
+                                            $sentencia->execute();
+                                            $agentes = $sentencia->fetchAll();                         
+                                            foreach($agentes as $agente){
+                                            $id = $agente['id'];
+                                            $nombre = $agente['nombre'];
+                                            ?>
+                                        <option value="<?php echo $id?>"><?php echo $nombre;?></option>
+                                    <?php };?>
+                                </select>
+                            </div>
+                        </div>                
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Asunto</label>
+                                <input type="text" class="form__text content__text" name="asunto" id="">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Fecha</label>
+                                <input type="date" class="form__text content__text" name="fecha" id="fecha">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Observaciones</label>
+                                <textarea name="observaciones" class="form__textarea content__textarea" ></textarea>                                 
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Hora de inicio</label>
+                                <input type="time" class="form__text content__text" name="hora_inicio" id="">                                  
+                            </div>
+                            <div class="form__bloque__content content">  
+                                <label  class="form__label content__label" for="">Terminada</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="tarea_terminada" value="1">
+                            </div>  
+                            <input type="hidden" name="submit">
                         </div>
-                    </div>
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Propiedad</label>
+                                <input type="text" class="form__text content__text" name="buscadorpropiedad2" id="buscadorpropiedad2">
+                                <input type="hidden" class="form__text content__text" name="propiedad_id" id="propiedad_id">  
+                                <ul class="content_ul" id="listaPropiedades"></ul>
+                                                            
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Consulta</label>
+                                <input type="text" class="form__text content__text" name="buscadorconsulta" id="buscadorconsulta">
+                                <input type="hidden" class="form__text content__text" name="consulta_id" id="consulta_id">   
+                                <ul class="content_ul" id="listaConsultas"></ul>                               
+                            </div>
+                        </div>                                      
+                        <div class="main__decoration"></div>
+                        <input type="submit" class="form__button" value="Agregar evento">  
+                        <button type="button" class="form__button form__button--salir" id="salir">Salir</button>                                                          
+                    </form>
                 </div>
-                <div id="modalEditar" class="modal-BG">                                              
-                    <div class="modal">      
-                        <form class="form__busqueda-propiedad form" id="formEventoEditar" method="POST">
-                            <input type="hidden" value="" id="idEditar" name="idEditar">      
-                                <h2 class="main__h2">Ficha de agenda</h2>
-                                <div class="form__bloque">
-                                    <div class="form__bloque__content--radio content">
-                                        <label  class="form__label content__label" for="">Visita</label>
-                                        <input type="radio" name="tipoActividad" id="radioVisitaEditar" onclick=" tipoTareaEdit(1); " value="1">
-                                        <label  class="form__label content__label" for="">Tarea</label>
-                                        <input type="radio" name="tipoActividad" id="radioTareaEditar" onclick=" tipoTareaEdit(2); " value="1">
-                                    </div>  
-                                    <div class="form__bloque__content content">
-                                        <label  class="form__label content__label" for="">Tipo de tarea</label>
-                                        <select class="form__select" name="tareaEditar" id="tareaEditar" required>                               
-                                                <option></option>
-                                                <?php                          
-                                                    $sentencia = $connect->prepare("SELECT * FROM `wp_agenda_tipo_tarea`  WHERE habilitada=1") or die('query failed');
-                                                    $sentencia->execute();
-                                                    $agentes = $sentencia->fetchAll();                         
-                                                    foreach($agentes as $agente){
-                                                    $id = $agente['id'];
-                                                    $nombre = $agente['nombre'];
-                                                    ?>
-                                                <option value="<?php echo $id?>"><?php echo $nombre;?></option>
-                                            <?php };?>
-                                        </select>
-                                    </div>                 
-                                <div class="form__bloque">
-                                    <div class="form__bloque__content content">
-                                        <label  class="form__label content__label" for="">Asunto</label>
-                                        <input type="text" class="form__text content__text" name="asuntoEditar" value="" id="asuntoEditar">                                  
-                                    </div>
-                                    <div class="form__bloque__content content">
-                                        <label  class="form__label content__label" for="">Fecha</label>
-                                        <input type="date" class="form__text content__text" name="fechaEditar" value="" id="fechaEditar">                                  
-                                    </div>
-                                    <div class="form__bloque__content content">
-                                        <label  class="form__label content__label" for="">Observaciones</label>
-                                        <textarea class="form__textarea content__textarea" name="observacionesEditar" id="observacionesEditar"></textarea>                                 
-                                    </div>
-                                    <div class="form__bloque__content content">
-                                        <label  class="form__label content__label" for="">Hora de inicio</label>
-                                        <input type="time" class="form__text content__text" name="horaEditar" id="horaEditar">                                  
-                                    </div>
-                                    <div class="form__bloque__content content">  
-                                        <label  class="form__label content__label" for="">Terminada</label>
-                                        <input class="form__checkbox content__checkbox" type="checkbox" name="finalizadaEditar" id="finalizadaEditar" value="1">
-                                    </div>  
-                                </div> 
-                                <input type="hidden" name="submit">
-                                <div class="main__decoration"></div>
-                                <input type="submit" class="form__button" value="Guardar cambios">  
-                                <button type="button" class="form__button form__button--salir" id="salirEditar">Salir</button>                                                          
-                            </form>
+            </div>
+            <div id="modalEditar" class="modal-BG">                                              
+                <div class="modal">      
+                    <form class="form__busqueda-propiedad form" id="formEventoEditar" method="POST">
+                        <input type="hidden" value="" id="idEditar" name="idEditar">      
+                        <h2 class="main__h2">Ficha de agenda</h2>
+                        <div class="form__bloque">
+                            <div class="form__bloque__content--radio content">
+                                <label  class="form__label content__label" for="">Visita</label>
+                                    <input type="radio" name="tipoActividad" id="radioVisitaEditar" onclick=" tipoTareaEdit(1); " value="1">
+                                    <label  class="form__label content__label" for="">Tarea</label>
+                                    <input type="radio" name="tipoActividad" id="radioTareaEditar" onclick=" tipoTareaEdit(2); " value="1">
+                            </div>  
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Tipo de tarea</label>
+                                <select class="form__select" name="tareaEditar" id="tareaEditar" required>                               
+                                        <option></option>
+                                        <?php                          
+                                            $sentencia = $connect->prepare("SELECT * FROM `wp_agenda_tipo_tarea`  WHERE habilitada=1") or die('query failed');
+                                            $sentencia->execute();
+                                            $agentes = $sentencia->fetchAll();                         
+                                            foreach($agentes as $agente){
+                                            $id = $agente['id'];
+                                            $nombre = $agente['nombre'];
+                                            ?>
+                                        <option value="<?php echo $id?>"><?php echo $nombre;?></option>
+                                    <?php };?>
+                                </select>
+                            </div>
+                        </div>                 
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Asunto</label>
+                                <input type="text" class="form__text content__text" name="asuntoEditar" value="" id="asuntoEditar">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Fecha</label>
+                                <input type="date" class="form__text content__text" name="fechaEditar" value="" id="fechaEditar">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Observaciones</label>
+                                <textarea class="form__textarea content__textarea" name="observacionesEditar" id="observacionesEditar"></textarea>                                 
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Hora de inicio</label>
+                                <input type="time" class="form__text content__text" name="horaEditar" id="horaEditar">                                  
+                            </div>
+                            <div class="form__bloque__content content">  
+                                <label  class="form__label content__label" for="">Terminada</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="finalizadaEditar" id="finalizadaEditar" value="1">
+                            </div>  
                         </div>
-                    </div>
-                </div>     
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Propiedad</label>
+                                <input type="text" class="form__text content__text" name="buscadorpropiedad3" id="buscadorpropiedad3">
+                                <input type="hidden" class="form__text content__text" name="editar_propiedad_id" id="editar_propiedad_id">  
+                                <ul class="content_ul" id="listaPropiedadesEditar"></ul>
+                                                            
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Consulta</label>
+                                <input type="text" class="form__text content__text" name="buscadorconsulta2" id="buscadorconsulta2">
+                                <input type="hidden" class="form__text content__text" name="editar_consulta_id" id="editar_consulta_id">   
+                                <ul class="content_ul" id="listaConsultasEditar"></ul>                               
+                            </div>
+                        </div>                
+                        <input type="hidden" name="submit">
+                        <div class="main__decoration"></div>
+                        <input type="submit" class="form__button" value="Guardar cambios">  
+                        <button type="button" class="form__button form__button--salir" id="salirEditar">Salir</button>                                                          
+                    </form>
+                </div>
+            </div>    
             <div class="main__container">
                 <i class="fa-solid fa-address-book main__h1--emoji"></i><h1 class="main__h1">Agenda</h1>
                 <div class="main__decoration"></div>
