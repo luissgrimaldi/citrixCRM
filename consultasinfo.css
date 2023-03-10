@@ -110,7 +110,7 @@
 }
 
 .main__user__content__bloque__content__respuesta--situacion{
-    padding: .3em;
+    padding: .34em;
     border: 2px solid var(--color-principal-main);
     border-radius: 50%;
 }
@@ -358,6 +358,23 @@
     user-select: none;
 }
 
+.visitas__img{
+    width: 10em;
+    border-radius: 1em;
+}
+
+.consulta{
+    margin: 3vh 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.consulta__span{
+    color: var(--color-secundario-main);
+    font-weight: bold;
+    font-size: 1.3em;
+}
 
 /* End Main */
 

@@ -230,7 +230,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Propiedad</label>
                             <input type="text" class="form__text content__text" name="buscadorpropiedad3" id="buscadorpropiedad3">
-                            <input type="hidden" class="form__text content__text" name="editar_propiedad_id" id="editar_propiedad_id">  
+                            <input type="hidden" class="form__text content__text" name="propiedad_id" id="editar_propiedad_id">  
                             <ul class="content_ul" id="listaPropiedadesEditar"></ul>                                                          
                         </div>
                         <div class="form__bloque__content content">
@@ -278,9 +278,6 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                                 <span>Captado por:</span><span class="main__user__content__bloque__content__respuesta"><?php if(!empty($editarCaptado)){echo $agenteNombre.' '.$agenteApellido;}else{echo 'No se estableció ningun agente';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
-                                <span>Consulta:</span><span class="main__user__content__bloque__content__respuesta"><?php echo $editarConsulta?></span>
-                            </div>
-                            <div class="main__user__content__bloque__content">
                                 <span>Enviar emails:</span><span class="main__user__content__bloque__content__respuesta"><?php if($emails != ''){if($emails == '0' ){echo 'Si';}else if($emails == '1'){echo 'No';};}else{echo 'No establecido';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
@@ -291,6 +288,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                 </div>
                 <div class="panel__segumiento-visita">
                     <a href="consultasinfo.php?consulta=<?php echo $_GET['consulta'];?>&page=seguimiento" class="panel__segumiento-visita__button <?php if($_GET["page"] == 'seguimiento'){echo 'panel__segumiento-visita__button--active';}?>" type="button"><i class="fa-solid fa-signal"></i> Seguimiento</a>
+                    <a href="consultasinfo.php?consulta=<?php echo $_GET['consulta'];?>&page=informacion" class="panel__segumiento-visita__button <?php if($_GET["page"] == 'informacion'){echo 'panel__segumiento-visita__button--active';}?>" type="button"><i class="fa-solid fa-info"></i> Informacion</a>
                     <a href="consultasinfo.php?consulta=<?php echo $_GET['consulta'];?>&page=visita" class="panel__segumiento-visita__button <?php if($_GET["page"] == 'visita'){echo 'panel__segumiento-visita__button--active';}?>" type="button"><i class="fa-solid fa-envelope"></i> Visita</a>
                 </div>
                 <div class="main__decoration"></div>
@@ -303,6 +301,9 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         <div class="main__title"><i class="fa-solid fa-signal main__h1--emoji"></i><h1 class="main__h1">Listado de seguimientos</h1></div>
                     </div>
                     <div class="main__decoration"></div>
+                    <div class="consulta">
+                        <span class="consulta__span"><?php echo $editarConsulta;?></span>
+                    </div>           
                     <?php           
                         $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.cliente_id, t.asignada_el,
                         g.id, g.nombre,
@@ -361,17 +362,26 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                     <div class="main__container__top main__container__top--seguimiento">
                         <div class="main__title"><i class="fa-solid fa-envelope main__h1--emoji"></i><h1 class="main__h1">Listado de visitas</h1></div>
                     </div>
-                    <div class="main__decoration"></div>                    
+                    <div class="main__decoration"></div>
+                    <div class="consulta">
+                        <span class="consulta__span"><?php echo $editarConsulta;?></span>
+                    </div>                    
                     <?php           
-                        $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.cliente_id, t.asignada_el,
+                        $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.cliente_id, t.asignada_el, t.propiedad_id,
                         g.id, g.nombre,
                         a.user_id, a.nombre, a.apellido,
-                        t.id as t_id, t.user_id as t_user_id, t.fecha as t_fecha, t.asunto as t_asunto, t.tipo_tarea_id as t_tipo_tarea, t.hora_inicio as t_hora_inicio, t.observaciones as t_observaciones, t.asignada_el as t_asignada_el,
+                        p.id, p.referencia_interna, p.zona_id, p.foto_portada, p.precio_propietario,
+                        z.id , z.nombre,
+                        t.id as t_id, t.user_id as t_user_id, t.fecha as t_fecha, t.asunto as t_asunto, t.tipo_tarea_id as t_tipo_tarea, t.hora_inicio as t_hora_inicio, t.observaciones as t_observaciones, t.asignada_el as t_asignada_el, t.propiedad_id as t_propiedad_id,
                         g.id as g_id, g.nombre as g_nombre,
-                        a.user_id as a_user_id, a.nombre as a_nombre, a.apellido as a_apellido
+                        a.user_id as a_user_id, a.nombre as a_nombre, a.apellido as a_apellido,
+                        p.id as p_id, p.referencia_interna as p_referencia_interna, p.zona_id as p_zona_id, p.foto_portada as p_foto_portada, p.precio_propietario as p_precio_propietario,
+                        z.id as z_id, z.nombre as z_nombre
                         FROM wp_agenda t 
                         LEFT JOIN wp_agenda_tipo_tarea g ON  t.tipo_tarea_id =g.id
                         LEFT JOIN usuarios a ON  t.user_id=a.user_id
+                        LEFT JOIN wp_propiedades p ON  t.propiedad_id=p.id
+                        LEFT JOIN wp_zonas z ON  p.zona_id=z.id
                         WHERE t.cliente_id=$editarContacto AND t.tipo_tarea_id = 5  ORDER BY t.id DESC") or die('query failed');
                         $sentencia->execute();
                         $visitas = $sentencia->rowCount();
@@ -391,7 +401,15 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                                 $tareaHora = substr($tareaHora, 0, -3);
                                 $tareaObservaciones = $tarea['t_observaciones'];                
                                 $tareaCreado = $tarea['t_asignada_el'];
-                                $tareaCreado=date("d-m-Y H:i:s",strtotime($tareaCreado));                 
+                                $tareaCreado=date("d-m-Y H:i:s",strtotime($tareaCreado));
+                                $refPropiedad = $tarea['p_referencia_interna'];          
+                                $zonaPropiedad = $tarea['z_nombre'];          
+                                $precioPropiedad = $tarea['p_precio_propietario']; 
+                                $precioPropiedad = number_format($precioPropiedad,0,",", ".");
+                                $imgPropiedad = strval($tarea['p_foto_portada']);
+                                $imgPropiedad = str_replace('"', '', $imgPropiedad);;
+                                $imgPropiedad = str_replace("[", "", $imgPropiedad);
+                                $imgPropiedad = str_replace("]", "", $imgPropiedad);         
                     ?>
                                 <li class="tareas--pendientes__li">
                                     <div class="tareas--pendientes__tarea">
@@ -400,12 +418,12 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                                         <span><span class="tareas--pendientes__tarea--bold">Agente: </span><?php echo $agenteNombre.' '.$agenteApellido;?></span>
                                     </div>
                                     <div class="tareas--pendientes__tarea">                                
-                                        <span class="tareas--pendientes__tarea--bold"><?php echo $tareaMotivo;?></span>                                 
+                                        <img class="visitas__img" src="<?php echo 'https://projectandbrokers.com/wp-content/uploads/thumbnails/mediano__'.$imgPropiedad?>" alt="">                               
                                     </div>
                                     <div class="tareas--pendientes__tarea tareas--pendientes__tarea">
-                                        <h4 class="generico"><span class="tareas--pendientes__tarea--bold">Asunto: </span><?php echo $tareaAsunto;?></h4>
+                                        <span>U$S: <?php echo $precioPropiedad;?></span>
+                                        <span class="generico"><i class="fa-solid fa-location-dot"></i> <?php echo $zonaPropiedad;?></span>
                                         <span class="generico"><span class="tareas--pendientes__tarea--bold">Observacion: </span><?php echo $tareaObservaciones;?></span>
-                                        <span class="tareas--pendientes__tarea--bold"><?php echo $tareaCreado;?></span>
                                     </div>
                                 </li>                         
                             <?php };?>
