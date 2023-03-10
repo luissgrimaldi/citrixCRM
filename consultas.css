@@ -210,7 +210,7 @@
     font-weight: bold;
     text-align: center;
 }
-
+ 
 .consultas__edit-search-reload{
     display: flex;
     flex-direction: column;
@@ -354,6 +354,7 @@
     .main__buttons__button{
         padding: 0.413em .4em ;
     }
+
 }
 
 @media screen and (max-width:394px) {

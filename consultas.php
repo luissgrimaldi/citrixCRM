@@ -141,7 +141,7 @@
                 <div class="consultas">
                     <ul class="consultas__ul">
                         <?php
-                        $whereFecha=" AND con.created BETWEEN '".$_GET['fechadesde']."' AND '".$_GET['fechahasta']."'";         
+                        $whereFecha=" AND DATE(con.created) BETWEEN '".$_GET['fechadesde']."' AND '".$_GET['fechahasta']."'";         
                         $whereCliente=" AND con.nombre LIKE '%".trim($_GET['cliente'])."%' OR con.apellido LIKE '%".trim($_GET['cliente'])."%' OR con.email LIKE '%".trim($_GET['cliente'])."%' OR con.telefono LIKE '%".trim($_GET['cliente'])."%'";
                         $whereCanal=" AND canal.id = ".$_GET['canal'];
                         $whereOp=" AND prop.operacion_id = ".$_GET['op'];

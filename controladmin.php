@@ -60,9 +60,11 @@
                                         <span class="propiedades__nombre"><?php echo $nombre.' '.$apellido.' ('.$rolNombre.')';?></span>
                                         <span class="propiedades__detalles"><?php echo '('.$email.' -'.$celular. ') '?></span>
                                     </div>            
-                                    <div class="propiedades__edit-hide">
-                                        <a href="admineditar.php?page=usuario&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
-                                        <i class="propiedades__accion fa-solid fa-trash" onclick="if(confirm('¿Seguro que quieres eliminar este usuario?')) delUser(<?php echo $id?>)"></i>
+                                    <div class="consultas__bloque consultas__bloque--edit-search-reload"> 
+                                        <div class="consultas__bloque__content consultas__edit-search-reload">
+                                            <a class="consultas__edit-search-reload__content" href="admineditar.php?page=usuario&id=<?php echo $id?>"><i class="consultas__accion fa-solid fa-pencil"></i><span>Editar</span></a>                                       
+                                            <a onclick="if(confirm('¿Seguro que quieres eliminar este contacto?')) delUser(<?php echo $id?>)" class="consultas__edit-search-reload__content"><i class="consultas__accion fa-solid fa-trash"></i><span>Eliminar</span></a>
+                                        </div>   
                                     </div>
                                 </li> 
                                 <?php };?>
@@ -134,9 +136,11 @@
                                         <span class="propiedades__nombre"><?php echo $nombre;?></span>
                                         <span class="ciudad__detalles"><?php if($habilitado == 1){echo ' Habilitada';}else{echo 'Deshabilitada';}?></span>
                                     </div>            
-                                    <div class="propiedades__edit-hide">
-                                        <a href="admineditar.php?page=ciudad&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
-                                        <i class="propiedades__accion fa-solid fa-trash" onclick="if(confirm('¿Seguro que quieres eliminar esta ciudad?')) delCiudad(<?php echo $id?>)"></i>
+                                    <div class="consultas__bloque consultas__bloque--edit-search-reload"> 
+                                        <div class="consultas__bloque__content consultas__edit-search-reload">
+                                            <a class="consultas__edit-search-reload__content" href="admineditar.php?page=ciudad&id=<?php echo $id?>"><i class="consultas__accion fa-solid fa-pencil"></i><span>Editar</span></a>                                       
+                                            <a onclick="if(confirm('¿Seguro que quieres eliminar este contacto?')) delCiudad(<?php echo $id?>)" class="consultas__edit-search-reload__content"><i class="consultas__accion fa-solid fa-trash"></i><span>Eliminar</span></a>
+                                        </div>   
                                     </div>
                                 </li> 
                                 <?php };?>
@@ -214,10 +218,13 @@
                                         <span class="propiedades__nombre"><?php if($ciudad > 0){echo $nombre.' ('.$ciudad.')';}else{echo $nombre;};?></span>
                                         <span class="ciudad__detalles"><?php if($habilitado == 1){echo ' Habilitada';}else{echo 'Deshabilitada';}?></span>
                                     </div>            
-                                    <div class="propiedades__edit-hide">
-                                        <a href="admineditar.php?page=zona&id=<?php echo $id?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
-                                        <i class="propiedades__accion fa-solid fa-trash" onclick="if(confirm('Seguro que quieres eliminar esta zona?')) delZona(<?php echo $id?>)"></i>
+                                    <div class="consultas__bloque consultas__bloque--edit-search-reload"> 
+                                        <div class="consultas__bloque__content consultas__edit-search-reload">
+                                            <a class="consultas__edit-search-reload__content" href="admineditar.php?page=zona&id=<?php echo $id?>"><i class="consultas__accion fa-solid fa-pencil"></i><span>Editar</span></a>                                       
+                                            <a onclick="if(confirm('¿Seguro que quieres eliminar este contacto?')) delZona(<?php echo $id?>)" class="consultas__edit-search-reload__content"><i class="consultas__accion fa-solid fa-trash"></i><span>Eliminar</span></a>
+                                        </div>   
                                     </div>
+                                    
                                 </li> 
                                 <?php };?>
                             </ul>     

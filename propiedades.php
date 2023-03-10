@@ -149,17 +149,9 @@
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Estado de publicación</label>
                                 <select class="form__select" name="buscarEstado">
-                                        <option value></option>
-                                        <?php                          
-                                            $sentencia = $connect->prepare("SELECT * FROM `wp_estados_publicacion` WHERE habilitado=1") or die('query failed');
-                                            $sentencia->execute();
-                                            $list_propiedadesOperacion = $sentencia->fetchAll();                         
-                                            foreach($list_propiedadesOperacion as $propiedad){
-                                            $idPropiedad = $propiedad['id'];
-                                            $propiedadNombre = $propiedad['nombre'];
-                                            ?>
-                                        <option <?php if($_GET['estado']==$idPropiedad){echo 'selected';}?> value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
-                                    <?php };?>
+                                        <option value>Todos</option>
+                                        <option <?php if ($_GET['estado'] == 0){echo 'selected';}?> value="0">Sin publicar</option>
+                                        <option <?php if ($_GET['estado'] == 1){echo 'selected';}?> value="1">Publicado</option>                                     
                                 </select>
                             </div>
                         </div>
@@ -272,11 +264,13 @@
                                 <span class="propiedades__precio"><?php echo 'U$S '.number_format($precioPropiedad,0,",", ".").' | U$S '.intval($precioPropiedad/$metrosPropiedad).'/m2'?></span>
                             </div>
                             <span class="propiedades__estado"><?php if ($enWeb==1){echo 'En web';}else{echo 'No publicada';}?></span>
-                            <div class="propiedades__edit-hide">
-                                <a href="editarpropiedad.php?ref=<?php echo $refPropiedad;?>"><i class="propiedades__accion fa-solid fa-pencil"></i></a>
-                                <a href="propiedadesinfo.php?ref=<?php echo $refPropiedad;?>"><i class="propiedades__accion fa-solid fa-search"></i></a>
-                                <a href=""><i class="propiedades__accion fa-solid <?php if ($enWeb==1){echo 'fa-eye-slash';}else{echo 'fa-eye';}?>"></i></a>
-                                <i class="propiedades__accion fa-solid fa-trash" onclick="if(confirm('¿Seguro que quieres eliminar esta propiedad?')) delPropiedad(<?php echo $idPropiedad?>)"></i>
+                            <div class="consultas__bloque consultas__bloque--edit-search-reload"> 
+                                <div class="consultas__bloque__content consultas__edit-search-reload">
+                                    <a class="consultas__edit-search-reload__content" href="editarpropiedad.php?ref=<?php echo $refPropiedad;?>"><i class="consultas__accion fa-solid fa-pencil"></i><span>Editar</span></a>
+                                    <a class="consultas__edit-search-reload__content" href="propiedadesinfo.php?ref=<?php echo $refPropiedad;?>"><i class="consultas__accion fa-solid fa-search"></i><span>Detalles</span></a>
+                                    <a class="consultas__edit-search-reload__content" href=""><i class="consultas__accion fa-solid <?php if ($enWeb==1){echo 'fa-eye-slash';}else{echo 'fa-eye';}?>"></i><?php if ($enWeb==1){ echo '<span>Ocultar</span>' ;}else{ echo '<span>Mostrar</span>';};?></a>
+                                    <a onclick="if(confirm('¿Seguro que quieres eliminar esta consulta?')) delPropiedad(<?php echo $idPropiedad?>)" class="consultas__edit-search-reload__content"><i class="consultas__accion fa-solid fa-trash"></i><span>Eliminar</span></a>
+                                </div>   
                             </div>
                         </li>
                     <?php };?>

@@ -285,11 +285,72 @@
     pointer-events: none;
   }
 
+  .consultas__bloque{
+    display: flex;
+    flex-direction: column;
+}
+
+.consultas__bloque__content{
+    color: white;
+    display: flex;
+    flex-direction: row;
+    padding: 0 1.25em;
+    padding-bottom: .5em;
+}
+
+  .consultas__edit-search-reload{
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+    text-align: center;
+    padding-right: 3em;
+    align-items: flex-start;
+}
+
+.consultas__accion, .consultas__accion__cruces{
+    color: var(--color-principal-main);
+    font-size: 1.25em;
+}
+.consultas__edit-search-reload__content{
+    display: flex;
+    gap: .5em;
+    align-items: center;
+}
+
+
+.consultas__edit-search-reload__content:hover{
+    transform: scale(1.3);
+    cursor: pointer;
+}
+
 /* End Main */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
+
+@media screen and (max-width:1230px) {
+    .propiedades__li{
+        flex-direction: column;
+        text-align: center;
+        gap: 1em;
+    }
+    .consultas__bloque{
+        gap: 1em;
+    }
+
+    .consultas__bloque__content{
+        padding: 0;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .consultas__edit-search-reload{
+        flex-direction: row;
+        gap: 1.5em;
+        order: 4;  
+    }
+}
 
 @media screen and (max-width:968px) {
     .propiedades__img{
@@ -298,33 +359,14 @@
 }
 
 @media screen and (max-width:900px) {
-    .propiedades__li{
-        flex-direction: column;
-        text-align: center;
-        gap: 1em;
-    }
-
-    .propiedades__nombre-detalles-precio{
-        order: 1;
-        padding: 0;
-    }
-
-    .propiedades__img{
-        padding: 0;
-        order: 2;
-    }
-
-    .propiedades__estado{
-        order: 3;
-        padding: 0;
-    }
 
     .propiedades__edit-hide{
         flex-direction: row;
         gap: 1.5em;
         order: 4;  
     }
-    
+
+   
 }
 
 @media screen and (max-width:778px) {
@@ -351,6 +393,9 @@
         flex-direction: column;
         gap: 2em;
     }
+    .consultas__edit-search-reload{
+        flex-wrap: wrap;
+    }
 }
 
 @media screen and (max-width:584px) {
@@ -361,6 +406,10 @@
 
     .main__buttons__button{
         padding: 0.413em .4em ;
+    }
+
+    .consultas__edit-search-reload__content{
+        flex-direction: column;
     }
 }
 
