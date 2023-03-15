@@ -45,7 +45,7 @@
                 </div>
                 <div class="main__decoration"></div>
                 <div class="main__tareas tareas">
-                    <form id="form_home" class="tareas__form" method="POST" action="index.php">
+                    <form autocomplete="off" id="form_home" class="tareas__form" method="POST" action="index.php">
                         <select name="tipo" class="tareas__select">
                             <option value="1" <?php if($getTipo == 1){echo 'selected';};?>>Pendientes</option>
                             <option value="2" <?php if($getTipo == 2){echo 'selected';};?>>Realizadas</option>
@@ -105,7 +105,7 @@
                         $paginas = ceil($paginas);
                         $tareas = $sentencia->fetchAll();
                         if($tareas){?> 
-                            <form action="backend/finalizareventos.php" method="POST" class="tareas--pendientes__form">
+                            <form autocomplete="off" action="backend/finalizareventos.php" method="POST" class="tareas--pendientes__form">
                                 <ul class="tareas--pendientes__list">
                             <?php if($getTipo!=2){?><div class="tareas--pendientes__select-all">
                                 <label for="">Seleccionar todas</label>

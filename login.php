@@ -32,7 +32,7 @@ session_destroy(); ?>
                         <span class="frase__span frase__span--1">Cada día es</span>
                         <span class="frase__span frase__span--2">un nuevo Comienzo.</span>
                     </div>
-                    <form class="login__form" method="POST" action="backend/login.php">
+                    <form autocomplete="off" class="login__form" method="POST" action="backend/login.php">
                         <div class="login__form__bloque">
                             <label class="login__form__label" for="">Usuario</label>
                             <input class="login__form__input" name="nickname" type="text" placeholder="Usuario">

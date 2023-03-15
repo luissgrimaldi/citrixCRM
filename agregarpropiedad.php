@@ -10,7 +10,7 @@
                 </div>
                 <div class="main__decoration"></div>
                 <div class="main__busqueda-propiedad">             
-                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/agregar.php?page=propiedad" enctype="multipart/form-data">
+                    <form autocomplete="off" class="form__busqueda-propiedad form" name="form" method="POST" action="backend/agregar.php?page=propiedad" enctype="multipart/form-data">
                         <h2 class="main__h2">Caracteristicas</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -133,8 +133,12 @@
                             </div>    
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Coordenadas</label>
-                                <button type="button">SELECCORD</button>
-                                <input type="text" class="form__text content__text" name="coordenadas" id="">
+                                <input type="text" class="form__text content__text" name="coordenadas" id="coordinates-input" readonly>
+                            </div>
+                        </div>
+                        <div class="form__bloque form__bloque--map">
+                            <div class="form__bloque__content content form__bloque__content--map">
+                                <input type="text" class="form__text content__text content__text--map" id="address-input" placeholder="Buscar...">
                             </div>
                             <div id="map"></div>                                           
                         </div>
@@ -766,53 +770,53 @@
     </div>
     <script src="index.js"></script>
 <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEVUedCZ0UVFBtM7LaeIQPvRJEx1DCsBQ&libraries=places&callback=initMap">
-    </script>
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEVUedCZ0UVFBtM7LaeIQPvRJEx1DCsBQ&libraries=places&callback=initMap">
+</script>
 <script>
-        var vMarker
-        var map
-        function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 14,
-                center: new google.maps.LatLng(19.4326296, -99.1331785),
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            });
-            vMarker = new google.maps.Marker({
-                position: new google.maps.LatLng(19.4326296, -99.1331785),
-                draggable: true
-            });
-            google.maps.event.addListener(vMarker, 'dragend', function (evt) {
-                $("#txtLat").val(evt.latLng.lat().toFixed(6));
-                $("#txtLng").val(evt.latLng.lng().toFixed(6));
+    let map, marker;
 
-                map.panTo(evt.latLng);
-            });
-            map.setCenter(vMarker.position);
-            vMarker.setMap(map);
+    function initMap() {
+        const input = document.getElementById("address-input");
+        const autocomplete = new google.maps.places.Autocomplete(input);
+        const geocoder = new google.maps.Geocoder();
+        const mapElement = document.getElementById("map");
 
-            $("#txtCiudad, #txtEstado, #txtDireccion").change(function () {
-                movePin();
-            });
+        map = new google.maps.Map(mapElement, {
+          center: { lat: -34.603722, lng: -58.381592 },
+          zoom: 13,
+        });
 
-            function movePin() {
-            var geocoder = new google.maps.Geocoder();
-            var textSelectM = $("#txtCiudad").text();
-            var textSelectE = $("#txtEstado").val();
-            var inputAddress = $("#txtDireccion").val() + ' ' + textSelectM + ' ' + textSelectE;
-            geocoder.geocode({
-                "address": inputAddress
-            }, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    vMarker.setPosition(new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
-                    map.panTo(new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
-                    $("#txtLat").val(results[0].geometry.location.lat());
-                    $("#txtLng").val(results[0].geometry.location.lng());
-                }
+        marker = new google.maps.Marker({
+          map,
+        });
 
-            });
-        }
+        autocomplete.addListener("place_changed", () => {
+          const place = autocomplete.getPlace();
+
+          if (!place.geometry) {
+            console.error("La dirección seleccionada no tiene una ubicación válida");
+            return;
+          }
+
+          const location = place.geometry.location;
+          const lat = location.lat();
+          const lng = location.lng();
+          const coordinates = { "lat": lat, "lng": lng };
+          const coordinatesJSON = JSON.stringify(coordinates);
+
+          marker.setPosition(location);
+          map.setCenter(location);
+
+          const address = place.formatted_address;
+
+          document.getElementById("coordinates-input").value = coordinatesJSON;
+
+          marker.addListener("click", () => {
+            infoWindow.open(map, marker);
+          });
+        });
     }
-    
-        </script>
+</script>
+
 </body>
 </html>

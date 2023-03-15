@@ -17,7 +17,7 @@
                 <div class="main__decoration"></div>
                 <?php if($_GET['pagina']== 'info'){?>
                     <div class="main__perfil">                   
-                        <form class="main__perfil__container" method="POST" action="backend/editar.php?page=perfilinformacion">
+                        <form autocomplete="off" class="main__perfil__container" method="POST" action="backend/editar.php?page=perfilinformacion">
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Username</span>
                                 <div class="perfil__bloque__content">
@@ -69,7 +69,7 @@
                 <?php }?>
                 <?php if($_GET['pagina']== 'contrasena'){?>
                     <div class="main__perfil">                   
-                        <form class="main__perfil__container" method="POST" action="backend/editar.php?page=perfilcontrasena">
+                        <form autocomplete="off" class="main__perfil__container" method="POST" action="backend/editar.php?page=perfilcontrasena">
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Contraseña Actual</span>
                                 <div class="perfil__bloque__content">
@@ -114,7 +114,7 @@
                         $sentencia->execute();
                         $list_consultas = $sentencia->fetchAll();
                         if($list_consultas){?>
-                        <form class="main__perfil__container" method="POST" action="backend/editar.php?page=perfilagenda">
+                        <form autocomplete="off" class="main__perfil__container" method="POST" action="backend/editar.php?page=perfilagenda">
                         <?php   foreach($list_consultas as $consulta){
                                 $id = $consulta['b_tipo_tarea_id'];
                                 $nombre = ucfirst($consulta['a_nombre']);
@@ -127,7 +127,7 @@
                             </div>
                             <?php };
                             }else{?>
-                            <form class="main__perfil__container" method="POST" action="backend/agregar.php?page=perfilagenda">
+                            <form autocomplete="off" class="main__perfil__container" method="POST" action="backend/agregar.php?page=perfilagenda">
                             <?php $sentencia = $connect->prepare("SELECT * FROM wp_agenda_tipo_tarea") or die('query failed');
                                 $sentencia->execute();
                                 $list_consultas = $sentencia->fetchAll();

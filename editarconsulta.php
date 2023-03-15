@@ -46,7 +46,7 @@
                     $editarBuscarTipo = explode ( "," , $editarBuscarTipo);
                     }
                 ?>
-                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/editar.php?page=consulta&consulta=<?php echo $editarId;?>">
+                    <form class="form__busqueda-propiedad form" autocomplete="off" name="form" method="POST" action="backend/editar.php?page=consulta&consulta=<?php echo $editarId;?>">
                         <h2 class="main__h2">Datos de contacto</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">

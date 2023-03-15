@@ -10,7 +10,7 @@
                 </div>
                 <div class="main__decoration"></div>
                 <div class="main__busqueda-propiedad">             
-                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/agregar.php?page=consulta">
+                    <form autocomplete="off" class="form__busqueda-propiedad form" name="form" method="POST" action="backend/agregar.php?page=consulta">
                         <h2 class="main__h2">Datos de contacto</h2> 
                         <div class="form__bloque">
                             <div class="form__bloque__content content">

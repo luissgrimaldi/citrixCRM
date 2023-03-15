@@ -13,7 +13,7 @@
                 </div>
                 <div class="main__decoration"></div>
                     <div class="main__perfil">                   
-                        <form class="main__perfil__container" method="POST" action="backend/agregar.php?page=usuario" enctype="multipart/form-data">
+                        <form autocomplete="off" class="main__perfil__container" method="POST" action="backend/agregar.php?page=usuario" enctype="multipart/form-data">
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Username</span>
                                 <div class="perfil__bloque__content">
@@ -126,7 +126,7 @@
             </div>
             <div class="main__decoration"></div>
                 <div class="main__perfil">                   
-                    <form class="main__perfil__container" method="POST" action="backend/agregar.php?page=ciudad">
+                    <form autocomplete="off" class="main__perfil__container" method="POST" action="backend/agregar.php?page=ciudad">
                         <div class="perfil__bloque">
                             <span class="perfil__bloque__fake-label">Ciudad</span>
                             <div class="perfil__bloque__content">
@@ -172,7 +172,7 @@
             </div>
             <div class="main__decoration"></div>
                 <div class="main__perfil">                   
-                    <form class="main__perfil__container" method="POST" action="backend/agregar.php?page=zona">
+                    <form autocomplete="off" class="main__perfil__container" method="POST" action="backend/agregar.php?page=zona">
                         <div class="perfil__bloque">
                             <span class="perfil__bloque__fake-label">Zona</span>
                             <div class="perfil__bloque__content">
@@ -235,7 +235,7 @@
         </div>
         <div class="main__decoration"></div>
             <div class="main__perfil">                   
-                <form class="main__perfil__container" method="POST" action="backend/agregar.php?page=contacto">
+                <form autocomplete="off" class="main__perfil__container" method="POST" action="backend/agregar.php?page=contacto">
                     <div class="perfil__bloque">
                         <span class="perfil__bloque__fake-label">Nombre</span>
                         <div class="perfil__bloque__content">

@@ -15,7 +15,7 @@
         <main class="main" id="main">
             <div id="modal" class="modal-BG">
                 <div class="modal">            
-                    <form class="form__busqueda-propiedad form" id="formEvento" name="form" method="POST">
+                    <form autocomplete="off" class="form__busqueda-propiedad form" id="formEvento" name="form" method="POST">
                         <h2 class="main__h2">Ficha de agenda</h2> 
                         <div class="form__bloque">
                             <div class="form__bloque__content--radio content">
@@ -87,7 +87,7 @@
             </div>
             <div id="modalEditar" class="modal-BG">                                              
                 <div class="modal">      
-                    <form class="form__busqueda-propiedad form" id="formEventoEditar" method="POST">
+                    <form autocomplete="off" class="form__busqueda-propiedad form" id="formEventoEditar" method="POST">
                         <input type="hidden" value="" id="idEditar" name="idEditar">      
                         <h2 class="main__h2">Ficha de agenda</h2>
                         <div class="form__bloque">
@@ -162,7 +162,7 @@
                 <i class="fa-solid fa-address-book main__h1--emoji"></i><h1 class="main__h1">Agenda</h1>
                 <div class="main__decoration"></div>
                 <div class="main__busqueda-agenda">
-                    <form id="formBuscarEvento" action="agenda.php" method="POST" class="form__busqueda-agenda form">
+                    <form autocomplete="off" id="formBuscarEvento" action="agenda.php" method="POST" class="form__busqueda-agenda form">
                         <div class="form__container-left">
                             <button class="form__container-left__button"><i class="fa-solid fa-plus"></i> Nueva Actividad</button> 
                         </div>

@@ -146,7 +146,7 @@
                     }
 
                 ?>            
-                    <form class="form__busqueda-propiedad form" name="form" method="POST" action="backend/editar.php?page=propiedad&ref=<?php echo $editarRef;?>" enctype="multipart/form-data">
+                    <form autocomplete="off" class="form__busqueda-propiedad form" name="form" method="POST" action="backend/editar.php?page=propiedad&ref=<?php echo $editarRef;?>" enctype="multipart/form-data">
                         <h2 class="main__h2">Caracteristicas</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -309,8 +309,14 @@
                             </div>    
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Coordenadas</label>
-                                <input type="text" class="form__text content__text" name="coordenadas" id="">                                                     
+                                <input type="text" class="form__text content__text" name="coordenadas" value='<?php echo $editarCoordenadas;?>' id="coordinates-input" readonly>
                             </div>
+                        </div>
+                        <div class="form__bloque form__bloque--map">
+                            <div class="form__bloque__content content form__bloque__content--map">
+                                <input type="text" class="form__text content__text content__text--map" id="address-input" placeholder="Buscar...">
+                            </div>
+                            <div id="map"></div>                                           
                         </div>
                         <h2 class="main__h2">Distribucion, superficie y otros datos</h2>
                         <div class="form__bloque">
@@ -1019,5 +1025,60 @@
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     </div>
     <script src="index.js"></script>
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEVUedCZ0UVFBtM7LaeIQPvRJEx1DCsBQ&libraries=places&callback=initMap">
+</script>
+<script>
+    let map, marker;
+
+    function initMap() {
+        const input = document.getElementById("address-input");
+        const coordinatesString = document.getElementById("coordinates-input").value;
+        const coordinates = JSON.parse(coordinatesString);
+        const lat = parseFloat(coordinates.lat);
+        const lng = parseFloat(coordinates.lng);
+        const newCoordinates = { lat, lng };
+        const autocomplete = new google.maps.places.Autocomplete(input);
+        const geocoder = new google.maps.Geocoder();
+        const mapElement = document.getElementById("map");
+        console.log(newCoordinates);
+        map = new google.maps.Map(mapElement, {
+          center: newCoordinates,
+          zoom: 13,
+        });
+
+        marker = new google.maps.Marker({
+          map,
+        });
+
+        marker.setPosition(newCoordinates);
+
+        autocomplete.addListener("place_changed", () => {
+          const place = autocomplete.getPlace();
+
+          if (!place.geometry) {
+            console.error("La dirección seleccionada no tiene una ubicación válida");
+            return;
+          }
+
+          const location = place.geometry.location;
+          const lat = location.lat();
+          const lng = location.lng();
+          const coordinates = { "lat": lat, "lng": lng };
+          const coordinatesJSON = JSON.stringify(coordinates);
+
+          marker.setPosition(location);
+          map.setCenter(location);
+
+          const address = place.formatted_address;
+
+          document.getElementById("coordinates-input").value = coordinatesJSON;
+
+          marker.addListener("click", () => {
+            infoWindow.open(map, marker);
+          });
+        });
+    }
+</script>
 </body>
 </html>

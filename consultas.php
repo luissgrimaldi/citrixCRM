@@ -23,8 +23,11 @@
                     </div>
                 </div>
                 <div class="main__decoration"></div>
+                <div class="main__buttons main__buttons--avanzada">
+                        <a href="consultasavanzadas.php" class="main__buttons__button">Consultas avanzadas</a>
+                    </div>
                 <div class="main__busqueda-consulta">
-                    <form class="form__busqueda-consulta form" name="form" method="POST" action="consultas.php">
+                    <form autocomplete="off" class="form__busqueda-consulta form" name="form" method="POST" action="consultas.php">
                         <div class="form__bloque form__bloque--1">
                             <div class="form__bloque__fecha fecha">
                                 <h2 class="fecha__h2">Fecha</h2>

@@ -349,6 +349,18 @@
     color: var(--color-secundario-main);
   }
 
+  .form__bloque--map{
+    width: 80%;
+  }
+
+  .content__text--map{
+    width: 100%;
+  }
+
+  .form__bloque__content--map{
+    width: 80%;
+  }
+
   /* .tox-notifications-container{
     display: none;
   } */
