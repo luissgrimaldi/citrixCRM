@@ -618,11 +618,15 @@
                         </div>
                         <div class="form__bloque__content content content--fotoportada">
                             <label  class="form__label content__label" for="">Foto de portada</label>
-                            <input type="file" class="content--fotoportada__fotoportada" name="fotoportada" id="">                                  
+                            <button onclick="fotoportada.click()" class="form__button form__bloque__button" type="button">Seleccionar imagen</button>
+                            <input style="display:none" type="file" class="content--fotoportada__fotoportada" name="fotoportada" id="fotoportada"> 
+                            <div id="listPortada"></div>                                  
                         </div> 
                         <div class="form__bloque__content content content--galeriafotos">
                             <label  class="form__label content__label" for="">Galeria de fotos</label>
-                            <input type="file" class="content--galeriafotos__galeriafotos" name="galeriafotos[]" id="" multiple>                                  
+                            <button onclick="galeriafotos.click()" class="form__button form__bloque__button" type="button">Seleccionar imagen</button>
+                            <input style="display:none" type="file" class="content--galeriafotos__galeriafotos" name="galeriafotos[]" id="galeriafotos" multiple>
+                            <div id="list"></div>                                
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Descripcion mediana</label>
@@ -758,7 +762,7 @@
                             </div>                          
                         </div>
                         <div class="main__decoration"></div>
-                        <input type="submit" name="submit" class="form__button form__bloque__button" value="Agregar propiedad">                                                             
+                        <input id="submit-button" type="submit" name="submit" class="form__button form__bloque__button" value="Agregar propiedad">                                                             
                     </form>
                 </div>
                 </div>                
@@ -817,6 +821,39 @@
         });
     }
 </script>
+<script>
+    function handleFileSelect(evt) { 
 
+        var files = evt.target.files; 
+        var output = []; 
+        for (var i = 0, f; f = files[i]; i++) { 
+
+            output.push('<li>', escape(f.name) , '</li>'); 
+
+        } 
+
+        document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>'; 
+
+    } 
+
+    document.getElementById('galeriafotos').addEventListener('change', handleFileSelect, false);
+
+    function handleFileSelect2(evt) { 
+
+        var files = evt.target.files; 
+        var output = []; 
+        for (var i = 0, f; f = files[i]; i++) { 
+
+            output.push('<li>', escape(f.name) , '</li>'); 
+
+        } 
+
+        document.getElementById('listPortada').innerHTML = '<ul>' + output.join('') + '</ul>'; 
+
+    } 
+
+    document.getElementById('fotoportada').addEventListener('change', handleFileSelect2, false);
+
+</script>
 </body>
 </html>

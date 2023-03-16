@@ -280,6 +280,25 @@ function agregarPropiedad($connect): void{
         if($fotoPortadaNombre = $_FILES['fotoportada']['name'] != ''){
             move_uploaded_file($fotoPortadaIMG,'../content/'.$fotoPortadaNombre);
         }
+        if($fotoGaleriaNombre = $_FILES['galeriafotos']['name'] != ''){
+            // Comprobar si se han enviado archivos
+            if (isset($_FILES['galeriafotos'])) {
+                // Carpeta en la que se van a guardar los archivos
+                $uploadDirectory = '../content//';
+                
+                // Recorrer el array de archivos
+                for ($i = 0; $i < count($_FILES['galeriafotos']['name']); $i++) {
+                    // Obtener el nombre y la ubicación temporal del archivo
+                    $fileName = $_FILES['galeriafotos']['name'][$i];
+                    $fileTmpName = $_FILES['galeriafotos']['tmp_name'][$i];
+                    
+                    // Mover el archivo a la carpeta de destino
+                    move_uploaded_file($fileTmpName, $uploadDirectory . $fileName);
+                }
+                
+                // Mostrar un mensaje de éxito
+            }
+        }
         echo '<script> alert("Propiedad agregada con exito"); window.location = "../propiedades.php"; </script>';
     }else{
         echo '<script> alert("Ha ocurrido un error al agregar la propiedad"); window.location = "../propiedades.php"; </script>';
