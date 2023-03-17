@@ -116,6 +116,9 @@
                         $editarDescripcionCorta = $propiedad['descripcion_corta'];
                         $editarDescripcionCompleta = $propiedad['descripcion_completa'];
                         $editarFotoPortada = $propiedad['foto_portada'];
+                        $editarFotoPortada = str_replace ( '[', '', $editarFotoPortada);
+                        $editarFotoPortada = str_replace ( ']', '', $editarFotoPortada);
+                        $editarFotoPortada = str_replace ( '"', '', $editarFotoPortada);
                         $editarGaleriaFotos = $propiedad['galeria_fotos'];
                         $editarGaleriaFotos = str_replace ( '[', '', $editarGaleriaFotos);
                         $editarGaleriaFotos = str_replace ( ']', '', $editarGaleriaFotos);
@@ -855,7 +858,16 @@
                             <input style="display:none" type="file" class="content--fotoportada__fotoportada" name="fotoportada" id="fotoportada">  
                             <p id="files-area" class="files-area">
                                 <span id="filesListPortada">
-                                    <span id="files-namesPortada" class="files-names"></span>
+                                    <span id="files-namesPortada" class="files-names">
+                                    <?php if(!empty($editarFotoPortada)){?>
+                                        <span class="file-block" id="file-block2" data-nombreeliminar="<?php echo $editarFotoPortada;?>">
+                                            <span class="file-delete file-deleteEliminar2">
+                                                <span data-nombreeliminar="<?php echo $editarFotoPortada;?>">x</span>
+                                            </span>
+                                            <span id="nameEliminar" class="name"><?php echo $editarFotoPortada;?></span>
+                                        </span>
+                                    <?php ;}?>
+                                    </span>
                                 </span>
                             </p>                                
                         </div>
@@ -869,9 +881,9 @@
                                     <?php if(!empty($editarGaleriaFotos)){
                                         $editarGaleriaFotos = explode(",",$editarGaleriaFotos);
                                         foreach ($editarGaleriaFotos as $archivo){?>
-                                        <span class="file-block" id="file-block" data-id="<?php echo $archivo;?>">
+                                        <span class="file-block" id="file-block" data-nombreeliminar="<?php echo $archivo;?>">
                                             <span class="file-delete file-deleteEliminar">
-                                                <span data-id="<?php echo $archivo;?>">x</span>
+                                                <span data-nombreeliminar="<?php echo $archivo;?>">x</span>
                                             </span>
                                             <span id="nameEliminar" class="name"><?php echo $archivo;?></span>
                                         </span>
@@ -1184,17 +1196,32 @@ let nombresEliminados = [];
 
 botonesEliminar.forEach(boton => {
   boton.addEventListener('click', (event) => {
-    const nombreArchivo = event.target.getAttribute('data-id');
+    const nombreArchivo = event.target.getAttribute('data-nombreeliminar');
     eliminarArchivo(nombreArchivo);
   });
 });
 
 function eliminarArchivo(nombre) {
-    const fileBlock = document.querySelector(`#file-block[data-id="${nombre}"]`);
+    const fileBlock = document.querySelector(`#file-block[data-nombreeliminar="${nombre}"]`);
     fileBlock.remove();
     nombresEliminados.push(nombre);
     nombresEliminadosInput.value = nombresEliminados.join(',');
 }
+
+const botonesEliminar2 = document.querySelectorAll('.file-deleteEliminar2');
+
+botonesEliminar2.forEach(boton => {
+  boton.addEventListener('click', (event) => {
+    const nombreArchivo2 = event.target.getAttribute('data-nombreeliminar');
+    eliminarArchivo2(nombreArchivo2);
+  });
+});
+
+function eliminarArchivo2(nombre) {
+    const fileBlock2 = document.querySelector(`#file-block2[data-nombreeliminar="${nombre}"]`);
+    fileBlock2.remove();
+}
+
 
   </script>
 </body>

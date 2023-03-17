@@ -239,14 +239,18 @@ function agregarPropiedad($connect): void{
         $fotoPortada = '["'.$fotoPortadaNombre.'"]';
         $fotoPortadaIMG = $_FILES['fotoportada']['tmp_name'];
     }else{
-        $fotoPortada = '';
+        $fotoPortada = '[]';
     }
 
     if (!empty($_FILES['galeriafotos']['name'][0])){
         $fotogaleria=implode('","',$_FILES['galeriafotos']['name']);
-        $fotogaleria='["'.$fotogaleria.'"]';
+        if (!empty($fotogaleria)){
+            $fotogaleria='["'.$fotogaleria.'"]';
+        }else{
+            $fotogaleria='[]';
+        }
     }else{
-        $fotogaleria = '';
+        $fotogaleria='[]';
     }
     $descripcionMediana = $_POST['descripcionmediana'];
     $captadoPor = $_POST['captadopor'];
@@ -383,7 +387,7 @@ function agregarUsuario($connect) : void{
     if(!isset($_POST['sobre_mi'])){$_POST['sobre_mi']= '';};
     if(!isset($_POST['foto'])){$_POST['foto']= NULL;};
     if(!isset($_POST['rol'])){$_POST['rol']=0;};
-    if($_POST['habilitar'] == ''){$_POST['habilitar']= 0;};
+    if(!isset($_POST['habilitar'])){$_POST['habilitar']=0;};
     
     // Variables //
     $nickname = $_POST['nickname'];
@@ -394,7 +398,7 @@ function agregarUsuario($connect) : void{
     $contraseña =  $_POST['contrasenia'];
     $Repetircontraseña =  $_POST['repetircontrasenia'];
     $sobreMi =  $_POST['sobre_mi'];
-    if($_FILES['foto']['name'] != NULL){
+    if(!empty($_FILES['foto']['name'])){
         $foto = $_FILES['foto']['name'];
         $fotoIMG = $_FILES['foto']['tmp_name'];
     }else{
@@ -415,6 +419,9 @@ function agregarUsuario($connect) : void{
     $query->execute([$nombreAgente, $apellidoAgente, $nickname, $contraseña, $rolAgente, $celularAgente, $emailAgente, $sobreMi, $foto, $habilitar]);
     
     if($query){
+        if(!empty($_FILES['foto']['name'])){
+            move_uploaded_file($fotoIMG,'../content/'.$foto);
+        }
         echo '<script> alert("Usuario Agregado con éxito"); window.location = "../controladmin.php?page=usuario"; </script>';
     }else{
         echo '<script> alert("Ha ocurrido un error al agregar usuario"); window.location = "../controladmin.php?page=usuario"; </script>';
@@ -909,7 +916,7 @@ function editarPropiedad($connect): void{
             $NEWfotoPortada = '["'.$NEWfotoPortadaNombre.'"]';
             $NEWfotoPortadaIMG = $_FILES['fotoportada']['tmp_name'];    
         }else{
-            $NEWfotoPortadaNombre = '';
+            $NEWfotoPortada = '[]';
         };
         $NEWdescripcionMediana = $_POST['descripcionmediana'];
         $NEWcaptadoPor = $_POST['captadopor'];
@@ -939,19 +946,32 @@ function editarPropiedad($connect): void{
             $editarGaleriaFotos = explode(',', $editarGaleriaFotos);
             $archivosAEliminarArray = explode(',', $archivosAEliminar);
             $editarGaleriaFotos = array_diff($editarGaleriaFotos, $archivosAEliminarArray);
+            $editarGaleriaFotos = array_diff($editarGaleriaFotos, array("",0,null));
             $editarGaleriaFotos = implode('","', $editarGaleriaFotos);
-            $editarGaleriaFotos='["'.$editarGaleriaFotos.'"]';
+            if (!empty($editarGaleriaFotos)){
+                $editarGaleriaFotos='["'.$editarGaleriaFotos.'"]';
+            }else{
+                $editarGaleriaFotos='[]';
+            }
         }
         if (!empty($_FILES['galeriafotos']['name'][0])){
-            $editarGaleriaFotos = str_replace ( '[', '', $editarGaleriaFotos);
-            $editarGaleriaFotos = str_replace ( ']', '', $editarGaleriaFotos);
-            $editarGaleriaFotos = str_replace ( '"', '', $editarGaleriaFotos);
+            if (!empty($editarGaleriaFotos)){
+                $editarGaleriaFotos = str_replace ( '[', '', $editarGaleriaFotos);
+                $editarGaleriaFotos = str_replace ( ']', '', $editarGaleriaFotos);
+                $editarGaleriaFotos = str_replace ( '"', '', $editarGaleriaFotos);
+            }
             $editarGaleriaFotos = explode(',', $editarGaleriaFotos);
+            $editarGaleriaFotos = array_diff($editarGaleriaFotos, array("",0,null));
             foreach($_FILES['galeriafotos']['name'] as $name){
+
                 array_push($editarGaleriaFotos,$name);
             }
             $editarGaleriaFotos=implode('","',$editarGaleriaFotos);
-            $editarGaleriaFotos='["'.$editarGaleriaFotos.'"]';      
+            if (!empty($editarGaleriaFotos)){
+                $editarGaleriaFotos='["'.$editarGaleriaFotos.'"]';
+            }else{
+                $editarGaleriaFotos='[]';
+            }   
         }
         // Update en mi información //
         $update = " modified = '".$modified."'";
@@ -1256,7 +1276,9 @@ function editarPropiedad($connect): void{
         if(!empty($NEWfotoPortadaNombre)){  
             $update .= ", foto_portada = '".$NEWfotoPortada."'";
         }
-        $update .= ", galeria_fotos = '".$editarGaleriaFotos."'";
+        if(!empty($editarGaleriaFotos)){
+            $update .= ", galeria_fotos = '".$editarGaleriaFotos."'";
+        }
         if($NEWdescripcionMediana != $editarOperacion){
             $update .= ", descripcion_mediana = '".$NEWdescripcionMediana."'";
         }
@@ -1321,9 +1343,34 @@ function editarPropiedad($connect): void{
         $query->execute();
     
         if($query){
+            if(!empty($archivosAEliminarArray)){
+                foreach ($archivosAEliminarArray as $archivo){
+                    unlink('../content/'.$archivo);
+                }
+            }
+            if(!empty($_FILES['fotoportada']['name'])){
+                $editarFotoPortada = str_replace ( '[', '', $editarFotoPortada);
+                $editarFotoPortada = str_replace ( ']', '', $editarFotoPortada);
+                $editarFotoPortada = str_replace ( '"', '', $editarFotoPortada);
+                if(!empty($editarFotoPortada)){
+                    unlink('../content/'.$editarFotoPortada);
+                }
+            }
             if(!empty($_FILES['fotoportada']['name'])){
                 move_uploaded_file($NEWfotoPortadaIMG,'../content/'.$NEWfotoPortadaNombre);
             }
+            if (!empty($_FILES['galeriafotos']['name'][0])) {           
+                // Recorrer el array de archivos
+                for ($i = 0; $i < count($_FILES['galeriafotos']['name']); $i++) {
+                    // Obtener el nombre y la ubicación temporal del archivo
+                    $fileName = $_FILES['galeriafotos']['name'][$i];
+                    $fileTmpName = $_FILES['galeriafotos']['tmp_name'][$i];
+                    
+                    // Mover el archivo a la carpeta de destino
+                    move_uploaded_file($fileTmpName, '../content/' . $fileName);
+                }
+            }
+
             
            echo '<script> alert("Cambios Realizados con éxito"); window.location = "../propiedades.php"; </script>';
         }else{
@@ -1532,7 +1579,7 @@ function editarConsulta($connect) : void{
 // Editar usuario //
 function editarUsuario($connect) : void{
 
-    if($_POST['habilitar'] == ''){$_POST['habilitar']= 0;};
+    if(!isset($_POST['habilitar'])){$_POST['habilitar']=0;};
     
     $sentencia = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id= '".$_GET['id']."'") or die('query failed');
     $sentencia->execute();
@@ -1544,6 +1591,7 @@ function editarUsuario($connect) : void{
         $editarEmail = $consulta['email'];
         $editarCelular = $consulta['celular'];
         $editarContrasenia = $consulta['pass'];
+        $editarFoto = $consulta['foto'];
         $editarRol = $consulta['rol'];
         $editarHabilitado = $consulta['habilitado'];         
         $editarSobreMi = $consulta['sobre_mi'];         
@@ -1557,7 +1605,7 @@ function editarUsuario($connect) : void{
     $NEWcontrasenia = $_POST['contrasenia'];
     $NEWrepetircontrasenia = $_POST['repetircontrasenia'];
     $NEWsobreMi =  $_POST['sobre_mi'];
-    if($_FILES['foto']['name'] != NULL){
+    if(!empty($_FILES['foto']['name'])){
         $NEWfoto = $_FILES['foto']['name'];
         $NEWfotoIMG = $_FILES['foto']['tmp_name'];
     }else{
@@ -1593,7 +1641,7 @@ function editarUsuario($connect) : void{
             if($NEWsobreMi != $editarSobreMi){
                 $update .= ", sobre_mi = '".$NEWsobreMi."'";
             }
-            if($NEWfoto != NULL){
+            if(!empty($_FILES['foto']['name'])){
                 $update .= ", foto = '".$NEWfoto."'";
             }
             if($NEWrol != $editarRol){
@@ -1604,7 +1652,15 @@ function editarUsuario($connect) : void{
             $query->execute();
         
             if($query){
-                echo '<script> alert("Cambios Realizados con éxito"); window.location = "../controladmin.php?page=usuario"; </script>';
+                if(!empty($_FILES['foto']['name'])){
+                    if(!empty($editarFoto)){
+                        unlink('../content/'.$editarFoto);
+                    }
+                }
+                if(!empty($_FILES['foto']['name'])){
+                    move_uploaded_file($NEWfotoIMG,'../content/'.$NEWfoto);
+                }
+                echo '<script> alert("Cambios Realizados con éxito"); window.location = "../controladmin.php?page=usuario"; </script>';              
             }else{
                 echo '<script> alert("Ha ocurrido un error al editar el usuario"); window.location = "../controladmin.php?page=usuario";</script>';
             }
