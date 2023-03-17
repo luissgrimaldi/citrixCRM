@@ -3,34 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <title>Input file con múltiples archivos</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  
+  <link rel="stylesheet" href="test.css">
 </head>
 <body>
-  <h1>Selecciona múltiples archivos:</h1>
-  <form action="procesar_archivos.php" method="post" enctype="multipart/form-data">
-    <input type="file" id="files" name="files[]" multiple />
-    <div id="list"></div>
-    <input type="submit" value="Enviar archivos">
- </form>
+
+      <label class="form__button form__bloque__button" for="galeriafotos">Seleccionar imagen</label>
+      <input type="file" name="galeriafotos[]"  id="galeriafotos" style="visibility: visible;" multiple/>
+      <input type="submit">
+
+<p id="files-area">
+	<span id="filesList">
+		<span id="files-names" class="files-names"></span>
+	</span>
+</p>
  
   
 
 <script>
-    function handleFileSelect(evt) { 
-
-        var files = evt.target.files; 
-        var output = []; 
-        for (var i = 0, f; f = files[i]; i++) { 
-
-            output.push('<li>', escape(f.name) || 'n/a', ') - </li>'); 
-
-        } 
-
-        document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>'; 
-
-    } 
-
-    document.getElementById('files').addEventListener('change', handleFileSelect, false);
-
-</script>
+  const dt = new DataTransfer(); // Permet de manipuler les fichiers de l'input file
+  
+  $("#galeriafotos").on('change', function(e){
+    for(var i = 0; i < this.files.length; i++){
+      let fileBloc = $('<span/>', {class: 'file-block'}),
+         fileName = $('<span/>', {class: 'name', text: this.files.item(i).name});
+         fileBloc.append('<span class="file-delete"><span>x</span></span>')
+         .append(fileName);
+      $("#filesList > #files-names").append(fileBloc);
+    };
+    // Ajout des fichiers dans l'objet DataTransfer
+    for (let file of this.files) {
+      dt.items.add(file);
+    }
+    // Mise à jour des fichiers de l'input file après ajout
+    this.files = dt.files;
+  
+    // EventListener pour le bouton de suppression créé
+    $('span.file-delete').click(function(){
+      let name = $(this).next('span.name').text();
+      // Supprimer l'affichage du nom de fichier
+      $(this).parent().remove();
+      for(let i = 0; i < dt.items.length; i++){
+        // Correspondance du fichier et du nom
+        if(name === dt.items[i].getAsFile().name){
+          // Suppression du fichier dans l'objet DataTransfer
+          dt.items.remove(i);
+          continue;
+        }
+      }
+      // Mise à jour des fichiers de l'input file après suppression
+      document.getElementById('galeriafotos').files = dt.files;
+    });
+  });
+  
+  </script>
 </body>
 </html>

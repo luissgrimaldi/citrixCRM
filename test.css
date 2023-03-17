@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+
+/* Colors */
+:root{
+    --color-principal-scrollbar:#09c867;
+    --color-secundario-scrollbar:#0960c8;
+    --color-body-selection:#09c867;
+    --color-principal-header:#0960c8 ;
+    --color-secundario-header:white;
+    --color-terciario-header:#09c867;
+    --color-principal-sidebar:#0960c8;
+    --color-secundario-sidebar:white;
+    --color-terciario-sidebar:#09c867;
+    --body-color: #aecdf3;
+    --body-select-hover-checked:#09c86881;
+    --color-principal-main:#0960c8;
+    --color-secundario-main:#09c867;
+    --color-terciario-main:white;
+}
+
+.form__button{
+    color: var(--color-terciario-main);
+    background-color: var(--color-secundario-main);
+    padding: 0.313em 4em;
+    border-radius: 16px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.form__button:hover{
+    cursor: pointer;
+    background-color: var(--body-select-hover-checked);
+}
+
+.files-names{
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+
+.file-block{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5em;
+    background-color: var(--color-principal-main);
+    width: fit-content;
+    padding: .5em;
+    border-radius: 1em;
+}
+
+.file-delete{
+    order: 2;
+    color: red;
+    font-size: 1.4em;
+}
+
+.file-delete:hover{
+    color: rgba(255, 0, 0, 0.459);
+    cursor: pointer;
+}
+
+.files-names{
+    color: white;
+}
