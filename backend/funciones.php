@@ -234,7 +234,7 @@ function agregarPropiedad($connect): void{
     $barrioCerrado = $_POST['barriocerrado'];
     $descripcionCorta = $_POST['descripcioncorta'];
     $descripcionLarga = $_POST['descripcionlarga'];
-    if($_FILES['fotoportada']['name'] > 0){
+    if (!empty($_FILES['fotoportada']['name'])){
         $fotoPortadaNombre = $_FILES['fotoportada']['name'];
         $fotoPortada = '["'.$fotoPortadaNombre.'"]';
         $fotoPortadaIMG = $_FILES['fotoportada']['tmp_name'];
@@ -242,18 +242,12 @@ function agregarPropiedad($connect): void{
         $fotoPortada = '';
     }
 
-    if($_FILES['galeriafotos']['name'] > 0){
-        foreach($_FILES['galeriafotos']['name'] as $i=>$name){
-            $fotoGaleriaNombre = $_FILES['galeriafotos']['name'][$i];
-            $fotogaleriaARRAY= explode(",",$fotoGaleriaNombre);
-            $fotoGaleriaIMG = $_FILES['galeriafotos']['tmp_name'][$i];
-        }
-        $fotogaleria=implode(',"',$_FILES['galeriafotos']['name']);
+    if (!empty($_FILES['galeriafotos']['name'][0])){
+        $fotogaleria=implode('","',$_FILES['galeriafotos']['name']);
         $fotogaleria='["'.$fotogaleria.'"]';
     }else{
         $fotogaleria = '';
     }
-    $galeriaFotos = $_POST['galeriafotos'];
     $descripcionMediana = $_POST['descripcionmediana'];
     $captadoPor = $_POST['captadopor'];
     $contactadoPor = $_POST['contactadopor'];
@@ -273,30 +267,23 @@ function agregarPropiedad($connect): void{
     $refCatastral = $_POST['ref_catastral'];
     $valorCatastral = $_POST['valor_catastral'];
     $contactoId = $_POST['contacto_id'];
+    $created=date("Y-m-d H:i:s");
 
-    $query = $connect-> prepare ("INSERT INTO wp_propiedades (referencia_interna, operacion_id, tipo_propiedad_id, cod_postal, tipo_calle_id, calle, altura, ciudad_id, zona_id, piso, puerta, bloque, ocupada, coordenadas, nro_toilettes, nro_plantas, metros_utiles, supeficie_construida, nro_banios, anio_contruccion, mts_cocina, cant_habitaciones, expensas, cant_ambientes, mts_comendor, mts_living, mts_lote, planta_baja, estado_general_id, estado_carpinteria_externa_id, tipo_suelo_id, orientacion, agua_caliente_id, estado_carpinteria_interna_id, tipo_calefaccion_id, tipo_cocina_id, alarma, agua, aire_acondicionado_central, aire_acondicionado, bar, alarma_incendio, alarma_robo, altillo, caja_fuerte, parrilla, asensor, balcon, chimenea, electrodomesticos, calefaccion_frio_calor, centrico, garaje, garaje_doble, gas_natural, galeria, hab_juegos, hidromasaje, linea_telefonica, gimnacio, jardin, lavadero, patio, jacuzzi, luz, sauna, preinst_aacc, luminoso, pileta_propia, pileta_compartida, riego_automatico, amueblado, puerta_blindada, porton_automatico, solarium, pergola, tv, videoportero, satelite, vestuario, buardilla, habitacion_servicio, arboles, autobuses, centro_comercial, colegios, costa, golf, hospitales, subte, montania, urbanizacion, rural, vista_al_mar, tren, zonas_infantiles, residencial, barrio_cerrado, descripcion_corta, descripcion_completa, foto_portada, galeria_fotos, descripcion_mediana, captado_por, contactado_por, oficina_id, llavero, precio_propietario, porcentaje_comision, comision_fija, precio_anterior, tasacion, parcela, lote, tomo, libro, folio, registro, ref_catastral, valor_catastral, propietarios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?, ?)");
-    $query->execute([$ref, $operacion, $tipo, $codigoPostal, $tipoCalle, $calle, $altura, $ciudad, $zona, $piso, $puerta, $bloque, $ocupada, $coordenadas, $toilettes, $plantas, $metrosUtiles, $supConstruida, $rebaniosf, $anioConstruccion, $mtsCocina, $habitaciones, $expensas, $ambientes, $comedor, $living, $metrosLote, $plantaBaja, $estadoGeneral, $carpinteriaExt, $suelo, $orientacion, $aguacaliente, $carpinteriaint, $calefaccion, $tipoCocina, $alarma, $agua, $aireAcondicionadoCentral, $aireAcondicionado, $bar, $alarmaIncendio, $alarmaRobo, $altillo, $cajaFuerte, $parrilla, $asensor, $balcon, $chimenea, $electroDomesticos, $calefaccionFrioCalor, $centrico, $garaje, $garajeDoble, $gasNatural, $galeria, $habJuegos, $hidroMasaje, $lineaTelefonica, $gimnasio, $jardin, $lavadero, $patio, $jacuzzi, $luz, $sauna, $preinstaacc, $luminoso, $piletapropia, $piletacompartida, $riegoautomatico, $amueblado, $puertaBlindada, $portonAutomatico, $solarium, $pergola, $tv, $videoPortero, $satelite, $vestuario, $buardilla, $habitacionServicio, $arboles, $autobuses, $centroComercial, $colegios, $costa, $golf, $hospitales, $subte, $montania, $urbanizacion, $rural, $vistaMar, $tren, $zonasInfantiles, $residencial, $barrioCerrado, $descripcionCorta, $descripcionLarga, $fotoPortada, $fotogaleria, $descripcionMediana, $captadoPor, $contactadoPor, $oficina, $llavero, $precioproPietario, $porcentajeSobreCompra, $comisionFija, $precioAnterior, $tasacion, $parcela, $lote, $tomo, $libro, $folio, $registro, $refCatastral, $valorCatastral, $contactoId]);
+    $query = $connect-> prepare ("INSERT INTO wp_propiedades (referencia_interna, operacion_id, tipo_propiedad_id, cod_postal, tipo_calle_id, calle, altura, ciudad_id, zona_id, piso, puerta, bloque, ocupada, coordenadas, nro_toilettes, nro_plantas, metros_utiles, supeficie_construida, nro_banios, anio_contruccion, mts_cocina, cant_habitaciones, expensas, cant_ambientes, mts_comendor, mts_living, mts_lote, planta_baja, estado_general_id, estado_carpinteria_externa_id, tipo_suelo_id, orientacion, agua_caliente_id, estado_carpinteria_interna_id, tipo_calefaccion_id, tipo_cocina_id, alarma, agua, aire_acondicionado_central, aire_acondicionado, bar, alarma_incendio, alarma_robo, altillo, caja_fuerte, parrilla, asensor, balcon, chimenea, electrodomesticos, calefaccion_frio_calor, centrico, garaje, garaje_doble, gas_natural, galeria, hab_juegos, hidromasaje, linea_telefonica, gimnacio, jardin, lavadero, patio, jacuzzi, luz, sauna, preinst_aacc, luminoso, pileta_propia, pileta_compartida, riego_automatico, amueblado, puerta_blindada, porton_automatico, solarium, pergola, tv, videoportero, satelite, vestuario, buardilla, habitacion_servicio, arboles, autobuses, centro_comercial, colegios, costa, golf, hospitales, subte, montania, urbanizacion, rural, vista_al_mar, tren, zonas_infantiles, residencial, barrio_cerrado, descripcion_corta, descripcion_completa, foto_portada, galeria_fotos, descripcion_mediana, captado_por, contactado_por, oficina_id, llavero, precio_propietario, porcentaje_comision, comision_fija, precio_anterior, tasacion, parcela, lote, tomo, libro, folio, registro, ref_catastral, valor_catastral, propietarios, created) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?, ?)");
+    $query->execute([$ref, $operacion, $tipo, $codigoPostal, $tipoCalle, $calle, $altura, $ciudad, $zona, $piso, $puerta, $bloque, $ocupada, $coordenadas, $toilettes, $plantas, $metrosUtiles, $supConstruida, $rebaniosf, $anioConstruccion, $mtsCocina, $habitaciones, $expensas, $ambientes, $comedor, $living, $metrosLote, $plantaBaja, $estadoGeneral, $carpinteriaExt, $suelo, $orientacion, $aguacaliente, $carpinteriaint, $calefaccion, $tipoCocina, $alarma, $agua, $aireAcondicionadoCentral, $aireAcondicionado, $bar, $alarmaIncendio, $alarmaRobo, $altillo, $cajaFuerte, $parrilla, $asensor, $balcon, $chimenea, $electroDomesticos, $calefaccionFrioCalor, $centrico, $garaje, $garajeDoble, $gasNatural, $galeria, $habJuegos, $hidroMasaje, $lineaTelefonica, $gimnasio, $jardin, $lavadero, $patio, $jacuzzi, $luz, $sauna, $preinstaacc, $luminoso, $piletapropia, $piletacompartida, $riegoautomatico, $amueblado, $puertaBlindada, $portonAutomatico, $solarium, $pergola, $tv, $videoPortero, $satelite, $vestuario, $buardilla, $habitacionServicio, $arboles, $autobuses, $centroComercial, $colegios, $costa, $golf, $hospitales, $subte, $montania, $urbanizacion, $rural, $vistaMar, $tren, $zonasInfantiles, $residencial, $barrioCerrado, $descripcionCorta, $descripcionLarga, $fotoPortada, $fotogaleria, $descripcionMediana, $captadoPor, $contactadoPor, $oficina, $llavero, $precioproPietario, $porcentajeSobreCompra, $comisionFija, $precioAnterior, $tasacion, $parcela, $lote, $tomo, $libro, $folio, $registro, $refCatastral, $valorCatastral, $contactoId, $created]);
     if($query){
-        if($fotoPortadaNombre = $_FILES['fotoportada']['name'] != ''){
+        if (!empty($_FILES['fotoportada']['name'])){
             move_uploaded_file($fotoPortadaIMG,'../content/'.$fotoPortadaNombre);
         }
-        if($fotoGaleriaNombre = $_FILES['galeriafotos']['name'] != ''){
-            // Comprobar si se han enviado archivos
-            if (isset($_FILES['galeriafotos'])) {
-                // Carpeta en la que se van a guardar los archivos
-                $uploadDirectory = '../content//';
+        if (!empty($_FILES['galeriafotos']['name'][0])) {           
+            // Recorrer el array de archivos
+            for ($i = 0; $i < count($_FILES['galeriafotos']['name']); $i++) {
+                // Obtener el nombre y la ubicación temporal del archivo
+                $fileName = $_FILES['galeriafotos']['name'][$i];
+                $fileTmpName = $_FILES['galeriafotos']['tmp_name'][$i];
                 
-                // Recorrer el array de archivos
-                for ($i = 0; $i < count($_FILES['galeriafotos']['name']); $i++) {
-                    // Obtener el nombre y la ubicación temporal del archivo
-                    $fileName = $_FILES['galeriafotos']['name'][$i];
-                    $fileTmpName = $_FILES['galeriafotos']['tmp_name'][$i];
-                    
-                    // Mover el archivo a la carpeta de destino
-                    move_uploaded_file($fileTmpName, $uploadDirectory . $fileName);
-                }
-                
-                // Mostrar un mensaje de éxito
+                // Mover el archivo a la carpeta de destino
+                move_uploaded_file($fileTmpName, '../content/' . $fileName);
             }
         }
         echo '<script> alert("Propiedad agregada con exito"); window.location = "../propiedades.php"; </script>';
@@ -917,12 +904,13 @@ function editarPropiedad($connect): void{
         $NEWbarrioCerrado = $_POST['barriocerrado'];
         $NEWdescripcionCorta = $_POST['descripcioncorta'];
         $NEWdescripcionLarga = $_POST['descripcionlarga'];
-        $NEWfotoPortadaNombre = $_FILES['fotoportada']['name'];
-        if($NEWfotoPortadaNombre != '' or $NEWfotoPortadaNombre != NULL){
+        if (!empty($_FILES['fotoportada']['name'])){
+            $NEWfotoPortadaNombre = $_FILES['fotoportada']['name'];
             $NEWfotoPortada = '["'.$NEWfotoPortadaNombre.'"]';
             $NEWfotoPortadaIMG = $_FILES['fotoportada']['tmp_name'];    
-        }
-        $NEWgaleriaFotos = $_POST['galeriafotos'];
+        }else{
+            $NEWfotoPortadaNombre = '';
+        };
         $NEWdescripcionMediana = $_POST['descripcionmediana'];
         $NEWcaptadoPor = $_POST['captadopor'];
         $NEWcontactadoPor = $_POST['contactadopor'];
@@ -942,14 +930,31 @@ function editarPropiedad($connect): void{
         $NEWrefCatastral = $_POST['ref_catastral'];
         $NEWvalorCatastral = $_POST['valor_catastral'];
         $NEWcontactoId = $_POST['contacto_id'];
-    
-    
-    // IF para ver si cumple los requisitos //
-    if($NEWoperacion != $editarOperacion OR $NEWtipo != $editarPropiedad OR $NEWcodigoPostal != $editarCodPostal OR $NEWtipoCalle != $editarTipoCalle OR $NEWcalle != $editarCalle OR $NEWaltura != $editarAltura OR $NEWciudad != $editarOperacion OR $NEWzona != $editarZona OR $NEWpiso != $editarPiso OR $NEWpuerta != $editarPuerta OR $NEWbloque != $editarBloque OR $NEWocupada != $editarOcupada OR $NEWcoordenadas != $editarCoordenadas OR $NEWtoilettes != $editarNroToilettes OR $NEWplantas != $editarNroPlantas OR $NEWmetrosUtiles != $editarMetrosUtiles OR $NEWsupConstruida != $editarSuperficieConstruida OR $NEWrebaniosf != $editarNroBanios OR $NEWanioConstruccion != $editarAnioConstruccion OR $NEWmtsCocina != $editarMetrosCocina OR $NEWhabitaciones != $editarCantHabitaciones OR $NEWexpensas != $editarExpensas OR $NEWambientes != $editarCantAmbientes OR $NEWcomedor != $editarMetrosComedor OR $NEWliving != $editarMetrosLiving OR $NEWlote != $editarMetrosLote OR $NEWplantaBaja != $editarPlantaBaja OR $NEWestadoGeneral != $editarEstadoGeneral OR $NEWcarpinteriaExt != $editarEstadoCarpinteriaExt OR $NEWsuelo != $editarTipoSuelo OR $NEWorientacion != $editarOrientacion OR $NEWaguacaliente != $editarAguaCaliente OR $NEWcarpinteriaint != $editarEstadoCarpinteriaInt OR $NEWcalefaccion != $editarTipoCalefaccion OR $NEWtipoCocina != $editarTipoCocina OR $NEWalarma != $editarAlarma OR $NEWagua != $editarAgua OR $NEWaireAcondicionadoCentral != $editarAireAcondicionadoCentral OR $NEWaireAcondicionado != $editarAireAcondicionado OR $NEWbar != $editarBar OR $NEWalarmaIncendio != $editarAlarmaIncendio OR $NEWalarmaRobo != $editarAlarmaRobo OR $NEWaltillo != $editarAltillo OR $NEWcajaFuerte != $editarCajaFuerte OR $NEWparrilla != $editarParrilla OR $NEWasensor != $editarAscensor OR $NEWbalcon != $editarBalcon OR $NEWchimenea != $editarChimenea OR $NEWelectroDomesticos != $editarElectrodomesticos OR $NEWcalefaccionFrioCalor != $editarCalefaccionFrioCalor OR $NEWcentrico != $editarCentrico OR $NEWgaraje != $editarGaraje OR $NEWgarajeDoble != $editarGarajeDoble OR $NEWgasNatural != $editarGasNatural OR $NEWgaleria != $editargaleria OR $NEWhabJuegos != $editarHabJuegos OR $NEWhidroMasaje != $editarhidromasaje OR $NEWlineaTelefonica != $editarLineaTelefonica OR $NEWgimnasio != $editarGimnasio OR $NEWjardin != $editarJardin OR $NEWlavadero != $editarLavadero OR $NEWpatio != $editarPatio OR $NEWjacuzzi != $editarJacuzzi OR $NEWluz != $editarLuz OR $NEWsauna != $editarSauna OR $NEWpreinstaacc != $editarPreinstAacc OR $NEWluminoso != $editarLuminoso OR $NEWpiletapropia != $editarPiletaPropia OR $NEWpiletacompartida != $editarPiletaCompartida OR $NEWriegoautomatico != $editarRiegoAutomatico OR $NEWamueblado != $editarAmueblado OR $NEWpuertaBlindada != $editarPuertaBlindada OR $NEWportonAutomatico != $editarPortonAutomatico OR $NEWsolarium != $editarSolarium OR $NEWpergola != $editarPergola OR $NEWtv != $editarTv OR $NEWvideoPortero != $editarVideoPortero OR $NEWsatelite != $editarSatelite OR $NEWvestuario != $editarVestuario OR $NEWbuardilla != $editarBuardilla OR $NEWhabitacionServicio != $editarHabitacionServicio OR $NEWarboles != $editarArboles OR $NEWautobuses != $editarAutobuses OR $NEWcentroComercial != $editarCentroComercial OR $NEWcolegios != $editarColegios OR $NEWcosta != $editarCosta OR $NEWgolf != $editarGolf OR $NEWhospitales != $editarHospitales OR $NEWsubte != $editarSubte OR $NEWmontania != $editarMontania OR $NEWurbanizacion != $editarUrbanizacion OR $NEWrural != $editarRural OR $NEWvistaMar != $editarVistaMar OR $NEWtren != $editarTren OR $NEWzonasInfantiles != $editarZonasInfantiles OR $NEWresidencial != $editarResidencial OR $NEWbarrioCerrado != $editarBarrioCerrado OR $NEWdescripcionCorta != $editarDescripcionCorta OR $NEWdescripcionLarga != $editarDescripcionCompleta OR $NEWfotoPortada != $editarFotoPortada OR $NEWgaleriaFotos != $editarGaleriaFotos OR $NEWdescripcionMediana != $editarOperacion OR $NEWcaptadoPor != $editarCaptadoPor OR $NEWcontactadoPor != $editarContactadoPor OR $NEWoficina != $editarOficina OR $NEWllavero != $editarLlavero OR $NEWprecioproPietario != $editarPrecioPropietario OR $NEWporcentajeSobreCompra != $editarPorcentajeComision OR $NEWcomisionFija != $editarComisionFija OR $NEWprecioAnterior != $editarPrecioAnterior OR $NEWtasacion != $editarTasacion OR $NEWparcela != $editarParcela OR $NEWlote != $editarLote OR $NEWtomo != $editarTomo OR $NEWlibro != $editarLibro OR $NEWfolio != $editarFolio OR $NEWregistro != $editarRegistro OR $NEWrefCatastral != $editarRefCatastral OR $NEWvalorCatastral != $editarValorCatastral OR $NEWcontactoId != $editarContactoId){  
-            
-    
+        $modified=date("Y-m-d H:i:s");
+        if (!empty($_POST['archivos-a-eliminar'])){
+            $editarGaleriaFotos = str_replace ( '[', '', $editarGaleriaFotos);
+            $editarGaleriaFotos = str_replace ( ']', '', $editarGaleriaFotos);
+            $editarGaleriaFotos = str_replace ( '"', '', $editarGaleriaFotos);
+            $archivosAEliminar = $_POST['archivos-a-eliminar'];
+            $editarGaleriaFotos = explode(',', $editarGaleriaFotos);
+            $archivosAEliminarArray = explode(',', $archivosAEliminar);
+            $editarGaleriaFotos = array_diff($editarGaleriaFotos, $archivosAEliminarArray);
+            $editarGaleriaFotos = implode('","', $editarGaleriaFotos);
+            $editarGaleriaFotos='["'.$editarGaleriaFotos.'"]';
+        }
+        if (!empty($_FILES['galeriafotos']['name'][0])){
+            $editarGaleriaFotos = str_replace ( '[', '', $editarGaleriaFotos);
+            $editarGaleriaFotos = str_replace ( ']', '', $editarGaleriaFotos);
+            $editarGaleriaFotos = str_replace ( '"', '', $editarGaleriaFotos);
+            $editarGaleriaFotos = explode(',', $editarGaleriaFotos);
+            foreach($_FILES['galeriafotos']['name'] as $name){
+                array_push($editarGaleriaFotos,$name);
+            }
+            $editarGaleriaFotos=implode('","',$editarGaleriaFotos);
+            $editarGaleriaFotos='["'.$editarGaleriaFotos.'"]';      
+        }
         // Update en mi información //
-        $update = " status_id = 1";
+        $update = " modified = '".$modified."'";
     
         if($NEWoperacion != $editarOperacion){
             $update .= ", operacion_id = '".$NEWoperacion."'";
@@ -1248,12 +1253,10 @@ function editarPropiedad($connect): void{
         if($NEWdescripcionLarga != $editarDescripcionCompleta){
             $update .= ", descripcion_completa = '".$NEWdescripcionLarga."'";
         }
-        if($NEWfotoPortadaNombre = $_FILES['fotoportada']['name'] != NULL){  
+        if(!empty($NEWfotoPortadaNombre)){  
             $update .= ", foto_portada = '".$NEWfotoPortada."'";
         }
-        if($NEWgaleriaFotos != $editarGaleriaFotos){
-            $update .= ", galeria_fotos = '".$NEWgaleriaFotos."'";
-        }
+        $update .= ", galeria_fotos = '".$editarGaleriaFotos."'";
         if($NEWdescripcionMediana != $editarOperacion){
             $update .= ", descripcion_mediana = '".$NEWdescripcionMediana."'";
         }
@@ -1318,15 +1321,14 @@ function editarPropiedad($connect): void{
         $query->execute();
     
         if($query){
-            if($NEWfotoPortadaNombre = $_FILES['fotoportada']['name'] != NULL){
+            if(!empty($_FILES['fotoportada']['name'])){
                 move_uploaded_file($NEWfotoPortadaIMG,'../content/'.$NEWfotoPortadaNombre);
             }
-            echo '<script> alert("Cambios Realizados con éxito"); window.location = "../propiedades.php"; </script>';
+            
+           echo '<script> alert("Cambios Realizados con éxito"); window.location = "../propiedades.php"; </script>';
         }else{
             echo '<script> alert("Ha ocurrido un error al editar la propiedad"); window.location = "../propiedades.php"; </script>';
         }
-    
-    }else{echo '<script> alert("No se han realizado cambios"); window.location = "../propiedades.php"; </script>';}
 }
 
 // Editar consulta//
@@ -1414,6 +1416,7 @@ function editarConsulta($connect) : void{
     $NEWamueblada = $_POST['amueblada'];
     $NEWbalcon = $_POST['balcon'];
     $NEWpileta = $_POST['pileta'];
+    $modified=date("Y-m-d H:i:s");
     if(isset($_POST['buscarZona'])){
         $NEWbuscarZona = $_POST['buscarZona'];
         $NEWbuscarZona = implode(",", $NEWbuscarZona);
@@ -1430,7 +1433,7 @@ function editarConsulta($connect) : void{
     
     
             
-        $update = " casilla_email_destino = NULL";
+        $update = " modified = '".$modified."'";
     
         if($NEWcontactoId != $editarContactoId){
             $update .= ", contacto_id = '".$NEWcontactoId."'";

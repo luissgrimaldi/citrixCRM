@@ -883,7 +883,7 @@
     // Eliminar archivo
     $('span#file-deletePortada').click(function(){
       let name = $(this).next('span#namePortada').text();
-      // Supprimer l'affichage du nom de fichier
+      // Eliminar el nombre del archivo
       $(this).parent().remove();
       for(let i = 0; i < dt2.items.length; i++){
         // Verifica si coincide el archivo y el nombre

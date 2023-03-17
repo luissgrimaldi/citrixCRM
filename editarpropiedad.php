@@ -117,6 +117,9 @@
                         $editarDescripcionCompleta = $propiedad['descripcion_completa'];
                         $editarFotoPortada = $propiedad['foto_portada'];
                         $editarGaleriaFotos = $propiedad['galeria_fotos'];
+                        $editarGaleriaFotos = str_replace ( '[', '', $editarGaleriaFotos);
+                        $editarGaleriaFotos = str_replace ( ']', '', $editarGaleriaFotos);
+                        $editarGaleriaFotos = str_replace ( '"', '', $editarGaleriaFotos);
                         $editarDescripcionMediana = $propiedad['descripcion_mediana'];
                         $editarCaptadoPor = $propiedad['captado_por'];
                         $editarContactadoPor = $propiedad['contactado_por'];
@@ -848,12 +851,36 @@
                         </div>
                         <div class="form__bloque__content content content--fotoportada">
                             <label  class="form__label content__label" for="">Foto de portada</label>
-                            <input type="file" class="content--fotoportada__fotoportada" name="fotoportada" id="">                                  
-                        </div> 
+                            <label class="form__button form__bloque__button" for="fotoportada">Seleccionar imagen</label>
+                            <input style="display:none" type="file" class="content--fotoportada__fotoportada" name="fotoportada" id="fotoportada">  
+                            <p id="files-area" class="files-area">
+                                <span id="filesListPortada">
+                                    <span id="files-namesPortada" class="files-names"></span>
+                                </span>
+                            </p>                                
+                        </div>
                         <div class="form__bloque__content content content--galeriafotos">
                             <label  class="form__label content__label" for="">Galeria de fotos</label>
-                            <input type="file" class="content--galeriafotos__galeriafotos" name="galeriafotos[]" id="">                                  
+                            <label class="form__button form__bloque__button" for="galeriafotos">Seleccionar imagen</label>
+                            <input type="file" name="galeriafotos[]"  id="galeriafotos" style="display: none;" multiple/>
+                            <p id="files-area" class="files-area">
+                                <span id="filesList">
+                                    <span id="files-names" class="files-names">
+                                    <?php if(!empty($editarGaleriaFotos)){
+                                        $editarGaleriaFotos = explode(",",$editarGaleriaFotos);
+                                        foreach ($editarGaleriaFotos as $archivo){?>
+                                        <span class="file-block" id="file-block" data-id="<?php echo $archivo;?>">
+                                            <span class="file-delete file-deleteEliminar">
+                                                <span data-id="<?php echo $archivo;?>">x</span>
+                                            </span>
+                                            <span id="nameEliminar" class="name"><?php echo $archivo;?></span>
+                                        </span>
+                                    <?php ;} ;}?>
+                                    </span>
+                                </span>
+                            </p>                             
                         </div>
+                        <input id="inputGaleriaEliminar" name="archivos-a-eliminar" type="hidden">
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Descripcion mediana</label>
                             <textarea class="form__textarea content__textarea" name="descripcionmediana" id=""><?php echo $editarDescripcionMediana;?></textarea>                                   
@@ -1080,5 +1107,95 @@
         });
     }
 </script>
+<script>
+  const dt = new DataTransfer(); // Manejar los archivos del input
+  
+  $("#galeriafotos").on('change', function(e){
+    for(var i = 0; i < this.files.length; i++){
+      let fileBlock = $('<span/>', {class: 'file-block'}),
+         fileName = $('<span/>', {id:'name', class: 'name', text: this.files.item(i).name});
+         fileBlock.append('<span id="file-delete" class="file-delete"><span>x</span></span>')
+         .append(fileName);
+      $("#filesList > #files-names").append(fileBlock);
+    };  
+    // Agregar archivos al objeto DataTransfer
+    for (let file of this.files) {
+      dt.items.add(file);
+    }
+    // Actualizar los archivos del input
+    this.files = dt.files;
+  
+    // Eliminar archivo
+    $('span#file-delete').click(function(){
+      let name = $(this).next('span#name').text();
+      // Eliminar el nombre del archivo
+      $(this).parent().remove();
+      for(let i = 0; i < dt.items.length; i++){
+        // Verifica si coincide el archivo y el nombre
+        if(name === dt.items[i].getAsFile().name){
+          // Elimina el archivo en el DataTransfer
+          dt.items.remove(i);
+          continue;
+        }
+      }
+      // Actualizar los archivos del input luego de eliminarlos
+      document.getElementById('galeriafotos').files = dt.files;
+    });
+  });
+
+  const dt2 = new DataTransfer(); // Manejar los archivos del input
+  
+  $("#fotoportada").on('change', function(e){
+    // Vaciar la lista de archivos
+    $("#filesListPortada > #files-namesPortada").empty();
+    // Actualizar el objeto dt2 con el archivo seleccionado
+    dt2.items.clear();
+    dt2.items.add(this.files[0]);
+  
+    let fileBlock = $('<span/>', {class: 'file-block'}),
+       fileName = $('<span/>', {id:'namePortada', class: 'name', text: this.files[0].name});
+       fileBlock.append('<span id="file-deletePortada" class="file-delete"><span>x</span></span>')
+       .append(fileName);
+    $("#filesListPortada > #files-namesPortada").append(fileBlock);
+  
+    // Eliminar archivo
+    $('span#file-deletePortada').click(function(){
+      let name = $(this).next('span#namePortada').text();
+      // Eliminar el nombre del archivo
+      $(this).parent().remove();
+      for(let i = 0; i < dt2.items.length; i++){
+        // Verifica si coincide el archivo y el nombre
+        if(name === dt2.items[i].getAsFile().name){
+          // Elimina el archivo en el DataTransfer
+          dt2.items.remove(i);
+          continue;
+        }
+      }
+      // Actualizar los archivos del input luego de eliminarlos
+      document.getElementById('fotoportada').files = dt2.files;
+    });
+});
+
+
+
+const botonesEliminar = document.querySelectorAll('.file-deleteEliminar');
+const nombresEliminadosInput = document.querySelector('#inputGaleriaEliminar');
+let nombresEliminados = [];
+
+botonesEliminar.forEach(boton => {
+  boton.addEventListener('click', (event) => {
+    const nombreArchivo = event.target.getAttribute('data-id');
+    eliminarArchivo(nombreArchivo);
+  });
+});
+
+function eliminarArchivo(nombre) {
+    const fileBlock = document.querySelector(`#file-block[data-id="${nombre}"]`);
+    fileBlock.remove();
+    nombresEliminados.push(nombre);
+    nombresEliminadosInput.value = nombresEliminados.join(',');
+}
+
+  </script>
 </body>
 </html>

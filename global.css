@@ -250,7 +250,22 @@ select{
     cursor: pointer;
 }
 
+.consulta--user-img{
+    font-size: 1.5em;
+}
 
+.consulta__li a{
+    display: flex;
+    flex-direction: row;
+    gap: .5em;
+    align-items: center;
+}
+
+.consulta__li div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
 /* End Header */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */

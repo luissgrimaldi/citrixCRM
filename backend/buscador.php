@@ -7,8 +7,8 @@ $sentencia = $connect->prepare("SELECT * FROM `wp_propiedades` WHERE `calle` LIK
 $sentencia->execute([$campo . '%', $campo . '%']);
 $sentencia2 = $connect->prepare("SELECT * FROM `wp_contactos` WHERE CONCAT(trim(nombre), ' ', trim(apellido)) LIKE ?") or die('query failed');
 $sentencia2->execute([$campo . '%']);
-$sentencia3 = $connect->prepare("SELECT * FROM `wp_consultas` WHERE `id` LIKE ?") or die('query failed');
-$sentencia3->execute([$campo . '%']);
+$sentencia3 = $connect->prepare("SELECT * FROM `wp_consultas` WHERE id LIKE ? OR CONCAT(trim(nombre), ' ', trim(apellido)) LIKE ?") or die('query failed');
+$sentencia3->execute([$campo . '%', $campo . '%']);
 
 $html = "";
 $cuenta = $sentencia->rowCount();
@@ -37,7 +37,7 @@ $cuenta = $sentencia3->rowCount();
 if ($cuenta > 0){
     $html .= '<li class="header__form__ul__li header__form__ul__li--titulo">Consultas</li>';
     while($row = $sentencia3->fetch()){
-        $html .= '<li class="header__form__ul__li"><a href="consultasinfo.php?consulta='.$row["id"].'">'.$row["id"].'</a></li>';
+        $html .= '<li class="header__form__ul__li consulta__li"><a href="consultasinfo.php?consulta='.$row["id"].'"><i class="fa-solid fa-image-portrait consulta--user-img"></i><div><span>'.trim($row["id"]).'</span><span>'.trim($row["nombre"])." ".trim($row["apellido"]).'</span></div></a></li>';
 
     };      
 }

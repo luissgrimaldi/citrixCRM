@@ -78,42 +78,36 @@
                         $consultasTotales = $sentencia->rowCount();
                         $paginas = $consultasTotales/$consultasXpagina;
                         $paginas = ceil($paginas);
-
-
-
-
-
-
-                            $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
-                            $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, con.created, con.situacion, con.canal_id, con.status_id,
-                            prop.id, prop.referencia_interna, prop.calle, prop.altura, prop.descripcion_corta, prop.operacion_id,
-                            sit.id, sit.nombre,
-                            canal.id,
-                            con.id as con_id, con.consulta as con_consulta, con.nombre as con_nombre, con.apellido as con_apellido, con.email as con_email, con.telefono as con_telefono, con.created as con_created, con.canal_id as con_canal_id, con.status_id as con_status_id,
-                            prop.referencia_interna as prop_referencia_interna, prop.calle as prop_calle, prop.altura as prop_altura, prop.descripcion_corta as prop_descripcion_corta, prop.operacion_id as prop_operacion_id,
-                            sit.nombre as sit_nombre,
-                            canal.id as canal_id      
-                            FROM wp_consultas con
-                            LEFT JOIN wp_propiedades prop ON  con.propiedad_id =prop.id
-                            LEFT JOIN wp_situaciones sit ON  con.situacion=sit.id
-                            LEFT JOIN wp_medios_contacto canal ON  con.canal_id=canal.id
-                            $filtro ORDER BY con_id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
-                            $sentencia->execute();
-                            $list_consultas = $sentencia->fetchAll();
-                            foreach($list_consultas as $consulta){   
-                                $idConsulta = $consulta['con_id'];
-                                $tipoConsulta = $consulta['con_consulta'];
-                                $nombreConsulta = $consulta['con_nombre'];
-                                $apellidoConsulta = $consulta['con_apellido'];
-                                $emailConsulta = $consulta['con_email'];
-                                $telefonoConsulta = $consulta['con_telefono'];
-                                $fechaConsulta = $consulta['con_created'];
-                                $fechaConsulta = date("d-m-Y", strtotime($fechaConsulta)); 
-                                $refPropiedad = $consulta['prop_referencia_interna'];
-                                $callePropiedad = $consulta['prop_calle'];
-                                $alturaPropiedad = $consulta['prop_altura'];
-                                $situacionConsulta = $consulta['sit_nombre'];                             
-                            ?>                          
+                        $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
+                        $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, con.created, con.situacion, con.canal_id, con.status_id,
+                        prop.id, prop.referencia_interna, prop.calle, prop.altura, prop.descripcion_corta, prop.operacion_id,
+                        sit.id, sit.nombre,
+                        canal.id,
+                        con.id as con_id, con.consulta as con_consulta, con.nombre as con_nombre, con.apellido as con_apellido, con.email as con_email, con.telefono as con_telefono, con.created as con_created, con.canal_id as con_canal_id, con.status_id as con_status_id,
+                        prop.referencia_interna as prop_referencia_interna, prop.calle as prop_calle, prop.altura as prop_altura, prop.descripcion_corta as prop_descripcion_corta, prop.operacion_id as prop_operacion_id,
+                        sit.nombre as sit_nombre,
+                        canal.id as canal_id      
+                        FROM wp_consultas con
+                        LEFT JOIN wp_propiedades prop ON  con.propiedad_id =prop.id
+                        LEFT JOIN wp_situaciones sit ON  con.situacion=sit.id
+                        LEFT JOIN wp_medios_contacto canal ON  con.canal_id=canal.id
+                        $filtro ORDER BY con_id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
+                        $sentencia->execute();
+                        $list_consultas = $sentencia->fetchAll();
+                        foreach($list_consultas as $consulta){   
+                            $idConsulta = $consulta['con_id'];
+                            $tipoConsulta = $consulta['con_consulta'];
+                            $nombreConsulta = $consulta['con_nombre'];
+                            $apellidoConsulta = $consulta['con_apellido'];
+                            $emailConsulta = $consulta['con_email'];
+                            $telefonoConsulta = $consulta['con_telefono'];
+                            $fechaConsulta = $consulta['con_created'];
+                            $fechaConsulta = date("d-m-Y", strtotime($fechaConsulta)); 
+                            $refPropiedad = $consulta['prop_referencia_interna'];
+                            $callePropiedad = $consulta['prop_calle'];
+                            $alturaPropiedad = $consulta['prop_altura'];
+                            $situacionConsulta = $consulta['sit_nombre'];                             
+                        ?>                          
                         <li class="consultas__li" id="li<?php echo $idConsulta;?>">
                             <div class="consultas__bloque">
                                 <div class="consultas__bloque__content">
