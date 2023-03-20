@@ -48,19 +48,18 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                     $whereBalcon=" AND balcon = ".$editarBalcon;
                     $wherePileta=" AND pileta_propia = ('".$editarPileta."' OR  pileta_compartida ='".$editarPileta."')";
 
-                    if(($editarBuscarZona == NULL AND $editarBuscarZona =="")AND($editarBuscarTipo ==NULL AND $editarBuscarTipo =="")AND($editarPrecioDesde ==NULL AND $editarPrecioDesde =="")AND($editarSupDesde ==NULL AND $editarSupDesde =="")AND($editarPlantaBaja ==NULL AND $editarPlantaBaja =="")AND($editarGaraje ==NULL AND $editarGaraje =="")AND($editargarajeDoble ==NULL AND $editargarajeDoble =="")AND($editarAmueblada ==NULL AND $editarAmueblada =="")AND($editarBalcon ==NULL AND $editarBalcon =="")AND($editarPileta ==NULL AND $editarPileta =="")){$filtro = '';}else{
+                    if((!empty($editarBuscarZona))AND(!empty($editarBuscarTipo))AND(!empty($editarPrecioDesde))AND(!empty($editarSupDesde))AND(!empty($editarPlantaBaja))AND(!empty($editarGaraje))AND(!empty($editargarajeDoble))AND(!empty($editarAmueblada))AND(!empty($editarBalcon))AND(!empty($editarPileta))){$filtro = '';}else{
                         $filtro = "WHERE id > 0 ";
-                        if($editarBuscarZona !=NULL AND $editarBuscarZona !=""){$filtro .= $whereZonas;};
-                        if($editarBuscarTipo !=NULL AND $editarBuscarTipo !=""){$filtro .= $whereTipo;};
-                        if($editarPrecioDesde !=NULL AND $editarPrecioDesde !="" AND $editarprecioHasta !=NULL AND $editarprecioHasta !="" ){$filtro .= $wherePrecio;};
-                        if($editarSupDesde !=NULL AND $editarSupDesde !="" AND $editarSupHasta !=NULL AND $editarSupHasta !=""){$filtro .= $whereSuperficie;};
-                        if($editarPlantaBaja !=NULL AND $editarPlantaBaja !=""){$filtro .= $wherePlantaBaja;};
-                        if($editarGaraje !=NULL AND $editarGaraje !=""){$filtro .= $whereGaraje;};
-                        if($editargarajeDoble !=NULL AND $editargarajeDoble !=""){$filtro .= $whereGarajeDoble;};
-                        if($editarAmueblada !=NULL AND $editarAmueblada !=""){$filtro .= $whereAmueblada;};
-                        if($editarBalcon !=NULL AND $editarBalcon !=""){$filtro .= $whereBalcon;};
-                        if($editarPileta !=NULL AND $editarPileta !=""){$filtro .= $wherePileta;};
-                        
+                        if(!empty($editarBuscarZona)){$filtro .= $whereZonas;};
+                        if(!empty($editarBuscarTipo)){$filtro .= $whereTipo;};
+                        if(!empty($editarPrecioDesde)){$filtro .= $wherePrecio;};
+                        if(!empty($editarSupDesde)){$filtro .= $whereSuperficie;};
+                        if(!empty($editarPlantaBaja)){$filtro .= $wherePlantaBaja;};
+                        if(!empty($editarGaraje)){$filtro .= $whereGaraje;};
+                        if(!empty($editargarajeDoble)){$filtro .= $whereGarajeDoble;};
+                        if(!empty($editarAmueblada)){$filtro .= $whereAmueblada;};
+                        if(!empty($editarBalcon)){$filtro .= $whereBalcon;};
+                        if(!empty($editarPileta)){$filtro .= $wherePileta;};           
                     }
                 ?>
                 <?php 
@@ -301,9 +300,10 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         <div class="main__title"><i class="fa-solid fa-signal main__h1--emoji"></i><h1 class="main__h1">Listado de seguimientos</h1></div>
                     </div>
                     <div class="main__decoration"></div>
+                    <ul class="tareas--pendientes__list">
                     <div class="consulta">
                         <span class="consulta__span"><?php echo $editarConsulta;?></span>
-                    </div>           
+                    </div>             
                     <?php           
                         $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.cliente_id, t.asignada_el,
                         g.id, g.nombre,
@@ -318,7 +318,6 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         $sentencia->execute();
                         $seguimientos = $sentencia->rowCount();
                         if($seguimientos > 0){?>
-                            <ul class="tareas--pendientes__list">
                         <?php ;};
                         $tareas = $sentencia->fetchAll();                        
                             foreach($tareas as $tarea){
@@ -362,10 +361,11 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                     <div class="main__container__top main__container__top--seguimiento">
                         <div class="main__title"><i class="fa-solid fa-envelope main__h1--emoji"></i><h1 class="main__h1">Listado de visitas</h1></div>
                     </div>
-                    <div class="main__decoration"></div>
+                    <div class="main__decoration"></div>                  
+                    <ul class="tareas--pendientes__list">
                     <div class="consulta">
                         <span class="consulta__span"><?php echo $editarConsulta;?></span>
-                    </div>                    
+                    </div>  
                     <?php           
                         $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.cliente_id, t.asignada_el, t.propiedad_id,
                         g.id, g.nombre,
@@ -386,7 +386,6 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         $sentencia->execute();
                         $visitas = $sentencia->rowCount();
                         if($visitas > 0){?>
-                            <ul class="tareas--pendientes__list">
                         <?php ;};
                         $tareas = $sentencia->fetchAll();                        
                             foreach($tareas as $tarea){

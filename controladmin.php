@@ -252,34 +252,45 @@
         $consultasTotales = $sentencia->rowCount();
         $paginas = $consultasTotales/$consultasXpagina;
         $paginas = ceil($paginas);
-    if(!$_GET ||$_GET["pagina"]<1){header('Location:controladmin.php?page=contacto&pagina=1');}elseif($_GET['pagina']>$paginas){header('Location:controladmin.php?page=contacto&pagina=1');}
 
-if(!isset($_POST['nombre'])){$_POST['nombre'] = '';}
-if(!isset($_POST['email'])){$_POST['email'] = '';}
-if(!isset($_POST['telefono'])){$_POST['telefono'] = '';}
-if(!isset($_POST['celular'])){$_POST['celular'] = '';}
-if(!isset($_POST['direccion'])){$_POST['direccion'] = '';}
-if(!isset($_POST['medioContacto'])){$_POST['medioContacto'] = '';}
-if(!isset($_POST['agenteAsignado'])){$_POST['agenteAsignado'] = '';}
+        if(!isset($_POST['nombre'])){$_POST['nombre'] = '';}
+        if(!isset($_POST['email'])){$_POST['email'] = '';}
+        if(!isset($_POST['telefono'])){$_POST['telefono'] = '';}
+        if(!isset($_POST['celular'])){$_POST['celular'] = '';}
+        if(!isset($_POST['direccion'])){$_POST['direccion'] = '';}
+        if(!isset($_POST['medioContacto'])){$_POST['medioContacto'] = '';}
+        if(!isset($_POST['agenteAsignado'])){$_POST['agenteAsignado'] = '';}
+        if(!isset($_POST['order'])){$_POST['order'] = 1;}
 
-$whereNombre=" AND CONCAT(trim(a.nombre), ' ', trim(a.apellido)) = '".$_POST['nombre']."'";         
-$whereEmail=" AND a.email = '".$_POST['email']."'";
-$whereTel=" AND a.telefono = '".$_POST['telefono']."'";
-$whereCel=" AND a.celular = '".$_POST['celular']."'";
-$whereDireccion=" AND a.direccion = '".$_POST['direccion']."'";
-$whereMedio=" AND a.medio_contacto_id = '".$_POST['medioContacto']."'";;
-$whereAgente=" AND a.agente_asignado_id = ".$_POST['agenteAsignado'];
-if($_POST['nombre'] == '' AND $_POST['email'] == '' AND $_POST['telefono'] == '' AND $_POST['celular'] == '' AND $_POST['direccion'] == '' AND $_POST['medioContacto'] == '' AND $_POST['agenteAsignado'] == ''){$filtro = '';}else{ 
+        if(!$_GET || $_GET["pagina"]<1){header('Location:controladmin.php?page=contacto&pagina=1&nombre='.$_POST['nombre'].'&email='.$_POST['email'].'&telefono='.$_POST['telefono'].'&celular='.$_POST['celular'].'&direccion='.$_POST['direccion'].'&medioContacto='.$_POST['medioContacto'].'&agenteAsignado='.$_POST['agenteAsignado'].'&order='.$_POST['order']);}elseif($_GET['pagina']>$paginas){header('Location:controladmin.php?page=contacto&pagina=1&nombre='.$_POST['nombre'].'&email='.$_POST['email'].'&telefono='.$_POST['telefono'].'&celular='.$_POST['celular'].'&direccion='.$_POST['direccion'].'&medioContacto='.$_POST['medioContacto'].'&agenteAsignado='.$_POST['agenteAsignado'].'&order='.$_POST['order']);}
+        else if (!isset($_GET['nombre']) || !isset($_GET['email']) || !isset($_GET['telefono']) || !isset($_GET['celular']) || !isset($_GET['direccion']) || !isset($_GET['medioContacto']) || !isset($_GET['order'])){header('Location:controladmin.php?page=contacto&pagina=1&nombre='.$_POST['nombre'].'&email='.$_POST['email'].'&telefono='.$_POST['telefono'].'&celular='.$_POST['celular'].'&direccion='.$_POST['direccion'].'&medioContacto='.$_POST['medioContacto'].'&agenteAsignado='.$_POST['agenteAsignado'].'&order='.$_POST['order']);};
+
+
+        $whereNombre=" AND CONCAT(trim(a.nombre), ' ', trim(a.apellido)) = '".$_POST['nombre']."'";         
+        $whereEmail=" AND a.email = '".$_GET['email']."'";
+        $whereTel=" AND a.telefono = '".$_GET['telefono']."'";
+        $whereCel=" AND a.celular = '".$_GET['celular']."'";
+        $whereDireccion=" AND a.direccion = '".$_GET['direccion']."'";
+        $whereMedio=" AND a.medio_contacto_id = '".$_GET['medioContacto']."'";;
+        $whereAgente=" AND a.agente_asignado_id = ".$_GET['agenteAsignado'];
+
+        // ORDER
+        if($_GET['order'] == 1){$order = "a_id DESC";};
+        if($_GET['order'] == 2){$order = "a_id ASC";};
+        if($_GET['order'] == 3){$order = "trim(a_nombre) ASC";};
+        if($_GET['order'] == 4){$order = "trim(a_nombre) DESC";};
+
+if($_GET['nombre'] == '' AND $_GET['email'] == '' AND $_GET['telefono'] == '' AND $_GET['celular'] == '' AND $_GET['direccion'] == '' AND $_GET['medioContacto'] == '' AND $_GET['agenteAsignado'] == ''){$filtro = '';}else{ 
     
     $filtro = "WHERE a.id > 0 ";
     
-    if($_POST['nombre'] != ''){$filtro .= $whereNombre;};
-    if($_POST['email'] != ''){$filtro .= $whereEmail;};
-    if($_POST['telefono'] != ''){$filtro .= $whereTel;};
-    if($_POST['celular'] != ''){$filtro .= $whereCel;};
-    if($_POST['direccion'] != ''){$filtro .= $whereDireccion;};
-    if($_POST['medioContacto'] != ''){$filtro .= $whereMedio;};
-    if($_POST['agenteAsignado'] != ''){$filtro .= $whereAgente;};
+    if($_GET['nombre'] != ''){$filtro .= $whereNombre;};
+    if($_GET['email'] != ''){$filtro .= $whereEmail;};
+    if($_GET['telefono'] != ''){$filtro .= $whereTel;};
+    if($_GET['celular'] != ''){$filtro .= $whereCel;};
+    if($_GET['direccion'] != ''){$filtro .= $whereDireccion;};
+    if($_GET['medioContacto'] != ''){$filtro .= $whereMedio;};
+    if($_GET['agenteAsignado'] != ''){$filtro .= $whereAgente;};
 }
     ?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -305,27 +316,27 @@ if($_POST['nombre'] == '' AND $_POST['email'] == '' AND $_POST['telefono'] == ''
                     </div>
                 </div>
                 <div class="main__decoration"></div>
-                <form class="form__busqueda-consulta form" name="form" method="POST" action="controladmin.php?page=contacto" autocomplete="off">
+                <form class="form__busqueda-consulta form" id="contactoForm" name="form" method="POST" action="controladmin.php?page=contacto" autocomplete="off">
                     <div class="form__bloque form__bloque--1">
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Nombre Completo</label>
-                            <input class="form__text content__text" name="nombre" value="<?php echo $_POST['nombre']?>" type="text">
+                            <input class="form__text content__text" name="nombre" value="<?php echo $_GET['nombre']?>" type="text">
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Email</label>
-                            <input class="form__text content__text" name="email" value="<?php echo $_POST['email']?>" type="text">
+                            <input class="form__text content__text" name="email" value="<?php echo $_GET['email']?>" type="text">
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Telefono</label>
-                            <input class="form__text content__text" name="telefono" value="<?php echo $_POST['telefono']?>" type="text">
+                            <input class="form__text content__text" name="telefono" value="<?php echo $_GET['telefono']?>" type="text">
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Celular</label>
-                            <input class="form__text content__text" name="celular" value="<?php echo $_POST['celular']?>" type="text">
+                            <input class="form__text content__text" name="celular" value="<?php echo $_GET['celular']?>" type="text">
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Dirección</label>
-                            <input class="form__text content__text" name="direccion" value="<?php echo $_POST['direccion']?>" type="text">
+                            <input class="form__text content__text" name="direccion" value="<?php echo $_GET['direccion']?>" type="text">
                         </div>
                     </div>
                     <div class="form__bloque form__bloque--2">
@@ -341,7 +352,7 @@ if($_POST['nombre'] == '' AND $_POST['email'] == '' AND $_POST['telefono'] == ''
                                         $id = $consulta['id'];
                                         $nombre = $consulta['nombre'];
                                         ?>
-                                    <option <?php if($_POST['medioContacto'] == $id){echo 'selected';}?> value="<?php echo $id?>"><?php echo $nombre?></option>
+                                    <option <?php if($_GET['medioContacto'] == $id){echo 'selected';}?> value="<?php echo $id?>"><?php echo $nombre?></option>
                                 <?php };?>
                             </select>
                         </div>
@@ -357,11 +368,22 @@ if($_POST['nombre'] == '' AND $_POST['email'] == '' AND $_POST['telefono'] == ''
                                         $id = $consulta['user_id'];
                                         $nombre = $consulta['nombre'].' '.$consulta['apellido'];
                                         ?>
-                                    <option <?php if($_POST['agenteAsignado'] == $id){echo 'selected';}?> value="<?php echo $id?>"><?php echo $nombre?></option>
+                                    <option <?php if($_GET['agenteAsignado'] == $id){echo 'selected';}?> value="<?php echo $id?>"><?php echo $nombre?></option>
                                 <?php };?>
                             </select>
                         </div>
                     </div>
+                    <div class="form__bloque form__bloque--4">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Ordenar por</label>
+                                <select id="order" class="form__select" name="order">
+                                        <option <?php if ($_GET['order'] == 1){echo 'selected';}?> value="1">Mas recientes</option>
+                                        <option <?php if ($_GET['order'] == 2){echo 'selected';}?> value="2">Mas antiguos</option>                                                                       
+                                        <option <?php if ($_GET['order'] == 3){echo 'selected';}?> value="3">Nombre A-Z</option>                                     
+                                        <option <?php if ($_GET['order'] == 4){echo 'selected';}?> value="4">Nombre Z-A</option>                                                                     
+                                </select>
+                            </div>                          
+                        </div>
                     <div class="form__bloque form__bloque--4">
                         <input type="submit" class="form__button form__bloque__button" value="Buscar">
                     </div>
@@ -372,7 +394,7 @@ if($_POST['nombre'] == '' AND $_POST['email'] == '' AND $_POST['telefono'] == ''
                         <ul class="propiedades__ul">
                         <?php     
                             $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;      
-                            $sentencia = $connect->prepare("SELECT a.id, a.nombre as a_nombre, a.apellido, a.telefono, a.celular, a.email, a.direccion, a.medio_contacto_id, a.agente_asignado_id,
+                            $sentencia = $connect->prepare("SELECT a.id, a.nombre, a.apellido, a.telefono, a.celular, a.email, a.direccion, a.medio_contacto_id, a.agente_asignado_id,
                             b.id, b.nombre as b_nombre,
                             c.user_id, c.nombre as c_nombre
                             from wp_contactos a
@@ -386,21 +408,23 @@ if($_POST['nombre'] == '' AND $_POST['email'] == '' AND $_POST['telefono'] == ''
                                 
                                 
                             $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;      
-                            $sentencia = $connect->prepare("SELECT a.id, a.nombre as a_nombre, a.apellido, a.telefono, a.celular, a.email, a.direccion, a.medio_contacto_id, a.agente_asignado_id,
+                            $sentencia = $connect->prepare("SELECT a.id as a_id, a.nombre as a_nombre, a.apellido, a.telefono, a.celular, a.email as a_email, a.direccion as a_direccion, a.medio_contacto_id, a.agente_asignado_id,
                             b.id, b.nombre as b_nombre,
                             c.user_id, c.nombre as c_nombre
                             from wp_contactos a
                             LEFT JOIN wp_medios_contacto b ON  a.medio_contacto_id =b.id
                             LEFT JOIN usuarios c ON  a.agente_asignado_id = c.user_id
-                            $filtro ORDER BY a.id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
+                            $filtro ORDER BY $order LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
                             $sentencia->execute();
                             $list_usuarios = $sentencia->fetchAll();
+                            $consultasTotalesActuales = $sentencia->rowCount();
+                            echo  '<span class="resultados">'.($inicioConsultasXpagina + 1).'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
                             foreach($list_usuarios as $usuario){
-                                $id = $usuario['id'];                                                             
+                                $id = $usuario['a_id'];                                                             
                                 $nombre = $usuario['a_nombre'];                                                             
                                 $apellido = $usuario['apellido'];                                                                                                                        
-                                $email = $usuario['email'];
-                                $direccion = $usuario['direccion'];
+                                $email = $usuario['a_email'];
+                                $direccion = $usuario['a_direccion'];
                                 $medioContacto = $usuario['b_nombre'];                                                                                                                        
                                 $agenteAsignado = $usuario['c_nombre'];                                                                                                                        
                             ?> 
@@ -426,11 +450,11 @@ if($_POST['nombre'] == '' AND $_POST['email'] == '' AND $_POST['telefono'] == ''
                 </div>
                 <div class="pagination">
                     <ul>
-                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="controladmin.php?page=contacto&pagina=<?php echo $_GET["pagina"]-1?>"><li><</li></a>
+                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="controladmin.php?page=contacto&pagina=<?php echo $_GET["pagina"]-1?>&nombre=<?php echo $_GET['nombre']?>&email=<?php echo $_GET['email']?>&telefono=<?php echo $_GET['telefono']?>&celular=<?php echo $_GET['celular']?>&direccion=<?php echo $_GET['direccion']?>&medioContacto=<?php echo $_GET['medioContacto']?>&agenteAsignado=<?php echo $_GET['agenteAsignado']?>&order=<?php echo $_GET['order']?>"><li><</li></a>
 				        <?php for($i=0;$i<$paginas;$i++):?>
-                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="controladmin.php?page=contacto&pagina=<?php echo $i+1?>"><li><?php echo $i+1?></li></a>
+                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="controladmin.php?page=contacto&pagina=<?php echo $i+1?>&nombre=<?php echo $_GET['nombre']?>&email=<?php echo $_GET['email']?>&telefono=<?php echo $_GET['telefono']?>&celular=<?php echo $_GET['celular']?>&direccion=<?php echo $_GET['direccion']?>&medioContacto=<?php echo $_GET['medioContacto']?>&agenteAsignado=<?php echo $_GET['agenteAsignado']?>&order=<?php echo $_GET['order']?>"><li><?php echo $i+1?></li></a>
 				        <?php endfor ?>
-                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="controladmin.php?page=contacto&pagina=<?php echo $_GET["pagina"]+1?>"><li>></li></a>
+                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="controladmin.php?page=contacto&pagina=<?php echo $_GET["pagina"]+1?>&nombre=<?php echo $_GET['nombre']?>&email=<?php echo $_GET['email']?>&telefono=<?php echo $_GET['telefono']?>&celular=<?php echo $_GET['celular']?>&direccion=<?php echo $_GET['direccion']?>&medioContacto=<?php echo $_GET['medioContacto']?>&agenteAsignado=<?php echo $_GET['agenteAsignado']?>&order=<?php echo $_GET['order']?>"><li>></li></a>
                     </ul>
                 </div>
             </div>  
@@ -442,5 +466,13 @@ if($_POST['nombre'] == '' AND $_POST['email'] == '' AND $_POST['telefono'] == ''
 <?php include 'sidebar.php';?>
     </div>
     <script src="index.js"></script>
+    <script>
+        order = document.getElementById("order");
+        propForm = document.getElementById("contactoForm");
+
+        order.addEventListener("change", function(){
+            propForm.submit();
+        })
+    </script>
 </body>
 </html>

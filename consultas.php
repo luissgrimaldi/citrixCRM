@@ -136,15 +136,15 @@
                             </div>
                         </div>
                         <div class="form__bloque form__bloque--4">
-                        <div class="form__bloque__content content">
+                            <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Ordenar por</label>
                                 <select id="order" class="form__select" name="order">
                                         <option <?php if ($_GET['order'] == 1){echo 'selected';}?> value="1">Mas recientes</option>
                                         <option <?php if ($_GET['order'] == 2){echo 'selected';}?> value="2">Mas antiguas</option>                                     
                                         <option <?php if ($_GET['order'] == 3){echo 'selected';}?> value="3">Mayor precio desde</option>                                     
                                         <option <?php if ($_GET['order'] == 4){echo 'selected';}?> value="4">Menor precio desde</option>                                     
-                                        <option <?php if ($_GET['order'] == 3){echo 'selected';}?> value="5">Mayor precio hasta</option>                                     
-                                        <option <?php if ($_GET['order'] == 4){echo 'selected';}?> value="6">Menor precio hasta</option>                                     
+                                        <option <?php if ($_GET['order'] == 5){echo 'selected';}?> value="5">Mayor precio hasta</option>                                     
+                                        <option <?php if ($_GET['order'] == 6){echo 'selected';}?> value="6">Menor precio hasta</option>                                     
                                 </select>
                             </div>                          
                         </div>
@@ -213,11 +213,11 @@
 
 
                             $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
-                            $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, con.created, con.situacion, con.canal_id, con.status_id, con.precio_venta_desde, con.precio_venta_hasta,
+                            $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, con.created, con.situacion, con.canal_id, con.status_id, con.precio_venta_desde, con.precio_venta_hasta, con.superficie_construida_desde, con.superficie_construida_hasta, con.planta_baja, con.garaje, con.garaje_doble, con.amueblada, con.balcon, con.pileta, con.zonas, con.tipos_propiedad,
                             prop.id, prop.referencia_interna, prop.calle, prop.altura, prop.descripcion_corta, prop.operacion_id,
                             sit.id, sit.nombre,
                             canal.id,
-                            con.id as con_id, con.consulta as con_consulta, con.nombre as con_nombre, con.apellido as con_apellido, con.email as con_email, con.telefono as con_telefono, con.created as con_created, con.canal_id as con_canal_id, con.status_id as con_status_id, con.precio_venta_desde as con_precio_venta_desde, con.precio_venta_hasta as con_precio_venta_hasta,
+                            con.id as con_id, con.consulta as con_consulta, con.propiedad_id as con_propiedad_id, con.nombre as con_nombre, con.apellido as con_apellido, con.email as con_email, con.telefono as con_telefono, con.created as con_created, con.canal_id as con_canal_id, con.status_id as con_status_id, con.precio_venta_desde as con_precio_venta_desde, con.precio_venta_hasta as con_precio_venta_hasta, con.superficie_construida_desde as con_superficie_construida_desde, con.superficie_construida_hasta as con_superficie_construida_hasta, con.planta_baja as con_planta_baja, con.garaje as con_garaje, con.garaje_doble as con_garaje_doble, con.amueblada  as con_amueblada, con.balcon as con_balcon, con.pileta as con_pileta, con.zonas as con_zonas, con.tipos_propiedad as con_tipos_propiedad,
                             prop.referencia_interna as prop_referencia_interna, prop.calle as prop_calle, prop.altura as prop_altura, prop.descripcion_corta as prop_descripcion_corta, prop.operacion_id as prop_operacion_id,
                             sit.nombre as sit_nombre,
                             canal.id as canal_id      
@@ -242,9 +242,64 @@
                                 $refPropiedad = $consulta['prop_referencia_interna'];
                                 $callePropiedad = $consulta['prop_calle'];
                                 $alturaPropiedad = $consulta['prop_altura'];
-                                $situacionConsulta = $consulta['sit_nombre'];                                                           
+                                $situacionConsulta = $consulta['sit_nombre'];   
+                                $editarSupDesde = $consulta['con_superficie_construida_desde'];
+                                $editarSupHasta = $consulta['con_superficie_construida_hasta'];
+                                $editarPrecioDesde = $consulta['con_precio_venta_desde'];
+                                $editarprecioHasta = $consulta['con_precio_venta_hasta'];
+                                $editarPlantaBaja = $consulta['con_planta_baja'];
+                                $editarGaraje = $consulta['con_garaje'];
+                                $editargarajeDoble = $consulta['con_garaje_doble'];
+                                $editarAmueblada = $consulta['con_amueblada'];
+                                $editarBalcon = $consulta['con_balcon'];
+                                $editarPileta = $consulta['con_pileta'];
+                                $editarBuscarZona = $consulta['con_zonas'];               
+                                $editarBuscarTipo = $consulta['con_tipos_propiedad'];     
+                                
+                                
+                                $whereZonas=" AND zona_id in('".$editarBuscarZona."')";         
+                                $whereTipo=" AND tipo_propiedad_id in('".$editarBuscarTipo."')";
+                                $wherePrecio=" AND precio_propietario BETWEEN '".$editarPrecioDesde."' AND '".$editarprecioHasta."'";
+                                $whereSuperficie=" AND supeficie_construida BETWEEN '".$editarSupDesde."' AND '".$editarSupHasta."'";
+                                $wherePlantaBaja=" AND planta_baja = '".$editarPlantaBaja."'";
+                                $whereGaraje=" AND garaje = '".$editarGaraje."'";
+                                $whereGarajeDoble=" AND garaje_doble = '".$editargarajeDoble."'";
+                                $whereAmueblada=" AND amueblado = '".$editarAmueblada."'";
+                                $whereBalcon=" AND balcon = '".$editarBalcon."'";
+                                $wherePileta=" AND pileta_propia = ('".$editarPileta."' OR  pileta_compartida ='".$editarPileta."')";
+            
+                                if((empty($editarBuscarZona))AND(empty($editarBuscarTipo))AND(empty($editarPrecioDesde))AND(empty($editarSupDesde))AND(empty($editarPlantaBaja))AND(empty($editarGaraje))AND(empty($editargarajeDoble))AND(empty($editarAmueblada))AND(empty($editarBalcon))AND(empty($editarPileta))){$filtro = '';}else{
+                                }
+                                $filtro = "WHERE id > 0 ";
+                                if(!empty($editarBuscarZona)){$filtro .= $whereZonas;};
+                                if(!empty($editarBuscarTipo)){$filtro .= $whereTipo;};
+                                if(!empty($editarPrecioDesde)){$filtro .= $wherePrecio;};
+                                if(!empty($editarSupDesde)){$filtro .= $whereSuperficie;};
+                                if(!empty($editarPlantaBaja)){$filtro .= $wherePlantaBaja;};
+                                if(!empty($editarGaraje)){$filtro .= $whereGaraje;};
+                                if(!empty($editargarajeDoble)){$filtro .= $whereGarajeDoble;};
+                                if(!empty($editarAmueblada)){$filtro .= $whereAmueblada;};
+                                if(!empty($editarBalcon)){$filtro .= $whereBalcon;};
+                                if(!empty($editarPileta)){$filtro .= $wherePileta;};           
+                                $sentencia = $connect->prepare("SELECT * FROM `wp_propiedades` $filtro") or die('query failed');
+                                $sentencia->execute();
+                                $crucesActuales = $sentencia->rowCount();
+                                $list_propiedadesOperacion = $sentencia->fetchAll();                         
+                                foreach($list_propiedadesOperacion as $propiedad){
+                                $idPropiedad = $propiedad['id'];
+                                $propiedadRef = $propiedad['referencia_interna'];
+                                $propiedadTitulo = $propiedad['descripcion_corta'];
+                                $propiedadNombre = $propiedad['calle'];
+                                $propiedadAltura = $propiedad['altura'];
+                                };
+               
                             ?>                                                      
                         <li class="consultas__li" id="li<?php echo $idConsulta;?>">
+                        <div id="modal" class="modal-BG">
+                            <div class="modal">            
+                                
+                            </div>
+                        </div>
                             <div class="consultas__bloque">                             
                                 <div class="consultas__bloque__content">
                                 <a href="consultasinfo.php?consulta=<?php echo $idConsulta?>" class="consultas__consulta"> <?php echo $nombreConsulta. ' '. $apellidoConsulta;?></a>
@@ -256,7 +311,7 @@
                             <div class="consultas__bloque">
                                 <div class="consultas__bloque__content consultas__edit-search-reload">
                                     <?php if (!empty($situacionConsulta)){?><span class="consultas__datos-cliente__situacion"><?php echo $situacionConsulta?></span><?php };?>
-                                    <div class="consultas__accion__cruces__container"><i class="consultas__accion__cruces fa-solid fa-rotate"></i><span><?php?> Cruces</span></div>
+                                    <div class="consultas__accion__cruces__container"><i class="consultas__accion__cruces fa-solid fa-rotate"></i><span><?php echo $crucesActuales;?> Cruces</span></div>
                                     <span class="consultas__consulta"> <?php echo $fechaConsulta?></span>
                                 </div>
                             </div>

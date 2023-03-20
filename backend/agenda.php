@@ -18,6 +18,9 @@ if (isset($_SESSION['usuario'])){
     
     if($_GET['tipo'] == '0' AND $_GET['agente'] == '' AND $_GET['realizadas'] == '' AND $_GET['asunto'] == ''){$filtro = '';}else{ 
         
+        /*if($_GET['agente'] == 4){
+
+        }*/
         $filtro = "WHERE t.user_id=".$userId;
 
         if($_GET['realizadas'] != ''){$filtro .= $whereRealizadas;};

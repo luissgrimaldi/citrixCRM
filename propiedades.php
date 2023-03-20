@@ -257,8 +257,8 @@
                         LEFT JOIN wp_ciudades ciudad ON  prop.ciudad_id=ciudad.id
                         $filtro ORDER BY $order LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
                         $sentencia->execute();
-                        $consultasTotalesActuales = $sentencia->rowCount();
                         $list_propiedades = $sentencia->fetchAll();
+                        $consultasTotalesActuales = $sentencia->rowCount();
                         echo  '<span class="resultados">'.($inicioConsultasXpagina + 1).'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
                         foreach($list_propiedades as $propiedad){
                             $idPropiedad = $propiedad['prop_id'];

@@ -23,7 +23,7 @@ if(isset($_SESSION['usuario'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php $nombrePag=basename($_SERVER['PHP_SELF'], ".php"); $nombrePag = ucfirst($nombrePag); if($nombrePag=='Index'){$nombrePag='Inicio';}; if($nombrePag=='Editarperfil'){$nombrePag='Editar Perfil';}; echo $nombrePag ?></title>
+    <title>citrixCRM</title>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="<?php echo ucfirst(basename($_SERVER['PHP_SELF'], ".php"))?>.css">

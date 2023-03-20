@@ -1841,6 +1841,8 @@ function editarEvento($connect) : void{
     if(!isset($_POST['observacionesEditar'])){$_POST['observacionesEditar']= '';};
     if(!isset($_POST['horaEditar'])){$_POST['horaEditar']= '';};
     if(!isset($_POST['finalizadaEditar'])){$_POST['finalizadaEditar']= '0';};
+    if(!isset($_POST['editar_consulta_id'])){$_POST['editar_consulta_id']= '0';};
+    if(!isset($_POST['editar_propiedad_id'])){$_POST['editar_propiedad_id']= '0';};
 
     // Variables generales de la sesión //
     $idEditar= $_POST['idEditar'];
@@ -1854,6 +1856,8 @@ function editarEvento($connect) : void{
         $observaciones = $evento['observaciones'];
         $hora = $evento['hora_inicio'];
         $finalizada = $evento['tarea_terminada'];
+        $clienteId = $evento['cliente_id'];
+        $propiedadId = $evento['propiedad_id'];
     }
 
     // Variables del formulario //
@@ -1863,10 +1867,12 @@ function editarEvento($connect) : void{
     $observacionesNuevo = $_POST['observacionesEditar'];
     $horaNuevo = $_POST['horaEditar'];
     $finalizadaNuevo = $_POST['finalizadaEditar']; 
+    $clienteIdNuevo = $_POST['consulta_id'];
+    $propiedadIdNuevo = $_POST['propiedad_id'];
 
 
    // IF para ver si cumple los requisitos //
-    if($tareaNuevo != $tarea AND $tareaNuevo!= '' AND $tareaNuevo!=NULL OR $asuntoNuevo != $asunto AND $asuntoNuevo!= '' AND $asuntoNuevo!=NULL OR $fechaNuevo != $fecha AND $fechaNuevo!= '' AND $fechaNuevo!=NULL OR $observacionesNuevo != $observaciones AND $observacionesNuevo!= '' AND $observacionesNuevo!=NULL OR $horaNuevo != $hora AND $horaNuevo!= '' AND $horaNuevo!=NULL OR $finalizadaNuevo != $finalizada AND $finalizadaNuevo!= '' AND $finalizadaNuevo!=NULL){  
+    if($tareaNuevo != $tarea AND $tareaNuevo!= '' AND $tareaNuevo!=NULL OR $asuntoNuevo != $asunto AND $asuntoNuevo!= '' AND $asuntoNuevo!=NULL OR $fechaNuevo != $fecha AND $fechaNuevo!= '' AND $fechaNuevo!=NULL OR $observacionesNuevo != $observaciones AND $observacionesNuevo!= '' AND $observacionesNuevo!=NULL OR $horaNuevo != $hora AND $horaNuevo!= '' AND $horaNuevo!=NULL OR $finalizadaNuevo != $finalizada AND $finalizadaNuevo!= '' AND $finalizadaNuevo!=NULL OR $propiedadIdNuevo != $propiedadId AND $propiedadIdNuevo!= '' AND $propiedadIdNuevo!=NULL OR $clienteIdNuevo != $clienteId AND $clienteIdNuevo!= '' AND $clienteIdNuevo!=NULL){  
         
 
         // Update en mi información //
@@ -1889,6 +1895,12 @@ function editarEvento($connect) : void{
         }
         if($finalizadaNuevo != $finalizada AND $finalizadaNuevo!= '' AND $finalizadaNuevo!=NULL){
             $update .= ", tarea_terminada = '".$finalizadaNuevo."'";
+        }
+        if($clienteIdNuevo != $clienteId AND $clienteIdNuevo!= '' AND $clienteIdNuevo!=NULL){
+            $update .= ", cliente_id = '".$clienteIdNuevo."'";
+        }
+        if($propiedadIdNuevo != $clienteId AND $propiedadId!= '' AND $propiedadIdNuevo!=NULL){
+            $update .= ", propiedad_id = '".$propiedadIdNuevo."'";
         }
 
         // Hago el update en la DB //
