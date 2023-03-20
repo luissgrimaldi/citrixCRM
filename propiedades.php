@@ -5,9 +5,9 @@
         $consultasTotales = $sentencia->rowCount();
         $paginas = $consultasTotales/$consultasXpagina;
         $paginas = ceil($paginas);
-        if(!isset($_POST['seleccionarOperacion'])){$_POST['seleccionarOperacion'] = '';}; if(!isset($_POST['seleccionarTipo'])){$_POST['seleccionarTipo'] = '';}; if(!isset($_POST['seleccionarCiudad'])){$_POST['seleccionarCiudad'] = '';}; if(!isset($_POST['seleccionarZona'])){$_POST['seleccionarZona'] = '';};  if(!isset($_POST['buscarPrecioDesde'])){$_POST['buscarPrecioDesde'] = '';}; if(!isset($_POST['buscarPrecioHasta'])){$_POST['buscarPrecioHasta'] = '';}; if(!isset($_POST['buscarHabitacionesDesde'])){$_POST['buscarHabitacionesDesde'] = '';}; if(!isset($_POST['buscarHabitacionesHasta'])){$_POST['buscarHabitacionesHasta'] = '';}; if(!isset($_POST['buscarDomicilio'])){$_POST['buscarDomicilio'] = '';}; if(!isset($_POST['buscarReferencia'])){$_POST['buscarReferencia'] = '';}; if(!isset($_POST['buscarPileta'])){$_POST['buscarPileta'] = '';}; if(!isset($_POST['buscarLlaves'])){$_POST['buscarLlaves'] = '';}; if(!isset($_POST['buscarOcupada'])){$_POST['buscarOcupada'] = '';}; if(!isset($_POST['buscarPlantaBaja'])){$_POST['buscarPlantaBaja'] = '';}; if(!isset($_POST['buscarEstado'])){$_POST['buscarEstado'] = '';};
-        if(!$_GET || $_GET["pagina"]<1){header('Location:propiedades.php?pagina=1&op='.$_POST['seleccionarOperacion'].'&tipo='.$_POST['seleccionarTipo'].'&ciudad='.$_POST['seleccionarCiudad'].'&zona='.$_POST['seleccionarZona'].'&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&habitacionesdesde='.$_POST['buscarHabitacionesDesde'].'&habitacioneshasta='.$_POST['buscarHabitacionesHasta'].'&domicilio='.$_POST['buscarDomicilio'].'&ref='.$_POST['buscarReferencia'].'&pileta='.$_POST['buscarPileta'].'&llaves='.$_POST['buscarLlaves'].'&ocupada='.$_POST['buscarOcupada'].'&plantabaja='.$_POST['buscarPlantaBaja'].'&estado='.$_POST['buscarEstado']);}elseif($_GET['pagina']>$paginas){header('Location:propiedades.php?pagina=1&op='.$_POST['seleccionarOperacion'].'&tipo='.$_POST['seleccionarTipo'].'&ciudad='.$_POST['seleccionarCiudad'].'&zona='.$_POST['seleccionarZona'].'&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&habitacionesdesde='.$_POST['buscarHabitacionesDesde'].'&habitacioneshasta='.$_POST['buscarHabitacionesHasta'].'&domicilio='.$_POST['buscarDomicilio'].'&ref='.$_POST['buscarReferencia'].'&pileta='.$_POST['buscarPileta'].'&llaves='.$_POST['buscarLlaves'].'&ocupada='.$_POST['buscarOcupada'].'&plantabaja='.$_POST['buscarPlantaBaja'].'&estado='.$_POST['buscarEstado']);}
-        else if (!isset($_GET['op']) || !isset($_GET['tipo']) || !isset($_GET['ciudad']) || !isset($_GET['zona']) || !isset($_GET['preciodesde']) || !isset($_GET['preciohasta']) || !isset($_GET['habitacionesdesde']) || !isset($_GET['habitacioneshasta']) || !isset($_GET['domicilio']) || !isset($_GET['ref']) || !isset($_GET['pileta']) || !isset($_GET['llaves']) || !isset($_GET['ocupada']) || !isset($_GET['plantabaja']) || !isset($_GET['estado'])){header('Location:propiedades.php?pagina=1&op='.$_POST['seleccionarOperacion'].'&tipo='.$_POST['seleccionarTipo'].'&ciudad='.$_POST['seleccionarCiudad'].'&zona='.$_POST['seleccionarZona'].'&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&habitacionesdesde='.$_POST['buscarHabitacionesDesde'].'&habitacioneshasta='.$_POST['buscarHabitacionesHasta'].'&domicilio='.$_POST['buscarDomicilio'].'&ref='.$_POST['buscarReferencia'].'&pileta='.$_POST['buscarPileta'].'&llaves='.$_POST['buscarLlaves'].'&ocupada='.$_POST['buscarOcupada'].'&plantabaja='.$_POST['buscarPlantaBaja'].'&estado='.$_POST['buscarEstado']);};
+        if(!isset($_POST['seleccionarOperacion'])){$_POST['seleccionarOperacion'] = '';}; if(!isset($_POST['seleccionarTipo'])){$_POST['seleccionarTipo'] = '';}; if(!isset($_POST['seleccionarCiudad'])){$_POST['seleccionarCiudad'] = '';}; if(!isset($_POST['seleccionarZona'])){$_POST['seleccionarZona'] = '';};  if(!isset($_POST['buscarPrecioDesde'])){$_POST['buscarPrecioDesde'] = '';}; if(!isset($_POST['buscarPrecioHasta'])){$_POST['buscarPrecioHasta'] = '';}; if(!isset($_POST['buscarHabitacionesDesde'])){$_POST['buscarHabitacionesDesde'] = '';}; if(!isset($_POST['buscarHabitacionesHasta'])){$_POST['buscarHabitacionesHasta'] = '';}; if(!isset($_POST['buscarDomicilio'])){$_POST['buscarDomicilio'] = '';}; if(!isset($_POST['buscarReferencia'])){$_POST['buscarReferencia'] = '';}; if(!isset($_POST['buscarPileta'])){$_POST['buscarPileta'] = '';}; if(!isset($_POST['buscarLlaves'])){$_POST['buscarLlaves'] = '';}; if(!isset($_POST['buscarOcupada'])){$_POST['buscarOcupada'] = '';}; if(!isset($_POST['buscarPlantaBaja'])){$_POST['buscarPlantaBaja'] = '';}; if(!isset($_POST['buscarEstado'])){$_POST['buscarEstado'] = '';}; if(!isset($_POST['order'])){$_POST['order'] = 1;};
+        if(!$_GET || $_GET["pagina"]<1){header('Location:propiedades.php?pagina=1&op='.$_POST['seleccionarOperacion'].'&tipo='.$_POST['seleccionarTipo'].'&ciudad='.$_POST['seleccionarCiudad'].'&zona='.$_POST['seleccionarZona'].'&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&habitacionesdesde='.$_POST['buscarHabitacionesDesde'].'&habitacioneshasta='.$_POST['buscarHabitacionesHasta'].'&domicilio='.$_POST['buscarDomicilio'].'&ref='.$_POST['buscarReferencia'].'&pileta='.$_POST['buscarPileta'].'&llaves='.$_POST['buscarLlaves'].'&ocupada='.$_POST['buscarOcupada'].'&plantabaja='.$_POST['buscarPlantaBaja'].'&estado='.$_POST['buscarEstado'].'&order='.$_POST['order']);}elseif($_GET['pagina']>$paginas){header('Location:propiedades.php?pagina=1&op='.$_POST['seleccionarOperacion'].'&tipo='.$_POST['seleccionarTipo'].'&ciudad='.$_POST['seleccionarCiudad'].'&zona='.$_POST['seleccionarZona'].'&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&habitacionesdesde='.$_POST['buscarHabitacionesDesde'].'&habitacioneshasta='.$_POST['buscarHabitacionesHasta'].'&domicilio='.$_POST['buscarDomicilio'].'&ref='.$_POST['buscarReferencia'].'&pileta='.$_POST['buscarPileta'].'&llaves='.$_POST['buscarLlaves'].'&ocupada='.$_POST['buscarOcupada'].'&plantabaja='.$_POST['buscarPlantaBaja'].'&estado='.$_POST['buscarEstado'].'&order='.$_POST['order']);}
+        else if (!isset($_GET['op']) || !isset($_GET['tipo']) || !isset($_GET['ciudad']) || !isset($_GET['zona']) || !isset($_GET['preciodesde']) || !isset($_GET['preciohasta']) || !isset($_GET['habitacionesdesde']) || !isset($_GET['habitacioneshasta']) || !isset($_GET['domicilio']) || !isset($_GET['ref']) || !isset($_GET['pileta']) || !isset($_GET['llaves']) || !isset($_GET['ocupada']) || !isset($_GET['plantabaja']) || !isset($_GET['estado']) || !isset($_GET['order'])){header('Location:propiedades.php?pagina=1&op='.$_POST['seleccionarOperacion'].'&tipo='.$_POST['seleccionarTipo'].'&ciudad='.$_POST['seleccionarCiudad'].'&zona='.$_POST['seleccionarZona'].'&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&habitacionesdesde='.$_POST['buscarHabitacionesDesde'].'&habitacioneshasta='.$_POST['buscarHabitacionesHasta'].'&domicilio='.$_POST['buscarDomicilio'].'&ref='.$_POST['buscarReferencia'].'&pileta='.$_POST['buscarPileta'].'&llaves='.$_POST['buscarLlaves'].'&ocupada='.$_POST['buscarOcupada'].'&plantabaja='.$_POST['buscarPlantaBaja'].'&estado='.$_POST['buscarEstado'].'&order='.$_POST['order']);};
         ?>
 <?php include 'sidebar.php' ?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -24,7 +24,7 @@
                 </div>
                 <div class="main__decoration"></div>
                 <div class="main__busqueda-propiedad">
-                    <form autocomplete="off" class="form__busqueda-propiedad form" name="form" method="POST" action="propiedades.php">
+                    <form autocomplete="off" class="form__busqueda-propiedad form" name="form" id="propForm" method="POST" action="propiedades.php">
                         <div class="form__bloque">
                             <div class="form__bloque__content content"> 
                                 <label  class="form__label content__label" for="">Operación</label>
@@ -156,7 +156,18 @@
                             </div>
                         </div>
                         <div class="form__bloque form__bloque--5">
-                            <input type="submit" class="form__button form__bloque__button" value="Buscar">
+                        <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Ordenar por</label>
+                                <select id="order" class="form__select" name="order">
+                                        <option <?php if ($_GET['order'] == 1){echo 'selected';}?> value="1">Mas recientes</option>
+                                        <option <?php if ($_GET['order'] == 2){echo 'selected';}?> value="2">Mas antiguas</option>                                     
+                                        <option <?php if ($_GET['order'] == 3){echo 'selected';}?> value="3">Mayor precio</option>                                     
+                                        <option <?php if ($_GET['order'] == 4){echo 'selected';}?> value="4">Menor precio</option>                                     
+                                </select>
+                            </div>                          
+                        </div>
+                        <div class="form__bloque form__bloque--6">            
+                            <input type="submit" class="form__button form__bloque__button" value="Buscar">                         
                         </div>
                     </form>
                 </div>
@@ -177,6 +188,13 @@
                     $whereOcupada=" AND prop.ocupada = ".$_GET['ocupada'];
                     $wherePlantaBaja=" AND prop.planta_baja = ".$_GET['plantabaja'];
                     $whereEstado=" AND prop.visible_web = ".$_GET['estado'];
+
+                    // ORDER
+                    if($_GET['order'] == 1){$order = "prop_id DESC";};
+                    if($_GET['order'] == 2){$order = "prop_id ASC";};
+                    if($_GET['order'] == 3){$order = "prop_precio_propietario DESC";};
+                    if($_GET['order'] == 4){$order = "prop_precio_propietario ASC";};
+
                     if($_GET['op'] == '' AND $_GET['tipo'] == '' AND $_GET['ciudad'] == '' AND $_GET['zona'] == '' AND $_GET['preciodesde'] == '' AND $_GET['habitacionesdesde'] == '' AND $_GET['domicilio'] == '' AND $_GET['ref'] == '' AND $_GET['pileta'] == '' AND $_GET['llaves'] == '' AND $_GET['ocupada'] == '' AND $_GET['plantabaja'] == '' AND $_GET['estado'] == ''){$filtro = '';}else{ 
                         
                         $filtro = "WHERE status_id= 1 ";
@@ -237,9 +255,11 @@
                         LEFT JOIN wp_propiedad_operacion op ON  prop.operacion_id=op.id
                         LEFT JOIN wp_zonas zona ON  prop.zona_id=zona.id
                         LEFT JOIN wp_ciudades ciudad ON  prop.ciudad_id=ciudad.id
-                        $filtro ORDER BY prop_id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
+                        $filtro ORDER BY $order LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
                         $sentencia->execute();
+                        $consultasTotalesActuales = $sentencia->rowCount();
                         $list_propiedades = $sentencia->fetchAll();
+                        echo  '<span class="resultados">'.($inicioConsultasXpagina + 1).'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
                         foreach($list_propiedades as $propiedad){
                             $idPropiedad = $propiedad['prop_id'];
                             $imgPropiedad = strval($propiedad['prop_foto_portada']);
@@ -278,11 +298,11 @@
                 </div>
                 <div class="pagination">
                     <ul>
-                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="propiedades.php?pagina=<?php echo $_GET["pagina"]-1?>&op=<?php echo $_GET['op']?>&tipo=<?php echo $_GET['tipo']?>&ciudad=<?php echo $_GET['ciudad']?>&zona=<?php echo $_GET['zona']?>&preciodesde=<?php echo $_GET['preciodesde']?>&preciohasta=<?php echo $_GET['preciohasta']?>&habitacionesdesde=<?php echo $_GET['habitacionesdesde']?>&habitacioneshasta=<?php echo $_GET['habitacioneshasta']?>&domicilio=<?php echo $_GET['domicilio']?>&ref=<?php echo $_GET['ref']?>&pileta=<?php echo $_GET['pileta']?>&llaves=<?php echo $_GET['llaves']?>&ocupada=<?php echo $_GET['ocupada']?>&plantabaja=<?php echo $_GET['plantabaja']?>&estado=<?php echo $_GET['estado']?>"><li><</li></a>
+                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="propiedades.php?pagina=<?php echo $_GET["pagina"]-1?>&op=<?php echo $_GET['op']?>&tipo=<?php echo $_GET['tipo']?>&ciudad=<?php echo $_GET['ciudad']?>&zona=<?php echo $_GET['zona']?>&preciodesde=<?php echo $_GET['preciodesde']?>&preciohasta=<?php echo $_GET['preciohasta']?>&habitacionesdesde=<?php echo $_GET['habitacionesdesde']?>&habitacioneshasta=<?php echo $_GET['habitacioneshasta']?>&domicilio=<?php echo $_GET['domicilio']?>&ref=<?php echo $_GET['ref']?>&pileta=<?php echo $_GET['pileta']?>&llaves=<?php echo $_GET['llaves']?>&ocupada=<?php echo $_GET['ocupada']?>&plantabaja=<?php echo $_GET['plantabaja']?>&estado=<?php echo $_GET['estado']?>&order=<?php echo $_GET['order']?>"><li><</li></a>
 				        <?php for($i=0;$i<$paginas;$i++):?>
-                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="propiedades.php?pagina=<?php echo $i+1?>&op=<?php echo $_GET['op']?>&tipo=<?php echo $_GET['tipo']?>&ciudad=<?php echo $_GET['ciudad']?>&zona=<?php echo $_GET['zona']?>&preciodesde=<?php echo $_GET['preciodesde']?>&preciohasta=<?php echo $_GET['preciohasta']?>&habitacionesdesde=<?php echo $_GET['habitacionesdesde']?>&habitacioneshasta=<?php echo $_GET['habitacioneshasta']?>&domicilio=<?php echo $_GET['domicilio']?>&ref=<?php echo $_GET['ref']?>&pileta=<?php echo $_GET['pileta']?>&llaves=<?php echo $_GET['llaves']?>&ocupada=<?php echo $_GET['ocupada']?>&plantabaja=<?php echo $_GET['plantabaja']?>&estado=<?php echo $_GET['estado']?>"><li><?php echo $i+1?></li></a>
+                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="propiedades.php?pagina=<?php echo $i+1?>&op=<?php echo $_GET['op']?>&tipo=<?php echo $_GET['tipo']?>&ciudad=<?php echo $_GET['ciudad']?>&zona=<?php echo $_GET['zona']?>&preciodesde=<?php echo $_GET['preciodesde']?>&preciohasta=<?php echo $_GET['preciohasta']?>&habitacionesdesde=<?php echo $_GET['habitacionesdesde']?>&habitacioneshasta=<?php echo $_GET['habitacioneshasta']?>&domicilio=<?php echo $_GET['domicilio']?>&ref=<?php echo $_GET['ref']?>&pileta=<?php echo $_GET['pileta']?>&llaves=<?php echo $_GET['llaves']?>&ocupada=<?php echo $_GET['ocupada']?>&plantabaja=<?php echo $_GET['plantabaja']?>&estado=<?php echo $_GET['estado']?>&order=<?php echo $_GET['order']?>"><li><?php echo $i+1?></li></a>
 				        <?php endfor ?>
-                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="propiedades.php?pagina=<?php echo $_GET["pagina"]+1?>&op=<?php echo $_GET['op']?>&tipo=<?php echo $_GET['tipo']?>&ciudad=<?php echo $_GET['ciudad']?>&zona=<?php echo $_GET['zona']?>&preciodesde=<?php echo $_GET['preciodesde']?>&preciohasta=<?php echo $_GET['preciohasta']?>&habitacionesdesde=<?php echo $_GET['habitacionesdesde']?>&habitacioneshasta=<?php echo $_GET['habitacioneshasta']?>&domicilio=<?php echo $_GET['domicilio']?>&ref=<?php echo $_GET['ref']?>&pileta=<?php echo $_GET['pileta']?>&llaves=<?php echo $_GET['llaves']?>&ocupada=<?php echo $_GET['ocupada']?>&plantabaja=<?php echo $_GET['plantabaja']?>&estado=<?php echo $_GET['estado']?>"><li>></li></a>
+                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="propiedades.php?pagina=<?php echo $_GET["pagina"]+1?>&op=<?php echo $_GET['op']?>&tipo=<?php echo $_GET['tipo']?>&ciudad=<?php echo $_GET['ciudad']?>&zona=<?php echo $_GET['zona']?>&preciodesde=<?php echo $_GET['preciodesde']?>&preciohasta=<?php echo $_GET['preciohasta']?>&habitacionesdesde=<?php echo $_GET['habitacionesdesde']?>&habitacioneshasta=<?php echo $_GET['habitacioneshasta']?>&domicilio=<?php echo $_GET['domicilio']?>&ref=<?php echo $_GET['ref']?>&pileta=<?php echo $_GET['pileta']?>&llaves=<?php echo $_GET['llaves']?>&ocupada=<?php echo $_GET['ocupada']?>&plantabaja=<?php echo $_GET['plantabaja']?>&estado=<?php echo $_GET['estado']?>&order=<?php echo $_GET['order']?>"><li>></li></a>
                     </ul>
                 </div>
             </div>  
@@ -292,5 +312,13 @@
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     </div>
     <script src="index.js"></script>
+    <script>
+        order = document.getElementById("order");
+        propForm = document.getElementById("propForm");
+
+        order.addEventListener("change", function(){
+            propForm.submit();
+        })
+    </script>
 </body>
 </html>
