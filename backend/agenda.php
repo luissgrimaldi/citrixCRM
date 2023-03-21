@@ -11,7 +11,11 @@ if (isset($_SESSION['usuario'])){
 
 
     $whereTipo=" AND e.tipo_tarea_id = ".$_GET['tipo'];
-    $whereAgente=" AND e.user_id = ".$_GET['agente'];         
+    if($_GET['agente']!=4){
+        $whereAgente=" AND e.user_id = ".$_GET['agente'];         
+    }else{
+        $whereAgente=" AND (e.user_id = 4 OR e.cliente_id > 0 OR e.propiedad_id > 0)";
+    }
     $whereAsuntos=" AND e.asunto LIKE '%".trim($_GET['asunto'])."%'";
     if($getRealizadas==2){$whereRealizadas=" AND e.tarea_terminada = 1";}else if($getRealizadas==1){$whereRealizadas=" AND e.tarea_terminada = 0";}else{$whereRealizadas="";};  
     
@@ -29,9 +33,9 @@ if (isset($_SESSION['usuario'])){
         if($_GET['asunto'] != ''){$filtro .= $whereAsuntos;};
     }
 
-    $sentencia = $connect->prepare("SELECT e.id, e.asunto, e.fecha, e.tipo_tarea_id, e.user_id, e.tarea_terminada, e.observaciones, e.hora_inicio,
+    $sentencia = $connect->prepare("SELECT e.id, e.asunto, e.fecha, e.tipo_tarea_id, e.user_id, e.tarea_terminada, e.observaciones, e.hora_inicio, e.propiedad_id, e.cliente_id,
         t.tipo_tarea_id, t.color_background, t.user_id,
-        e.id as id, e.asunto as title, e.fecha as start, e.observaciones as descripcion, e.tipo_tarea_id as tarea_id, e.tarea_terminada as tarea_terminada, e.hora_inicio as hora,
+        e.id as id, e.asunto as title, e.fecha as start, e.observaciones as descripcion, e.tipo_tarea_id as tarea_id, e.tarea_terminada as tarea_terminada, e.hora_inicio as hora, e.propiedad_id as e_propiedad_id, e.cliente_id as e_cliente_id,
         t.color_background as backgroundColor
         FROM wp_agenda e
         LEFT JOIN wp_agenda_tipo_tarea_custom_colors t ON  e.tipo_tarea_id =t.tipo_tarea_id

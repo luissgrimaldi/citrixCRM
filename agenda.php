@@ -262,11 +262,15 @@
             $('#observacionesEditar').text(info.event.extendedProps.descripcion);
             $('#tareaEditar option[value='+ info.event.extendedProps.tarea_id +']').prop('selected',true);
             let tareaValue = $('#tareaEditar option[value='+ info.event.extendedProps.tarea_id +']')
+            tareaValue.click;
             tareaValue = tareaValue.val();
+            $('#editar_propiedad_id').val(info.event.extendedProps.e_propiedad_id)
             if(tareaValue == 5){
                 $('#radioVisitaEditar').prop('checked',true);
+                $("#propiedadContentEditar").show();
             }else{
                 $('#radioTareaEditar').prop('checked',true);
+                $("#propiedadContentEditar").hide();
             }
             if(info.event.extendedProps.tarea_terminada == 1){$('#finalizadaEditar').attr('checked',true);}else{$('#finalizadaEditar').attr('checked',false);};
             let modalEditar = document.getElementById('modalEditar');

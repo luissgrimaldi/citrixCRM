@@ -2,13 +2,20 @@
 <?php if($rolAgente == 1 or $rolAgente == 3){if (!$_GET){header('Location:controladmin.php?page=usuario&pagina=1');};}else{if (!$_GET){header('Location:controladmin.php?page=contacto&pagina=1');}}?>
 
 <?php if ($_GET['page']  == 'usuario'){
+    if(!isset($_POST['order'])){$_POST['order'] = 1;}
+    // ORDER
+    if($_GET['order'] == 1){$order = "us_user_id DESC";};
+    if($_GET['order'] == 2){$order = "us_user_id ASC";};
+    if($_GET['order'] == 3){$order = "trim(us_nombre) ASC";};
+    if($_GET['order'] == 4){$order = "trim(us_nombre) DESC";};
     $sentencia = $connect->prepare("SELECT * FROM `usuarios`") or die('query failed');
     $sentencia->execute();
     $consultasXpagina = 40;
     $consultasTotales = $sentencia->rowCount();
     $paginas = $consultasTotales/$consultasXpagina;
     $paginas = ceil($paginas);
-    if(!$_GET ||$_GET["pagina"]<1){header('Location:controladmin.php?page=usuario&pagina=1');}elseif($_GET['pagina']>$paginas){header('Location:controladmin.php?page=usuario&pagina=1');}
+    if(!$_GET ||$_GET["pagina"]<1){header('Location:controladmin.php?page=usuario&pagina=1&order='.$_POST['order']);}elseif($_GET['pagina']>$paginas){header('Location:controladmin.php?page=usuario&pagina=1&order='.$_POST['order']);}
+    else if (!isset($_GET['order'])){header('Location:controladmin.php?page=usuario&pagina=1&order='.$_POST['order']);};
     if($rolAgente == 1 or $rolAgente == 3){?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
@@ -31,7 +38,24 @@
                     <div class="main__buttons">
                         <a class="main__buttons__button" href="adminagregar.php?page=usuario"><i class="fa-solid fa-plus"></i> Nuevo usuario</a> 
                     </div>
-                </div>               
+                </div>
+                <div class="main__decoration"></div>
+                <form class="form__busqueda-consulta form" id="usuarioForm" name="form" method="POST" action="controladmin.php?page=usuario" autocomplete="off">
+                    <div class="form__bloque form__bloque--1">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Ordenar por</label>
+                                <select id="usuarioOrder" class="form__select" name="order">
+                                        <option <?php if ($_GET['order'] == 1){echo 'selected';}?> value="1">Mas recientes</option>
+                                        <option <?php if ($_GET['order'] == 2){echo 'selected';}?> value="2">Mas antiguos</option>                                                                       
+                                        <option <?php if ($_GET['order'] == 3){echo 'selected';}?> value="3">Nombre A-Z</option>                                     
+                                        <option <?php if ($_GET['order'] == 4){echo 'selected';}?> value="4">Nombre Z-A</option>                                                                     
+                                </select>
+                            </div>                          
+                        </div>
+                    <div style="display:none" class="form__bloque form__bloque--2">
+                        <input type="submit" class="form__button form__bloque__button" value="Buscar">
+                    </div>
+                </form>            
                     <div class="main__perfil">
                         <div class="main__perfil__container">                         
                             <ul class="propiedades__ul">
@@ -43,9 +67,11 @@
                                 rol.role_id as rol_role_id, rol.name as rol_name                          
                                 FROM usuarios us 
                                 LEFT JOIN roles rol ON  us.rol = rol.role_id
-                                ORDER BY us_user_id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
+                                ORDER BY $order LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
                                 $sentencia->execute();
                                 $list_usuarios = $sentencia->fetchAll();
+                                $consultasTotalesActuales = $sentencia->rowCount();
+                                echo  '<span class="resultados">'.($inicioConsultasXpagina + 1).'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
                                 foreach($list_usuarios as $usuario){
                                     $id = $usuario['us_user_id'];                                                             
                                     $nombre = $usuario['us_nombre'];                                                             
@@ -73,11 +99,11 @@
                 </div>
                 <div class="pagination">
                     <ul>
-                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="controladmin.php?page=usuario&pagina=<?php echo $_GET["pagina"]-1?>"><li><</li></a>
+                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="controladmin.php?page=usuario&pagina=<?php echo $_GET["pagina"]-1?>&order=<?php echo $_GET['order']?>"><li><</li></a>
 				        <?php for($i=0;$i<$paginas;$i++):?>
-                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="controladmin.php?page=usuario&pagina=<?php echo $i+1?>"><li><?php echo $i+1?></li></a>
+                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="controladmin.php?page=usuario&pagina=<?php echo $i+1?>&order=<?php echo $_GET['order']?>"><li><?php echo $i+1?></li></a>
 				        <?php endfor ?>
-                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="controladmin.php?page=usuario&pagina=<?php echo $_GET["pagina"]+1?>"><li>></li></a>
+                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="controladmin.php?page=usuario&pagina=<?php echo $_GET["pagina"]+1?>&order=<?php echo $_GET['order']?>"><li>></li></a>
                     </ul>
                 </div>
             </div>  
@@ -88,13 +114,20 @@
 <?php ;}else{echo '<script> alert("Acceso denegado"); window.location = "controladmin.php"; </script>';} ;};?>
 
 <?php if ($_GET['page']  == 'ciudad'){
+        if(!isset($_POST['order'])){$_POST['order'] = 1;}
+        // ORDER
+        if($_GET['order'] == 1){$order = "id DESC";};
+        if($_GET['order'] == 2){$order = "id ASC";};
+        if($_GET['order'] == 3){$order = "trim(nombre) ASC";};
+        if($_GET['order'] == 4){$order = "trim(nombre) DESC";};
         $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades`") or die('query failed');
         $sentencia->execute();
         $consultasXpagina = 40;
         $consultasTotales = $sentencia->rowCount();
         $paginas = $consultasTotales/$consultasXpagina;
         $paginas = ceil($paginas);
-    if(!$_GET ||$_GET["pagina"]<1){header('Location:controladmin.php?page=ciudad&pagina=1');}elseif($_GET['pagina']>$paginas){header('Location:controladmin.php?page=ciudad&pagina=1');}
+    if(!$_GET ||$_GET["pagina"]<1){header('Location:controladmin.php?page=ciudad&pagina=1&order='.$_POST['order']);}elseif($_GET['pagina']>$paginas){header('Location:controladmin.php?page=ciudad&pagina=1&order='.$_POST['order']);}
+    else if (!isset($_GET['order'])){header('Location:controladmin.php?page=ciudad&pagina=1&order='.$_POST['order']);};
     if($rolAgente == 1 or $rolAgente == 3){?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
@@ -118,14 +151,33 @@
                         <a class="main__buttons__button" href="adminagregar.php?page=ciudad"><i class="fa-solid fa-plus"></i> Nueva ciudad</a> 
                     </div>
                 </div>
+                <div class="main__decoration"></div>
+                <form class="form__busqueda-consulta form" id="ciudadForm" name="form" method="POST" action="controladmin.php?page=ciudad" autocomplete="off">
+                    <div class="form__bloque form__bloque--1">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Ordenar por</label>
+                                <select id="ciudadOrder" class="form__select" name="order">
+                                        <option <?php if ($_GET['order'] == 1){echo 'selected';}?> value="1">Mas recientes</option>
+                                        <option <?php if ($_GET['order'] == 2){echo 'selected';}?> value="2">Mas antiguos</option>                                                                       
+                                        <option <?php if ($_GET['order'] == 3){echo 'selected';}?> value="3">Nombre A-Z</option>                                     
+                                        <option <?php if ($_GET['order'] == 4){echo 'selected';}?> value="4">Nombre Z-A</option>                                                                     
+                                </select>
+                            </div>                          
+                        </div>
+                    <div style="display:none" class="form__bloque form__bloque--2">
+                        <input type="submit" class="form__button form__bloque__button" value="Buscar">
+                    </div>
+                </form>
                     <div class="main__perfil">
                         <div class="main__perfil__container">                         
                             <ul class="propiedades__ul">
                             <?php
                                 $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina; 
-                                $sentencia = $connect->prepare("SELECT * from wp_ciudades ORDER BY id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
+                                $sentencia = $connect->prepare("SELECT * from wp_ciudades ORDER BY $order LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
                                 $sentencia->execute();
                                 $list_ciudades = $sentencia->fetchAll();
+                                $consultasTotalesActuales = $sentencia->rowCount();
+                                echo  '<span class="resultados">'.($inicioConsultasXpagina + 1).'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
                                 foreach($list_ciudades as $ciudad){
                                     $id = $ciudad['id'];                                                             
                                     $nombre = $ciudad['nombre'];                                                             
@@ -149,11 +201,11 @@
                 </div>
                 <div class="pagination">
                     <ul>
-                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="controladmin.php?page=ciudad&pagina=<?php echo $_GET["pagina"]-1?>"><li><</li></a>
+                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="controladmin.php?page=ciudad&pagina=<?php echo $_GET["pagina"]-1?>&order=<?php echo $_GET['order']?>"><li><</li></a>
 				        <?php for($i=0;$i<$paginas;$i++):?>
-                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="controladmin.php?page=ciudad&pagina=<?php echo $i+1?>"><li><?php echo $i+1?></li></a>
+                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="controladmin.php?page=ciudad&pagina=<?php echo $i+1?>&order=<?php echo $_GET['order']?>"><li><?php echo $i+1?></li></a>
 				        <?php endfor ?>
-                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="controladmin.php?page=ciudad&pagina=<?php echo $_GET["pagina"]+1?>"><li>></li></a>
+                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="controladmin.php?page=ciudad&pagina=<?php echo $_GET["pagina"]+1?>&order=<?php echo $_GET['order']?>"><li>></li></a>
                     </ul>
                 </div>
             </div>  
@@ -163,13 +215,20 @@
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <?php ;}else{echo '<script> alert("Acceso denegado"); window.location = "controladmin.php"; </script>';} ;};?>
 <?php if ($_GET['page']  == 'zona'){
+        if(!isset($_POST['order'])){$_POST['order'] = 1;}
+        // ORDER
+        if($_GET['order'] == 1){$order = "z_id DESC";};
+        if($_GET['order'] == 2){$order = "z_id ASC";};
+        if($_GET['order'] == 3){$order = "trim(z_nombre) ASC";};
+        if($_GET['order'] == 4){$order = "trim(z_nombre) DESC";};
         $sentencia = $connect->prepare("SELECT * FROM `wp_zonas`") or die('query failed');
         $sentencia->execute();
         $consultasXpagina = 40;
         $consultasTotales = $sentencia->rowCount();
         $paginas = $consultasTotales/$consultasXpagina;
         $paginas = ceil($paginas);
-    if(!$_GET ||$_GET["pagina"]<1){header('Location:controladmin.php?page=zona&pagina=1');}elseif($_GET['pagina']>$paginas){header('Location:controladmin.php?page=zona&pagina=1');}
+    if(!$_GET ||$_GET["pagina"]<1){header('Location:controladmin.php?page=zona&pagina=1&order='.$_POST['order']);}elseif($_GET['pagina']>$paginas){header('Location:controladmin.php?page=zona&pagina=1&order='.$_POST['order']);}
+    else if (!isset($_GET['order'])){header('Location:controladmin.php?page=zona&pagina=1&order='.$_POST['order']);};
     if($rolAgente == 1 or $rolAgente == 3){?>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--/* Main */-->
@@ -193,6 +252,23 @@
                         <a class="main__buttons__button" href="adminagregar.php?page=zona"><i class="fa-solid fa-plus"></i> Nueva zona</a>                       
                     </div>
                 </div>
+                <div class="main__decoration"></div>
+                <form class="form__busqueda-consulta form" id="zonaForm" name="form" method="POST" action="controladmin.php?page=zona" autocomplete="off">
+                    <div class="form__bloque form__bloque--1">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Ordenar por</label>
+                                <select id="zonaOrder" class="form__select" name="order">
+                                        <option <?php if ($_GET['order'] == 1){echo 'selected';}?> value="1">Mas recientes</option>
+                                        <option <?php if ($_GET['order'] == 2){echo 'selected';}?> value="2">Mas antiguos</option>                                                                       
+                                        <option <?php if ($_GET['order'] == 3){echo 'selected';}?> value="3">Nombre A-Z</option>                                     
+                                        <option <?php if ($_GET['order'] == 4){echo 'selected';}?> value="4">Nombre Z-A</option>                                                                     
+                                </select>
+                            </div>                          
+                        </div>
+                    <div style="display:none" class="form__bloque form__bloque--2">
+                        <input type="submit" class="form__button form__bloque__button" value="Buscar">
+                    </div>
+                </form>
                     <div class="main__perfil">
                         <div class="main__perfil__container">                         
                             <ul class="propiedades__ul">
@@ -204,9 +280,11 @@
                                 c.nombre as c_nombre, c.id as c_id                      
                                 from wp_zonas z
                                 LEFT JOIN wp_ciudades c ON z.ciudad_id = c.id
-                                ORDER BY z.id DESC LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
+                                ORDER BY $order LIMIT $inicioConsultasXpagina,$consultasXpagina") or die('query failed');
                                 $sentencia->execute();
                                 $list_zonas = $sentencia->fetchAll();
+                                $consultasTotalesActuales = $sentencia->rowCount();
+                                echo  '<span class="resultados">'.($inicioConsultasXpagina + 1).'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
                                 foreach($list_zonas as $zona){
                                     $id = $zona['z_id'];                                                             
                                     $nombre = $zona['z_nombre'];                                                             
@@ -232,11 +310,11 @@
                 </div>
                 <div class="pagination">
                     <ul>
-                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="controladmin.php?page=zona&pagina=<?php echo $_GET["pagina"]-1?>"><li><</li></a>
+                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="controladmin.php?page=zona&pagina=<?php echo $_GET["pagina"]-1?>&order=<?php echo $_GET['order']?>"><li><</li></a>
 				        <?php for($i=0;$i<$paginas;$i++):?>
-                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="controladmin.php?page=zona&pagina=<?php echo $i+1?>"><li><?php echo $i+1?></li></a>
+                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="controladmin.php?page=zona&pagina=<?php echo $i+1?>&order=<?php echo $_GET['order']?>"><li><?php echo $i+1?></li></a>
 				        <?php endfor ?>
-                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="controladmin.php?page=zona&pagina=<?php echo $_GET["pagina"]+1?>"><li>></li></a>
+                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="controladmin.php?page=zona&pagina=<?php echo $_GET["pagina"]+1?>&order=<?php echo $_GET['order']?>"><li>></li></a>
                     </ul>
                 </div>
             </div>  
@@ -468,11 +546,38 @@ if($_GET['nombre'] == '' AND $_GET['email'] == '' AND $_GET['telefono'] == '' AN
     <script src="index.js"></script>
     <script>
         order = document.getElementById("order");
-        propForm = document.getElementById("contactoForm");
+        contactoForm = document.getElementById("contactoForm");
 
-        order.addEventListener("change", function(){
-            propForm.submit();
-        })
+        if(order){
+            order.addEventListener("change", function(){
+                contactoForm.submit();
+            });
+        }
+
+        zonaOrder = document.getElementById("zonaOrder");
+        zonaForm = document.getElementById("zonaForm");
+        if(zonaOrder){
+            zonaOrder.addEventListener("change", function(){
+                zonaForm.submit();
+            });
+        }
+
+        ciudadOrder = document.getElementById("ciudadOrder");
+        ciudadForm = document.getElementById("ciudadForm");
+        if(ciudadOrder){
+            ciudadOrder.addEventListener("change", function(){
+                ciudadForm.submit();
+            });
+        }
+
+        usuarioOrder = document.getElementById("usuarioOrder");
+        usuarioForm = document.getElementById("usuarioForm");
+        if(usuarioOrder){
+            usuarioOrder.addEventListener("change", function(){
+                usuarioForm.submit();
+            });
+        }   
+
     </script>
 </body>
 </html>

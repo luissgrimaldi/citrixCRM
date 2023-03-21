@@ -329,6 +329,57 @@
     -webkit-box-shadow: 0px 0px 39px 3px rgba(0,0,0,0.72);
     -moz-box-shadow: 0px 0px 39px 3px rgba(0,0,0,0.72);
 }
+
+.modal__container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3em;
+    margin: 1em 0;
+    justify-content: flex-start;
+}
+
+.modalCantidadCruces{
+    text-align: center;
+    font-size: 1.25em;
+    color: var(--color-secundario-main);
+    font-weight: bold;
+}
+
+.modal__cruces{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.modal__cruces__img{
+    width: 5em;
+    margin-right:.5em;
+    border-radius: 1em;
+}
+
+.modal__cruces__a{
+    color: var(--color-principal-main);
+}
+
+.modal__cruces__a:hover{
+    cursor: pointer;
+    color: var(--body-select-hover-checked);
+}
+
+.modal__cerrar{
+    display: flex;
+    justify-content: center;
+    margin-top: 3em;
+}
+
+.modal__cerrar__btn{
+    background-color: red;
+}
+
+.modal__cerrar__btn:hover{
+    background-color: rgba(255, 0, 0, 0.555);
+    cursor: pointer;
+}
 /* End Main */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */

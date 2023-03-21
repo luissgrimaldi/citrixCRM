@@ -284,22 +284,37 @@
                                 $sentencia = $connect->prepare("SELECT * FROM `wp_propiedades` $filtro") or die('query failed');
                                 $sentencia->execute();
                                 $crucesActuales = $sentencia->rowCount();
-                                $list_propiedadesOperacion = $sentencia->fetchAll();                         
+                                $list_propiedadesOperacion = $sentencia->fetchAll();?>                       
+                                <div id="modal<?php echo $idConsulta?>" class="modal-BG">
+                                    <div class="modal">
+                                        <div class="modalCantidadCruces">
+                                            <span><?php if($crucesActuales==1){echo $crucesActuales.' Cruce';}else{echo $crucesActuales.' Cruces';}?></span>
+                                        </div>
+                                        <div class="modal__container">
+                                     
+                                <?php             
                                 foreach($list_propiedadesOperacion as $propiedad){
-                                $idPropiedad = $propiedad['id'];
-                                $propiedadRef = $propiedad['referencia_interna'];
-                                $propiedadTitulo = $propiedad['descripcion_corta'];
-                                $propiedadNombre = $propiedad['calle'];
-                                $propiedadAltura = $propiedad['altura'];
-                                };
-               
-                            ?>                                                      
+                                $idPropiedadCruces = $propiedad['id'];
+                                $propiedadRefCruces = $propiedad['referencia_interna'];
+                                $propiedadTituloCruces = $propiedad['descripcion_corta'];
+                                $propiedadNombreCruces = $propiedad['calle'];
+                                $propiedadImagenCruces = $propiedad['foto_portada'];
+                                $propiedadImagenCruces = str_replace('"', '', $propiedadImagenCruces);;
+                                $propiedadImagenCruces = str_replace("[", "", $propiedadImagenCruces);
+                                $propiedadImagenCruces = str_replace("]", "", $propiedadImagenCruces);
+                                $propiedadAlturaCruces = $propiedad['altura'];?>
+                                            <div class="modal__cruces">
+                                                <img class="modal__cruces__img" src="<?php echo 'https://projectandbrokers.com/wp-content/uploads/thumbnails/mediano__'.$propiedadImagenCruces?>" alt="">
+                                                <a  class="modal__cruces__a" href="propiedadesinfo.php?ref=<?php echo $propiedadRefCruces?>"><?php echo $propiedadNombreCruces .' '. $propiedadAlturaCruces.' ('.$propiedadRefCruces.')'?></a>                                                           
+                                            </div>
+                                            <?php }?>
+                                        </div>
+                                        <div class="modal__cerrar">
+                                            <button onclick="cerrarCruces(<?php echo $idConsulta;?>)" class="form__button form__bloque__button modal__cerrar__btn">Cerrar ventana</button>                                       
+                                        </div>
+                                    </div>
+                                </div>                                                   
                         <li class="consultas__li" id="li<?php echo $idConsulta;?>">
-                        <div id="modal" class="modal-BG">
-                            <div class="modal">            
-                                
-                            </div>
-                        </div>
                             <div class="consultas__bloque">                             
                                 <div class="consultas__bloque__content">
                                 <a href="consultasinfo.php?consulta=<?php echo $idConsulta?>" class="consultas__consulta"> <?php echo $nombreConsulta. ' '. $apellidoConsulta;?></a>
@@ -309,9 +324,9 @@
                                 </div>
                             </div>
                             <div class="consultas__bloque">
-                                <div class="consultas__bloque__content consultas__edit-search-reload">
+                                <div class="consultas__bloque__content consultas__edit-search-reload" onclick="abrirCruces(<?php echo $idConsulta;?>)">
                                     <?php if (!empty($situacionConsulta)){?><span class="consultas__datos-cliente__situacion"><?php echo $situacionConsulta?></span><?php };?>
-                                    <div class="consultas__accion__cruces__container"><i class="consultas__accion__cruces fa-solid fa-rotate"></i><span><?php echo $crucesActuales;?> Cruces</span></div>
+                                    <div class="consultas__accion__cruces__container"><i class="consultas__accion__cruces fa-solid fa-rotate"></i><span><?php if($crucesActuales==1){echo $crucesActuales.' Cruce';}else{echo $crucesActuales.' Cruces';}?></span></div>
                                     <span class="consultas__consulta"> <?php echo $fechaConsulta?></span>
                                 </div>
                             </div>
@@ -343,9 +358,18 @@
     </div>
     <script src="index.js"></script>
     <script>
+    function abrirCruces(id){
+        let modal = document.getElementById('modal'+id);  
+        modal.style.display='block';
+    }
+    function cerrarCruces(id){
+        let modal = document.getElementById('modal'+id);  
+        modal.style.display='block';
+        modal.removeAttribute('style'); 
+    }
+
         order = document.getElementById("order");
         propForm = document.getElementById("conForm");
-
         order.addEventListener("change", function(){
             propForm.submit();
         })

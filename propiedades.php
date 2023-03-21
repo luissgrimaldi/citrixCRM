@@ -19,7 +19,7 @@
                     <div class="main__title"><i class="fa-solid fa-building main__h1--emoji"></i><h1 class="main__h1">Propiedades</h1></div>
                     <div class="main__buttons">
                         <a href="agregarpropiedad.php" class="main__buttons__button">Agregar Propiedad</a>
-                        <a class="main__buttons__button">Descargar Ficha</a>
+                        <a href="uploads/ficha/ficha_pyb_crm.pdf" target="blank_" class="main__buttons__button">Descargar Ficha</a>
                     </div>
                 </div>
                 <div class="main__decoration"></div>
@@ -263,7 +263,7 @@
                         foreach($list_propiedades as $propiedad){
                             $idPropiedad = $propiedad['prop_id'];
                             $imgPropiedad = strval($propiedad['prop_foto_portada']);
-                            $imgPropiedad = str_replace('"', '', $imgPropiedad);;
+                            $imgPropiedad = str_replace('"', '', $imgPropiedad);
                             $imgPropiedad = str_replace("[", "", $imgPropiedad);
                             $imgPropiedad = str_replace("]", "", $imgPropiedad);
                             $metrosPropiedad = floatval($propiedad['prop_metros_utiles']);
