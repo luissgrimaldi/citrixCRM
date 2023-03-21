@@ -124,7 +124,7 @@
                         $editarGaleriaFotos = str_replace ( ']', '', $editarGaleriaFotos);
                         $editarGaleriaFotos = str_replace ( '"', '', $editarGaleriaFotos);
                         $editarDescripcionMediana = $propiedad['descripcion_mediana'];
-                        $editarCaptadoPor = $propiedad['captado_por'];
+                        $editarCaptadoPor = $propiedad['agente_asignado_id'];
                         $editarContactadoPor = $propiedad['contactado_por'];
                         $editarOficina = $propiedad['oficina_id'];
                         $editarLlavero = $propiedad['llavero'];
@@ -161,15 +161,7 @@
                             </div>
                             <div class="form__bloque__content content"> 
                                 <label  class="form__label content__label" for="">Operación</label>
-                                <select class="form__select content__select" name="operacion" id="">                                             
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_operacion` WHERE id = '".$editarOperacion."'") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                        $propiedadNombre = $situacion['nombre'];?>
-                                        <option value="<?php echo $editarOperacion;?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };?>                              
+                                <select class="form__select content__select" name="operacion" id="">                                                                          
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_operacion` WHERE habilitado=1") or die('query failed');
@@ -178,22 +170,14 @@
                                         foreach($list_propiedades as $propiedad){
                                         $idPropiedad = $propiedad['id'];
                                         $propiedadNombre = $propiedad['nombre'];
-                                        if($editarOperacion != $idPropiedad){?>
-                                    <option value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
-                                <?php };};?>
+                                        ?>
+                                    <option <?php if($editarOperacion == $idPropiedad){echo 'selected';}?> value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
+                                <?php };?>
                                 </select>
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Tipo de propiedad</label>
-                                <select class="form__select content__select" name="tipo" id="">    
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_tipo` WHERE id = '".$editarPropiedad."'") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                        $propiedadNombre = $situacion['nombre'];?>
-                                        <option value="<?php echo $editarPropiedad;?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };?>                              
+                                <select class="form__select content__select" name="tipo" id="">                                 
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_propiedad_tipo` WHERE habilitado=1") or die('query failed');
@@ -202,9 +186,9 @@
                                         foreach($list_propiedades as $propiedad){
                                         $idPropiedad = $propiedad['id'];
                                         $propiedadNombre = $propiedad['nombre'];
-                                        if($editarPropiedad != $idPropiedad){?>?>
-                                    <option value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
-                                <?php };};?>
+                                        ?>
+                                    <option <?php if($editarPropiedad == $idPropiedad){echo 'selected';}?> value="<?php echo $idPropiedad?>"><?php echo $propiedadNombre?></option>
+                                <?php };?>
                                 </select>
                             </div>
                             <div class="form__bloque__content content">
@@ -215,15 +199,7 @@
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
                                     <label  class="form__label content__label" for="">Tipo de calle</label>
-                                    <select class="form__select content__select" name="tipocalle" id="">    
-                                        <?php
-                                            $sentencia = $connect->prepare("SELECT * FROM `wp_tipo_calle` WHERE id = '".$editarTipoCalle."'") or die('query failed');
-                                            $sentencia->execute();
-                                            $list_situaciones = $sentencia->fetchAll();                         
-                                            foreach($list_situaciones as $situacion){
-                                            $propiedadNombre = $situacion['nombre'];?>
-                                            <option value="<?php echo $editarTipoCalle;?>"><?php echo $propiedadNombre;?></option>
-                                        <?php };?>                              
+                                    <select class="form__select content__select" name="tipocalle" id="">                                
                                         <option value></option>
                                         <?php                          
                                             $sentencia = $connect->prepare("SELECT * FROM `wp_tipo_calle` WHERE habilitado=1") or die('query failed');
@@ -232,9 +208,9 @@
                                             foreach($list_tipo_calle as $tipoCalle){
                                             $idTipoCalle = $tipoCalle['id'];
                                             $tipoCalleNombre = $tipoCalle['nombre'];
-                                            if($editarTipoCalle != $idTipoCalle){?>?>
-                                        <option value="<?php echo $idTipoCalle?>"><?php echo $tipoCalleNombre?></option>
-                                    <?php };};?>
+                                            ?>
+                                        <option <?php if($editarTipoCalle == $idTipoCalle){echo 'selected';}?> value="<?php echo $idTipoCalle?>"><?php echo $tipoCalleNombre?></option>
+                                    <?php };?>
                                     </select>
                             </div>
                             <div class="form__bloque__content content">
@@ -247,15 +223,7 @@
                             </div>  
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Ciudad</label>
-                                <select class="form__select content__select" name="ciudad" id="" value="<?php echo $editarCiudad;?>">    
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE id = '".$editarCiudad."'") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                        $propiedadNombre = $situacion['nombre'];?>
-                                        <option value="<?php echo $editarCiudad;?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };?>                              
+                                <select class="form__select content__select" name="ciudad" id="" value="<?php echo $editarCiudad;?>">                                
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE habilitado=1") or die('query failed');
@@ -264,24 +232,16 @@
                                         foreach($list_ciudades as $ciudad){
                                         $idCiudad = $ciudad['id'];
                                         $ciudadNombre = $ciudad['nombre'];
-                                        if($editarCiudad != $idCiudad){?>
-                                    <option value="<?php echo $idCiudad?>"><?php echo $ciudadNombre?></option>
-                                <?php };};?>
+                                        ?>
+                                    <option <?php if($editarCiudad == $idCiudad){echo 'selected';}?> value="<?php echo $idCiudad?>"><?php echo $ciudadNombre?></option>
+                                <?php };?>
                                 </select>
                             </div>                                                     
                         </div>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Zona</label>
-                                <select class="form__select content__select" name="zona" id="">    
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_zonas` WHERE id = '".$editarZona."'") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                        $propiedadNombre = $situacion['nombre'];?>
-                                        <option value="<?php echo $editarZona;?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };?>                              
+                                <select class="form__select content__select" name="zona" id="">                                
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_zonas` WHERE habilitada=1") or die('query failed');
@@ -290,9 +250,9 @@
                                         foreach($list_zonas as $zona){
                                         $idZona = $zona['id'];
                                         $zonaNombre = $zona['nombre'];
-                                        if($editarZona != $idZona){?>
-                                    <option value="<?php echo $idZona?>"><?php echo $zonaNombre?></option>
-                                <?php };};?>
+                                        ?>
+                                    <option <?php if($editarZona == $idZona){echo 'selected';}?> value="<?php echo $idZona?>"><?php echo $zonaNombre?></option>
+                                <?php };?>
                                 </select>
                             </div>
                             <div class="form__bloque__content content">
@@ -393,15 +353,7 @@
                         <div class="form__bloque"> 
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Estado general</label>
-                                <select class="form__select content__select" name="estadogeneral" id="">    
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_propiedades_estados` WHERE id = '".$editarEstadoGeneral."'") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                        $propiedadNombre = $situacion['nombre'];?>
-                                        <option value="<?php echo $editarEstadoGeneral;?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };?>                              
+                                <select class="form__select content__select" name="estadogeneral" id="">                                 
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_propiedades_estados` WHERE habilitado=1") or die('query failed');
@@ -410,22 +362,14 @@
                                         foreach($list_estados as $estado){
                                         $idEstado = $estado['id'];
                                         $estadoNombre = $estado['nombre'];
-                                        if($editarEstadoGeneral != $idEstado){?>
-                                    <option value="<?php echo $idEstado?>"><?php echo $estadoNombre?></option>
-                                <?php };};?>
+                                        ?>
+                                    <option <?php if($editarEstadoGeneral == $idEstado){echo 'selected';}?> value="<?php echo $idEstado?>"><?php echo $estadoNombre?></option>
+                                <?php };?>
                                 </select>
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Carpinteria ext.</label>
-                                <select class="form__select content__select" name="carpinteriaext" id="">    
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_tipos_carpinteria` WHERE id = '".$editarEstadoCarpinteriaExt."'") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                        $propiedadNombre = $situacion['nombre'];?>
-                                        <option value="<?php echo $editarEstadoCarpinteriaExt;?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };?>                              
+                                <select class="form__select content__select" name="carpinteriaext" id="">                                
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_tipos_carpinteria`") or die('query failed');
@@ -434,22 +378,14 @@
                                         foreach($list_carpinterias as $carpinteria){
                                         $idCarpinteria = $carpinteria['id'];
                                         $carpinteriaNombre = $carpinteria['nombre'];
-                                        if($editarEstadoCarpinteriaExt != $idCarpinteria){?>
-                                    <option value="<?php echo $idCarpinteria?>"><?php echo $carpinteriaNombre?></option>
-                                <?php };};?>
+                                        ?>
+                                    <option <?php if($editarEstadoCarpinteriaExt == $idCarpinteria){echo 'selected';}?> value="<?php echo $idCarpinteria?>"><?php echo $carpinteriaNombre?></option>
+                                <?php };?>
                                 </select>
                             </div>                          
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Orientacion</label>
-                                <select class="form__select content__select" name="orientacion" id="">    
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_orientaciones` WHERE id = '".$editarOrientacion."'") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                        $propiedadNombre = $situacion['nombre'];?>
-                                        <option value="<?php echo $editarOrientacion;?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };?>                              
+                                <select class="form__select content__select" name="orientacion" id="">                                 
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_orientaciones`") or die('query failed');
@@ -458,24 +394,16 @@
                                         foreach($list_orientaciones as $orientacion){
                                         $idOrientacion = $orientacion['id'];
                                         $orientacionNombre = $orientacion['nombre'];
-                                        if($editarOrientacion != $idOrientacion){?>
-                                    <option value="<?php echo $idOrientacion?>"><?php echo $orientacionNombre?></option>
-                                <?php };};?>
+                                        ?>
+                                    <option <?php if($editarOrientacion == $idOrientacion){echo 'selected';}?> value="<?php echo $idOrientacion?>"><?php echo $orientacionNombre?></option>
+                                <?php };?>
                                 </select>
                             </div>                                                                                                                                                                             
                         </div>
                         <div class="form__bloque"> 
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Agua caliente</label>
-                                <select class="form__select content__select" name="aguacaliente" id="">    
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_tipos_agua_caliente` WHERE id = '".$editarAguaCaliente."'") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                        $propiedadNombre = $situacion['nombre'];?>
-                                        <option value="<?php echo $editarAguaCaliente;?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };?>                              
+                                <select class="form__select content__select" name="aguacaliente" id="">                                
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_tipos_agua_caliente` WHERE habilitado=1") or die('query failed');
@@ -484,22 +412,14 @@
                                         foreach($list_Aguas as $agua){
                                         $idAgua = $agua['id'];
                                         $aguaNombre = $agua['nombre'];
-                                        if($editarAguaCaliente != $idAgua){?>
-                                    <option value="<?php echo $idAgua?>"><?php echo $aguaNombre?></option>
-                                <?php };};?>
+                                        ?>
+                                    <option <?php if($editarAguaCaliente == $idAgua){echo 'selected';}?> value="<?php echo $idAgua?>"><?php echo $aguaNombre?></option>
+                                <?php };?>
                                 </select>
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Carpinteria int.</label>
-                                <select class="form__select content__select" name="carpinteriaint" id="">    
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_caracteristicas_estados` WHERE id = '".$editarEstadoCarpinteriaInt."'") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                        $propiedadNombre = $situacion['nombre'];?>
-                                        <option value="<?php echo $editarEstadoCarpinteriaInt;?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };?>                              
+                                <select class="form__select content__select" name="carpinteriaint" id="">                               
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_caracteristicas_estados` WHERE habilitado=1") or die('query failed');
@@ -508,22 +428,14 @@
                                         foreach($list_carpinterias as $carpinteria){
                                         $idCarpinteria = $carpinteria['id'];
                                         $carpinteriaNombre = $carpinteria['nombre'];
-                                        if($editarEstadoCarpinteriaInt != $idCarpinteria){?>
-                                    <option value="<?php echo $idCarpinteria?>"><?php echo $carpinteriaNombre?></option>
-                                <?php };};?>
+                                        ?>
+                                    <option <?php if($editarEstadoCarpinteriaInt == $idCarpinteria){echo 'selected';}?> value="<?php echo $idCarpinteria?>"><?php echo $carpinteriaNombre?></option>
+                                <?php };?>
                                 </select>
                             </div>                          
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Tipo de calefacción</label>
-                                <select class="form__select content__select" name="calefaccion" id="">    
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_tipos_calefaccion` WHERE id = '".$editarTipoCalefaccion."'") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                        $propiedadNombre = $situacion['nombre'];?>
-                                        <option value="<?php echo $editarTipoCalefaccion;?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };?>                              
+                                <select class="form__select content__select" name="calefaccion" id="">                                  
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_tipos_calefaccion` WHERE habilitado=1") or die('query failed');
@@ -532,22 +444,14 @@
                                         foreach($list_calefacciones as $calefaccion){
                                         $idCalefaccion = $calefaccion['id'];
                                         $calefaccionNombre = $calefaccion['nombre'];
-                                        if($editarTipoCalefaccion != $idCalefaccion){?>
-                                    <option value="<?php echo $idCalefaccion?>"><?php echo $calefaccionNombre?></option>
-                                <?php };};?>
+                                        ?>
+                                    <option <?php if($editarTipoCalefaccion == $idCalefaccion){echo 'selected';}?> value="<?php echo $idCalefaccion?>"><?php echo $calefaccionNombre?></option>
+                                <?php };?>
                                 </select>
                             </div>                                                                                                                                                                             
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Tipo de cocina</label>
-                                <select class="form__select content__select" name="tipococina" id="">    
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_tipos_cocina` WHERE id = '".$editarTipoCocina."'") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                        $propiedadNombre = $situacion['nombre'];?>
-                                        <option value="<?php echo $editarTipoCocina;?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };?>                              
+                                <select class="form__select content__select" name="tipococina" id="">                              
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_tipos_cocina` WHERE habilitado=1") or die('query failed');
@@ -556,9 +460,9 @@
                                         foreach($list_cocinas as $cocina){
                                         $idCocina= $cocina['id'];
                                         $cocinaNombre = $cocina['nombre'];
-                                        if($editarTipoCocina != $idCocina){?>
-                                    <option value="<?php echo $idCocina?>"><?php echo $cocinaNombre?></option>
-                                <?php };};?>
+                                        ?>
+                                    <option <?php if($editarTipoCocina == $idCocina){echo 'selected';}?> value="<?php echo $idCocina?>"><?php echo $cocinaNombre?></option>
+                                <?php };?>
                                 </select>
                             </div>                                                                                                                                                                                               
                         </div>
@@ -901,16 +805,7 @@
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Captado por</label>
-                                <select class="form__select" name="captadopor" id="">                               
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = '".$editarCaptadoPor."'") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                            $propiedadNombre = $situacion['nombre'];
-                                            $propiedadApellido = $situacion['apellido'];?>
-                                        <option value="<?php echo $editarCaptadoPor;?>"><?php echo $propiedadNombre.' '.$propiedadApellido;?></option>
-                                    <?php };?>                              
+                                <select class="form__select" name="captadopor" id="">                                                           
                                     <option value></option>
                                         <?php                          
                                             $sentencia = $connect->prepare("SELECT * FROM `usuarios`  WHERE habilitado=1") or die('query failed');
@@ -920,23 +815,14 @@
                                             $idAgente = $agente['user_id'];
                                             $agenteNombre = $agente['nombre'];
                                             $agenteApellido = $agente['apellido'];
-                                            if($editarCaptadoPor != $idAgente){?>
-                                        <option value="<?php echo $idAgente?>"><?php echo $agenteNombre.' '.$agenteApellido ?></option>
-                                    <?php };};?>
+                                            ?>
+                                        <option <?php if($editarCaptadoPor == $idAgente){echo 'selected';}?> value="<?php echo $idAgente?>"><?php echo $agenteNombre.' '.$agenteApellido ?></option>
+                                    <?php };?>
                                 </select>
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Contactado por</label>
-                                <select class="form__select" name="contactadopor" id="">                               
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = '".$editarContactadoPor."'") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                            $propiedadNombre = $situacion['nombre'];
-                                            $propiedadApellido = $situacion['apellido'];?>
-                                        <option value="<?php echo $editarContactadoPor;?>"><?php echo $propiedadNombre.' '.$propiedadApellido;?></option>
-                                    <?php };?>                              
+                                <select class="form__select" name="contactadopor" id="">                                                            
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `usuarios`  WHERE habilitado=1") or die('query failed');
@@ -946,22 +832,14 @@
                                         $idAgente = $agente['user_id'];
                                         $agenteNombre = $agente['nombre'];
                                         $agenteApellido = $agente['apellido'];
-                                        if($editarContactadoPor != $idAgente){?>
-                                    <option value="<?php echo $idAgente?>"><?php echo $agenteNombre.' '.$agenteApellido ?></option>
-                                    <?php };};?>
+                                        ?>
+                                    <option <?php if($editarContactadoPor == $idAgente){echo 'selected';}?> value="<?php echo $idAgente?>"><?php echo $agenteNombre.' '.$agenteApellido ?></option>
+                                    <?php };?>
                                 </select>
                             </div>                                          
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Oficina</label>
-                                <select class="form__select content__select" name="oficina" id="">    
-                                    <?php
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_oficinas` WHERE id = '".$editarOficina."'") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_situaciones = $sentencia->fetchAll();                         
-                                        foreach($list_situaciones as $situacion){
-                                        $propiedadNombre = $situacion['nombre'];?>
-                                        <option value="<?php echo $editarOficina;?>"><?php echo $propiedadNombre;?></option>
-                                    <?php };?>                              
+                                <select class="form__select content__select" name="oficina" id="">                               
                                     <option value></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_oficinas` WHERE habilitado=1") or die('query failed');
@@ -970,9 +848,9 @@
                                         foreach($list_oficinas as $oficina){
                                         $idOficina = $oficina['id'];
                                         $oficinaNombre = $oficina['nombre'];
-                                        if($editarOficina != $idOficina){?>
-                                    <option value="<?php echo $idOficina?>"><?php echo $oficinaNombre?></option>
-                                <?php };};?>
+                                        ?>
+                                    <option <?php if($editarOficina == $idOficina){echo 'selected';}?> value="<?php echo $idOficina?>"><?php echo $oficinaNombre?></option>
+                                <?php };?>
                                 </select>
                             </div>
                             <div class="form__bloque__content content">
