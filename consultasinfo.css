@@ -168,7 +168,7 @@
 }
 
 .tareas--pendientes__tarea--bold{
-    text-align: left;
+    text-align: center;
     font-weight: bold;
 }
 
@@ -338,6 +338,7 @@
     justify-content: flex-start;
     align-items: center;
     gap: 1em;
+    flex-wrap: wrap;
 }
 
 .panel__segumiento-visita__button{
@@ -383,6 +384,19 @@
 
 
 
+@media screen and (max-width:1230px) {
+    .tareas--pendientes__li{
+        flex-direction: column;
+    }
+    .tareas--pendientes__tarea{
+        justify-content: center;
+        align-items: center;
+    }
+    .visitas__img {
+        width: 18em;
+    }
+}
+
 @media screen and (max-width:1182px) {
     .main__user{
         display: flex;
@@ -395,10 +409,16 @@
         margin: 0 auto;
     }
 
-    .generico{
-        width: 20em;
-    }
 }
+
+@media screen and (max-width: 968px) {
+    
+    .visitas__img {
+        width: 17em;
+    }
+
+}
+
 
 @media screen and (max-width:778px) {
     .form__busqueda-propiedad{

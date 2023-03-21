@@ -163,7 +163,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Fecha</label>
-                            <input type="date" class="form__text content__text" name="fecha" >                                  
+                            <input type="date" class="form__text content__text" name="fecha" value="<?php echo date("Y-m-d");?>">                                  
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Observaciones</label>
@@ -181,7 +181,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                     </div>
                     <div class="form__bloque">
                         <div class="form__bloque__content content">
-                            <input type="hidden" class="form__text content__text" name="consulta_id" value="<?php echo $editarContacto?>">                               
+                            <input type="hidden" class="form__text content__text" name="consulta_id" value="<?php echo $editarId?>">                               
                         </div>
                     </div>                                      
                     <div class="main__decoration"></div>
@@ -209,7 +209,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Fecha</label>
-                            <input type="date" class="form__text content__text" name="fecha">                                  
+                            <input type="date" class="form__text content__text" name="fecha" value="<?php echo date("Y-m-d");?>">                                  
                         </div>
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Observaciones</label>
@@ -233,7 +233,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                             <ul class="content_ul" id="listaPropiedadesEditar"></ul>                                                          
                         </div>
                         <div class="form__bloque__content content">
-                            <input type="hidden" class="form__text content__text" name="consulta_id" value="<?php echo $editarContacto?>">                               
+                            <input type="hidden" class="form__text content__text" name="consulta_id" value="<?php echo $editarId?>">                               
                         </div>
                     </div>                                      
                     <div class="main__decoration"></div>
@@ -305,7 +305,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         <span class="consulta__span"><?php echo $editarConsulta;?></span>
                     </div>             
                     <?php           
-                        $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.cliente_id, t.asignada_el,
+                        $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.consulta_id, t.asignada_el,
                         g.id, g.nombre,
                         a.user_id, a.nombre, a.apellido,
                         t.id as t_id, t.user_id as t_user_id, t.fecha as t_fecha, t.asunto as t_asunto, t.tipo_tarea_id as t_tipo_tarea, t.hora_inicio as t_hora_inicio, t.observaciones as t_observaciones, t.asignada_el as t_asignada_el,
@@ -314,7 +314,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         FROM wp_agenda t 
                         LEFT JOIN wp_agenda_tipo_tarea g ON  t.tipo_tarea_id =g.id
                         LEFT JOIN usuarios a ON  t.user_id=a.user_id
-                        WHERE t.cliente_id=$editarContacto AND t.tipo_tarea_id != 5 ORDER BY t.id DESC") or die('query failed');
+                        WHERE t.consulta_id=$editarId AND t.tipo_tarea_id != 5 ORDER BY t.id DESC") or die('query failed');
                         $sentencia->execute();
                         $seguimientos = $sentencia->rowCount();
                         if($seguimientos > 0){?>
@@ -367,7 +367,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         <span class="consulta__span"><?php echo $editarConsulta;?></span>
                     </div>  
                     <?php           
-                        $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.cliente_id, t.asignada_el, t.propiedad_id,
+                        $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.consulta_id, t.asignada_el, t.propiedad_id,
                         g.id, g.nombre,
                         a.user_id, a.nombre, a.apellido,
                         p.id, p.referencia_interna, p.zona_id, p.foto_portada, p.precio_propietario,
@@ -382,7 +382,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         LEFT JOIN usuarios a ON  t.user_id=a.user_id
                         LEFT JOIN wp_propiedades p ON  t.propiedad_id=p.id
                         LEFT JOIN wp_zonas z ON  p.zona_id=z.id
-                        WHERE t.cliente_id=$editarContacto AND t.tipo_tarea_id = 5  ORDER BY t.id DESC") or die('query failed');
+                        WHERE t.consulta_id=$editarId AND t.tipo_tarea_id = 5  ORDER BY t.id DESC") or die('query failed');
                         $sentencia->execute();
                         $visitas = $sentencia->rowCount();
                         if($visitas > 0){?>

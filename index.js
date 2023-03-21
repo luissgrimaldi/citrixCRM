@@ -362,13 +362,13 @@ function getConsulta() {
 }
 
 
-function seleccionarConsulta(id,nombre,apellido,contactoId) {
+function seleccionarConsulta(id,nombre,apellido) {
     let buscador = document.getElementById("buscadorconsulta")
     let inputHide = document.getElementById("consulta_id")
     let lista = document.getElementById("listaConsultas")
 
     buscador.value = id+' - '+nombre+' '+apellido;
-    inputHide.value = contactoId;
+    inputHide.value = id;
 
     lista.style.display = 'none'  
 }
@@ -448,13 +448,13 @@ function getConsulta2() {
 }
 
 
-function seleccionarConsulta2(id,nombre,apellido,contactoId) {
+function seleccionarConsulta2(id,nombre,apellido) {
     let buscador = document.getElementById("buscadorconsulta2")
     let inputHide = document.getElementById("editar_consulta_id")
     let lista = document.getElementById("listaConsultasEditar")
 
     buscador.value = id+' - '+nombre+' '+apellido;
-    inputHide.value = contactoId;
+    inputHide.value = id;
 
     lista.style.display = 'none'  
 }

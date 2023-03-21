@@ -264,7 +264,14 @@
             let tareaValue = $('#tareaEditar option[value='+ info.event.extendedProps.tarea_id +']')
             tareaValue.click;
             tareaValue = tareaValue.val();
-            $('#editar_propiedad_id').val(info.event.extendedProps.e_propiedad_id)
+            $('#editar_propiedad_id').val(info.event.extendedProps.e_propiedad_id);
+            if(info.event.extendedProps.e_propiedad_id != 0){
+                $('#buscadorpropiedad3').val(info.event.extendedProps.p_referencia_interna + ' - ' + info.event.extendedProps.p_calle);
+            }
+            $('#editar_consulta_id').val(info.event.extendedProps.e_consulta_id);          
+            if(info.event.extendedProps.e_consulta_id != 0){
+                $('#buscadorconsulta2').val(info.event.extendedProps.c_id + ' - ' + info.event.extendedProps.c_nombre + ' ' + info.event.extendedProps.c_apellido);
+            }
             if(tareaValue == 5){
                 $('#radioVisitaEditar').prop('checked',true);
                 $("#propiedadContentEditar").show();

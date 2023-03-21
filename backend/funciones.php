@@ -533,7 +533,7 @@ function agregarEvento($connect) : void{
     $clienteId = $_POST['consulta_id'];
     $propiedadId = $_POST['propiedad_id'];
 
-    $query = $connect-> prepare ("INSERT INTO wp_agenda (tipo_tarea_id, asunto, fecha, observaciones, hora_inicio, tarea_terminada, asignada_por, user_id, asignada_el, cliente_id, propiedad_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $query = $connect-> prepare ("INSERT INTO wp_agenda (tipo_tarea_id, asunto, fecha, observaciones, hora_inicio, tarea_terminada, asignada_por, user_id, asignada_el, consulta_id, propiedad_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $query->execute([$tipoTareaId, $asunto, $fecha, $observaciones, $horaInicio, $tareaTerminada, $asiganadaPor, $userId, $asiganadaEl, $clienteId, $propiedadId]);
     if($query){
         echo json_encode("Evento agregado con exito");
@@ -1856,7 +1856,7 @@ function editarEvento($connect) : void{
         $observaciones = $evento['observaciones'];
         $hora = $evento['hora_inicio'];
         $finalizada = $evento['tarea_terminada'];
-        $clienteId = $evento['cliente_id'];
+        $clienteId = $evento['consulta_id'];
         $propiedadId = $evento['propiedad_id'];
     }
 
@@ -1897,7 +1897,7 @@ function editarEvento($connect) : void{
             $update .= ", tarea_terminada = '".$finalizadaNuevo."'";
         }
         if($clienteIdNuevo != $clienteId AND $clienteIdNuevo!= '' AND $clienteIdNuevo!=NULL){
-            $update .= ", cliente_id = '".$clienteIdNuevo."'";
+            $update .= ", consulta_id = '".$clienteIdNuevo."'";
         }
         if($propiedadIdNuevo != $clienteId AND $propiedadId!= '' AND $propiedadIdNuevo!=NULL){
             $update .= ", propiedad_id = '".$propiedadIdNuevo."'";
