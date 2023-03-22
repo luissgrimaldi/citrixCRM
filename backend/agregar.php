@@ -1,12 +1,13 @@
 <?php 
 include 'connect.php';
+include 'connect2.php';
 include 'funciones.php';
 if(!isset($_SESSION)) {session_start();};
 if (isset($_SESSION['usuario'])){
     if(isset($_POST['submit'])){
 
         if($_GET['page']=='propiedad'){
-            agregarPropiedad($connect,$connectar);
+            agregarPropiedad($connect,$connect2);
         };
 
         if($_GET['page']=='consulta'){
