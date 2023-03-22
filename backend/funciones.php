@@ -614,6 +614,7 @@ function agregarContacto($connect) : void{
     if(!isset($_POST['conyuge'])){$_POST['conyuge']='';};
     if(!isset($_POST['telefono_conyuge'])){$_POST['telefono_conyuge']='';};
     if(!isset($_POST['email_conyuge'])){$_POST['email_conyuge']='';};
+    if(!isset($_POST['agente_asignado_id'])){$_POST['agente_asignado_id']='';};
     if(!isset($_POST['no_emails'])){$_POST['no_emails']= '1';};
     
     // Variables de sección información //
@@ -626,13 +627,14 @@ function agregarContacto($connect) : void{
     $conyuge =  trim($_POST['conyuge']);
     $telefono_conyuge =  trim($_POST['telefono_conyuge']);
     $email_conyuge =  trim($_POST['email_conyuge']);
+    $agenteAsignadoId = trim($_POST['agente_asignado_id']);
     $no_emails = trim($_POST['no_emails']);
     
     // IF para ver si cumple los requisitos //
 
     // Hago el insert en la DB //
-    $query = $connect-> prepare ("INSERT INTO wp_contactos (nombre, apellido, telefono, email, direccion, no_emails, observaciones, conyuge, conyuge_tel, conyuge_email) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $query->execute([$nombre, $apellido, $telefono, $email, $direccion, $no_emails, $observaciones, $conyuge, $telefono_conyuge, $email_conyuge]);
+    $query = $connect-> prepare ("INSERT INTO wp_contactos (nombre, apellido, telefono, email, direccion, no_emails, observaciones, conyuge, conyuge_tel, conyuge_email, agente_asignado_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $query->execute([$nombre, $apellido, $telefono, $email, $direccion, $no_emails, $observaciones, $conyuge, $telefono_conyuge, $email_conyuge, $agenteAsignadoId]);
     
     if($query){
         echo '<script> alert("Contacto Agregado con éxito"); window.location = "../controladmin.php?page=contacto"; </script>';
@@ -2026,10 +2028,11 @@ function editarContacto($connect) : void{
         $editarEmail = $consulta['email'];
         $editarDireccion = $consulta['direccion'];
         $editarObservaciones = $consulta['observaciones'];         
-        $editarNoEmails = $consulta['no_emails'];
         $editarConyuge = $consulta['conyuge'];               
         $editarTelefonoConyuge = $consulta['conyuge_tel'];               
         $editarEmailConyuge = $consulta['conyuge_email']; 
+        $editarAgenteAsignadoId = $consulta['agente_asignado_id'];
+        $editarNoEmails = $consulta['no_emails'];
     }  
         
     $NEWnombre = trim($_POST['nombre']);
@@ -2041,6 +2044,7 @@ function editarContacto($connect) : void{
     $NEWconyuge =  trim($_POST['conyuge']);
     $NEWTelefonoConyuge =  trim($_POST['telefono_conyuge']);
     $NEWEmailConyuge =  trim($_POST['email_conyuge']);
+    $NEWagenteAsignadoId = trim($_POST['agente_asignado_id']);
     $NEWnoEmails = trim($_POST['no_emails']);
                   
     $update = " localidad = NULL";
@@ -2074,6 +2078,9 @@ function editarContacto($connect) : void{
     }
     if($NEWobservaciones != $editarObservaciones){
         $update .= ", observaciones = '".$NEWobservaciones."'";
+    }
+    if($NEWagenteAsignadoId != $editarAgenteAsignadoId){
+        $update .= ", agente_asignado_id = '".$NEWagenteAsignadoId."'";
     }
 
             // Hago el update en la DB //

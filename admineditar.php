@@ -322,11 +322,12 @@
         $editarTelefono = $contacto['telefono'];
         $editarEmail = $contacto['email'];
         $editarDireccion = $contacto['direccion'];
-        $editarNoEmails =  $contacto['no_emails'];
         $editarObservaciones = $contacto['observaciones'];               
         $editarConyuge = $contacto['conyuge'];               
         $editarTelefonoConyuge = $contacto['conyuge_tel'];               
         $editarEmailConyuge = $contacto['conyuge_email'];               
+        $editarAgenteAsignadoId = $contacto['agente_asignado_id'];              
+        $editarNoEmails =  $contacto['no_emails'];
     }
 
 ?>
@@ -393,6 +394,24 @@
                         <span class="perfil__bloque__fake-label">Email conyuge</span>
                         <div class="perfil__bloque__content">
                             <input type="text" name="email_conyuge" class="perfil__bloque__content__nombre" value="<?php echo $editarEmailConyuge;?>">
+                        </div>
+                    </div>
+                    <div class="perfil__bloque"> 
+                        <span class="perfil__bloque__fake-label">Agente asignado</span>
+                        <div class="perfil__bloque__content">
+                            <select class="perfil__select content__select" name="agente_asignado_id" id="">                                             
+                                <option value ="0"></option>
+                                <?php                          
+                                    $sentencia = $connect->prepare("SELECT * FROM `usuarios` WHERE habilitado=1") or die('query failed');
+                                    $sentencia->execute();
+                                    $list_agentes = $sentencia->fetchAll();                         
+                                    foreach($list_agentes as $agente){
+                                        $idAgente = $agente['user_id'];
+                                        $agenteNombre = $agente['nombre'].' '.$agente['apellido'];
+                                        ?>
+                                <option <?php if($idAgente == $editarAgenteAsignadoId){echo 'selected';}?> value="<?php echo $idAgente?>"><?php echo $agenteNombre?></option>
+                                <?php };?>
+                            </select>
                         </div>
                     </div>               
                     <div class="perfil__bloque">

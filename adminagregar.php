@@ -293,6 +293,24 @@
                         <div class="perfil__bloque__content">
                             <input type="text" name="email_conyuge" class="perfil__bloque__content__nombre">
                         </div>
+                    </div>
+                    <div class="perfil__bloque"> 
+                        <span class="perfil__bloque__fake-label">Agente asignado</span>
+                        <div class="perfil__bloque__content">
+                            <select class="perfil__select content__select" name="agente_asignado_id" id="">                                             
+                                <option value ="0"></option>
+                                <?php                          
+                                    $sentencia = $connect->prepare("SELECT * FROM `usuarios` WHERE habilitado=1") or die('query failed');
+                                    $sentencia->execute();
+                                    $list_agentes = $sentencia->fetchAll();                         
+                                    foreach($list_agentes as $agente){
+                                        $idAgente = $agente['user_id'];
+                                        $agenteNombre = $agente['nombre'].' '.$agente['apellido'];
+                                        ?>
+                                <option value="<?php echo $idAgente?>"><?php echo $agenteNombre?></option>
+                                <?php };?>
+                            </select>
+                        </div>
                     </div>               
                     <div class="perfil__bloque">
                         <label class="perfil__bloque__label">Enviar emails</span>
