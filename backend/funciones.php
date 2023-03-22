@@ -291,10 +291,58 @@ function agregarPropiedad($connect,$connectar): void{
             $ftp_password = "pfse8IqNth8%VM*pom7!apUCmvTUbIk#Kt7Ty9M9";
             $conn_id = ftp_connect($ftp_server);
             $login_result = ftp_login($conn_id, $ftp_username, $ftp_password);
-            $remote_dir = "/wp-content/uploads/thumbnails/";
+            $remote_dir = "/wp-content/uploads/foto_portada/";
             ftp_pasv($conn_id, true);
             // Obtenemos nombre del archivo
+            $remote_file = $_FILES['fotoportada']['name'];
+            $local_file = $_FILES['fotoportada']['tmp_name'];
+            // Almacenamos el archivo
+            $upload_result = ftp_put($conn_id, $remote_dir.$remote_file, $local_file, FTP_BINARY);   
+            
             $remote_file = 'mediano__'.$_FILES['fotoportada']['name'];
+            $remote_dir = "/wp-content/uploads/thumbnails/";
+
+            // Establecer las nuevas dimensiones para la imagen redimensionada
+            $new_height = 280;
+
+            // Cargar la imagen original y determinar su tipo
+            $source_image = $_FILES['fotoportada']['tmp_name'];
+            $image_type = exif_imagetype($source_image);
+
+            if ($image_type === IMAGETYPE_JPEG) {
+            // Si es una imagen JPEG
+            $source_image = imagecreatefromjpeg($source_image);
+            } else if ($image_type === IMAGETYPE_PNG) {
+            // Si es una imagen PNG
+            $source_image = imagecreatefrompng($source_image);
+            }
+
+            // Obtener las dimensiones originales de la imagen
+            $width = imagesx($source_image);
+            $height = imagesy($source_image);
+
+            // Calcular el nuevo ancho proporcionalmente
+            $new_width = round($width * ($new_height / $height));
+
+            // Crear la imagen redimensionada
+            $new_image = imagecreatetruecolor($new_width, $new_height);
+
+            // Redimensionar la imagen original a la nueva dimensión
+            imagecopyresampled($new_image, $source_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+            // Sobrescribir el archivo original con la imagen redimensionada
+            if ($image_type === IMAGETYPE_JPEG) {
+            // Si es una imagen JPEG
+            imagejpeg($new_image, $_FILES['fotoportada']['tmp_name'], 80);
+            } else if ($image_type === IMAGETYPE_PNG) {
+            // Si es una imagen PNG
+            imagepng($new_image, $_FILES['fotoportada']['tmp_name'], 9);
+            }
+
+            // Liberar memoria
+            imagedestroy($new_image);
+            imagedestroy($source_image);
+
             $local_file = $_FILES['fotoportada']['tmp_name'];
             // Almacenamos el archivo
             $upload_result = ftp_put($conn_id, $remote_dir.$remote_file, $local_file, FTP_BINARY);   
@@ -308,12 +356,65 @@ function agregarPropiedad($connect,$connectar): void{
             $ftp_password = "pfse8IqNth8%VM*pom7!apUCmvTUbIk#Kt7Ty9M9";
             $conn_id = ftp_connect($ftp_server);
             $login_result = ftp_login($conn_id, $ftp_username, $ftp_password);
-            $remote_dir = "/wp-content/uploads/thumbnails/";
             ftp_pasv($conn_id, true);
             // Recorrer el array de archivos
             foreach ($_FILES['galeriafotos']['tmp_name'] as $key => $tmp_name) {
-                $remote_file = 'muy_grande__'.$_FILES['galeriafotos']['name'][$key];
-                $local_file = $tmp_name;
+            $remote_dir = "/wp-content/uploads/galeria_fotos/";
+
+            // Obtenemos nombre del archivo
+            $remote_file = $_FILES['galeriafotos']['name'][$key];
+
+            $local_file = $_FILES['galeriafotos']['tmp_name'][$key];
+            // Almacenamos el archivo
+            $upload_result = ftp_put($conn_id, $remote_dir.$remote_file, $local_file, FTP_BINARY);   
+
+            $remote_dir = "/wp-content/uploads/thumbnails/";
+            
+            $remote_file = 'muy_grande__'.$_FILES['galeriafotos']['name'][$key];
+
+
+            // Establecer las nuevas dimensiones para la imagen redimensionada
+            $new_height = 768;
+
+            // Cargar la imagen original y determinar su tipo
+            $source_image = $_FILES['galeriafotos']['tmp_name'][$key];
+            $image_type = exif_imagetype($source_image);
+
+            if ($image_type === IMAGETYPE_JPEG) {
+            // Si es una imagen JPEG
+            $source_image = imagecreatefromjpeg($source_image);
+            } else if ($image_type === IMAGETYPE_PNG) {
+            // Si es una imagen PNG
+            $source_image = imagecreatefrompng($source_image);
+            }
+
+            // Obtener las dimensiones originales de la imagen
+            $width = imagesx($source_image);
+            $height = imagesy($source_image);
+
+            // Calcular el nuevo ancho proporcionalmente
+            $new_width = round($width * ($new_height / $height));
+
+            // Crear la imagen redimensionada
+            $new_image = imagecreatetruecolor($new_width, $new_height);
+
+            // Redimensionar la imagen original a la nueva dimensión
+            imagecopyresampled($new_image, $source_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+            // Sobrescribir el archivo original con la imagen redimensionada
+            if ($image_type === IMAGETYPE_JPEG) {
+            // Si es una imagen JPEG
+            imagejpeg($new_image, $_FILES['galeriafotos']['tmp_name'][$key], 80);
+            } else if ($image_type === IMAGETYPE_PNG) {
+            // Si es una imagen PNG
+            imagepng($new_image, $_FILES['galeriafotos']['tmp_name'][$key], 9);
+            }
+
+            // Liberar memoria
+            imagedestroy($new_image);
+            imagedestroy($source_image);
+
+                $local_file = $tmp_name;         
                 // Almacenamos el archivo
                 $upload_result = ftp_put($conn_id, $remote_dir.$remote_file, $local_file, FTP_BINARY);
             }     
