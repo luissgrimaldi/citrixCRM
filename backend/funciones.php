@@ -1,6 +1,6 @@
 <?php
 // Agregar propiedad //
-function agregarPropiedad($connect): void{   
+function agregarPropiedad($connect,$connectar): void{   
     if(!isset($_POST['operacion'])){$_POST['operacion']= '';};
     if(!isset($_POST['tipo'])){$_POST['tipo']= '';};
     if(!isset($_POST['codigopostal'])){$_POST['codigopostal']= '';};
@@ -235,6 +235,7 @@ function agregarPropiedad($connect): void{
     $descripcionCorta = $_POST['descripcioncorta'];
     $descripcionLarga = $_POST['descripcionlarga'];
     if (!empty($_FILES['fotoportada']['name'])){
+        $_FILES['fotoportada']['name'] = '0__foto_portada__'.date('Y_m_d_H_i_s') . '__' . $_FILES['fotoportada']['name'];
         $fotoPortadaNombre = $_FILES['fotoportada']['name'];
         $fotoPortada = '["'.$fotoPortadaNombre.'"]';
         $fotoPortadaIMG = $_FILES['fotoportada']['tmp_name'];
@@ -243,8 +244,13 @@ function agregarPropiedad($connect): void{
     }
 
     if (!empty($_FILES['galeriafotos']['name'][0])){
+        for ($i = 0; $i < count($_FILES['galeriafotos']['name']); $i++) {
+            // Obtener el nombre y la ubicación temporal del archivo
+            $_FILES['galeriafotos']['name'][$i] = $i.'__galeria_fotos__'.date('Y_m_d_H_i_s') . '__' . $_FILES['galeriafotos']['name'][$i];
+        }
         $fotogaleria=implode('","',$_FILES['galeriafotos']['name']);
         if (!empty($fotogaleria)){
+            
             $fotogaleria='["'.$fotogaleria.'"]';
         }else{
             $fotogaleria='[]';
@@ -276,19 +282,43 @@ function agregarPropiedad($connect): void{
     $query = $connect-> prepare ("INSERT INTO wp_propiedades (referencia_interna, operacion_id, tipo_propiedad_id, cod_postal, tipo_calle_id, calle, altura, ciudad_id, zona_id, piso, puerta, bloque, ocupada, coordenadas, nro_toilettes, nro_plantas, metros_utiles, supeficie_construida, nro_banios, anio_contruccion, mts_cocina, cant_habitaciones, expensas, cant_ambientes, mts_comendor, mts_living, mts_lote, planta_baja, estado_general_id, estado_carpinteria_externa_id, tipo_suelo_id, orientacion, agua_caliente_id, estado_carpinteria_interna_id, tipo_calefaccion_id, tipo_cocina_id, alarma, agua, aire_acondicionado_central, aire_acondicionado, bar, alarma_incendio, alarma_robo, altillo, caja_fuerte, parrilla, asensor, balcon, chimenea, electrodomesticos, calefaccion_frio_calor, centrico, garaje, garaje_doble, gas_natural, galeria, hab_juegos, hidromasaje, linea_telefonica, gimnacio, jardin, lavadero, patio, jacuzzi, luz, sauna, preinst_aacc, luminoso, pileta_propia, pileta_compartida, riego_automatico, amueblado, puerta_blindada, porton_automatico, solarium, pergola, tv, videoportero, satelite, vestuario, buardilla, habitacion_servicio, arboles, autobuses, centro_comercial, colegios, costa, golf, hospitales, subte, montania, urbanizacion, rural, vista_al_mar, tren, zonas_infantiles, residencial, barrio_cerrado, descripcion_corta, descripcion_completa, foto_portada, galeria_fotos, descripcion_mediana, captado_por, contactado_por, oficina_id, llavero, precio_propietario, porcentaje_comision, comision_fija, precio_anterior, tasacion, parcela, lote, tomo, libro, folio, registro, ref_catastral, valor_catastral, propietarios, created, agente_asignado_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?, ?)");
     $query->execute([$ref, $operacion, $tipo, $codigoPostal, $tipoCalle, $calle, $altura, $ciudad, $zona, $piso, $puerta, $bloque, $ocupada, $coordenadas, $toilettes, $plantas, $metrosUtiles, $supConstruida, $rebaniosf, $anioConstruccion, $mtsCocina, $habitaciones, $expensas, $ambientes, $comedor, $living, $metrosLote, $plantaBaja, $estadoGeneral, $carpinteriaExt, $suelo, $orientacion, $aguacaliente, $carpinteriaint, $calefaccion, $tipoCocina, $alarma, $agua, $aireAcondicionadoCentral, $aireAcondicionado, $bar, $alarmaIncendio, $alarmaRobo, $altillo, $cajaFuerte, $parrilla, $asensor, $balcon, $chimenea, $electroDomesticos, $calefaccionFrioCalor, $centrico, $garaje, $garajeDoble, $gasNatural, $galeria, $habJuegos, $hidroMasaje, $lineaTelefonica, $gimnasio, $jardin, $lavadero, $patio, $jacuzzi, $luz, $sauna, $preinstaacc, $luminoso, $piletapropia, $piletacompartida, $riegoautomatico, $amueblado, $puertaBlindada, $portonAutomatico, $solarium, $pergola, $tv, $videoPortero, $satelite, $vestuario, $buardilla, $habitacionServicio, $arboles, $autobuses, $centroComercial, $colegios, $costa, $golf, $hospitales, $subte, $montania, $urbanizacion, $rural, $vistaMar, $tren, $zonasInfantiles, $residencial, $barrioCerrado, $descripcionCorta, $descripcionLarga, $fotoPortada, $fotogaleria, $descripcionMediana, $captadoPor, $contactadoPor, $oficina, $llavero, $precioproPietario, $porcentajeSobreCompra, $comisionFija, $precioAnterior, $tasacion, $parcela, $lote, $tomo, $libro, $folio, $registro, $refCatastral, $valorCatastral, $contactoId, $created, $captadoPor]);
     if($query){
+        $query = $connectar-> prepare ("INSERT INTO wpry_propiedades (referencia_interna, operacion_id, tipo_propiedad_id, cod_postal, tipo_calle_id, calle, altura, ciudad_id, zona_id, piso, puerta, bloque, ocupada, coordenadas, nro_toilettes, nro_plantas, metros_utiles, supeficie_construida, nro_banios, anio_contruccion, mts_cocina, cant_habitaciones, expensas, cant_ambientes, mts_comendor, mts_living, mts_lote, planta_baja, estado_general_id, estado_carpinteria_externa_id, tipo_suelo_id, orientacion, agua_caliente_id, estado_carpinteria_interna_id, tipo_calefaccion_id, tipo_cocina_id, alarma, agua, aire_acondicionado_central, aire_acondicionado, bar, alarma_incendio, alarma_robo, altillo, caja_fuerte, parrilla, asensor, balcon, chimenea, electrodomesticos, calefaccion_frio_calor, centrico, garaje, garaje_doble, gas_natural, galeria, hab_juegos, hidromasaje, linea_telefonica, gimnacio, jardin, lavadero, patio, jacuzzi, luz, sauna, preinst_aacc, luminoso, pileta_propia, pileta_compartida, riego_automatico, amueblado, puerta_blindada, porton_automatico, solarium, pergola, tv, videoportero, satelite, vestuario, buardilla, habitacion_servicio, arboles, autobuses, centro_comercial, colegios, costa, golf, hospitales, subte, montania, urbanizacion, rural, vista_al_mar, tren, zonas_infantiles, residencial, barrio_cerrado, descripcion_corta, descripcion_completa, foto_portada, galeria_fotos, descripcion_mediana, captado_por, contactado_por, oficina_id, llavero, precio_propietario, porcentaje_comision, comision_fija, precio_anterior, tasacion, parcela, lote, tomo, libro, folio, registro, ref_catastral, valor_catastral, propietarios, created, agente_asignado_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?, ?)");
+    $query->execute([$ref, $operacion, $tipo, $codigoPostal, $tipoCalle, $calle, $altura, $ciudad, $zona, $piso, $puerta, $bloque, $ocupada, $coordenadas, $toilettes, $plantas, $metrosUtiles, $supConstruida, $rebaniosf, $anioConstruccion, $mtsCocina, $habitaciones, $expensas, $ambientes, $comedor, $living, $metrosLote, $plantaBaja, $estadoGeneral, $carpinteriaExt, $suelo, $orientacion, $aguacaliente, $carpinteriaint, $calefaccion, $tipoCocina, $alarma, $agua, $aireAcondicionadoCentral, $aireAcondicionado, $bar, $alarmaIncendio, $alarmaRobo, $altillo, $cajaFuerte, $parrilla, $asensor, $balcon, $chimenea, $electroDomesticos, $calefaccionFrioCalor, $centrico, $garaje, $garajeDoble, $gasNatural, $galeria, $habJuegos, $hidroMasaje, $lineaTelefonica, $gimnasio, $jardin, $lavadero, $patio, $jacuzzi, $luz, $sauna, $preinstaacc, $luminoso, $piletapropia, $piletacompartida, $riegoautomatico, $amueblado, $puertaBlindada, $portonAutomatico, $solarium, $pergola, $tv, $videoPortero, $satelite, $vestuario, $buardilla, $habitacionServicio, $arboles, $autobuses, $centroComercial, $colegios, $costa, $golf, $hospitales, $subte, $montania, $urbanizacion, $rural, $vistaMar, $tren, $zonasInfantiles, $residencial, $barrioCerrado, $descripcionCorta, $descripcionLarga, $fotoPortada, $fotogaleria, $descripcionMediana, $captadoPor, $contactadoPor, $oficina, $llavero, $precioproPietario, $porcentajeSobreCompra, $comisionFija, $precioAnterior, $tasacion, $parcela, $lote, $tomo, $libro, $folio, $registro, $refCatastral, $valorCatastral, $contactoId, $created, $captadoPor]);
         if (!empty($_FILES['fotoportada']['name'])){
-            move_uploaded_file($fotoPortadaIMG,'../content/'.$fotoPortadaNombre);
+            // Conexion ftp  
+            $ftp_server = "ftp.projectandbrokers.com";
+            $ftp_username = "luis@projectandbrokers.com";
+            $ftp_password = "pfse8IqNth8%VM*pom7!apUCmvTUbIk#Kt7Ty9M9";
+            $conn_id = ftp_connect($ftp_server);
+            $login_result = ftp_login($conn_id, $ftp_username, $ftp_password);
+            $remote_dir = "/wp-content/uploads/thumbnails/";
+            ftp_pasv($conn_id, true);
+            // Obtenemos nombre del archivo
+            $remote_file = 'mediano__'.$_FILES['fotoportada']['name'];
+            $local_file = $_FILES['fotoportada']['tmp_name'];
+            // Almacenamos el archivo
+            $upload_result = ftp_put($conn_id, $remote_dir.$remote_file, $local_file, FTP_BINARY);   
+            // Cerramos conexion
+            ftp_close($conn_id);
         }
-        if (!empty($_FILES['galeriafotos']['name'][0])) {           
+        if (!empty($_FILES['galeriafotos']['name'][0])) {  
+            // Conexion ftp  
+            $ftp_server = "ftp.projectandbrokers.com";
+            $ftp_username = "luis@projectandbrokers.com";
+            $ftp_password = "pfse8IqNth8%VM*pom7!apUCmvTUbIk#Kt7Ty9M9";
+            $conn_id = ftp_connect($ftp_server);
+            $login_result = ftp_login($conn_id, $ftp_username, $ftp_password);
+            $remote_dir = "/wp-content/uploads/thumbnails/";
+            ftp_pasv($conn_id, true);
             // Recorrer el array de archivos
-            for ($i = 0; $i < count($_FILES['galeriafotos']['name']); $i++) {
-                // Obtener el nombre y la ubicación temporal del archivo
-                $fileName = $_FILES['galeriafotos']['name'][$i];
-                $fileTmpName = $_FILES['galeriafotos']['tmp_name'][$i];
-                
-                // Mover el archivo a la carpeta de destino
-                move_uploaded_file($fileTmpName, '../content/' . $fileName);
-            }
+            foreach ($_FILES['galeriafotos']['tmp_name'] as $key => $tmp_name) {
+                $remote_file = 'muy_grande__'.$_FILES['galeriafotos']['name'][$key];
+                $local_file = $tmp_name;
+                // Almacenamos el archivo
+                $upload_result = ftp_put($conn_id, $remote_dir.$remote_file, $local_file, FTP_BINARY);
+            }     
+            // Cerramos conexion
+            ftp_close($conn_id);
         }
         echo '<script> alert("Propiedad agregada con exito"); window.location = "../propiedades.php"; </script>';
     }else{
@@ -914,11 +944,13 @@ function editarPropiedad($connect): void{
         $NEWdescripcionLarga = $_POST['descripcionlarga'];
         if (!empty($_FILES['fotoportada']['name'])){
             $NEWfotoPortadaNombre = $_FILES['fotoportada']['name'];
+            $NEWfotoPortadaNombre = '0__foto_portada__'.date('Y_m_d_H_i_s') . '__' . $NEWfotoPortadaNombre;
             $NEWfotoPortada = '["'.$NEWfotoPortadaNombre.'"]';
             $NEWfotoPortadaIMG = $_FILES['fotoportada']['tmp_name'];    
         }else{
             $NEWfotoPortada = '[]';
         };
+
         $NEWdescripcionMediana = $_POST['descripcionmediana'];
         $NEWcaptadoPor = $_POST['captadopor'];
         $NEWAgente_asignado_id = $_POST['captadopor'];
@@ -957,6 +989,10 @@ function editarPropiedad($connect): void{
             }
         }
         if (!empty($_FILES['galeriafotos']['name'][0])){
+            for ($i = 0; $i < count($_FILES['galeriafotos']['name']); $i++) {
+                // Obtener el nombre y la ubicación temporal del archivo
+                $_FILES['galeriafotos']['name'][$i] = $i.'__galeria_fotos__'.date('Y_m_d_H_i_s') . '__' . $_FILES['galeriafotos']['name'][$i];
+            }
             if (!empty($editarGaleriaFotos)){
                 $editarGaleriaFotos = str_replace ( '[', '', $editarGaleriaFotos);
                 $editarGaleriaFotos = str_replace ( ']', '', $editarGaleriaFotos);

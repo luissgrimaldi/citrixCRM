@@ -6,7 +6,7 @@ if (isset($_SESSION['usuario'])){
     if(isset($_POST['submit'])){
 
         if($_GET['page']=='propiedad'){
-            agregarPropiedad($connect);
+            agregarPropiedad($connect,$connectar);
         };
 
         if($_GET['page']=='consulta'){
