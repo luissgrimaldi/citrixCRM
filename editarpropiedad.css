@@ -108,6 +108,9 @@
     margin: 0;
 }
 
+.form__bloque--checkbox > .form__bloque__content{
+    flex-basis: 20vw;
+}
 
 .form__select{
     width: 15em;
@@ -397,6 +400,12 @@
     color: white;
 }
 
+.form__bloque__container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
   /* .tox-notifications-container{
     display: none;
   } */
@@ -446,11 +455,6 @@
 @media screen and (max-width:778px) {
     .form__busqueda-propiedad{
         gap: 2em;
-    }
-
-    .form__bloque{
-        flex-direction: column;
-        gap: 0.5em;
     }
 
     .form__bloque--2{

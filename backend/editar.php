@@ -19,15 +19,15 @@ if (isset($_SESSION['usuario'])){
         };
         
         if($_GET['page']=='usuario'){
-            editarUsuario($connect);
+            editarUsuario($connect,$connect2);
         };
     
         if($_GET['page']=='ciudad'){
-            editarCiudad($connect);           
+            editarCiudad($connect,$connect2);           
         };
     
         if($_GET['page']=='zona'){
-            editarZona($connect); 
+            editarZona($connect,$connect2); 
         };
         
         if($_GET['page']=='contacto'){
@@ -43,7 +43,7 @@ if (isset($_SESSION['usuario'])){
         };
         
         if($_GET['page']=='perfilinformacion'){
-            editarPerfilInformacion($connect); 
+            editarPerfilInformacion($connect,$connect2); 
         };
 
     }else{

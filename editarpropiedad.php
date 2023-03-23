@@ -492,8 +492,6 @@
                                 <label  class="form__label content__label" for="">Alarma c/incendio</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="alarmaincendio" value="1" <?php if($editarAlarmaIncendio==1){ echo 'checked="check"';}?>>                             
                             </div>
-                        </div>   
-                        <div class="form__bloque form__bloque--checkbox">  
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Alarma c/Robo</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="alarmarobo" value="1" <?php if($editarAlarmaRobo==1){ echo 'checked="check"';}?>>                             
@@ -517,9 +515,7 @@
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Balcon</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="balcon" value="1" <?php if($editarBalcon==1){ echo 'checked="check"';}?>>                             
-                            </div>
-                        </div>   
-                        <div class="form__bloque form__bloque--checkbox">  
+                            </div> 
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Chimenea</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="chimenea" value="1" <?php if($editarChimenea==1){ echo 'checked="check"';}?>>                             
@@ -544,8 +540,6 @@
                                 <label  class="form__label content__label" for="">Garaje doble</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="garajedoble" value="1" <?php if($editarGarajeDoble==1){ echo 'checked="check"';}?>>                             
                             </div>
-                        </div>   
-                        <div class="form__bloque form__bloque--checkbox">  
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Gas natural</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="gasnatural" value="1" <?php if($editarGasNatural==1){ echo 'checked="check"';}?>>                             
@@ -569,9 +563,7 @@
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Gimnasio</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="gimnasio" value="1" <?php if($editarGimnasio==1){ echo 'checked="check"';}?>>                             
-                            </div>
-                        </div>   
-                        <div class="form__bloque form__bloque--checkbox">  
+                            </div> 
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Jardín</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="jardin" value="1" <?php if($editarJardin==1){ echo 'checked="check"';}?>>                             
@@ -596,8 +588,6 @@
                                 <label  class="form__label content__label" for="">Sauna</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="sauna" value="1" <?php if($editarSauna==1){ echo 'checked="check"';}?>>                             
                             </div>
-                        </div>   
-                        <div class="form__bloque form__bloque--checkbox">  
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Preinst. AACC</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="preinstaacc" value="1" <?php if($editarPreinstAacc==1){ echo 'checked="check"';}?>>                             
@@ -621,9 +611,7 @@
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Amueblado</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="amueblado" value="1" <?php if($editarAmueblado==1){ echo 'checked="check"';}?>>                             
-                            </div>
-                        </div>   
-                        <div class="form__bloque form__bloque--checkbox">  
+                            </div> 
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Puerta blindada</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="puertablindada" value="1" <?php if($editarPuertaBlindada==1){ echo 'checked="check"';}?>>                             
@@ -648,8 +636,6 @@
                                 <label  class="form__label content__label" for="">Video portero</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="videoportero" value="1" <?php if($editarVideoPortero==1){ echo 'checked="check"';}?>>                             
                             </div>
-                        </div>   
-                        <div class="form__bloque form__bloque--checkbox">  
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Satelite</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="satelite" value="1" <?php if($editarSatelite==1){ echo 'checked="check"';}?>>                             
@@ -693,8 +679,6 @@
                                 <label  class="form__label content__label" for="">Golf</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="golf" value="1" <?php if($editarGolf==1){ echo 'checked="check"';}?>>                             
                             </div>
-                        </div>   
-                        <div class="form__bloque form__bloque--checkbox">  
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Hospitales</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="hospitales" value="1" <?php if($editarHospitales==1){ echo 'checked="check"';}?>>                             
@@ -719,8 +703,6 @@
                                 <label  class="form__label content__label" for="">Vista al mar</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="vistamar" value="1" <?php if($editarVistaMar==1){ echo 'checked="check"';}?>>                             
                             </div>
-                        </div>   
-                        <div class="form__bloque form__bloque--checkbox">  
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Tren</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="tren" value="1" <?php if($editarTren==1){ echo 'checked="check"';}?>>                             

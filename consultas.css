@@ -140,7 +140,9 @@
 
 .fecha__container__content__text{
     width: 8em;
+    align-items: center;
 }
+
 
 .form__button{
     color: var(--color-terciario-main);

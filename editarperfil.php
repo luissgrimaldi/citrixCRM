@@ -55,6 +55,24 @@
                                 </div>
                             </div>
                             <div class="perfil__bloque">
+                                <label class="perfil__bloque__content__submit" for="foto">Seleccionar foto de perfil</label>
+                                <input style="display:none" type="file" id="foto" name="foto">
+                                <p id="files-area" class="files-area">
+                                    <span id="filesListPortada">
+                                        <span id="files-namesPortada" class="files-names">
+                                        <?php if(!empty($fotoAgente)){?>
+                                            <span class="file-block" id="file-block2" data-nombreeliminar="<?php echo $fotoAgente;?>">
+                                                <span class="file-delete file-deleteEliminar2">
+                                                    <span data-nombreeliminar="<?php echo $fotoAgente;?>">x</span>
+                                                </span>
+                                                <span id="nameEliminar" class="name"><?php echo $fotoAgente;?></span>
+                                            </span>
+                                        <?php ;}?>
+                                        </span>
+                                    </span>
+                                </p>                                
+                            </div>
+                            <div class="perfil__bloque">
                                 <div class="perfil__bloque__content--submit">
                                     <input type="submit" class="perfil__bloque__content__submit" name="submit" value="Guardar">                            
                                 </div>
@@ -163,5 +181,48 @@
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     </div>
     <script src="index.js"></script>
+    <script>
+        const dt2 = new DataTransfer(); // Manejar los archivos del input
+
+        $("#foto").on('change', function(e){
+            // Vaciar la lista de archivos
+            $("#filesListPortada > #files-namesPortada").empty();
+            // Actualizar el objeto dt2 con el archivo seleccionado
+            dt2.items.clear();
+            dt2.items.add(this.files[0]);
+            let fileBlock = $('<span/>', {class: 'file-block'}),
+            fileName = $('<span/>', {id:'namePortada', class: 'name', text: this.files[0].name});
+            fileBlock.append('<span id="file-deletePortada" class="file-delete"><span>x</span></span>')
+            .append(fileName);
+            $("#filesListPortada > #files-namesPortada").append(fileBlock); 
+            // Eliminar archivo
+            $('span#file-deletePortada').click(function(){
+            let name = $(this).next('span#namePortada').text();
+            // Eliminar el nombre del archivo
+            $(this).parent().remove();
+            for(let i = 0; i < dt2.items.length; i++){
+                // Verifica si coincide el archivo y el nombre
+                if(name === dt2.items[i].getAsFile().name){
+                // Elimina el archivo en el DataTransfer
+                dt2.items.remove(i);
+                continue;
+                }
+            }
+            // Actualizar los archivos del input luego de eliminarlos
+            document.getElementById('foto').files = dt2.files;
+            });
+        });
+        const botonesEliminar2 = document.querySelectorAll('.file-deleteEliminar2');
+        botonesEliminar2.forEach(boton => {
+        boton.addEventListener('click', (event) => {
+            const nombreArchivo2 = event.target.getAttribute('data-nombreeliminar');
+            eliminarArchivo2(nombreArchivo2);
+        });
+        });
+        function eliminarArchivo2(nombre) {
+            const fileBlock2 = document.querySelector(`#file-block2[data-nombreeliminar="${nombre}"]`);
+            fileBlock2.remove();
+        }
+    </script>
 </body>
 </html>

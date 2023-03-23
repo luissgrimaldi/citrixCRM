@@ -89,22 +89,22 @@
                                 </div>
                             </div>
                             <div class="perfil__bloque">
-                            <label class="perfil__bloque__content__submit" for="foto">Seleccionar foto de perfil</label>
-                            <input style="display:none" type="file" id="foto" name="foto">
-                            <p id="files-area" class="files-area">
-                                <span id="filesListPortada">
-                                    <span id="files-namesPortada" class="files-names">
-                                    <?php if(!empty($editarFoto)){?>
-                                        <span class="file-block" id="file-block2" data-nombreeliminar="<?php echo $editarFoto;?>">
-                                            <span class="file-delete file-deleteEliminar2">
-                                                <span data-nombreeliminar="<?php echo $editarFoto;?>">x</span>
+                                <label class="perfil__bloque__content__submit" for="foto">Seleccionar foto de perfil</label>
+                                <input style="display:none" type="file" id="foto" name="foto">
+                                <p id="files-area" class="files-area">
+                                    <span id="filesListPortada">
+                                        <span id="files-namesPortada" class="files-names">
+                                        <?php if(!empty($editarFoto)){?>
+                                            <span class="file-block" id="file-block2" data-nombreeliminar="<?php echo $editarFoto;?>">
+                                                <span class="file-delete file-deleteEliminar2">
+                                                    <span data-nombreeliminar="<?php echo $editarFoto;?>">x</span>
+                                                </span>
+                                                <span id="nameEliminar" class="name"><?php echo $editarFoto;?></span>
                                             </span>
-                                            <span id="nameEliminar" class="name"><?php echo $editarFoto;?></span>
+                                        <?php ;}?>
                                         </span>
-                                    <?php ;}?>
                                     </span>
-                                </span>
-                            </p>                                
+                                </p>                                
                             </div>
                             <div class="perfil__bloque"> 
                                 <span class="perfil__bloque__fake-label">Rol</span>

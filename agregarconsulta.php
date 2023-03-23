@@ -235,7 +235,7 @@
                             <?php };?>                                                                            
                         </div>                       
                         <span  class="form__span content__span" for="">Zonas</span>                           
-                        <div class="form__bloque"> 
+                        <div class="form__bloque form__bloque--checkbox"> 
                             <?php                          
                                 $sentencia = $connect->prepare("SELECT * FROM `wp_zonas` WHERE habilitada=1 AND nombre !=''  ORDER BY nombre ASC") or die('query failed');
                                 $sentencia->execute();

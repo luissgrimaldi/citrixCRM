@@ -104,6 +104,9 @@
     margin: 0;
 }
 
+.form__bloque--checkbox > .form__bloque__content{
+    flex-basis: 20vw;
+}
 
 .form__select{
     width: 15em;
@@ -381,10 +384,6 @@
         gap: 2em;
     }
 
-    .form__bloque{
-        flex-direction: column;
-        gap: 0.5em;
-    }
 
     .form__bloque--2{
         gap: 1.2em;

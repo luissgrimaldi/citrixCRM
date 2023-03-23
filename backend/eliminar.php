@@ -5,7 +5,7 @@ if(!isset($_SESSION)) {session_start();};
 if (isset($_SESSION['usuario'])){
 
     if($_GET['page']=='propiedad'){
-        eliminarPropiedad($connect);
+        eliminarPropiedad($connect,$connect2);
     };
 
     if($_GET['page']=='consulta'){
@@ -13,15 +13,15 @@ if (isset($_SESSION['usuario'])){
     };
         
     if($_GET['page']=='usuario'){
-        eliminarUsuario($connect);
+        eliminarUsuario($connect,$connect2);
     };
     
     if($_GET['page']=='ciudad'){
-        eliminarCiudad($connect);           
+        eliminarCiudad($connect,$connect2);           
     };
     
     if($_GET['page']=='zona'){
-        eliminarZona($connect); 
+        eliminarZona($connect,$connect2); 
     };
         
     if($_GET['page']=='contacto'){

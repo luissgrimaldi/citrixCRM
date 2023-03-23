@@ -104,6 +104,9 @@
     margin: 0;
 }
 
+.form__bloque--checkbox > .form__bloque__content{
+    flex-basis: 20vw;
+}
 
 .form__select{
     width: 15em;
@@ -141,6 +144,8 @@
     -webkit-box-shadow: 3px 11px 5px 0px rgba(0,0,0,0.15);
     -moz-box-shadow: 3px 11px 5px 0px rgba(0,0,0,0.15);
 }
+
+
 
 .content_ul li:hover{
     cursor: pointer;
@@ -379,10 +384,6 @@
         gap: 2em;
     }
 
-    .form__bloque{
-        flex-direction: column;
-        gap: 0.5em;
-    }
 
     .form__bloque--2{
         gap: 1.2em;
@@ -415,8 +416,20 @@
     }
 }
 
+@media screen and (max-width:531px) {
+    .form__textarea{
+        width: 20em;
+    }
+}
+
 @media screen and (max-width:394px) {
     .main__container__top{
         justify-content: center;
+    }
+}
+
+@media screen and (max-width:339px) {
+    .form__textarea{
+        width: 15em;
     }
 }

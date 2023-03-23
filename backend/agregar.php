@@ -19,15 +19,15 @@ if (isset($_SESSION['usuario'])){
         };
         
         if($_GET['page']=='usuario'){
-            agregarUsuario($connect);
+            agregarUsuario($connect,$connect2);
         };
     
         if($_GET['page']=='ciudad'){
-            agregarCiudad($connect);           
+            agregarCiudad($connect,$connect2);           
         };
     
         if($_GET['page']=='zona'){
-            agregarZona($connect); 
+            agregarZona($connect,$connect2); 
         };
     
         if($_GET['page']=='contacto'){

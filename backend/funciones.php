@@ -507,7 +507,7 @@ function agregarConsulta($connect) : void{
 }
 
 // Agregar usuario //
-function agregarUsuario($connect) : void{
+function agregarUsuario($connect,$connect2) : void{
     if(!isset($_POST['nickname'])){$_POST['nickname']= '';};
     if(!isset($_POST['nombre'])){$_POST['nombre']= '';};
     if(!isset($_POST['apellido'])){$_POST['apellido']= '';};
@@ -529,7 +529,8 @@ function agregarUsuario($connect) : void{
     $contraseña =  $_POST['contrasenia'];
     $Repetircontraseña =  $_POST['repetircontrasenia'];
     $sobreMi =  $_POST['sobre_mi'];
-    if(!empty($_FILES['foto']['name'])){
+    if (!empty($_FILES['foto']['name'])){
+        $_FILES['foto']['name'] = 'foto_asesor__'.date('Y_m_d_H_i_s') . '__' . $_FILES['foto']['name'];
         $foto = $_FILES['foto']['name'];
         $fotoIMG = $_FILES['foto']['tmp_name'];
     }else{
@@ -550,8 +551,65 @@ function agregarUsuario($connect) : void{
     $query->execute([$nombreAgente, $apellidoAgente, $nickname, $contraseña, $rolAgente, $celularAgente, $emailAgente, $sobreMi, $foto, $habilitar, 1]);
     
     if($query){
-        if(!empty($_FILES['foto']['name'])){
-            move_uploaded_file($fotoIMG,'../content/'.$foto);
+        $query = $connect-> prepare ("INSERT INTO wpry_asesores (nombre, apellido, sucursal_id, foto, celular, email, habilitado) values (?, ?, ?, ?, ?, ?, ?)");
+        $query->execute([$nombreAgente, $apellidoAgente, 1, $foto, $celularAgente, $emailAgente, $habilitar]);
+
+        if (!empty($_FILES['foto']['name'])){
+            // Conexion ftp  
+            $ftp_server = "ftp.projectandbrokers.com";
+            $ftp_username = "luis@projectandbrokers.com";
+            $ftp_password = "pfse8IqNth8%VM*pom7!apUCmvTUbIk#Kt7Ty9M9";
+            $conn_id = ftp_connect($ftp_server);
+            $login_result = ftp_login($conn_id, $ftp_username, $ftp_password);
+            $remote_dir = "/wp-content/uploads/asesores/";
+            ftp_pasv($conn_id, true);
+            // Obtenemos nombre del archivo
+            $remote_file = $_FILES['foto']['name'];
+
+            // Establecer las nuevas dimensiones para la imagen redimensionada
+            $new_height = 492;
+            $new_width =492;
+
+            // Cargar la imagen original y determinar su tipo
+            $source_image = $_FILES['foto']['tmp_name'];
+            $image_type = exif_imagetype($source_image);
+
+            if ($image_type === IMAGETYPE_JPEG) {
+            // Si es una imagen JPEG
+            $source_image = imagecreatefromjpeg($source_image);
+            } else if ($image_type === IMAGETYPE_PNG) {
+            // Si es una imagen PNG
+            $source_image = imagecreatefrompng($source_image);
+            }
+
+            // Obtener las dimensiones originales de la imagen
+            $width = imagesx($source_image);
+            $height = imagesy($source_image);
+
+            // Crear la imagen redimensionada
+            $new_image = imagecreatetruecolor($new_width, $new_height);
+
+            // Redimensionar la imagen original a la nueva dimensión
+            imagecopyresampled($new_image, $source_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+            // Sobrescribir el archivo original con la imagen redimensionada
+            if ($image_type === IMAGETYPE_JPEG) {
+            // Si es una imagen JPEG
+            imagejpeg($new_image, $_FILES['foto']['tmp_name'], 80);
+            } else if ($image_type === IMAGETYPE_PNG) {
+            // Si es una imagen PNG
+            imagepng($new_image, $_FILES['foto']['tmp_name'], 9);
+            }
+
+            // Liberar memoria
+            imagedestroy($new_image);
+            imagedestroy($source_image);
+
+            $local_file = $_FILES['foto']['tmp_name'];
+            // Almacenamos el archivo
+            $upload_result = ftp_put($conn_id, $remote_dir.$remote_file, $local_file, FTP_BINARY);   
+            // Cerramos conexion
+            ftp_close($conn_id);
         }
         echo '<script> alert("Usuario Agregado con éxito"); window.location = "../controladmin.php?page=usuario"; </script>';
     }else{
@@ -560,7 +618,7 @@ function agregarUsuario($connect) : void{
 }
 
 // Agregar ciudad //
-function agregarCiudad($connect) : void{
+function agregarCiudad($connect,$connect2) : void{
     if(!isset($_POST['ciudad'])){$_POST['ciudad']= '';};
     if($_POST['habilitar'] == ''){$_POST['habilitar']= 0;};
         
@@ -575,13 +633,15 @@ function agregarCiudad($connect) : void{
     $query->execute([$ciudad, $habilitar]);
     
     if($query){
+        $query = $connect2-> prepare ("INSERT INTO wpry_ciudades (nombre, habilitado) values (?, ?)");
+        $query->execute([$ciudad, $habilitar]);
         echo '<script> alert("Ciudad agregada con exito"); window.location = "../controladmin.php?page=ciudad"; </script>';
     }else{
         echo '<script> alert("Ha ocurrido un error al agregar la ciudad"); window.location = "../controladmin.php?page=ciudad"; </script>';
     }
 }
 // Agregar zona //
-function agregarZona($connect) : void{
+function agregarZona($connect,$connect2) : void{
     if(!isset($_POST['zona'])){$_POST['zona']= '';};
     if(!isset($_POST['ciudad'])){$_POST['ciudad']= '';};
     if($_POST['habilitar'] == ''){$_POST['habilitar']= 0;};
@@ -598,6 +658,8 @@ function agregarZona($connect) : void{
     $query->execute([$zona, $habilitar, $ciudad]);
 
     if($query){
+        $query = $connect2-> prepare ("INSERT INTO wpry_zonas (nombre, habilitada, ciudad_id) values (?, ?, ?)");
+        $query->execute([$zona, $habilitar, $ciudad]);
         echo '<script> alert("Zona agregada con exito"); window.location = "../controladmin.php?page=zona"; </script>';
     }else{
         echo '<script> alert("Ha ocurrido un error al agregar la zona"); window.location = "../controladmin.php?page=zona"; </script>';
@@ -1831,7 +1893,7 @@ function editarConsulta($connect) : void{
 }
 
 // Editar usuario //
-function editarUsuario($connect) : void{
+function editarUsuario($connect,$connect2) : void{
 
     if(!isset($_POST['habilitar'])){$_POST['habilitar']=0;};
     
@@ -1859,7 +1921,8 @@ function editarUsuario($connect) : void{
     $NEWcontrasenia = $_POST['contrasenia'];
     $NEWrepetircontrasenia = $_POST['repetircontrasenia'];
     $NEWsobreMi =  $_POST['sobre_mi'];
-    if(!empty($_FILES['foto']['name'])){
+    if (!empty($_FILES['foto']['name'])){
+        $_FILES['foto']['name'] = 'foto_asesor__'.date('Y_m_d_H_i_s') . '__' . $_FILES['foto']['name'];
         $NEWfoto = $_FILES['foto']['name'];
         $NEWfotoIMG = $_FILES['foto']['tmp_name'];
     }else{
@@ -1900,8 +1963,7 @@ function editarUsuario($connect) : void{
             }
             if($NEWrol != $editarRol){
                 $update .= ", rol = '".$NEWrol."'";
-            }
-            
+            }           
             $update .= ", sucursal_id = 1";
             
             // Hago el update en la DB //
@@ -1909,13 +1971,84 @@ function editarUsuario($connect) : void{
             $query->execute();
         
             if($query){
-                if(!empty($_FILES['foto']['name'])){
-                    if(!empty($editarFoto)){
-                        unlink('../content/'.$editarFoto);
-                    }
+                // Update en mi información //
+                $update = " habilitado = '".$NEWhabilitado."'";
+        
+                if($NEWnombre != $editarNombre){
+                    $update .= ", nombre = '".$NEWnombre."'";
+                }
+                if($NEWapellido != $editarApellido){
+                    $update .= ", apellido = '".$NEWapellido."'";
+                }
+                if($NEWemail != $editarEmail){
+                    $update .= ", email = '".$NEWemail."'";
+                }
+                if($NEWcelular != $editarCelular){
+                    $update .= ", celular = '".$NEWcelular."'";
                 }
                 if(!empty($_FILES['foto']['name'])){
-                    move_uploaded_file($NEWfotoIMG,'../content/'.$NEWfoto);
+                    $update .= ", foto = '".$NEWfoto."'";
+                }         
+                $update .= ", sucursal_id = 1";
+                $query = $connect2-> prepare ("UPDATE wpry_asesores SET $update WHERE id= '".$_GET['id']."'");
+                $query->execute();
+
+                if(!empty($_FILES['foto']['name'])){
+                    // Conexion ftp  
+                    $ftp_server = "ftp.projectandbrokers.com";
+                    $ftp_username = "luis@projectandbrokers.com";
+                    $ftp_password = "pfse8IqNth8%VM*pom7!apUCmvTUbIk#Kt7Ty9M9";
+                    $conn_id = ftp_connect($ftp_server);
+                    $login_result = ftp_login($conn_id, $ftp_username, $ftp_password);
+                    $remote_dir = "/wp-content/uploads/asesores/";
+                    ftp_pasv($conn_id, true);
+                    // Obtenemos nombre del archivo
+                    $remote_file = $_FILES['foto']['name'];
+        
+                    // Establecer las nuevas dimensiones para la imagen redimensionada
+                    $new_height = 492;
+                    $new_width =492;
+        
+                    // Cargar la imagen original y determinar su tipo
+                    $source_image = $_FILES['foto']['tmp_name'];
+                    $image_type = exif_imagetype($source_image);
+        
+                    if ($image_type === IMAGETYPE_JPEG) {
+                    // Si es una imagen JPEG
+                    $source_image = imagecreatefromjpeg($source_image);
+                    } else if ($image_type === IMAGETYPE_PNG) {
+                    // Si es una imagen PNG
+                    $source_image = imagecreatefrompng($source_image);
+                    }
+        
+                    // Obtener las dimensiones originales de la imagen
+                    $width = imagesx($source_image);
+                    $height = imagesy($source_image);
+        
+                    // Crear la imagen redimensionada
+                    $new_image = imagecreatetruecolor($new_width, $new_height);
+        
+                    // Redimensionar la imagen original a la nueva dimensión
+                    imagecopyresampled($new_image, $source_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+        
+                    // Sobrescribir el archivo original con la imagen redimensionada
+                    if ($image_type === IMAGETYPE_JPEG) {
+                    // Si es una imagen JPEG
+                    imagejpeg($new_image, $_FILES['foto']['tmp_name'], 80);
+                    } else if ($image_type === IMAGETYPE_PNG) {
+                    // Si es una imagen PNG
+                    imagepng($new_image, $_FILES['foto']['tmp_name'], 9);
+                    }
+        
+                    // Liberar memoria
+                    imagedestroy($new_image);
+                    imagedestroy($source_image);
+        
+                    $local_file = $_FILES['foto']['tmp_name'];
+                    // Almacenamos el archivo
+                    $upload_result = ftp_put($conn_id, $remote_dir.$remote_file, $local_file, FTP_BINARY);   
+                    // Cerramos conexion
+                    ftp_close($conn_id);
                 }
                 echo '<script> alert("Cambios Realizados con éxito"); window.location = "../controladmin.php?page=usuario"; </script>';              
             }else{
@@ -1926,7 +2059,7 @@ function editarUsuario($connect) : void{
 }
 
 // Editar ciudad //
-function editarCiudad($connect) : void{
+function editarCiudad($connect,$connect2) : void{
     if(!isset($_POST['ciudad'])){$_POST['ciudad']= '';};
     if($_POST['habilitar'] == ''){$_POST['habilitar']= 0;};
 
@@ -1955,6 +2088,8 @@ function editarCiudad($connect) : void{
         $query->execute();
 
         if($query){
+            $query = $connect2-> prepare ("UPDATE wpry_ciudades SET $update WHERE id= '".$_GET['id']."'");
+            $query->execute();
             echo '<script> alert("Cambios Realizados con éxito"); window.location = "../controladmin.php?page=ciudad"; </script>';
         }else{
             echo '<script> alert("Ha ocurrido un error al editar la ciudad"); window.location = "../controladmin.php?page=ciudad";</script>';
@@ -1963,7 +2098,7 @@ function editarCiudad($connect) : void{
     }else{echo '<script> alert("No se han realizado cambios"); window.location = "../controladmin.php?page=ciudad"; </script>';}
 }
 // Editar zona //
-function editarZona($connect) : void{
+function editarZona($connect,$connect2) : void{
     if(!isset($_POST['zona'])){$_POST['zona']= ' ';};
     if(!isset($_POST['ciudad'])){$_POST['ciudad']= ' ';};
     if($_POST['habilitar'] == ''){$_POST['habilitar']= 0;};
@@ -1998,6 +2133,8 @@ function editarZona($connect) : void{
         $query->execute();
 
         if($query){
+            $query = $connect2-> prepare ("UPDATE wpry_zonas SET $update WHERE id= '".$_GET['id']."'");
+            $query->execute();
             echo '<script> alert("Cambios Realizados con éxito"); window.location = "../controladmin.php?page=zona"; </script>';
         }else{
             echo '<script> alert("Ha ocurrido un error al editar la zona"); window.location = "../controladmin.php?page=zona";</script>';
@@ -2242,7 +2379,7 @@ function editarPerfilContrasena($connect) : void{
 }
 
 // Editar perfil informacion //
-function editarPerfilInformacion($connect) : void{
+function editarPerfilInformacion($connect,$connect2) : void{
 
     // Variables generales de la sesión //
     $idAgente= $_SESSION['usuario'];
@@ -2266,7 +2403,13 @@ function editarPerfilInformacion($connect) : void{
     $emailAgenteNuevo = trim($_POST['email']);
     $celularAgenteNuevo = trim($_POST['celular']);  
     $sobreMiAgenteNuevo = trim($_POST['sobre_mi']);  
-    $fotoAgenteNuevo = $_POST['foto'];  
+    if (!empty($_FILES['foto']['name'])){
+        $_FILES['foto']['name'] = 'foto_asesor__'.date('Y_m_d_H_i_s') . '__' . $_FILES['foto']['name'];
+        $fotoAgenteNuevo = $_FILES['foto']['name'];
+        $NEWfotoIMG = $_FILES['foto']['tmp_name'];
+    }else{
+        $fotoAgenteNuevo = NULL;
+    }
 
 
         // Update en mi información //
@@ -2290,7 +2433,7 @@ function editarPerfilInformacion($connect) : void{
         if($sobreMiAgenteNuevo != $celularAgente AND $sobreMiAgenteNuevo!= '' AND $sobreMiAgenteNuevo!=NULL){
             $update .= ", sobre_mi = '".$sobreMiAgenteNuevo."'";
         }
-        if($fotoAgenteNuevo != $fotoAgente AND $fotoAgenteNuevo!= '' AND $fotoAgenteNuevo!=NULL){
+        if(!empty($_FILES['foto']['name'])){
             $update .= ", foto = '".$fotoAgenteNuevo."'";
         }
 
@@ -2299,6 +2442,85 @@ function editarPerfilInformacion($connect) : void{
         $query->execute();
 
         if($query){
+            // Update en mi información //
+            $update = " habilitado = 1";
+
+            if($nombreAgenteNuevo != $nombreAgente AND $nombreAgenteNuevo!= '' AND $nombreAgenteNuevo!=NULL){
+                $update .= ", nombre = '".$nombreAgenteNuevo."'";
+            }
+            if($apellidoAgenteNuevo != $apellidoAgente AND $apellidoAgenteNuevo!= '' AND $apellidoAgenteNuevo!=NULL){
+                $update .= ", apellido = '".$apellidoAgenteNuevo."'";
+            }
+            if($emailAgenteNuevo != $emailAgente AND $emailAgenteNuevo!= '' AND $emailAgenteNuevo!=NULL){
+                $update .= ", email = '".$emailAgenteNuevo."'";
+            }
+            if($celularAgenteNuevo != $celularAgente AND $celularAgenteNuevo!= '' AND $celularAgenteNuevo!=NULL){
+                $update .= ", celular = '".$celularAgenteNuevo."'";
+            }
+            if(!empty($_FILES['foto']['name'])){
+                $update .= ", foto = '".$fotoAgenteNuevo."'";
+            }
+            $query = $connect2-> prepare ("UPDATE wpry_asesores SET $update WHERE id = $idAgente");
+            $query->execute();
+
+            if(!empty($_FILES['foto']['name'])){
+                // Conexion ftp  
+                $ftp_server = "ftp.projectandbrokers.com";
+                $ftp_username = "luis@projectandbrokers.com";
+                $ftp_password = "pfse8IqNth8%VM*pom7!apUCmvTUbIk#Kt7Ty9M9";
+                $conn_id = ftp_connect($ftp_server);
+                $login_result = ftp_login($conn_id, $ftp_username, $ftp_password);
+                $remote_dir = "/wp-content/uploads/asesores/";
+                ftp_pasv($conn_id, true);
+                // Obtenemos nombre del archivo
+                $remote_file = $_FILES['foto']['name'];
+    
+                // Establecer las nuevas dimensiones para la imagen redimensionada
+                $new_height = 492;
+                $new_width =492;
+    
+                // Cargar la imagen original y determinar su tipo
+                $source_image = $_FILES['foto']['tmp_name'];
+                $image_type = exif_imagetype($source_image);
+    
+                if ($image_type === IMAGETYPE_JPEG) {
+                // Si es una imagen JPEG
+                $source_image = imagecreatefromjpeg($source_image);
+                } else if ($image_type === IMAGETYPE_PNG) {
+                // Si es una imagen PNG
+                $source_image = imagecreatefrompng($source_image);
+                }
+    
+                // Obtener las dimensiones originales de la imagen
+                $width = imagesx($source_image);
+                $height = imagesy($source_image);
+    
+                // Crear la imagen redimensionada
+                $new_image = imagecreatetruecolor($new_width, $new_height);
+    
+                // Redimensionar la imagen original a la nueva dimensión
+                imagecopyresampled($new_image, $source_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+    
+                // Sobrescribir el archivo original con la imagen redimensionada
+                if ($image_type === IMAGETYPE_JPEG) {
+                // Si es una imagen JPEG
+                imagejpeg($new_image, $_FILES['foto']['tmp_name'], 80);
+                } else if ($image_type === IMAGETYPE_PNG) {
+                // Si es una imagen PNG
+                imagepng($new_image, $_FILES['foto']['tmp_name'], 9);
+                }
+    
+                // Liberar memoria
+                imagedestroy($new_image);
+                imagedestroy($source_image);
+    
+                $local_file = $_FILES['foto']['tmp_name'];
+                // Almacenamos el archivo
+                $upload_result = ftp_put($conn_id, $remote_dir.$remote_file, $local_file, FTP_BINARY);   
+                // Cerramos conexion
+                ftp_close($conn_id);
+            }
+
             echo '<script> alert("Cambios Realizados con éxito"); window.location = "../perfil.php"; </script>';
         }else{
             echo '<script> alert("Ha ocurrido un error al editar el perfil"); window.location = "../perfil.php"; </script>';
@@ -2315,8 +2537,10 @@ function eliminarPropiedad($connect,$connect2) : void{
     $id = $_GET['id'];
     $query = $connect-> prepare ("DELETE FROM wp_propiedades WHERE id=?");
     $query->execute([$id]);
-    $query = $connect2-> prepare ("DELETE FROM wpry_propiedades WHERE id=?");
-    $query->execute([$id]);
+    if($query){
+        $query = $connect2-> prepare ("DELETE FROM wpry_propiedades WHERE id=?");
+        $query->execute([$id]);
+    }
 }
 
 // Eliminar consulta //
@@ -2327,24 +2551,36 @@ function eliminarConsulta($connect) : void{
 }
 
 // Eliminar usuario //
-function eliminarUsuario($connect) : void{
+function eliminarUsuario($connect,$connect2) : void{
     $id = $_GET['id'];
     $query = $connect-> prepare ("DELETE FROM usuarios WHERE user_id=?");
     $query->execute([$id]);
+    if($query){
+        $query = $connect2-> prepare ("DELETE FROM wpry_asesores WHERE id=?");
+        $query->execute([$id]);
+    }
 }
 
 // Eliminar ciudad //
-function eliminarCiudad($connect) : void{
+function eliminarCiudad($connect,$connect2) : void{
     $id = $_GET['id'];
     $query = $connect-> prepare ("DELETE FROM wp_ciudades WHERE id=?");
     $query->execute([$id]);
+    if($query){
+        $query = $connect2-> prepare ("DELETE FROM wpry_ciudades WHERE id=?");
+        $query->execute([$id]);
+    }
 }
 
 // Eliminar zona //
-function eliminarZona($connect) : void{
+function eliminarZona($connect,$connect2) : void{
     $id = $_GET['id'];  
     $query = $connect-> prepare ("DELETE FROM wp_zonas WHERE id=?");
     $query->execute([$id]);
+    if($query){
+        $query = $connect2-> prepare ("DELETE FROM wpry_zonas WHERE id=?");
+        $query->execute([$id]);
+    }
 }
 
 // Eliminar contacto //
