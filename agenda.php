@@ -22,8 +22,24 @@
                                 <label  class="form__label content__label" for="">Visita</label>
                                 <input type="radio" name="tipoActividad" id="radioVisitaAgregar" onclick=" tipoTarea(1); " value="5" >
                                 <label  class="form__label content__label" for="">Tarea</label>
-                                <input type="radio" name="tipoActividad" id="radioTareaAgregar" onclick=" tipoTarea(2); " value="19">
+                                <input type="radio" name="tipoActividad" id="radioTareaAgregar" onclick=" tipoTarea(2); " value="19">                               
                             </div>                 
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Agente</label>
+                                    <select class="form__select" name="usuario" id="">
+                                    <?php                          
+                                    $sentencia = $connect->prepare("SELECT * FROM `usuarios`  WHERE habilitado=1") or die('query failed');
+                                    $sentencia->execute();
+                                    $agentes = $sentencia->fetchAll();                         
+                                    foreach($agentes as $agente){
+                                        $idAgente = $agente['user_id'];
+                                        $agenteNombre = $agente['nombre'];
+                                        $agenteApellido = $agente['apellido'];
+                                    ?>
+                                        <option <?php if($getAgente == $idAgente){echo 'selected';};?> value="<?php echo $idAgente?>"><?php echo $agenteNombre.' '.$agenteApellido ?></option>
+                                    <?php };?>
+                                    </select>
+                            </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Tipo de tarea</label>
                                 <select class="form__select" name="tipo_tarea_id" id="tareaAgregar" required>                               
@@ -96,6 +112,22 @@
                                     <input type="radio" name="tipoActividad" id="radioVisitaEditar" onclick=" tipoTareaEdit(1); " value="1">
                                     <label  class="form__label content__label" for="">Tarea</label>
                                     <input type="radio" name="tipoActividad" id="radioTareaEditar" onclick=" tipoTareaEdit(2); " value="1">
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Agente</label>
+                                    <select class="form__select" name="usuario" id="">
+                                    <?php                          
+                                    $sentencia = $connect->prepare("SELECT * FROM `usuarios`  WHERE habilitado=1") or die('query failed');
+                                    $sentencia->execute();
+                                    $agentes = $sentencia->fetchAll();                         
+                                    foreach($agentes as $agente){
+                                        $idAgente = $agente['user_id'];
+                                        $agenteNombre = $agente['nombre'];
+                                        $agenteApellido = $agente['apellido'];
+                                    ?>
+                                        <option <?php if($getAgente == $idAgente){echo 'selected';};?> value="<?php echo $idAgente?>"><?php echo $agenteNombre.' '.$agenteApellido ?></option>
+                                    <?php };?>
+                                    </select>
                             </div>  
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Tipo de tarea</label>
@@ -164,7 +196,7 @@
                 <div class="main__busqueda-agenda">
                     <form autocomplete="off" id="formBuscarEvento" action="agenda.php" method="POST" class="form__busqueda-agenda form">
                         <div class="form__container-left">
-                            <button class="form__container-left__button"><i class="fa-solid fa-plus"></i> Nueva Actividad</button> 
+                            <button type="button" id="nuevaActividad" class="form__container-left__button"><i class="fa-solid fa-plus"></i> Nueva Actividad</button> 
                         </div>
                         <div class="form__container-right">
                             <div class="form__container-right--bloque">
@@ -232,7 +264,6 @@
     </div>
     <script src="index.js"></script>
     <script>
-
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -287,7 +318,24 @@
         });
         calendar.render();
 
-
+        let nuevaActividad = document.getElementById('nuevaActividad')
+        nuevaActividad.addEventListener ("click", function(){
+            let modal = document.getElementById('modal');
+            let fecha = document.getElementById('fecha');
+            let agenda = document.getElementById('calendar');              
+            let date = new Date();
+            let anio = date.getFullYear();
+            let mes = (date.getMonth() + 1);
+            if(mes < 10 ){
+                mes = '0'+mes;
+            }
+            let dia =date.getDate();
+            let today = anio + "-" + mes + "-" + dia;
+            modal.style.display='block';
+            fecha.value=today;
+            $("#radioTareaAgregar").prop('checked', true);
+            $('#tareaAgregar option[value=19]').prop('selected', true);
+        }) 
 
         let salir = document.getElementById('salir');
         salir.addEventListener("click", function(){

@@ -11,7 +11,7 @@
                     <div class="main__buttons">
                         <a class="main__buttons__button <?php if($_GET['pagina']== 'info'){ echo 'main__buttons__button--active';}?>" href="editarperfil.php">Información</a>
                         <a class="main__buttons__button <?php if($_GET['pagina']== 'contrasena'){ echo 'main__buttons__button--active';}?>" href="editarperfil.php?pagina=contrasena">Contraseña</a>
-                        <a class="main__buttons__button <?php if($_GET['pagina']== 'agenda'){ echo 'main__buttons__button--active';}?>" href="editarperfil.php?pagina=agenda">Agenda</a>
+                        <a class="main__buttons__button <?php if($_GET['pagina']== 'agenda'){ echo 'main__buttons__button--active';}?>" href="editarperfil.php?pagina=agenda">Preferencias</a>
                     </div>
                 </div>
                 <div class="main__decoration"></div>

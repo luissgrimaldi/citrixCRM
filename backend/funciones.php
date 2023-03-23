@@ -718,7 +718,7 @@ function agregarEvento($connect) : void{
 
     $tipoTareaId = $_POST['tipo_tarea_id'];
     $asiganadaPor = $_SESSION['usuario'];
-    $userId = $_SESSION['usuario'];
+    $userId = $_POST['usuario'];
     $asunto = $_POST['asunto'];
     $fecha = $_POST['fecha'];
     $observaciones = $_POST['observaciones'];
@@ -2266,8 +2266,10 @@ function editarEvento($connect) : void{
     $observacionesNuevo = $_POST['observacionesEditar'];
     $horaNuevo = $_POST['horaEditar'];
     $finalizadaNuevo = $_POST['finalizadaEditar']; 
-    $clienteIdNuevo = $_POST['consulta_id'];
-    $propiedadIdNuevo = $_POST['propiedad_id'];
+    $clienteIdNuevo = $_POST['editar_consulta_id'];
+    $propiedadIdNuevo = $_POST['editar_propiedad_id'];
+    $userIdNuevo = $_POST['usuario'];
+    $asiganadaPor = $_SESSION['usuario'];
 
 
    // IF para ver si cumple los requisitos //
@@ -2301,6 +2303,8 @@ function editarEvento($connect) : void{
         if($propiedadIdNuevo != $clienteId AND $propiedadId!= '' AND $propiedadIdNuevo!=NULL){
             $update .= ", propiedad_id = '".$propiedadIdNuevo."'";
         }
+            $update .= ", user_id = '".$userIdNuevo."'";
+            $update .= ", asignada_por = '".$asiganadaPor."'";
 
         // Hago el update en la DB //
         $query = $connect-> prepare ("UPDATE wp_agenda SET $update WHERE id = $idEditar");

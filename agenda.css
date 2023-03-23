@@ -550,6 +550,14 @@
 }
 
 
+
+.fc-toolbar-chunk{
+    text-align: center;
+}
+
+.fc-event:hover{
+    cursor: pointer;
+}
 @media screen and (max-width:1350px) {
 
     .form__container-right__text{
@@ -608,7 +616,7 @@
 
 @media screen and (max-width:778px) {
     .form__busqueda-propiedad{
-        gap: 2em;
+        gap: 1em;
     }
 
     .form__bloque{
@@ -663,9 +671,9 @@
     }
 }
 
-@media screen and (max-width:531px) {
-    .form__textarea{
-        width: 20em;
+@media screen and (max-width:460px) {
+    .fc .fc-toolbar.fc-header-toolbar{
+        font-size: .7em;
     }
 }
 
