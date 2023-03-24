@@ -551,7 +551,7 @@ function agregarUsuario($connect,$connect2) : void{
     $query->execute([$nombreAgente, $apellidoAgente, $nickname, $contraseña, $rolAgente, $celularAgente, $emailAgente, $sobreMi, $foto, $habilitar, 1]);
     
     if($query){
-        $query = $connect-> prepare ("INSERT INTO wpry_asesores (nombre, apellido, sucursal_id, foto, celular, email, habilitado) values (?, ?, ?, ?, ?, ?, ?)");
+        $query = $connect2-> prepare ("INSERT INTO wpry_asesores (nombre, apellido, sucursal_id, foto, celular, email, habilitado) values (?, ?, ?, ?, ?, ?, ?)");
         $query->execute([$nombreAgente, $apellidoAgente, 1, $foto, $celularAgente, $emailAgente, $habilitar]);
 
         if (!empty($_FILES['foto']['name'])){
@@ -1108,8 +1108,8 @@ function editarPropiedad($connect,$connect2): void{
         $NEWdescripcionCorta = $_POST['descripcioncorta'];
         $NEWdescripcionLarga = $_POST['descripcionlarga'];
         if (!empty($_FILES['fotoportada']['name'])){
+            $_FILES['fotoportada']['name'] = '0__foto_portada__'.date('Y_m_d_H_i_s') . '__' . $_FILES['fotoportada']['name'];
             $NEWfotoPortadaNombre = $_FILES['fotoportada']['name'];
-            $NEWfotoPortadaNombre = '0__foto_portada__'.date('Y_m_d_H_i_s') . '__' . $NEWfotoPortadaNombre;
             $NEWfotoPortada = '["'.$NEWfotoPortadaNombre.'"]';
             $NEWfotoPortadaIMG = $_FILES['fotoportada']['tmp_name'];    
         }else{

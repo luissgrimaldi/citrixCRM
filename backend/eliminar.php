@@ -1,5 +1,6 @@
 <?php 
 include 'connect.php';
+include 'connect2.php';
 include 'funciones.php';
 if(!isset($_SESSION)) {session_start();};
 if (isset($_SESSION['usuario'])){
