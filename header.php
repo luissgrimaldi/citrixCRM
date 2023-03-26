@@ -65,7 +65,7 @@ if(isset($_SESSION['usuario'])){
                                 <li class="user__li"><a class="user__a" onclick="return confirm('Seguro que quieres cerrar sesión?');" href="backend/logout.php">Cerrar sesión</a></li>
                             </ul>
                         </li>
-                        <li class="header__li"><a href="" class="header__a"><i class="fa-solid fa-bell"></i></a></li>
+                        <li class="header__li"><a href="notificaciones.php" class="header__a"><i class="fa-solid fa-bell"></i></a></li>
                         <li class="header__li"><a href="" class="header__a"><i class="fa-solid fa-earth-americas"></i></a></li>
                     </ul>    
                 </nav>

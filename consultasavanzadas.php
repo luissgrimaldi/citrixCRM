@@ -7,7 +7,7 @@
         $paginas = ceil($paginas);
         if(!isset($_POST['buscarPrecioDesde'])){$_POST['buscarPrecioDesde'] = '';}; if(!isset($_POST['buscarPrecioHasta'])){$_POST['buscarPrecioHasta'] = '';};if(!isset($_POST['order'])){$_POST['order'] = 1;};
         if(!$_GET ||$_GET["pagina"]<1){header('Location:consultasavanzadas.php?pagina=1&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&order='.$_POST['order']);}elseif($_GET['pagina']>$paginas){header('Location:consultasavanzadas.php?pagina=1&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&order='.$_POST['order']);}
-        else if (!isset($_GET['preciodesde']) || !isset($_GET['preciohasta']) || !isset($_GET['order'])){header('Location:consultasavanzadas.php?pagina=1&fechadesde='.$_POST['buscarPrecioDesde'].'&fechahasta='.$_POST['buscarPrecioHasta'].'&order='.$_POST['order']);};
+        else if (!isset($_GET['preciodesde']) || !isset($_GET['preciohasta']) || !isset($_GET['order'])){header('Location:consultasavanzadas.php?pagina=1&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&order='.$_POST['order']);};
         
         ?>
 <?php include 'sidebar.php' ?>
