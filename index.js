@@ -520,4 +520,30 @@ function sacarVisita(){
     modal.removeAttribute('style');
 }
 
+function marcarLeido(id) {
 
+    let url = 'backend/notificacionleida.php?id='+id;
+    let notificacion = document.getElementById('li'+id);
+
+    fetch(url, {
+        mode: "cors" //Default cors, no-cors, same-origin
+    }).then(response =>{       
+        notificacion.style.display = 'none';
+    })
+        .catch(err => console.log(err))
+
+}
+
+function desmarcarLeido(id) {
+
+    let url = 'backend/notificacionnoleida.php?id='+id;
+    let notificacion = document.getElementById('li'+id);
+
+    fetch(url, {
+        mode: "cors" //Default cors, no-cors, same-origin
+    }).then(response =>{       
+        notificacion.style.display = 'none';
+    })
+        .catch(err => console.log(err))
+
+}

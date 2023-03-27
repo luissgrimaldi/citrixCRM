@@ -191,9 +191,26 @@
     justify-content: space-between;
 }
 
-.notificaciones__mensaje{
+.notificaciones__bloque--1{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.notificaciones__mensaje>a{
     text-align: center;
     font-weight: bold;
+    display: flex;
+    gap: .5em;
+    align-items: center;
+}
+
+.notificaciones__mensaje>a:hover{
+    color: rgba(255, 255, 255, 0.788);
+}
+
+.notificaciones__mensaje>a>i{
+    font-size: 1.25em;
 }
 
 .notificaciones__seen{
@@ -201,7 +218,11 @@
 }
 
 .notificaciones__seen:hover{
-    color: rgba(255, 255, 255, 0.541);
+    cursor: pointer;
+}
+
+.notificaciones__seen:hover{
+    color: rgba(255, 255, 255, 0.788);
 }
 
 .pagination{

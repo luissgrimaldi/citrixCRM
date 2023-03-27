@@ -142,6 +142,7 @@
                             </div>
                             <div id="map"></div>                                           
                         </div>
+                        <div class="main__decoration"></div>
                         <h2 class="main__h2">Distribucion, superficie y otros datos</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -207,6 +208,7 @@
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="plantabaja" value="1">                               
                             </div>                                                                                                                                                        
                         </div>
+                        <div class="main__decoration"></div>
                         <h2 class="main__h2">Datos de la propiedad</h2>  
                         <div class="form__bloque"> 
                             <div class="form__bloque__content content">
@@ -326,6 +328,7 @@
                                 </select>
                             </div>                                                                                                                                                                                               
                         </div>
+                        <div class="main__decoration"></div>
                         <h2 class="main__h2">Calidez</h2>
                         <div class="form__bloque form__bloque--checkbox">  
                             <div class="form__bloque__content content">
@@ -512,7 +515,8 @@
                                 <label  class="form__label content__label" for="">Habitación de servicio</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="habitacionservicio" value="1">                             
                             </div>                      
-                        </div>   
+                        </div>
+                        <div class="main__decoration"></div>
                         <h2 class="main__h2">Tipo de entorno</h2>
                         <div class="form__bloque form__bloque--checkbox">  
                             <div class="form__bloque__content content">
@@ -579,7 +583,8 @@
                                 <label  class="form__label content__label" for="">Barrio cerrado</label>
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="barriocerrado" value="1">                             
                             </div>                           
-                        </div>                  
+                        </div>
+                        <div class="main__decoration"></div>      
                         <h2 class="main__h2">Descripcion General</h2>
                         <div class="form__bloque">  
                             <div class="form__bloque__content content">
@@ -622,6 +627,7 @@
                             <label  class="form__label content__label" for="">Descripcion mediana</label>
                             <textarea class="form__textarea content__textarea" name="descripcionmediana" id=""></textarea>                                   
                         </div>
+                        <div class="main__decoration"></div>
                         <h2 class="main__h2">Captación</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -679,6 +685,7 @@
                                 <input class="form__checkbox content__checkbox" type="checkbox" name="llavero" value="si">                             
                             </div>                                                                                                          
                         </div>
+                        <div class="main__decoration"></div>
                         <h2 class="main__h2">Venta</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -702,6 +709,15 @@
                                 <input type="text" class="form__text content__text" name="tasacion" id="">                                  
                             </div>                        
                         </div>
+                        <div class="main__decoration"></div>
+                        <h2 class="main__h2">Datos alquiler</h2>
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Precio x mes (ARS)</label>
+                                <input type="text" class="form__text content__text" name="precioalquiler" id="">                                  
+                            </div>                           
+                        </div>
+                        <div class="main__decoration"></div>
                         <h2 class="main__h2">Datos catastrales</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -737,6 +753,7 @@
                                 <input type="text" class="form__text content__text" name="valor_catastral" id="">                                  
                             </div>                        
                         </div> 
+                        <div class="main__decoration"></div>
                         <h2 class="main__h2">Propietarios</h2>
                         <div class="form__bloque">
                             <a target="_blank" href="adminagregar.php?page=contacto"><i class="fa-solid fa-user-plus add-user"></i></a>         

@@ -240,12 +240,12 @@
 
                     <?php           
                         $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
-                        $sentencia = $connect->prepare("SELECT prop.id, prop.foto_portada, prop.tipo_propiedad_id, prop.operacion_id, prop.zona_id, prop.metros_utiles, prop.cant_habitaciones, prop.nro_banios, prop.precio_propietario, prop.visible_web, prop.ciudad_id, prop.calle, prop.referencia_interna, prop.llavero, prop.ocupada, prop.planta_baja, prop.pileta_propia, prop.pileta_compartida,
+                        $sentencia = $connect->prepare("SELECT prop.id, prop.foto_portada, prop.tipo_propiedad_id, prop.operacion_id, prop.zona_id, prop.metros_utiles, prop.cant_habitaciones, prop.nro_banios, prop.precio_propietario, prop.visible_web, prop.ciudad_id, prop.calle, prop.referencia_interna, prop.llavero, prop.ocupada, prop.planta_baja, prop.pileta_propia, prop.pileta_compartida, prop.alquiler_precio,
                         tipo.id, tipo.nombre,
                         op.id, op.nombre,
                         zona.id, zona.nombre,
                         ciudad.id,
-                        prop.id as prop_id, prop.foto_portada as prop_foto_portada, prop.tipo_propiedad_id as prop_tipo_propiedad_id, prop.operacion_id as prop_operacion_id, prop.zona_id as prop_zona_id, prop.metros_utiles as prop_metros_utiles, prop.cant_habitaciones as prop_cant_habitaciones, prop.nro_banios as prop_nro_banios, prop.precio_propietario as prop_precio_propietario, prop.visible_web as prop_visible_web, prop.ciudad_id as prop_ciudad_id, prop.calle as prop_calle, prop.referencia_interna as prop_referencia_interna, prop.llavero as prop_llavero, prop.ocupada as prop_ocupada, prop.planta_baja as prop_planta_baja,
+                        prop.id as prop_id, prop.foto_portada as prop_foto_portada, prop.tipo_propiedad_id as prop_tipo_propiedad_id, prop.operacion_id as prop_operacion_id, prop.zona_id as prop_zona_id, prop.metros_utiles as prop_metros_utiles, prop.cant_habitaciones as prop_cant_habitaciones, prop.nro_banios as prop_nro_banios, prop.precio_propietario as prop_precio_propietario, prop.visible_web as prop_visible_web, prop.ciudad_id as prop_ciudad_id, prop.calle as prop_calle, prop.referencia_interna as prop_referencia_interna, prop.llavero as prop_llavero, prop.ocupada as prop_ocupada, prop.planta_baja as prop_planta_baja, prop.alquiler_precio as prop_alquiler_precio,
                         tipo.id as tipo_id, tipo.nombre as tipo_nombre,
                         op.id as op_id, op.nombre as op_nombre,
                         zona.id as zona_id, zona.nombre as zona_nombre,
@@ -270,10 +270,12 @@
                             $habitacionesPropiedad = $propiedad['prop_cant_habitaciones'];
                             $baniosPropiedad = $propiedad['prop_nro_banios'];
                             $precioPropiedad = intval($propiedad['prop_precio_propietario']);
+                            $precioAlquilerPropiedad = intval($propiedad['prop_alquiler_precio']);
                             $refPropiedad = $propiedad['prop_referencia_interna'];
                             $enWeb = intval($propiedad['prop_visible_web']);
                             $tipoPropiedad = $propiedad['tipo_nombre'];
                             $operacionPropiedad = $propiedad['op_nombre'];
+                            $operacionPropiedadId = $propiedad['prop_operacion_id'];                 
                             $zonaPropiedad = $propiedad['zona_nombre'];                                                                   
                         ?>                           
                         <li class="propiedades__li" id="li<?php echo $idPropiedad;?>">
@@ -281,7 +283,7 @@
                             <div class="propiedades__nombre-detalles-precio">
                                 <span class="propiedades__nombre"><?php echo $tipoPropiedad.' en '.$operacionPropiedad.' '.$zonaPropiedad. ' '.$refPropiedad;?></span>
                                 <span class="propiedades__detalles"><?php echo $metrosPropiedad.'m2 | '.$habitacionesPropiedad,' hab | '.$baniosPropiedad.' Baños'?></span>
-                                <span class="propiedades__precio"><?php echo 'U$S '.number_format($precioPropiedad,0,",", ".").' | U$S '.intval($precioPropiedad/$metrosPropiedad).'/m2'?></span>
+                                <span class="propiedades__precio"><?php if($operacionPropiedadId != 2){echo 'U$S '.number_format($precioPropiedad,0,",", ".").' | U$S '.intval($precioPropiedad/$metrosPropiedad).'/m2';}else{echo '$ '.number_format($precioAlquilerPropiedad,0,",", ".").' / Mes';}?></span>
                             </div>
                             <span class="propiedades__estado"><?php if ($enWeb==1){echo 'En web';}else{echo 'No publicada';}?></span>
                             <div class="consultas__bloque consultas__bloque--edit-search-reload"> 

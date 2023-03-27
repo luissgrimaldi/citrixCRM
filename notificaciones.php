@@ -54,9 +54,30 @@
                                 $user_id = $tarea['user_id'];
                                 $mensaje = $tarea['mensaje'];
                                 $seen = $tarea['seen'];
-                                $fecha = $tarea['fecha'];                             
+                                $hora_actual = new DateTime();
+                                $fecha_hora_bd = new DateTime($tarea['fecha']);    
+                                $diferencia_tiempo = date_diff($hora_actual, $fecha_hora_bd);        
+                                // Obtener la diferencia de tiempo en meses, semanas, días, horas, minutos o segundos según corresponda
+                                if ($diferencia_tiempo->y >= 1) {
+                                    $tiempo_transcurrido = $diferencia_tiempo->y . " " . ($diferencia_tiempo->y == 1 ? "año" : "años");
+                                } elseif ($diferencia_tiempo->m >= 1) {
+                                    $tiempo_transcurrido = $diferencia_tiempo->m . " " . ($diferencia_tiempo->m == 1 ? "mes" : "meses");
+                                } elseif ($diferencia_tiempo->d >= 7) {
+                                    $semanas = floor($diferencia_tiempo->d / 7);
+                                    $tiempo_transcurrido = $semanas . " " . ($semanas == 1 ? "semana" : "semanas");
+                                } elseif ($diferencia_tiempo->d >= 1) {
+                                    $tiempo_transcurrido = $diferencia_tiempo->d . " " . ($diferencia_tiempo->d == 1 ? "día" : "días");
+                                } elseif ($diferencia_tiempo->h >= 1) {
+                                    $tiempo_transcurrido = $diferencia_tiempo->h . " " . ($diferencia_tiempo->h == 1 ? "hora" : "horas");
+                                } elseif ($diferencia_tiempo->i >= 1) {
+                                    $tiempo_transcurrido = $diferencia_tiempo->i . " " . ($diferencia_tiempo->i == 1 ? "minuto" : "minutos");
+                                } elseif ($diferencia_tiempo->s >= 1) {
+                                    $tiempo_transcurrido = $diferencia_tiempo->s . " " . ($diferencia_tiempo->s == 1 ? "segundo" : "segundos");
+                                } else {
+                                    $tiempo_transcurrido = "recién";
+                                }
                         ?>
-                            <li class="notificaciones__li notificaciones"><div class="notificaciones__notificacion"><span class="notificaciones__mensaje"><?php echo $mensaje;?></span><a class="notificaciones__seen" href="backend/notificacionleida.php?id=<?php echo $id;?>"><i class="fa-solid fa-eye"></i></a></div></li>                         
+                            <li id="li<?php echo $id;?>" class="notificaciones__li notificaciones"><div class="notificaciones__notificacion"><div class="notificaciones__bloque--1"><span>Hace <?php echo $tiempo_transcurrido;?></span><span class="notificaciones__mensaje"><?php echo $mensaje;?></span></div><a class="notificaciones__seen" onclick="<?php if($seen == 0){?>marcarLeido(<?php echo $id;?>)<?php ;}else{?>desmarcarLeido(<?php echo $id;?>)<?php ;}?>"><i class="fa-solid <?php if($seen == 0){?>fa-eye<?php ;}else{?>fa-eye-slash<?php ;}?>"></i></a></div></li>                         
                         <?php };?>
                     </ul>
                     <?php }else{?>
