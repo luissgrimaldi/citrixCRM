@@ -65,7 +65,11 @@ if(isset($_SESSION['usuario'])){
                                 <li class="user__li"><a class="user__a" onclick="return confirm('Seguro que quieres cerrar sesión?');" href="backend/logout.php">Cerrar sesión</a></li>
                             </ul>
                         </li>
-                        <li class="header__li"><a href="notificaciones.php" class="header__a"><i class="fa-solid fa-bell"></i></a></li>
+                        <?php                     
+                        $sentencia = $connect->prepare("SELECT * FROM `wp_notificaciones` WHERE user_id=$idAgente AND seen = 0") or die('query failed');
+                        $sentencia->execute();
+                        $cantNotificaciones = $sentencia->rowCount();?>
+                        <li class="header__li"><a href="notificaciones.php" id="notificacionesCampana" class="header__a <?php if($cantNotificaciones>0){echo 'header__a--notificacion';}?>"><i class="fa-solid fa-bell"></i><?php if($cantNotificaciones>0){?><span class="notificacion__numero"><?php echo $cantNotificaciones;?></span><?php ;}?></a></li>
                         <li class="header__li"><a href="" class="header__a"><i class="fa-solid fa-earth-americas"></i></a></li>
                     </ul>    
                 </nav>

@@ -524,11 +524,20 @@ function marcarLeido(id) {
 
     let url = 'backend/notificacionleida.php?id='+id;
     let notificacion = document.getElementById('li'+id);
+    let numeroNotificacion = document.querySelector('.notificacion__numero');
+    let numero = parseInt(numeroNotificacion.textContent);
+    let campanaNotificaciones = document.getElementById('notificacionesCampana');
 
     fetch(url, {
         mode: "cors" //Default cors, no-cors, same-origin
     }).then(response =>{       
         notificacion.style.display = 'none';
+        if(numero == 1){
+            numeroNotificacion.style.display = 'none';
+            campanaNotificaciones.classList.remove('header__a--notificacion');
+        }else{
+            numeroNotificacion.textContent = numero - 1;
+        }
     })
         .catch(err => console.log(err))
 
@@ -538,11 +547,22 @@ function desmarcarLeido(id) {
 
     let url = 'backend/notificacionnoleida.php?id='+id;
     let notificacion = document.getElementById('li'+id);
+    let numeroNotificacion = document.querySelector('.notificacion__numero');
+    if(numeroNotificacion){
+        let numero = parseInt(numeroNotificacion.textContent);
+    }
+    let campanaNotificaciones = document.getElementById('notificacionesCampana');
 
     fetch(url, {
         mode: "cors" //Default cors, no-cors, same-origin
     }).then(response =>{       
         notificacion.style.display = 'none';
+        if(!numero){
+            numeroNotificacion.style.display = 'block';
+            campanaNotificaciones.classList.add('header__a--notificacion');
+        }else{
+            numeroNotificacion.textContent = numero + 1;
+        }
     })
         .catch(err => console.log(err))
 

@@ -62,6 +62,7 @@
                                     <textarea class="form__textarea content__textarea" name="consulta" id=""></textarea>                                                       
                             </div>
                         </div>
+                        <div class="main__decoration"></div>
                         <h2 class="main__h2">Captura</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -217,6 +218,7 @@
                                 </select>
                             </div>                                                             
                         </div>
+                        <div class="main__decoration"></div>
                         <h2 class="main__h2">Requisitos del cliente</h2>
                         <span  class="form__span content__span" for="">Tipo de propiedad</span>      
                         <div class="form__bloque"> 
@@ -250,6 +252,7 @@
                                 </div> 
                             <?php };?>                                                                            
                         </div>
+                        <div class="main__decoration"></div>
                         <h2 class="main__h2">Preferencias</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">

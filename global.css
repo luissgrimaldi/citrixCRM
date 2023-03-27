@@ -277,6 +277,24 @@ input[type="time"]::-webkit-calendar-picker-indicator:hover {
     cursor: pointer;
 }
 
+.header__a--notificacion{
+    color: var(--color-terciario-header);
+}
+
+.notificacion__numero{
+    position: absolute;
+    top: -0.625em;
+    right: -0.425em;
+    width: 1.25em;
+    height: 1.25em;
+    border-radius: 50%;
+    background-color: var(--color-terciario-header);
+    color: white;
+    font-size: 0.75em;
+    text-align: center;
+    line-height: 1.25em;
+  }
+
 .user__span{
     color: var(--color-secundario-main);
     font-weight: bold;

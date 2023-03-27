@@ -17,7 +17,7 @@
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <main class="main" id="main">
             <div class="main__container">
-                <i class="fa-solid fa-home-user main__h1--emoji"></i><h1 class="main__h1">Notificaciones</h1>
+                <i class="fa-solid fa-bell main__h1--emoji"></i><h1 class="main__h1">Notificaciones</h1>
                 <div class="main__decoration"></div>
                 <div class="main__tareas tareas">
                     <form autocomplete="off" id="form_notificaciones" class="tareas__form" method="POST" action="notificaciones.php">

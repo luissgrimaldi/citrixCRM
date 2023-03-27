@@ -464,8 +464,8 @@ function agregarConsulta($connect) : void{
     if(!isset($_POST['llamarhasta'])){$_POST['llamarhasta']= '';};
     if($_POST['superficiedesde'] == ''){$_POST['superficiedesde']= NULL;};
     if($_POST['superficiehasta'] == ''){$_POST['superficiehasta']= NULL;};
-    if($_POST['preciodesde'] == ''){$_POST['preciodesde']=1;};
-    if($_POST['preciohasta'] == ''){$_POST['preciohasta']=1;};
+    if($_POST['preciodesde'] == ''){$_POST['preciodesde']=NULL;};
+    if($_POST['preciohasta'] == ''){$_POST['preciohasta']=NULL;};
     if(!isset($_POST['plantabaja'])){$_POST['plantabaja']= '';};
     if(!isset($_POST['garage'])){$_POST['garage']= '';};
     if(!isset($_POST['garagedoble'])){$_POST['garagedoble']= '';};
@@ -746,16 +746,16 @@ function agregarContacto($connect) : void{
             $nombreNotificaciones = $usuario['nombre'];                                                             
             $apellidoNotificaciones = $usuario['apellido'];                                    
         }
-        if($asignadoA != $createdBy){
+        if($agenteAsignadoId != $createdBy){
             $query2 = $connect->prepare("SELECT * FROM `wp_contactos` ORDER BY id DESC LIMIT 1") or die('query failed');
             $query2->execute();
             $list_consultas = $query2->fetchAll();
             foreach($list_consultas as $consulta){                                                           
                 $idContacto = $consulta['id'];                                                                                              
             }
-            $mensaje = '<a href="contactosinfo.php?contacto='.$idContacto.'"><i class="fa-solid fa-user"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha asignado una contacto</a>';
+            $mensaje = '<a href="contactosinfo.php?contacto='.$idContacto.'"><i class="fa-solid fa-user"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha asignado un contacto</a>';
             $query = $connect-> prepare ("INSERT INTO wp_notificaciones (mensaje, user_id, seen, fecha) VALUES (?, ?, ?, ?)");
-            $query->execute([$mensaje, $asignadoA, 0, $created]);
+            $query->execute([$mensaje, $agenteAsignadoId, 0, $created]);
         }
         echo '<script> alert("Contacto Agregado con éxito"); window.location = "../controladmin.php?page=contacto"; </script>';
     }else{
@@ -789,6 +789,18 @@ function agregarEvento($connect) : void{
     $query = $connect-> prepare ("INSERT INTO wp_agenda (tipo_tarea_id, asunto, fecha, observaciones, hora_inicio, tarea_terminada, asignada_por, user_id, asignada_el, consulta_id, propiedad_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $query->execute([$tipoTareaId, $asunto, $fecha, $observaciones, $horaInicio, $tareaTerminada, $asiganadaPor, $userId, $asiganadaEl, $clienteId, $propiedadId]);
     if($query){
+        $query = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = $asiganadaPor") or die('query failed');
+        $query->execute();
+        $list_usuarios = $query->fetchAll();
+        foreach($list_usuarios as $usuario){                                                           
+            $nombreNotificaciones = $usuario['nombre'];                                                             
+            $apellidoNotificaciones = $usuario['apellido'];                                                             
+        }
+        if($userId != $asiganadaPor){
+            $mensaje = '<a href="agenda.php?"><i class="fa-solid fa-address-book"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha agendado un evento para el '.date("d-m-Y", strtotime($fecha)).'</a>';
+            $query = $connect-> prepare ("INSERT INTO wp_notificaciones (mensaje, user_id, seen, fecha) VALUES (?, ?, ?, ?)");
+            $query->execute([$mensaje, $userId, 0, $asiganadaEl]);
+        }
         echo json_encode("Evento agregado con exito");
     }else{
         echo json_encode("Ha ocurrido un error al agregar el evento");
@@ -1199,7 +1211,7 @@ function editarPropiedad($connect,$connect2): void{
         $NEWcontactoId = $_POST['contacto_id'];
         $modified=date("Y-m-d H:i:s");
         $modifiedBy= $_SESSION['usuario'];
-        $NEWprecioAlquiler = $_POST['precioalquiler']
+        $NEWprecioAlquiler = $_POST['precioalquiler'];
         if (!empty($_POST['archivos-a-eliminar'])){
             $editarGaleriaFotos = str_replace ( '[', '', $editarGaleriaFotos);
             $editarGaleriaFotos = str_replace ( ']', '', $editarGaleriaFotos);
@@ -1620,7 +1632,6 @@ function editarPropiedad($connect,$connect2): void{
             $query = $connect2-> prepare ("UPDATE wpry_propiedades SET $update WHERE referencia_interna= '".$_GET['ref']."'");
             $query->execute();
             if($query){
-                if($editarModifiedBy != $modifiedBy){
                     $query = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = $modifiedBy") or die('query failed');
                     $query->execute();
                     $list_usuarios = $query->fetchAll();
@@ -1633,7 +1644,6 @@ function editarPropiedad($connect,$connect2): void{
                         $query = $connect-> prepare ("INSERT INTO wp_notificaciones (mensaje, user_id, seen, fecha) VALUES (?, ?, ?, ?)");
                         $query->execute([$mensaje, $NEWAgente_asignado_id, 0, $modified]);
                     }
-                }   
                 if (!empty($_FILES['fotoportada']['name'])){
                     // Conexion ftp  
                     $ftp_server = "ftp.projectandbrokers.com";
@@ -1797,8 +1807,8 @@ function editarConsulta($connect) : void{
     if(!isset($_POST['llamarhasta'])){$_POST['llamarhasta']= '';};
     if($_POST['superficiedesde'] == ''){$_POST['superficiedesde']= NULL;};
     if($_POST['superficiehasta'] == ''){$_POST['superficiehasta']= NULL;};
-    if($_POST['preciodesde'] == ''){$_POST['preciodesde']=1;};
-    if($_POST['preciohasta'] == ''){$_POST['preciohasta']=1;};
+    if($_POST['preciodesde'] == ''){$_POST['preciodesde']=NULL;};
+    if($_POST['preciohasta'] == ''){$_POST['preciohasta']=NULL;};
     if(!isset($_POST['plantabaja'])){$_POST['plantabaja']= '';};
     if(!isset($_POST['garage'])){$_POST['garage']= '';};
     if(!isset($_POST['garagedoble'])){$_POST['garagedoble']= '';};
@@ -1974,7 +1984,6 @@ function editarConsulta($connect) : void{
         $query = $connect-> prepare ("UPDATE wp_consultas SET $update WHERE id= '".$_GET['consulta']."'");
         $query->execute();
         if($query){
-            if($editarModifiedBy != $modifiedBy){
                 $query = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = $modifiedBy") or die('query failed');
                 $query->execute();
                 $list_usuarios = $query->fetchAll();
@@ -1987,7 +1996,7 @@ function editarConsulta($connect) : void{
                     $query = $connect-> prepare ("INSERT INTO wp_notificaciones (mensaje, user_id, seen, fecha) VALUES (?, ?, ?, ?)");
                     $query->execute([$mensaje, $NEWasignadoA, 0, $modified]);
                 }
-            }
+
             echo '<script> alert("Cambios Realizados con éxito"); window.location = "../consultas.php"; </script>';
         }else{
             echo '<script> alert("Ha ocurrido un error al editar la consulta"); window.location = "../consultas.php"; </script>';
@@ -2336,7 +2345,6 @@ function editarContacto($connect) : void{
             $query->execute();
         
             if($query){
-                if($editarModifiedBy != $modifiedBy){
                     $query = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = $modifiedBy") or die('query failed');
                     $query->execute();
                     $list_usuarios = $query->fetchAll();
@@ -2345,11 +2353,10 @@ function editarContacto($connect) : void{
                         $apellidoNotificaciones = $usuario['apellido'];                                    
                     }
                     if(($NEWagenteAsignadoId != $modifiedBy) && ($NEWagenteAsignadoId != $editarAgenteAsignadoId)){
-                        $mensaje = '<a href="contactosinfo.php?contacto='.$_GET['id'].'"><i class="fa-solid fa-user"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha asignado una consulta</a>';
+                        $mensaje = '<a href="contactosinfo.php?contacto='.$_GET['id'].'"><i class="fa-solid fa-user"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha asignado un contacto</a>';
                         $query = $connect-> prepare ("INSERT INTO wp_notificaciones (mensaje, user_id, seen, fecha) VALUES (?, ?, ?, ?)");
-                        $query->execute([$mensaje, $NEWasignadoA, 0, $modified]);
+                        $query->execute([$mensaje, $NEWagenteAsignadoId, 0, $modified]);
                     }
-                }
                 echo '<script> alert("Cambios Realizados con éxito"); window.location = "../controladmin.php?page=contacto"; </script>';
             }else{
                 echo '<script> alert("Ha ocurrido un error al editar el contacto"); window.location = "../controladmin.php?page=contacto";</script>';
@@ -2436,6 +2443,18 @@ function editarEvento($connect) : void{
         $query->execute();
 
         if($query){
+            $query = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = $asiganadaPor") or die('query failed');
+            $query->execute();
+            $list_usuarios = $query->fetchAll();
+            foreach($list_usuarios as $usuario){                                                           
+                $nombreNotificaciones = $usuario['nombre'];                                                             
+                $apellidoNotificaciones = $usuario['apellido'];                                                             
+            }
+            if($userIdNuevo != $asiganadaPor){
+                $mensaje = '<a href="agenda.php?"><i class="fa-solid fa-address-book"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha reagendado un evento para el '.date("d-m-Y", strtotime($fechaNuevo)).'</a>';
+                $query = $connect-> prepare ("INSERT INTO wp_notificaciones (mensaje, user_id, seen, fecha) VALUES (?, ?, ?, ?)");
+                $query->execute([$mensaje, $userIdNuevo, 0, $asiganadaEl]);
+            }
             echo json_encode("Cambios Realizados con éxito");
         }else{
             echo json_encode("Ha ocurrido un error");

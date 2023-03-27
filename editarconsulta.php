@@ -117,6 +117,7 @@
                                     <textarea class="form__textarea content__textarea" name="consulta" id=""><?php echo $editarConsulta;?></textarea>                                                       
                             </div>
                         </div>
+                        <div class="main__decoration"></div>
                         <h2 class="main__h2">Captura</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -271,7 +272,8 @@
                                     <option <?php if($editarLlamarHasta=='21:30'){echo 'selected';}?> value="21:30">21:30</option>
                                 </select>
                             </div>                                                             
-                        </div>                        
+                        </div>
+                        <div class="main__decoration"></div>             
                         <h2 class="main__h2">Requisitos del cliente</h2>
                         <span  class="form__span content__span" for="">Tipo de propiedad</span>      
                         <div class="form__bloque"> 
@@ -306,6 +308,7 @@
                                 </div> 
                             <?php };?>                                                                            
                         </div>
+                        <div class="main__decoration"></div>
                         <h2 class="main__h2">Preferencias</h2>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
