@@ -729,14 +729,34 @@ function agregarContacto($connect) : void{
     $email_conyuge =  trim($_POST['email_conyuge']);
     $agenteAsignadoId = trim($_POST['agente_asignado_id']);
     $no_emails = trim($_POST['no_emails']);
+    $created=date("Y-m-d H:i:s");
+    $createdBy= $_SESSION['usuario'];
     
     // IF para ver si cumple los requisitos //
 
     // Hago el insert en la DB //
-    $query = $connect-> prepare ("INSERT INTO wp_contactos (nombre, apellido, telefono, email, direccion, no_emails, observaciones, conyuge, conyuge_tel, conyuge_email, agente_asignado_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $query->execute([$nombre, $apellido, $telefono, $email, $direccion, $no_emails, $observaciones, $conyuge, $telefono_conyuge, $email_conyuge, $agenteAsignadoId]);
+    $query = $connect-> prepare ("INSERT INTO wp_contactos (nombre, apellido, telefono, email, direccion, no_emails, observaciones, conyuge, conyuge_tel, conyuge_email, agente_asignado_id, created, created_by) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $query->execute([$nombre, $apellido, $telefono, $email, $direccion, $no_emails, $observaciones, $conyuge, $telefono_conyuge, $email_conyuge, $agenteAsignadoId, $created, $createdBy]);
     
     if($query){
+        $query = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = $createdBy") or die('query failed');
+        $query->execute();
+        $list_usuarios = $query->fetchAll();
+        foreach($list_usuarios as $usuario){                                                           
+            $nombreNotificaciones = $usuario['nombre'];                                                             
+            $apellidoNotificaciones = $usuario['apellido'];                                    
+        }
+        if($asignadoA != $createdBy){
+            $query2 = $connect->prepare("SELECT * FROM `wp_contactos` ORDER BY id DESC LIMIT 1") or die('query failed');
+            $query2->execute();
+            $list_consultas = $query2->fetchAll();
+            foreach($list_consultas as $consulta){                                                           
+                $idContacto = $consulta['id'];                                                                                              
+            }
+            $mensaje = '<a href="contactosinfo.php?contacto='.$idContacto.'"><i class="fa-solid fa-user"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha asignado una contacto</a>';
+            $query = $connect-> prepare ("INSERT INTO wp_notificaciones (mensaje, user_id, seen, fecha) VALUES (?, ?, ?, ?)");
+            $query->execute([$mensaje, $asignadoA, 0, $created]);
+        }
         echo '<script> alert("Contacto Agregado con éxito"); window.location = "../controladmin.php?page=contacto"; </script>';
     }else{
         echo '<script> alert("Ha ocurrido un error al agregar contacto"); window.location = "../controladmin.php?page=usuario"; </script>';
@@ -2253,6 +2273,9 @@ function editarContacto($connect) : void{
         $editarEmailConyuge = $consulta['conyuge_email']; 
         $editarAgenteAsignadoId = $consulta['agente_asignado_id'];
         $editarNoEmails = $consulta['no_emails'];
+        $editarModifiedBy = $consulta['modified_by'];
+        $modified = date("Y-m-d H:i:s");
+        
     }  
         
     $NEWnombre = trim($_POST['nombre']);
@@ -2266,8 +2289,9 @@ function editarContacto($connect) : void{
     $NEWEmailConyuge =  trim($_POST['email_conyuge']);
     $NEWagenteAsignadoId = trim($_POST['agente_asignado_id']);
     $NEWnoEmails = trim($_POST['no_emails']);
+    $modifiedBy = $_SESSION['usuario'];
                   
-    $update = " localidad = NULL";
+    $update = " modified = '".$modified."'";
 
     if($NEWnombre != $editarNombre){
         $update .= ", nombre = '".$NEWnombre."'";
@@ -2302,12 +2326,30 @@ function editarContacto($connect) : void{
     if($NEWagenteAsignadoId != $editarAgenteAsignadoId){
         $update .= ", agente_asignado_id = '".$NEWagenteAsignadoId."'";
     }
+    if($modifiedBy != $editarModifiedBy){
+        $update .= ", modified_by = '".$modifiedBy."'";
+    } 
+    
 
             // Hago el update en la DB //
             $query = $connect-> prepare ("UPDATE wp_contactos SET $update WHERE id= '".$_GET['id']."'");
             $query->execute();
         
             if($query){
+                if($editarModifiedBy != $modifiedBy){
+                    $query = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = $modifiedBy") or die('query failed');
+                    $query->execute();
+                    $list_usuarios = $query->fetchAll();
+                    foreach($list_usuarios as $usuario){                                                           
+                        $nombreNotificaciones = $usuario['nombre'];                                                             
+                        $apellidoNotificaciones = $usuario['apellido'];                                    
+                    }
+                    if(($NEWagenteAsignadoId != $modifiedBy) && ($NEWagenteAsignadoId != $editarAgenteAsignadoId)){
+                        $mensaje = '<a href="contactosinfo.php?contacto='.$_GET['id'].'"><i class="fa-solid fa-user"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha asignado una consulta</a>';
+                        $query = $connect-> prepare ("INSERT INTO wp_notificaciones (mensaje, user_id, seen, fecha) VALUES (?, ?, ?, ?)");
+                        $query->execute([$mensaje, $NEWasignadoA, 0, $modified]);
+                    }
+                }
                 echo '<script> alert("Cambios Realizados con éxito"); window.location = "../controladmin.php?page=contacto"; </script>';
             }else{
                 echo '<script> alert("Ha ocurrido un error al editar el contacto"); window.location = "../controladmin.php?page=contacto";</script>';
