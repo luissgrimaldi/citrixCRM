@@ -42,7 +42,7 @@
                         $paginas = ceil($paginas);
                         $tareas = $sentencia->fetchAll();
                         if($tareas){?> 
-                            <ul class="tareas--pendientes__list">
+                            <ul class="notificaciones__list">
                             
                     <?php           
                         $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;

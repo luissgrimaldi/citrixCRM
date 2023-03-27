@@ -156,7 +156,7 @@
 }
 
 
-.tareas--pendientes__list{
+.notificaciones__list{
     background-color: transparent;
     width: fit-content;
     border-radius: 1.25em;
@@ -168,24 +168,27 @@
     margin: 0 auto;
     color: var(--color-terciario-main);
     font-size: 1em;
+    max-width: 70em;
 }
 
 .notificaciones__li{
     display: flex;
-    justify-content: space-between;
     align-items: center;
     background-color: #87b0e3;
     border-radius: 1.25em;
     padding: 1.25em;
     overflow-x: auto;
+    width: 100%;
 }
 
 .notificaciones__notificacion{
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     gap: 1em;
+    align-items: center;
     padding: 0;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .notificaciones__mensaje{
@@ -274,6 +277,15 @@
     }
 }
 
+
+@media screen and (max-width:900px){
+
+    .notificaciones__notificacion{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
 
 @media screen and (max-width:320px){
 
