@@ -133,6 +133,14 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                             $agenteApellido = $agente['apellido'];
                         }
 
+                        $sentencia = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = '".$editarAsignar."'") or die('query failed');
+                        $sentencia->execute();
+                        $agentes = $sentencia->fetchAll();                         
+                        foreach($agentes as $agente){
+                            $agenteAsignadoNombre = $agente['nombre'];
+                            $agenteAsignadoApellido = $agente['apellido'];
+                        }
+
                         $sentencia = $connect->prepare("SELECT * FROM `wp_medios_contacto` WHERE id = '".$editarMedio."'") or die('query failed');
                         $sentencia->execute();
                         $medios = $sentencia->fetchAll();                         
@@ -262,6 +270,9 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         <div class="main__user__content__bloque">
                             <div class="main__user__content__bloque__content">
                                 <span>Cliente:</span><span class="main__user__content__bloque__content__respuesta"><?php echo $editarNombre.' '.$editarApellido;?></span>
+                            </div>
+                            <div class="main__user__content__bloque__content">
+                                <span>Asignado a:</span><span class="main__user__content__bloque__content__respuesta"><?php if(!empty($editarAsignar)){echo $agenteAsignadoNombre.' '.$agenteAsignadoApellido;}else{echo 'No se estableció ningun agente';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
                                 <span>Situacion:</span><span class="main__user__content__bloque__content__respuesta <?php if(!empty($editarSituacion)){echo 'main__user__content__bloque__content__respuesta--situacion';}?>"><?php if(!empty($editarSituacion)){echo $situacionNombre;}else{echo 'No se establecio ninguna situacion';}?></span>

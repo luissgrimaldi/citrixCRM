@@ -4,6 +4,76 @@
         <!--/* Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <main class="main" id="main">
+            <div id="modal" class="modal-BG">
+                <div class="modal">            
+                    <form autocomplete="off" class="form__busqueda-propiedad form" id="formAddContacto" name="form" method="POST">
+                        <h2 class="main__h2">Agregar contacto</h2>               
+                        <div class="form__bloque">
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Nombre</label>
+                                <input type="text" class="form__text content__text" name="nombre" id="">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Apellido</label>
+                                <input type="text" class="form__text content__text" name="apellido" id="fecha">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Telefono</label>
+                                <input type="text" class="form__text content__text" name="telefono" id="fecha">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Email</label>
+                                <input type="text" class="form__text content__text" name="email" id="fecha">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Dirección</label>
+                                <input type="text" class="form__text content__text" name="direccion" id="fecha">                                  
+                            </div>
+                            <div class="form__bloque__content content form__bloque__content--observaciones--modal">
+                                <label  class="form__label content__label" for="">Observaciones</label>
+                                <textarea name="observaciones" class="form__textarea content__textarea" ></textarea>                                 
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Conyuge</label>
+                                <input type="text" class="form__text content__text" name="conyuge" id="fecha">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Telefono conyuge</label>
+                                <input type="text" class="form__text content__text" name="telefono_conyuge" id="fecha">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Email conyuge</label>
+                                <input type="text" class="form__text content__text" name="email_conyuge" id="fecha">                                  
+                            </div>
+                            <div class="form__bloque__content content">
+                                <label  class="form__label content__label" for="">Agente asignado</label>
+                                <select class="form__select" name="agente_asignado_id" id="">                               
+                                        <option value></option>
+                                        <?php                          
+                                            $sentencia = $connect->prepare("SELECT * FROM `usuarios`  WHERE habilitado=1") or die('query failed');
+                                            $sentencia->execute();
+                                            $agentes = $sentencia->fetchAll();                         
+                                            foreach($agentes as $agente){
+                                            $idAgente = $agente['user_id'];
+                                            $agenteNombre = $agente['nombre'];
+                                            $agenteApellido = $agente['apellido'];
+                                            ?>
+                                        <option value="<?php echo $idAgente?>"><?php echo $agenteNombre.' '.$agenteApellido ?></option>
+                                    <?php };?>
+                                </select>
+                            </div>
+                            <div class="form__bloque__content content">  
+                                <label  class="form__label content__label" for="">Enviar emails</label>
+                                <input class="form__checkbox content__checkbox" type="checkbox" name="no_emails" value="0">
+                            </div>  
+                            <input type="hidden" name="submit">
+                        </div>                                     
+                        <div class="main__decoration"></div>
+                        <input type="submit" class="form__button" value="Agregar contacto">  
+                        <button type="button" class="form__button form__button--salir" id="salir">Salir</button>                                                          
+                    </form>
+                </div>
+            </div>
             <div class="main__container">
                 <div class="main__container__top">
                     <div class="main__title"><i class="fa-solid fa-building main__h1--emoji"></i><h1 class="main__h1">Agregar propiedad</h1></div>                    
@@ -760,7 +830,7 @@
                                 <input type="text" class="form__text content__text" placeholder="Ingrese nombre del propietario" name="buscadorcontactos" id="buscadorcontactos" autocomplete="off"> 
                                 <ul class="content_ul" id="listaContactos"></ul>                
                             </div>
-                            <a target="_blank" href="adminagregar.php?page=contacto"><i class="fa-solid fa-user-plus add-user"></i></a>         
+                            <a id="nuevoContacto"><i class="fa-solid fa-user-plus add-user"></i></a>         
                         </div>                               
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -829,6 +899,49 @@
     }
 </script>
 <script>
+
+        let nuevoContacto = document.getElementById('nuevoContacto')
+        nuevoContacto.addEventListener ("click", function(){
+            let modal = document.getElementById('modal');            
+            modal.style.display='block';
+        }) 
+    
+        let salir = document.getElementById('salir');
+        salir.addEventListener("click", function(){
+                    
+            let modal = document.getElementById('modal');
+            let formAddContacto= document.getElementById('formAddContacto');
+
+            modal.removeAttribute('style');  
+            agenda.removeAttribute('style');
+            formAddContacto.reset();
+
+        });
+
+        let formAddContacto= document.getElementById('formAddContacto');
+        formAddContacto.addEventListener("submit", function(e){
+            e.preventDefault();
+            let url = 'backend/agregar.php?page=contacto';
+            let datos = new FormData(formAddContacto);
+            let modal = $("#modal");
+            
+
+            fetch(url, {
+                method:'POST',
+                body: datos,
+                mode: "cors" //Default cors, no-cors, same-origin
+            }).then(response => response.json())
+            .then(data => {
+                alert(data);
+                formAddContacto.reset();
+                modal.removeAttr('style');             
+                
+            })
+            .catch(err => console.log(err))
+                    
+        });
+
+
   const dt = new DataTransfer(); // Manejar los archivos del input
   
   $("#galeriafotos").on('change', function(e){

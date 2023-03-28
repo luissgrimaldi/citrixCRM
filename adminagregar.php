@@ -320,7 +320,7 @@
                     </div>
                     <div class="perfil__bloque">
                         <div class="perfil__bloque__content--submit">
-                            <input type="submit" name="submit" class="perfil__bloque__content__submit" value="Agregar usuario">                            
+                            <input type="submit" name="submit" class="perfil__bloque__content__submit" value="Agregar contacto">                            
                         </div>
                     </div>
                     <div class="perfil__bloque">

@@ -60,6 +60,10 @@ a{
     text-decoration: none;
 }
 
+a:hover{
+    cursor: pointer;
+}
+
 select{
     align-items: center;
     appearance: auto;
