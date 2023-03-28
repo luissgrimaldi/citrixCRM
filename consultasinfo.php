@@ -469,7 +469,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                 <?php ;}?>
                 <?php if ($_GET['page']== 'documento'){?>
                 <div class="main__seguimiento">
-                    <form action="" class="documentos__form" method="POST" enctype="multipart/form-data">
+                    <form action="backend/agregar.php?page=documento&consulta=<?php echo $_GET['consulta'];?>" class="documentos__form" method="POST" enctype="multipart/form-data">
                         <div class="documentos__form__content">
                             <label class="main__buttons__button" for="fotodocumento">Seleccionar documento</label>
                             <input style="display:none" type="file" name="fotodocumento" id="fotodocumento">  
@@ -478,32 +478,39 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                                     <span id="files-namesDocumento" class="files-names"></span>
                                 </span>
                             </p>                   
-                            <input class="main__buttons__button" type="submit" value="Subir documento">
+                            <input name="submit" class="main__buttons__button" type="submit" value="Subir documento">
                         </div>
                     </form>
                     <div class="main__container__top main__container__top--seguimiento">
                         <div class="main__title"><i class="fa-solid fa-file main__h1--emoji"></i><h1 class="main__h1">Listado de documentos</h1></div>
                     </div>
-                    <div class="main__decoration"></div>                  
-                    <ul class="tareas--pendientes__list documentos__ul">
-                    <?php           
-                        $sentencia = $connect->prepare("SELECT * FROM wp_consulta_documento WHERE consulta_id=$editarId  ORDER BY id DESC") or die('query failed');
+                    <div class="main__decoration"></div>  
+                    <?php
+                        $sentencia = $connect->prepare("SELECT * FROM wp_consulta_documento WHERE consulta_id=$editarId  ORDER BY id ASC") or die('query failed');
                         $sentencia->execute();
                         $visitas = $sentencia->rowCount();
-                        if($visitas > 0){?>
-                        <?php ;};
+                        if($visitas > 0){?>                
+                    <ul class="tareas--pendientes__list documentos__ul">
+                    <?php           
+
                         $tareas = $sentencia->fetchAll();                        
                             foreach($tareas as $tarea){
                                 $documentoId = $tarea['id'];
-                                $documentoNombre = $tarea['archivo'];                               
+                                $documentoNombreOLD = $tarea['archivo'];                               
+                                $documentoNombre = $tarea['archivo_real'];                               
                     ?>
-                                <li class="tareas--pendientes__li">
-                                    <div class="tareas--pendientes__tarea">
-                                        <span class="tareas--pendientes__tarea--bold"><?php echo $documentoNombre;?></span>
+                                <li class="tareas--pendientes__li tareas--pendientes__li--documentos" id="li<?php echo$documentoId;?>">
+                                    <div class="tareas--pendientes__tarea tareas--pendientes__tarea--documento">
+                                        <span class="tareas--pendientes__tarea--bold"><?php echo $documentoNombreOLD;?></span>
                                     </div>                                                      
+                                    <div class="tareas--pendientes__tarea tareas--pendientes__tarea--ver-eliminar"> 
+                                        <a class="consultas__edit-search-reload__content" href="content/<?php echo $documentoNombre?>"><i class="consultas__accion fa-solid fa-pencil"></i><span>Ver</span></a>
+                                        <a onclick="if(confirm('¿Seguro que quieres eliminar este documento?')) delDocumento(<?php echo $documentoId?>)" class="consultas__edit-search-reload__content"><i class="consultas__accion fa-solid fa-trash"></i><span>Eliminar</span></a>
+                                    </div>                                                   
                                 </li>                         
                             <?php };?>
-                    </ul>
+                        </ul>
+                        <?php ;};?>
                 </div>
                 <?php ;}?>
             </div>  

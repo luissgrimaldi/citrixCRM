@@ -826,7 +826,7 @@ function agregarPerfilAgenda($connect) : void{
     }
 }
 
-// Agregar propiedad //
+// Agregar documento //
 function agregarDocumento($connect): void{
     $consulta_id = $_GET['consulta'];
     if (!empty($_FILES['fotodocumento']['name'])){
@@ -834,26 +834,26 @@ function agregarDocumento($connect): void{
         $_FILES['fotodocumento']['name'] = date('Y_m_d_H_i_s') . '__' . $_FILES['fotodocumento']['name'];
         $fotoDocumentoNombre = $_FILES['fotodocumento']['name'];
         $fotoDocumentoIMG = $_FILES['fotodocumento']['tmp_name'];
-    }else{
-        echo '<script> alert("Ha ocurrido un error al agregar la propiedad"); window.location = "../propiedades.php"; </script>';
-    }
-    $query = $connect-> prepare ("INSERT INTO wp_consulta_documento (archivo, consulta_id, archivo_real) VALUES (?, ?, ?)");
-    $query->execute([$fotoDocumentoNombreOLD, $consulta_id, $fotoDocumentoNombre]);
-    if($query){
-        if (!empty($_FILES['fotodocumento']['name'])){
-            $ruta_destino = '../content/' . $fotoDocumentoNombre;         
-            if (move_uploaded_file($fotoDocumentoIMG, $ruta_destino);) {
-                // El archivo se ha subido correctamente
-              } else {
-                // Ha ocurrido un error al subir el archivo
-                echo '<script> alert("Ha ocurrido un error al agregar el documento"); window.location = "../consultasinfo.php?consulta='.$consulta_id.'&page=documento.php"; </script>';
-              }
-        }
+        $query = $connect-> prepare ("INSERT INTO wp_consulta_documento (archivo, consulta_id, archivo_real) VALUES (?, ?, ?)");
+        $query->execute([$fotoDocumentoNombreOLD, $consulta_id, $fotoDocumentoNombre]);
+        if($query){
+            if (!empty($_FILES['fotodocumento']['name'])){
+                $ruta_destino = '../content/' . $fotoDocumentoNombre;         
+                if (move_uploaded_file($fotoDocumentoIMG, $ruta_destino)) {
+                    // El archivo se ha subido correctamente
+                } else {
+                    // Ha ocurrido un error al subir el archivo
+                    echo '<script> alert("Ha ocurrido un error al agregar el documento"); window.location = "../consultasinfo.php?consulta='.$consulta_id.'&page=documento"; </script>';
+                }
+            }
 
-        echo '<script> alert("Documento agregado con exito"); window.location = "../consultasinfo.php?consulta='.$consulta_id.'&page=documento.php"; </script>';
+            echo '<script> alert("Documento agregado con exito"); window.location = "../consultasinfo.php?consulta='.$consulta_id.'&page=documento"; </script>';
+        }else{
+            echo '<script> alert("Ha ocurrido un error al agregar el documento"); window.location = "../consultasinfo.php?consulta='.$consulta_id.'&page=documento"; </script>';
+        }
     }else{
-        echo '<script> alert("Ha ocurrido un error al agregar el documento"); window.location = "../consultasinfo.php?consulta='.$consulta_id.'&page=documento.php"; </script>';
-    }
+        echo '<script> alert("Ha ocurrido un error al agregar el documento"); window.location = "../consultasinfo.php?consulta='.$consulta_id.'&page=documento"; </script>';
+    }   
 }
 
 
@@ -2788,6 +2788,29 @@ function eliminarZona($connect,$connect2) : void{
 function eliminarContacto($connect) : void{
     $id = $_GET['id']; 
     $query = $connect-> prepare ("DELETE FROM wp_contactos WHERE id=?");
+    $query->execute([$id]);
+}
+
+// Eliminar documento //
+function eliminarDocumento($connect) : void{
+    $id = $_GET['id'];
+    $sentencia = $connect->prepare("SELECT * FROM wp_consulta_documento WHERE id=$id") or die('query failed');
+    $sentencia->execute();
+    $documentos = $sentencia->fetchAll();                        
+    foreach($documentos as $documento){
+        $documentoId = $documento['id'];
+        $documentoNombreOLD = $documento['archivo'];                               
+        $archivo = '../content/'.$documento['archivo_real'];
+    }
+    if (file_exists($archivo)) {
+        // Eliminar el archivo
+        unlink($archivo);
+        echo 'El archivo fue eliminado correctamente.';
+    } else {
+        echo 'El archivo no existe.';
+    }
+
+    $query = $connect-> prepare ("DELETE FROM wp_consulta_documento WHERE id=?");
     $query->execute([$id]);
 }
 

@@ -94,10 +94,11 @@
 
 .tareas__form{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
     justify-content: center;
-    gap: 1.875em;
+    align-items: center;
+    gap: .5em;
 }
 
 .tareas__select, .tareas__search{
@@ -184,7 +185,7 @@
 .notificaciones__notificacion{
     display: flex;
     flex-direction: row;
-    gap: 1em;
+    gap: 2.5em;
     align-items: center;
     padding: 0;
     width: 100%;
@@ -198,7 +199,6 @@
 }
 
 .notificaciones__mensaje>a{
-    text-align: center;
     font-weight: bold;
     display: flex;
     gap: .5em;
@@ -213,16 +213,40 @@
     font-size: 1.25em;
 }
 
+.notificaciones__mensaje>a>i:hover{
+    transform: scale(1.3);
+    cursor: pointer;
+}
+
 .notificaciones__seen{
     font-size: 1em;
+    display: flex;
+    flex-direction: row;
+    gap: .2em;
+    padding: 0;
+    width: fit-content;
+    align-items: center;
 }
+
+.notificaciones__seen>a{
+    display: flex;
+    flex-direction: row;
+    gap: .5em;
+}
+
+
+.notificaciones__seen>i{
+    color: var(--color-principal-main);
+}
+
 
 .notificaciones__seen:hover{
     cursor: pointer;
 }
 
 .notificaciones__seen:hover{
-    color: rgba(255, 255, 255, 0.788);
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .pagination{
@@ -301,11 +325,27 @@
 
 @media screen and (max-width:900px){
 
+    .notificaciones__bloque--1{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1em;
+        align-items: center;
+    }
+
+    .notificaciones__mensaje>a>i {
+        font-size: 1em;
+    }
+
     .notificaciones__notificacion{
         display: flex;
         flex-direction: column;
         justify-content: center;
+        gap: 1em;
     }
+
+
+
 }
 
 @media screen and (max-width:320px){

@@ -273,6 +273,20 @@ function delPropiedad(id) {
 
 }
 
+function delDocumento(id) {
+
+        let url = 'backend/eliminar.php?page=documento&id='+id;
+        let lista = document.getElementById('li'+id);
+
+        fetch(url, {
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response =>{       
+                lista.style.display = 'none';
+        })
+            .catch(err => console.log(err))
+
+}
+
 function tipoTarea(tarea) {
     if(tarea==1){
         $("#radioVisitaAgregar").prop('checked', true);

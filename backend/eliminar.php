@@ -27,6 +27,10 @@ if (isset($_SESSION['usuario'])){
         
     if($_GET['page']=='contacto'){
         eliminarContacto($connect); 
+    };  
+
+    if($_GET['page']=='documento'){
+        eliminarDocumento($connect); 
     };      
 
 

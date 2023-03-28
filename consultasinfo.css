@@ -406,7 +406,38 @@
 
 .documentos__ul>li{
     width: 100%;
+    justify-content: space-between;
+    gap: 1.5em;
 }
+
+.tareas--pendientes__tarea--documento{
+    padding: 0;
+    width: fit-content;
+}
+
+.tareas--pendientes__tarea--ver-eliminar{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 0;
+    width: fit-content;
+}
+
+.tareas--pendientes__tarea--ver-eliminar>a{
+    display: flex;
+    flex-direction: row;
+    gap: .5em;
+}
+
+.tareas--pendientes__tarea--ver-eliminar>a:hover{
+    transform: scale(1.3);
+    cursor: pointer;
+}
+
+.tareas--pendientes__tarea--ver-eliminar>a>i{
+    color: var(--color-principal-main);
+}
+
 
 .files-names{
     display: flex;

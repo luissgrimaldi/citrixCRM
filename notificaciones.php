@@ -21,6 +21,7 @@
                 <div class="main__decoration"></div>
                 <div class="main__tareas tareas">
                     <form autocomplete="off" id="form_notificaciones" class="tareas__form" method="POST" action="notificaciones.php">
+                        <label class="form__label content__label" for="">Ordenar por</label>
                         <select id="seen" name="seen" class="tareas__select">
                             <option value="0" <?php if($getSeen == 0){echo 'selected';};?>>Sin leer</option>
                             <option value="1" <?php if($getSeen == 1){echo 'selected';};?>>Leidas</option>
@@ -77,7 +78,18 @@
                                     $tiempo_transcurrido = "recién";
                                 }
                         ?>
-                            <li id="li<?php echo $id;?>" class="notificaciones__li notificaciones"><div class="notificaciones__notificacion"><div class="notificaciones__bloque--1"><span>Hace <?php echo $tiempo_transcurrido;?></span><span class="notificaciones__mensaje"><?php echo $mensaje;?></span></div><a class="notificaciones__seen" onclick="<?php if($seen == 0){?>marcarLeido(<?php echo $id;?>)<?php ;}else{?>desmarcarLeido(<?php echo $id;?>)<?php ;}?>"><i class="fa-solid <?php if($seen == 0){?>fa-eye<?php ;}else{?>fa-eye-slash<?php ;}?>"></i></a></div></li>                         
+                            <li id="li<?php echo $id;?>" class="notificaciones__li notificaciones">
+                                <div class="notificaciones__notificacion">
+                                    <div class="notificaciones__bloque--1">
+                                        <span>Hace <?php echo $tiempo_transcurrido;?></span>
+                                        <span class="notificaciones__mensaje"><?php echo $mensaje;?></span>
+                                    </div>
+                                    <a class="notificaciones__seen" onclick="<?php if($seen == 0){?>marcarLeido(<?php echo $id;?>)<?php ;}else{?>desmarcarLeido(<?php echo $id;?>)<?php ;}?>">
+                                        <i class="fa-solid <?php if($seen == 0){?>fa-eye<?php ;}else{?>fa-eye-slash<?php ;}?>"></i>
+                                        <?php if($seen == 0){?><span>Visto</span><?php ;}else{?><span>No visto</span><?php ;}?>
+                                    </a>
+                                </div>                               
+                            </li>                         
                         <?php };?>
                     </ul>
                     <?php }else{?>
