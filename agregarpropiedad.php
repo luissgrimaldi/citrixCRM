@@ -756,11 +756,11 @@
                         <div class="main__decoration"></div>
                         <h2 class="main__h2">Propietarios</h2>
                         <div class="form__bloque">
-                            <a target="_blank" href="adminagregar.php?page=contacto"><i class="fa-solid fa-user-plus add-user"></i></a>         
                             <div class="form__bloque__content content">
-                            <input type="text" class="form__text content__text" placeholder="Ingrese nombre del propietario" name="buscadorcontactos" id="buscadorcontactos" autocomplete="off"> 
-                            <ul class="content_ul" id="listaContactos"></ul>                
+                                <input type="text" class="form__text content__text" placeholder="Ingrese nombre del propietario" name="buscadorcontactos" id="buscadorcontactos" autocomplete="off"> 
+                                <ul class="content_ul" id="listaContactos"></ul>                
                             </div>
+                            <a target="_blank" href="adminagregar.php?page=contacto"><i class="fa-solid fa-user-plus add-user"></i></a>         
                         </div>                               
                         <div class="form__bloque">
                             <div class="form__bloque__content content">

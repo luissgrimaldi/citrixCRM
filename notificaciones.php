@@ -28,6 +28,7 @@
                         </select>                     
                         <input type="submit" id="buscadorSubmit" style="display:none;">
                     </form>
+                    <div class="main__decoration"></div>
                     <div class="tareas--pendientes">
                         <h4 class="tareas--pendientes__h4 titulo_busqueda" id="TituloTareas"><?php if($getSeen == 0){echo 'Notificaciones sin leer';}else if($getSeen == 1){echo 'Notificaciones leidas';}else{ echo 'Todas las tareas';}?></h4>
                     <?php
@@ -42,7 +43,7 @@
                         $paginas = $consultasTotales/$consultasXpagina;
                         $paginas = ceil($paginas);
                         $tareas = $sentencia->fetchAll();
-                        if($tareas){?> 
+                        $notificacionesActuales = $sentencia->rowCount();?>
                             <ul class="notificaciones__list">
                             
                     <?php           
@@ -92,9 +93,7 @@
                             </li>                         
                         <?php };?>
                     </ul>
-                    <?php }else{?>
-                        <h4 class="no--tareas">No hay notificaciones</h4>
-                        <?php };?>
+                    <h4 class="no--tareas" style="display:<?php if($notificacionesActuales>0){echo 'none';}else{echo 'block';}?>">No hay notificaciones</h4>   
                     </div>
                 </div>
                 <div class="pagination">

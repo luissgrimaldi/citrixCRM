@@ -76,6 +76,11 @@
     margin: 1.875em 1em;
 }
 
+.add-user{
+    font-size: 1.25em;
+    color: var(--color-secundario-main);
+}
+
 .form__busqueda-propiedad{
     width: 100%;
     height: 100%;

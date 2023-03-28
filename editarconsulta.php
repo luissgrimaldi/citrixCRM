@@ -55,7 +55,8 @@
                                 <input type="text" placeholder="Ingrese nombre de contacto" class="form__text content__text" name="buscadorcontactos" id="buscadorcontactos2" autocomplete="off"> 
                                 <input type="hidden" class="form__text content__text" name="contacto_id" id="contacto_id"> 
                                 <ul class="content_ul" id="listaContactos"></ul>                
-                            </div>  
+                            </div>
+                            <a target="_blank" href="adminagregar.php?page=contacto"><i class="fa-solid fa-user-plus add-user"></i></a>
                         </div>
                         <div class="form__bloque">
                             <div class="form__bloque__content content">

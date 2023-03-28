@@ -69,7 +69,7 @@ if(isset($_SESSION['usuario'])){
                         $sentencia = $connect->prepare("SELECT * FROM `wp_notificaciones` WHERE user_id=$idAgente AND seen = 0") or die('query failed');
                         $sentencia->execute();
                         $cantNotificaciones = $sentencia->rowCount();?>
-                        <li class="header__li"><a href="notificaciones.php" id="notificacionesCampana" class="header__a <?php if($cantNotificaciones>0){echo 'header__a--notificacion';}?>"><i class="fa-solid fa-bell"></i><?php if($cantNotificaciones>0){?><span class="notificacion__numero"><?php if($cantNotificaciones<100){echo $cantNotificaciones;}else{echo '99';}?></span><?php ;}?></a></li>
+                        <li class="header__li"><a href="notificaciones.php" id="notificacionesCampana" class="header__a <?php if($cantNotificaciones>0){echo 'header__a--notificacion';}?>"><i class="fa-solid fa-bell"></i><span class="notificacion__numero" style="display:<?php if($cantNotificaciones>0){ echo 'block';}else{echo 'none';}?>"><?php if($cantNotificaciones<100){echo $cantNotificaciones;}else{echo '99';}?></span></a></li>
                         <li class="header__li"><a href="" class="header__a"><i class="fa-solid fa-earth-americas"></i></a></li>
                     </ul>    
                 </nav>

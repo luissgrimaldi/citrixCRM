@@ -277,11 +277,13 @@ function delDocumento(id) {
 
         let url = 'backend/eliminar.php?page=documento&id='+id;
         let lista = document.getElementById('li'+id);
+        let noDocument = document.querySelector('.no--tareas');
 
         fetch(url, {
             mode: "cors" //Default cors, no-cors, same-origin
         }).then(response =>{       
-                lista.style.display = 'none';
+                lista.remove();
+                noDocument.style.display = 'block';
         })
             .catch(err => console.log(err))
 
@@ -541,14 +543,16 @@ function marcarLeido(id) {
     let numeroNotificacion = document.querySelector('.notificacion__numero');
     let numero = parseInt(numeroNotificacion.textContent);
     let campanaNotificaciones = document.getElementById('notificacionesCampana');
+    let noNotificacion = document.querySelector('.no--tareas');
 
     fetch(url, {
         mode: "cors" //Default cors, no-cors, same-origin
     }).then(response =>{       
-        notificacion.style.display = 'none';
+        notificacion.remove();
         if(numero == 1){
             numeroNotificacion.style.display = 'none';
             campanaNotificaciones.classList.remove('header__a--notificacion');
+            noNotificacion.style.display = 'block';
         }else{
             numeroNotificacion.textContent = numero - 1;
         }
@@ -562,19 +566,24 @@ function desmarcarLeido(id) {
     let url = 'backend/notificacionnoleida.php?id='+id;
     let notificacion = document.getElementById('li'+id);
     let numeroNotificacion = document.querySelector('.notificacion__numero');
-    if(numeroNotificacion){
-        let numero = parseInt(numeroNotificacion.textContent);
-    }
+    let numero = parseInt(numeroNotificacion.textContent);
     let campanaNotificaciones = document.getElementById('notificacionesCampana');
+    let noNotificacion = document.querySelector('.no--tareas');
+    let cantidadNotificaciones = parseInt(document.querySelectorAll(".notificaciones__li").length);
 
     fetch(url, {
         mode: "cors" //Default cors, no-cors, same-origin
-    }).then(response =>{       
-        notificacion.style.display = 'none';
+    }).then(response =>{      
+        notificacion.remove();
+        console.log(cantidadNotificaciones); 
         if(!numero){
+            numeroNotificacion.textContent = numero + 1
             numeroNotificacion.style.display = 'block';
-            campanaNotificaciones.classList.add('header__a--notificacion');
+            campanaNotificaciones.classList.remove('header__a--notificacion');
         }else{
+            if(cantidadNotificaciones == 1){
+                noNotificacion.style.display = 'block';
+            }
             numeroNotificacion.textContent = numero + 1;
         }
     })

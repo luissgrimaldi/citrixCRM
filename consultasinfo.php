@@ -488,8 +488,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                     <?php
                         $sentencia = $connect->prepare("SELECT * FROM wp_consulta_documento WHERE consulta_id=$editarId  ORDER BY id ASC") or die('query failed');
                         $sentencia->execute();
-                        $visitas = $sentencia->rowCount();
-                        if($visitas > 0){?>                
+                        $visitas = $sentencia->rowCount();?>                
                     <ul class="tareas--pendientes__list documentos__ul">
                     <?php           
 
@@ -510,7 +509,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                                 </li>                         
                             <?php };?>
                         </ul>
-                        <?php ;};?>
+                        <h4 class="no--tareas" style="display:<?php if($visitas>0){echo 'none';}else{echo 'block';}?>">No hay documentos</h4>                 
                 </div>
                 <?php ;}?>
             </div>  
