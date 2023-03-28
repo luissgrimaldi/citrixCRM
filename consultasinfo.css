@@ -382,6 +382,63 @@
     font-size: 1.3em;
 }
 
+.documentos__form{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.documentos__form__content{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    gap: .5em;
+}
+
+.documentos__ul{
+    background-color: transparent;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.documentos__ul>li{
+    width: 100%;
+}
+
+.files-names{
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+
+.file-block{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5em;
+    background-color: var(--color-principal-main);
+    width: fit-content;
+    padding: .5em;
+    border-radius: 1em;
+}
+
+.file-delete{
+    order: 2;
+    color: red;
+    font-size: 1.4em;
+}
+
+.file-delete:hover{
+    color: rgba(255, 0, 0, 0.459);
+    cursor: pointer;
+}
+
+.files-names{
+    color: white;
+}
 /* End Main */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */

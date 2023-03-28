@@ -467,6 +467,45 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                     </div>
                 </div>
                 <?php ;}?>
+                <?php if ($_GET['page']== 'documento'){?>
+                <div class="main__seguimiento">
+                    <form action="" class="documentos__form" method="POST" enctype="multipart/form-data">
+                        <div class="documentos__form__content">
+                            <label class="main__buttons__button" for="fotodocumento">Seleccionar documento</label>
+                            <input style="display:none" type="file" name="fotodocumento" id="fotodocumento">  
+                            <p id="files-area" class="files-area">
+                                <span id="filesListDocumento">
+                                    <span id="files-namesDocumento" class="files-names"></span>
+                                </span>
+                            </p>                   
+                            <input class="main__buttons__button" type="submit" value="Subir documento">
+                        </div>
+                    </form>
+                    <div class="main__container__top main__container__top--seguimiento">
+                        <div class="main__title"><i class="fa-solid fa-file main__h1--emoji"></i><h1 class="main__h1">Listado de documentos</h1></div>
+                    </div>
+                    <div class="main__decoration"></div>                  
+                    <ul class="tareas--pendientes__list documentos__ul">
+                    <?php           
+                        $sentencia = $connect->prepare("SELECT * FROM wp_consulta_documento WHERE consulta_id=$editarId  ORDER BY id DESC") or die('query failed');
+                        $sentencia->execute();
+                        $visitas = $sentencia->rowCount();
+                        if($visitas > 0){?>
+                        <?php ;};
+                        $tareas = $sentencia->fetchAll();                        
+                            foreach($tareas as $tarea){
+                                $documentoId = $tarea['id'];
+                                $documentoNombre = $tarea['archivo'];                               
+                    ?>
+                                <li class="tareas--pendientes__li">
+                                    <div class="tareas--pendientes__tarea">
+                                        <span class="tareas--pendientes__tarea--bold"><?php echo $documentoNombre;?></span>
+                                    </div>                                                      
+                                </li>                         
+                            <?php };?>
+                    </ul>
+                </div>
+                <?php ;}?>
             </div>  
         </main>
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -520,6 +559,38 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
             .catch(err => console.log(err))
                     
         });
+
+        const dt2 = new DataTransfer(); // Manejar los archivos del input
+        $("#fotodocumento").on('change', function(e){
+        // Vaciar la lista de archivos
+        $("#filesListDocumento > #files-namesDocumento").empty();
+        // Actualizar el objeto dt2 con el archivo seleccionado
+        dt2.items.clear();
+        dt2.items.add(this.files[0]);
+    
+        let fileBlock = $('<span/>', {class: 'file-block'}),
+        fileName = $('<span/>', {id:'namePortada', class: 'name', text: this.files[0].name});
+        fileBlock.append('<span id="file-deleteDocumento" class="file-delete"><span>x</span></span>')
+        .append(fileName);
+        $("#filesListDocumento > #files-namesDocumento").append(fileBlock);
+    
+        // Eliminar archivo
+        $('span#file-deleteDocumento').click(function(){
+        let name = $(this).next('span#namePortada').text();
+        // Eliminar el nombre del archivo
+        $(this).parent().remove();
+        for(let i = 0; i < dt2.items.length; i++){
+            // Verifica si coincide el archivo y el nombre
+            if(name === dt2.items[i].getAsFile().name){
+            // Elimina el archivo en el DataTransfer
+            dt2.items.remove(i);
+            continue;
+            }
+        }
+        // Actualizar los archivos del input luego de eliminarlos
+        document.getElementById('fotodocumento').files = dt2.files;
+        });
+    });
     </script>
 </body>
 </html>

@@ -826,6 +826,36 @@ function agregarPerfilAgenda($connect) : void{
     }
 }
 
+// Agregar propiedad //
+function agregarDocumento($connect): void{
+    $consulta_id = $_GET['consulta'];
+    if (!empty($_FILES['fotodocumento']['name'])){
+        $fotoDocumentoNombreOLD = $_FILES['fotodocumento']['name'];
+        $_FILES['fotodocumento']['name'] = date('Y_m_d_H_i_s') . '__' . $_FILES['fotodocumento']['name'];
+        $fotoDocumentoNombre = $_FILES['fotodocumento']['name'];
+        $fotoDocumentoIMG = $_FILES['fotodocumento']['tmp_name'];
+    }else{
+        echo '<script> alert("Ha ocurrido un error al agregar la propiedad"); window.location = "../propiedades.php"; </script>';
+    }
+    $query = $connect-> prepare ("INSERT INTO wp_consulta_documento (archivo, consulta_id, archivo_real) VALUES (?, ?, ?)");
+    $query->execute([$fotoDocumentoNombreOLD, $consulta_id, $fotoDocumentoNombre]);
+    if($query){
+        if (!empty($_FILES['fotodocumento']['name'])){
+            $ruta_destino = '../content/' . $fotoDocumentoNombre;         
+            if (move_uploaded_file($fotoDocumentoIMG, $ruta_destino);) {
+                // El archivo se ha subido correctamente
+              } else {
+                // Ha ocurrido un error al subir el archivo
+                echo '<script> alert("Ha ocurrido un error al agregar el documento"); window.location = "../consultasinfo.php?consulta='.$consulta_id.'&page=documento.php"; </script>';
+              }
+        }
+
+        echo '<script> alert("Documento agregado con exito"); window.location = "../consultasinfo.php?consulta='.$consulta_id.'&page=documento.php"; </script>';
+    }else{
+        echo '<script> alert("Ha ocurrido un error al agregar el documento"); window.location = "../consultasinfo.php?consulta='.$consulta_id.'&page=documento.php"; </script>';
+    }
+}
+
 
 
 

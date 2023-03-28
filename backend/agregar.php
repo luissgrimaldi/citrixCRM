@@ -38,6 +38,10 @@ if (isset($_SESSION['usuario'])){
             agregarPerfilAgenda($connect); 
         };
 
+        if($_GET['page']=='documento'){
+            agregarDocumento($connect); 
+        };
+
     }else{
         echo '<script> alert("Ha ocurrido un error"); window.location = "../index.php"; </script>';
     }
