@@ -90,14 +90,14 @@
                         
                     }
                     $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones,
-                        g.id, g.nombre,
-                        a.user_id, a.nombre, a.apellido,
-                        t.id as t_id, t.user_id as t_user_id, t.fecha as t_fecha, t.asunto as t_asunto, t.tipo_tarea_id as t_tipo_tarea, t.hora_inicio as t_hora_inicio, t.observaciones as t_observaciones,
-                        g.id as g_id, g.nombre as g_nombre,
-                        a.user_id as a_user_id, a.nombre as a_nombre, a.apellido as a_apellido
-                        FROM wp_agenda t 
-                        LEFT JOIN wp_agenda_tipo_tarea g ON  t.tipo_tarea_id =g.id
-                        LEFT JOIN usuarios a ON  t.user_id=a.user_id
+                    g.id, g.nombre,
+                    a.user_id, a.nombre, a.apellido,
+                    t.id as t_id, t.user_id as t_user_id, t.fecha as t_fecha, t.asunto as t_asunto, t.tipo_tarea_id as t_tipo_tarea, t.hora_inicio as t_hora_inicio, t.observaciones as t_observaciones,
+                    g.id as g_id, g.nombre as g_nombre,
+                    a.user_id as a_user_id, a.nombre as a_nombre, a.apellido as a_apellido
+                    FROM wp_agenda t 
+                    LEFT JOIN wp_agenda_tipo_tarea g ON  t.tipo_tarea_id =g.id
+                    LEFT JOIN usuarios a ON  t.user_id=a.user_id
                         $filtro") or die('query failed');
                         $sentencia->execute();
                         $consultasTotales = $sentencia->rowCount();

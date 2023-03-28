@@ -128,7 +128,7 @@
                         b.tipo_tarea_id as b_tipo_tarea_id, b.color_background as b_color_background, b.user_id as b_user_id
                         FROM wp_agenda_tipo_tarea a
                         LEFT JOIN wp_agenda_tipo_tarea_custom_colors b ON a.id = b.tipo_tarea_id
-                        WHERE b.user_id = '".$idAgente."'") or die('query failed');
+                        WHERE b.user_id = '".$idAgente."' ORDER BY a.nombre ASC") or die('query failed');
                         $sentencia->execute();
                         $list_consultas = $sentencia->fetchAll();
                         if($list_consultas){?>
@@ -146,7 +146,7 @@
                             <?php };
                             }else{?>
                             <form autocomplete="off" class="main__perfil__container" method="POST" action="backend/agregar.php?page=perfilagenda">
-                            <?php $sentencia = $connect->prepare("SELECT * FROM wp_agenda_tipo_tarea") or die('query failed');
+                            <?php $sentencia = $connect->prepare("SELECT * FROM wp_agenda_tipo_tarea ORDER BY nombre ASC") or die('query failed');
                                 $sentencia->execute();
                                 $list_consultas = $sentencia->fetchAll();
                                 foreach($list_consultas as $consulta){

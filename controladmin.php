@@ -10,7 +10,7 @@
     if($_GET['order'] == 4){$order = "trim(us_nombre) DESC";};
     $sentencia = $connect->prepare("SELECT * FROM `usuarios`") or die('query failed');
     $sentencia->execute();
-    $consultasXpagina = 40;
+    $consultasXpagina = 25;
     $consultasTotales = $sentencia->rowCount();
     $paginas = $consultasTotales/$consultasXpagina;
     $paginas = ceil($paginas);
@@ -71,7 +71,7 @@
                                 $sentencia->execute();
                                 $list_usuarios = $sentencia->fetchAll();
                                 $consultasTotalesActuales = $sentencia->rowCount();
-                                echo  '<span class="resultados">'.($inicioConsultasXpagina + 1).'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
+                                echo  '<span class="resultados">';if(($inicioConsultasXpagina + $consultasTotalesActuales) > 0){echo ($inicioConsultasXpagina + 1);}else{echo 0;}; echo'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
                                 foreach($list_usuarios as $usuario){
                                     $id = $usuario['us_user_id'];                                                             
                                     $nombre = $usuario['us_nombre'];                                                             
@@ -122,7 +122,7 @@
         if($_GET['order'] == 4){$order = "trim(nombre) DESC";};
         $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades`") or die('query failed');
         $sentencia->execute();
-        $consultasXpagina = 40;
+        $consultasXpagina = 25;
         $consultasTotales = $sentencia->rowCount();
         $paginas = $consultasTotales/$consultasXpagina;
         $paginas = ceil($paginas);
@@ -177,7 +177,7 @@
                                 $sentencia->execute();
                                 $list_ciudades = $sentencia->fetchAll();
                                 $consultasTotalesActuales = $sentencia->rowCount();
-                                echo  '<span class="resultados">'.($inicioConsultasXpagina + 1).'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
+                                echo  '<span class="resultados">';if(($inicioConsultasXpagina + $consultasTotalesActuales) > 0){echo ($inicioConsultasXpagina + 1);}else{echo 0;}; echo'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
                                 foreach($list_ciudades as $ciudad){
                                     $id = $ciudad['id'];                                                             
                                     $nombre = $ciudad['nombre'];                                                             
@@ -223,7 +223,7 @@
         if($_GET['order'] == 4){$order = "trim(z_nombre) DESC";};
         $sentencia = $connect->prepare("SELECT * FROM `wp_zonas`") or die('query failed');
         $sentencia->execute();
-        $consultasXpagina = 40;
+        $consultasXpagina = 25;
         $consultasTotales = $sentencia->rowCount();
         $paginas = $consultasTotales/$consultasXpagina;
         $paginas = ceil($paginas);
@@ -284,7 +284,7 @@
                                 $sentencia->execute();
                                 $list_zonas = $sentencia->fetchAll();
                                 $consultasTotalesActuales = $sentencia->rowCount();
-                                echo  '<span class="resultados">'.($inicioConsultasXpagina + 1).'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
+                                echo  '<span class="resultados">';if(($inicioConsultasXpagina + $consultasTotalesActuales) > 0){echo ($inicioConsultasXpagina + 1);}else{echo 0;}; echo'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
                                 foreach($list_zonas as $zona){
                                     $id = $zona['z_id'];                                                             
                                     $nombre = $zona['z_nombre'];                                                             
@@ -326,7 +326,7 @@
 <?php if ($_GET['page']  == 'contacto'){
         $sentencia = $connect->prepare("SELECT * FROM `wp_contactos`") or die('query failed');
         $sentencia->execute();
-        $consultasXpagina = 40;
+        $consultasXpagina = 25;
         $consultasTotales = $sentencia->rowCount();
         $paginas = $consultasTotales/$consultasXpagina;
         $paginas = ceil($paginas);
@@ -472,7 +472,7 @@ if($_GET['nombre'] == '' AND $_GET['email'] == '' AND $_GET['telefono'] == '' AN
                         <ul class="propiedades__ul">
                         <?php     
                             $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;      
-                            $sentencia = $connect->prepare("SELECT a.id, a.nombre, a.apellido, a.telefono, a.celular, a.email, a.direccion, a.medio_contacto_id, a.agente_asignado_id,
+                            $sentencia = $connect->prepare("SELECT a.id as a_id, a.nombre as a_nombre, a.apellido, a.telefono, a.celular, a.email as a_email, a.direccion as a_direccion, a.medio_contacto_id, a.agente_asignado_id,
                             b.id, b.nombre as b_nombre,
                             c.user_id, c.nombre as c_nombre
                             from wp_contactos a
@@ -496,7 +496,7 @@ if($_GET['nombre'] == '' AND $_GET['email'] == '' AND $_GET['telefono'] == '' AN
                             $sentencia->execute();
                             $list_usuarios = $sentencia->fetchAll();
                             $consultasTotalesActuales = $sentencia->rowCount();
-                            echo  '<span class="resultados">'.($inicioConsultasXpagina + 1).'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
+                            echo  '<span class="resultados">';if(($inicioConsultasXpagina + $consultasTotalesActuales) > 0){echo ($inicioConsultasXpagina + 1);}else{echo 0;}; echo'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
                             foreach($list_usuarios as $usuario){
                                 $id = $usuario['a_id'];                                                             
                                 $nombre = $usuario['a_nombre'];                                                             

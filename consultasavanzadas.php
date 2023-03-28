@@ -1,13 +1,13 @@
 <?php include 'header.php' ?>
 <?php  $sentencia = $connect->prepare("SELECT * FROM `wp_consultas`") or die('query failed');
         $sentencia->execute();
-        $consultasXpagina = 40;
+        $consultasXpagina = 25;
         $consultasTotales = $sentencia->rowCount();
         $paginas = $consultasTotales/$consultasXpagina;
         $paginas = ceil($paginas);
-        if(!isset($_POST['buscarPrecioDesde'])){$_POST['buscarPrecioDesde'] = '';}; if(!isset($_POST['buscarPrecioHasta'])){$_POST['buscarPrecioHasta'] = '';};if(!isset($_POST['order'])){$_POST['order'] = 1;};
-        if(!$_GET ||$_GET["pagina"]<1){header('Location:consultasavanzadas.php?pagina=1&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&order='.$_POST['order']);}elseif($_GET['pagina']>$paginas){header('Location:consultasavanzadas.php?pagina=1&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&order='.$_POST['order']);}
-        else if (!isset($_GET['preciodesde']) || !isset($_GET['preciohasta']) || !isset($_GET['order'])){header('Location:consultasavanzadas.php?pagina=1&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&order='.$_POST['order']);};
+        if(!isset($_POST['buscarPrecioDesde'])){$_POST['buscarPrecioDesde'] = '';}; if(!isset($_POST['buscarPrecioHasta'])){$_POST['buscarPrecioHasta'] = '';}; if(!isset($_POST['buscarPrecioAlquilerDesde'])){$_POST['buscarPrecioAlquilerDesde'] = '';}; if(!isset($_POST['buscarPrecioAlquilerHasta'])){$_POST['buscarPrecioAlquilerHasta'] = '';}; if(!isset($_POST['order'])){$_POST['order'] = 1;};
+        if(!$_GET ||$_GET["pagina"]<1){header('Location:consultasavanzadas.php?pagina=1&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&precioalquilerdesde='.$_POST['buscarPrecioAlquilerDesde'].'&precioalquilerhasta='.$_POST['buscarPrecioAlquilerHasta'].'&order='.$_POST['order']);}elseif($_GET['pagina']>$paginas){header('Location:consultasavanzadas.php?pagina=1&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&precioalquilerdesde='.$_POST['buscarPrecioAlquilerDesde'].'&precioalquilerhasta='.$_POST['buscarPrecioAlquilerHasta'].'&order='.$_POST['order']);}
+        else if (!isset($_GET['preciodesde']) || !isset($_GET['preciohasta']) || !isset($_GET['precioalquilerdesde']) || !isset($_GET['precioalquilerhasta']) || !isset($_GET['order'])){header('Location:consultasavanzadas.php?pagina=1&preciodesde='.$_POST['buscarPrecioDesde'].'&preciohasta='.$_POST['buscarPrecioHasta'].'&precioalquilerdesde='.$_POST['buscarPrecioAlquilerDesde'].'&precioalquilerhasta='.$_POST['buscarPrecioAlquilerHasta'].'&order='.$_POST['order']);};
         
         ?>
 <?php include 'sidebar.php' ?>
@@ -43,6 +43,21 @@
                                 </div>                            
                             </div>
                         </div> 
+                        <div class="form__bloque form__bloque--1">
+                            <div class="form__bloque__fecha fecha">
+                                <h2 class="fecha__h2">Precio Alquiler</h2>
+                                <div class="fecha__container">
+                                    <div class="form__bloque__content fecha__container__content">
+                                        <label  class="form__label fecha__container__content__label" for="">Desde</label>
+                                        <input class="form__text fecha__container__content__text" name="buscarPrecioAlquilerDesde" value="<?php echo trim($_GET['precioalquilerdesde'])?>" type="text">
+                                    </div>
+                                    <div class="form__bloque__content fecha__container__content">
+                                        <label  class="form__label fecha__container__content__label" for="">Hasta</label>
+                                        <input class="form__text fecha__container__content__text" name="buscarPrecioAlquilerHasta" value="<?php echo trim($_GET['precioalquilerhasta'])?>" type="text">
+                                    </div>
+                                </div>                            
+                            </div>
+                        </div> 
                         <div class="form__bloque form__bloque--4">
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Ordenar por</label>
@@ -53,6 +68,10 @@
                                         <option <?php if ($_GET['order'] == 4){echo 'selected';}?> value="4">Menor precio desde</option>                                     
                                         <option <?php if ($_GET['order'] == 5){echo 'selected';}?> value="5">Mayor precio hasta</option>                                     
                                         <option <?php if ($_GET['order'] == 6){echo 'selected';}?> value="6">Menor precio hasta</option>                                     
+                                        <option <?php if ($_GET['order'] == 7){echo 'selected';}?> value="7">Mayor precio alquiler desde</option>                                     
+                                        <option <?php if ($_GET['order'] == 8){echo 'selected';}?> value="8">Menor precio alquiler desde</option>                                     
+                                        <option <?php if ($_GET['order'] == 9){echo 'selected';}?> value="9">Mayor precio alquiler hasta</option>                                     
+                                        <option <?php if ($_GET['order'] == 10){echo 'selected';}?> value="10">Menor precio alquiler hasta</option>                                     
                                 </select>
                             </div>                          
                         </div>                      
@@ -66,6 +85,7 @@
                     <ul class="consultas__ul">
                         <?php
                         $wherePrecio=" AND (con.precio_venta_desde >= '".$_GET['preciodesde']."') AND (con.precio_venta_hasta <= '".$_GET['preciohasta']."')";   
+                        $wherePrecioAlquiler=" AND (con.precio_alquiler_desde >= '".$_GET['precioalquilerdesde']."') AND (con.precio_alquiler_hasta <= '".$_GET['precioalquilerhasta']."')";   
                         
                         // ORDER
                         if($_GET['order'] == 1){$order = "con_id DESC";};
@@ -74,18 +94,23 @@
                         if($_GET['order'] == 4){$order = "con_precio_venta_desde ASC";};
                         if($_GET['order'] == 5){$order = "con_precio_venta_hasta DESC";};
                         if($_GET['order'] == 6){$order = "con_precio_venta_hasta ASC";};      
-                        if($_GET['preciodesde'] == '' AND $_GET['preciohasta'] == ''){$filtro = '';}else{ 
+                        if($_GET['order'] == 7){$order = "con_precio_alquiler_desde DESC";};
+                        if($_GET['order'] == 8){$order = "con_precio_alquiler_desde ASC";};
+                        if($_GET['order'] == 9){$order = "con_precio_alquiler_hasta DESC";};
+                        if($_GET['order'] == 10){$order = "con_precio_alquiler_hasta ASC";};      
+                        if($_GET['preciodesde'] == '' AND $_GET['preciohasta'] == '' AND $_GET['precioalquilerdesde'] == '' AND $_GET['precioalquilerhasta'] == ''){$filtro = '';}else{ 
                             
                             $filtro = "WHERE con.id > 0 ";
                             
                             if($_GET['preciodesde'] != '' AND $_GET['preciohasta'] != ''){$filtro .= $wherePrecio;};
+                            if($_GET['precioalquilerdesde'] != '' AND $_GET['precioalquilerhasta'] != ''){$filtro .= $wherePrecioAlquiler;};
                         }
 
-                        $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, CAST(con.created AS DATE) , con.situacion, con.canal_id, con.status_id,
+                        $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, con.created, con.situacion, con.canal_id, con.status_id, con.precio_venta_desde, con.precio_venta_hasta, con.superficie_construida_desde, con.superficie_construida_hasta, con.planta_baja, con.garaje, con.garaje_doble, con.amueblada, con.balcon, con.pileta, con.zonas, con.tipos_propiedad, con.precio_alquiler_desde, con.precio_alquiler_hasta,
                         prop.id, prop.referencia_interna, prop.calle, prop.altura, prop.descripcion_corta, prop.operacion_id,
                         sit.id, sit.nombre,
                         canal.id,
-                        con.id as con_id, con.consulta as con_consulta, con.nombre as con_nombre, con.apellido as con_apellido, con.email as con_email, con.telefono as con_telefono, con.created as con_created, con.canal_id as con_canal_id, con.status_id as con_status_id,
+                        con.id as con_id, con.consulta as con_consulta, con.propiedad_id as con_propiedad_id, con.nombre as con_nombre, con.apellido as con_apellido, con.email as con_email, con.telefono as con_telefono, con.created as con_created, con.canal_id as con_canal_id, con.status_id as con_status_id, con.precio_venta_desde as con_precio_venta_desde, con.precio_venta_hasta as con_precio_venta_hasta, con.superficie_construida_desde as con_superficie_construida_desde, con.superficie_construida_hasta as con_superficie_construida_hasta, con.planta_baja as con_planta_baja, con.garaje as con_garaje, con.garaje_doble as con_garaje_doble, con.amueblada  as con_amueblada, con.balcon as con_balcon, con.pileta as con_pileta, con.zonas as con_zonas, con.tipos_propiedad as con_tipos_propiedad, con.precio_alquiler_desde as con_precio_alquiler_desde, con.precio_alquiler_hasta as con_precio_alquiler_hasta,
                         prop.referencia_interna as prop_referencia_interna, prop.calle as prop_calle, prop.altura as prop_altura, prop.descripcion_corta as prop_descripcion_corta, prop.operacion_id as prop_operacion_id,
                         sit.nombre as sit_nombre,
                         canal.id as canal_id      
@@ -106,11 +131,11 @@
 
 
                             $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
-                            $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, con.created, con.situacion, con.canal_id, con.status_id, con.precio_venta_desde, con.precio_venta_hasta, con.superficie_construida_desde, con.superficie_construida_hasta, con.planta_baja, con.garaje, con.garaje_doble, con.amueblada, con.balcon, con.pileta, con.zonas, con.tipos_propiedad,
+                            $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, con.created, con.situacion, con.canal_id, con.status_id, con.precio_venta_desde, con.precio_venta_hasta, con.superficie_construida_desde, con.superficie_construida_hasta, con.planta_baja, con.garaje, con.garaje_doble, con.amueblada, con.balcon, con.pileta, con.zonas, con.tipos_propiedad, con.precio_alquiler_desde, con.precio_alquiler_hasta,
                             prop.id, prop.referencia_interna, prop.calle, prop.altura, prop.descripcion_corta, prop.operacion_id,
                             sit.id, sit.nombre,
                             canal.id,
-                            con.id as con_id, con.consulta as con_consulta, con.propiedad_id as con_propiedad_id, con.nombre as con_nombre, con.apellido as con_apellido, con.email as con_email, con.telefono as con_telefono, con.created as con_created, con.canal_id as con_canal_id, con.status_id as con_status_id, con.precio_venta_desde as con_precio_venta_desde, con.precio_venta_hasta as con_precio_venta_hasta, con.superficie_construida_desde as con_superficie_construida_desde, con.superficie_construida_hasta as con_superficie_construida_hasta, con.planta_baja as con_planta_baja, con.garaje as con_garaje, con.garaje_doble as con_garaje_doble, con.amueblada  as con_amueblada, con.balcon as con_balcon, con.pileta as con_pileta, con.zonas as con_zonas, con.tipos_propiedad as con_tipos_propiedad,
+                            con.id as con_id, con.consulta as con_consulta, con.propiedad_id as con_propiedad_id, con.nombre as con_nombre, con.apellido as con_apellido, con.email as con_email, con.telefono as con_telefono, con.created as con_created, con.canal_id as con_canal_id, con.status_id as con_status_id, con.precio_venta_desde as con_precio_venta_desde, con.precio_venta_hasta as con_precio_venta_hasta, con.superficie_construida_desde as con_superficie_construida_desde, con.superficie_construida_hasta as con_superficie_construida_hasta, con.planta_baja as con_planta_baja, con.garaje as con_garaje, con.garaje_doble as con_garaje_doble, con.amueblada  as con_amueblada, con.balcon as con_balcon, con.pileta as con_pileta, con.zonas as con_zonas, con.tipos_propiedad as con_tipos_propiedad, con.precio_alquiler_desde as con_precio_alquiler_desde, con.precio_alquiler_hasta as con_precio_alquiler_hasta,
                             prop.referencia_interna as prop_referencia_interna, prop.calle as prop_calle, prop.altura as prop_altura, prop.descripcion_corta as prop_descripcion_corta, prop.operacion_id as prop_operacion_id,
                             sit.nombre as sit_nombre,
                             canal.id as canal_id      
@@ -122,7 +147,7 @@
                             $sentencia->execute();
                             $consultasTotalesActuales = $sentencia->rowCount();
                             $list_consultas = $sentencia->fetchAll();
-                            echo  '<span class="resultados">'.($inicioConsultasXpagina + 1).'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
+                            echo  '<span class="resultados">';if(($inicioConsultasXpagina + $consultasTotalesActuales) > 0){echo ($inicioConsultasXpagina + 1);}else{echo 0;}; echo'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
                             foreach($list_consultas as $consulta){   
                                 $idConsulta = $consulta['con_id'];
                                 $tipoConsulta = $consulta['con_consulta'];
@@ -236,11 +261,11 @@
                 </div>
                 <div class="pagination">
                     <ul>
-                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="consultasavanzadas.php?pagina=<?php echo $_GET["pagina"]-1?>&preciodesde=<?php echo $_GET['preciodesde']?>&preciohasta=<?php echo $_GET['preciohasta']?>&order=<?php echo $_GET['order']?>"><li><</li></a>
+                        <a class="<?php if ($_GET['pagina']<=1){echo 'is-disabled';}?>" href="consultasavanzadas.php?pagina=<?php echo $_GET["pagina"]-1?>&preciodesde=<?php echo $_GET['preciodesde']?>&preciohasta=<?php echo $_GET['preciohasta']?>&precioalquilerdesde=<?php echo $_GET['precioalquilerdesde']?>&precioalquilerhasta=<?php echo $_GET['precioalquilerhasta']?>&order=<?php echo $_GET['order']?>"><li><</li></a>
 				        <?php for($i=0;$i<$paginas;$i++):?>
-                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="consultasavanzadas.php?pagina=<?php echo $i+1?>>&preciodesde=<?php echo $_GET['preciodesde']?>&preciohasta=<?php echo $_GET['preciohasta']?>&order=<?php echo $_GET['order']?>"><li><?php echo $i+1?></li></a>
+                        <a class="<?php if ($_GET['pagina']==$i+1){echo 'is-active';}?>" href="consultasavanzadas.php?pagina=<?php echo $i+1?>&preciodesde=<?php echo $_GET['preciodesde']?>&preciohasta=<?php echo $_GET['preciohasta']?>&precioalquilerdesde=<?php echo $_GET['precioalquilerdesde']?>&precioalquilerhasta=<?php echo $_GET['precioalquilerhasta']?>&order=<?php echo $_GET['order']?>"><li><?php echo $i+1?></li></a>
 				        <?php endfor ?>
-                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="consultasavanzadas.php?pagina=<?php echo $_GET["pagina"]+1?>>&preciodesde=<?php echo $_GET['preciodesde']?>&preciohasta=<?php echo $_GET['preciohasta']?>&order=<?php echo $_GET['order']?>"><li>></li></a>
+                        <a class="<?php if ($_GET['pagina']>=$paginas){echo 'is-disabled';}?>" href="consultasavanzadas.php?pagina=<?php echo $_GET["pagina"]+1?>&preciodesde=<?php echo $_GET['preciodesde']?>&preciohasta=<?php echo $_GET['preciohasta']?>&precioalquilerdesde=<?php echo $_GET['precioalquilerdesde']?>&precioalquilerhasta=<?php echo $_GET['precioalquilerhasta']?>&order=<?php echo $_GET['order']?>"><li>></li></a>
                     </ul>
                 </div>
             </div>  

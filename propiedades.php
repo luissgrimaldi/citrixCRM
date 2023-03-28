@@ -1,7 +1,7 @@
 <?php include 'header.php' ?>
 <?php  $sentencia = $connect->prepare("SELECT * FROM `wp_propiedades`") or die('query failed');
         $sentencia->execute();
-        $consultasXpagina = 40;
+        $consultasXpagina = 25;
         $consultasTotales = $sentencia->rowCount();
         $paginas = $consultasTotales/$consultasXpagina;
         $paginas = ceil($paginas);
@@ -216,12 +216,12 @@
                         
                         
                     }
-                        $sentencia = $connect->prepare("SELECT prop.id, prop.foto_portada, prop.tipo_propiedad_id, prop.operacion_id, prop.zona_id, prop.metros_utiles, prop.cant_habitaciones, prop.nro_banios, prop.precio_propietario, prop.visible_web, prop.ciudad_id, prop.calle, prop.referencia_interna, prop.llavero, prop.ocupada, prop.planta_baja, prop.status_id, prop.pileta_propia, prop.pileta_compartida,
+                        $sentencia = $connect->prepare("SELECT prop.id, prop.foto_portada, prop.tipo_propiedad_id, prop.operacion_id, prop.zona_id, prop.metros_utiles, prop.cant_habitaciones, prop.nro_banios, prop.precio_propietario, prop.visible_web, prop.ciudad_id, prop.calle, prop.referencia_interna, prop.llavero, prop.ocupada, prop.planta_baja, prop.pileta_propia, prop.pileta_compartida, prop.alquiler_precio,
                         tipo.id, tipo.nombre,
                         op.id, op.nombre,
                         zona.id, zona.nombre,
                         ciudad.id,
-                        prop.id as prop_id, prop.foto_portada as prop_foto_portada, prop.tipo_propiedad_id as prop_tipo_propiedad_id, prop.operacion_id as prop_operacion_id, prop.zona_id as prop_zona_id, prop.metros_utiles as prop_metros_utiles, prop.cant_habitaciones as prop_cant_habitaciones, prop.nro_banios as prop_nro_banios, prop.precio_propietario as prop_precio_propietario, prop.visible_web as prop_visible_web, prop.ciudad_id as prop_ciudad_id, prop.calle as prop_calle, prop.referencia_interna as prop_referencia_interna, prop.llavero as prop_llavero, prop.ocupada as prop_ocupada, prop.planta_baja as prop_planta_baja,
+                        prop.id as prop_id, prop.foto_portada as prop_foto_portada, prop.tipo_propiedad_id as prop_tipo_propiedad_id, prop.operacion_id as prop_operacion_id, prop.zona_id as prop_zona_id, prop.metros_utiles as prop_metros_utiles, prop.cant_habitaciones as prop_cant_habitaciones, prop.nro_banios as prop_nro_banios, prop.precio_propietario as prop_precio_propietario, prop.visible_web as prop_visible_web, prop.ciudad_id as prop_ciudad_id, prop.calle as prop_calle, prop.referencia_interna as prop_referencia_interna, prop.llavero as prop_llavero, prop.ocupada as prop_ocupada, prop.planta_baja as prop_planta_baja, prop.alquiler_precio as prop_alquiler_precio,
                         tipo.id as tipo_id, tipo.nombre as tipo_nombre,
                         op.id as op_id, op.nombre as op_nombre,
                         zona.id as zona_id, zona.nombre as zona_nombre,
@@ -259,7 +259,7 @@
                         $sentencia->execute();
                         $list_propiedades = $sentencia->fetchAll();
                         $consultasTotalesActuales = $sentencia->rowCount();
-                        echo  '<span class="resultados">'.($inicioConsultasXpagina + 1).'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
+                        echo  '<span class="resultados">';if(($inicioConsultasXpagina + $consultasTotalesActuales) > 0){echo ($inicioConsultasXpagina + 1);}else{echo 0;}; echo'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
                         foreach($list_propiedades as $propiedad){
                             $idPropiedad = $propiedad['prop_id'];
                             $imgPropiedad = strval($propiedad['prop_foto_portada']);

@@ -1,7 +1,7 @@
 <?php include 'header.php' ?>
 <?php  $sentencia = $connect->prepare("SELECT * FROM `wp_consultas`") or die('query failed');
         $sentencia->execute();
-        $consultasXpagina = 40;
+        $consultasXpagina = 25;
         $consultasTotales = $sentencia->rowCount();
         $paginas = $consultasTotales/$consultasXpagina;
         $paginas = ceil($paginas);
@@ -144,7 +144,11 @@
                                         <option <?php if ($_GET['order'] == 3){echo 'selected';}?> value="3">Mayor precio desde</option>                                     
                                         <option <?php if ($_GET['order'] == 4){echo 'selected';}?> value="4">Menor precio desde</option>                                     
                                         <option <?php if ($_GET['order'] == 5){echo 'selected';}?> value="5">Mayor precio hasta</option>                                     
-                                        <option <?php if ($_GET['order'] == 6){echo 'selected';}?> value="6">Menor precio hasta</option>                                     
+                                        <option <?php if ($_GET['order'] == 6){echo 'selected';}?> value="6">Menor precio hasta</option>
+                                        <option <?php if ($_GET['order'] == 7){echo 'selected';}?> value="7">Mayor precio alquiler desde</option>                                     
+                                        <option <?php if ($_GET['order'] == 8){echo 'selected';}?> value="8">Menor precio alquiler desde</option>                                     
+                                        <option <?php if ($_GET['order'] == 9){echo 'selected';}?> value="9">Mayor precio alquiler hasta</option>                                     
+                                        <option <?php if ($_GET['order'] == 10){echo 'selected';}?> value="10">Menor precio alquiler hasta</option>                                     
                                 </select>
                             </div>                          
                         </div>
@@ -172,7 +176,11 @@
                         if($_GET['order'] == 3){$order = "con_precio_venta_desde DESC";};
                         if($_GET['order'] == 4){$order = "con_precio_venta_desde ASC";};
                         if($_GET['order'] == 5){$order = "con_precio_venta_hasta DESC";};
-                        if($_GET['order'] == 6){$order = "con_precio_venta_hasta ASC";};
+                        if($_GET['order'] == 6){$order = "con_precio_venta_hasta ASC";};      
+                        if($_GET['order'] == 7){$order = "con_precio_alquiler_desde DESC";};
+                        if($_GET['order'] == 8){$order = "con_precio_alquiler_desde ASC";};
+                        if($_GET['order'] == 9){$order = "con_precio_alquiler_hasta DESC";};
+                        if($_GET['order'] == 10){$order = "con_precio_alquiler_hasta ASC";};
 
                         if($_GET['fechadesde'] == '' AND $_GET['cliente'] == '' AND $_GET['canal'] == '' AND $_GET['op'] == '' AND $_GET['tipo'] == '' AND $_GET['propiedad'] == '' AND $_GET['zona'] == '' AND $_GET['estado'] == ''){$filtro = '';}else{ 
                             
@@ -188,11 +196,11 @@
                             if($_GET['estado'] != ''){$filtro .= $whereEstado;};
                         }
 
-                        $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, CAST(con.created AS DATE) , con.situacion, con.canal_id, con.status_id,
+                        $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, con.created, con.situacion, con.canal_id, con.status_id, con.precio_venta_desde, con.precio_venta_hasta, con.superficie_construida_desde, con.superficie_construida_hasta, con.planta_baja, con.garaje, con.garaje_doble, con.amueblada, con.balcon, con.pileta, con.zonas, con.tipos_propiedad, con.precio_alquiler_desde, con.precio_alquiler_hasta,
                         prop.id, prop.referencia_interna, prop.calle, prop.altura, prop.descripcion_corta, prop.operacion_id,
                         sit.id, sit.nombre,
                         canal.id,
-                        con.id as con_id, con.consulta as con_consulta, con.nombre as con_nombre, con.apellido as con_apellido, con.email as con_email, con.telefono as con_telefono, con.created as con_created, con.canal_id as con_canal_id, con.status_id as con_status_id,
+                        con.id as con_id, con.consulta as con_consulta, con.propiedad_id as con_propiedad_id, con.nombre as con_nombre, con.apellido as con_apellido, con.email as con_email, con.telefono as con_telefono, con.created as con_created, con.canal_id as con_canal_id, con.status_id as con_status_id, con.precio_venta_desde as con_precio_venta_desde, con.precio_venta_hasta as con_precio_venta_hasta, con.superficie_construida_desde as con_superficie_construida_desde, con.superficie_construida_hasta as con_superficie_construida_hasta, con.planta_baja as con_planta_baja, con.garaje as con_garaje, con.garaje_doble as con_garaje_doble, con.amueblada  as con_amueblada, con.balcon as con_balcon, con.pileta as con_pileta, con.zonas as con_zonas, con.tipos_propiedad as con_tipos_propiedad, con.precio_alquiler_desde as con_precio_alquiler_desde, con.precio_alquiler_hasta as con_precio_alquiler_hasta,
                         prop.referencia_interna as prop_referencia_interna, prop.calle as prop_calle, prop.altura as prop_altura, prop.descripcion_corta as prop_descripcion_corta, prop.operacion_id as prop_operacion_id,
                         sit.nombre as sit_nombre,
                         canal.id as canal_id      
@@ -213,11 +221,11 @@
 
 
                             $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;
-                            $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, con.created, con.situacion, con.canal_id, con.status_id, con.precio_venta_desde, con.precio_venta_hasta, con.superficie_construida_desde, con.superficie_construida_hasta, con.planta_baja, con.garaje, con.garaje_doble, con.amueblada, con.balcon, con.pileta, con.zonas, con.tipos_propiedad,
+                            $sentencia = $connect->prepare("SELECT con.id, con.consulta, con.propiedad_id, con.nombre, con.apellido, con.email, con.telefono, con.created, con.situacion, con.canal_id, con.status_id, con.precio_venta_desde, con.precio_venta_hasta, con.superficie_construida_desde, con.superficie_construida_hasta, con.planta_baja, con.garaje, con.garaje_doble, con.amueblada, con.balcon, con.pileta, con.zonas, con.tipos_propiedad, con.precio_alquiler_desde, con.precio_alquiler_hasta,
                             prop.id, prop.referencia_interna, prop.calle, prop.altura, prop.descripcion_corta, prop.operacion_id,
                             sit.id, sit.nombre,
                             canal.id,
-                            con.id as con_id, con.consulta as con_consulta, con.propiedad_id as con_propiedad_id, con.nombre as con_nombre, con.apellido as con_apellido, con.email as con_email, con.telefono as con_telefono, con.created as con_created, con.canal_id as con_canal_id, con.status_id as con_status_id, con.precio_venta_desde as con_precio_venta_desde, con.precio_venta_hasta as con_precio_venta_hasta, con.superficie_construida_desde as con_superficie_construida_desde, con.superficie_construida_hasta as con_superficie_construida_hasta, con.planta_baja as con_planta_baja, con.garaje as con_garaje, con.garaje_doble as con_garaje_doble, con.amueblada  as con_amueblada, con.balcon as con_balcon, con.pileta as con_pileta, con.zonas as con_zonas, con.tipos_propiedad as con_tipos_propiedad,
+                            con.id as con_id, con.consulta as con_consulta, con.propiedad_id as con_propiedad_id, con.nombre as con_nombre, con.apellido as con_apellido, con.email as con_email, con.telefono as con_telefono, con.created as con_created, con.canal_id as con_canal_id, con.status_id as con_status_id, con.precio_venta_desde as con_precio_venta_desde, con.precio_venta_hasta as con_precio_venta_hasta, con.superficie_construida_desde as con_superficie_construida_desde, con.superficie_construida_hasta as con_superficie_construida_hasta, con.planta_baja as con_planta_baja, con.garaje as con_garaje, con.garaje_doble as con_garaje_doble, con.amueblada  as con_amueblada, con.balcon as con_balcon, con.pileta as con_pileta, con.zonas as con_zonas, con.tipos_propiedad as con_tipos_propiedad, con.precio_alquiler_desde as con_precio_alquiler_desde, con.precio_alquiler_hasta as con_precio_alquiler_hasta,
                             prop.referencia_interna as prop_referencia_interna, prop.calle as prop_calle, prop.altura as prop_altura, prop.descripcion_corta as prop_descripcion_corta, prop.operacion_id as prop_operacion_id,
                             sit.nombre as sit_nombre,
                             canal.id as canal_id      
@@ -229,7 +237,7 @@
                             $sentencia->execute();
                             $consultasTotalesActuales = $sentencia->rowCount();
                             $list_consultas = $sentencia->fetchAll();
-                            echo  '<span class="resultados">'.($inicioConsultasXpagina + 1).'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
+                            echo  '<span class="resultados">';if(($inicioConsultasXpagina + $consultasTotalesActuales) > 0){echo ($inicioConsultasXpagina + 1);}else{echo 0;}; echo'-'.($inicioConsultasXpagina + $consultasTotalesActuales). ' de '. $consultasTotales. ' resultados'.'</span>';
                             foreach($list_consultas as $consulta){   
                                 $idConsulta = $consulta['con_id'];
                                 $tipoConsulta = $consulta['con_consulta'];

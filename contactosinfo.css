@@ -91,6 +91,11 @@
     gap: .5em;
 }
 
+.main__user__content__bloque__content>span{
+    flex-shrink: 0;
+    word-break: break-word;
+}
+
 .main__user__content__bloque__content__respuesta{
     font-weight: bold;
     color: var(--color-secundario-main);

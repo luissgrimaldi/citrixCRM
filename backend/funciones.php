@@ -466,6 +466,8 @@ function agregarConsulta($connect) : void{
     if($_POST['superficiehasta'] == ''){$_POST['superficiehasta']= NULL;};
     if($_POST['preciodesde'] == ''){$_POST['preciodesde']=NULL;};
     if($_POST['preciohasta'] == ''){$_POST['preciohasta']=NULL;};
+    if($_POST['precioalquilerdesde'] == ''){$_POST['precioalquilerdesde']=NULL;};
+    if($_POST['precioalquilerhasta'] == ''){$_POST['precioalquilerhasta']=NULL;};
     if(!isset($_POST['plantabaja'])){$_POST['plantabaja']= '';};
     if(!isset($_POST['garage'])){$_POST['garage']= '';};
     if(!isset($_POST['garagedoble'])){$_POST['garagedoble']= '';};
@@ -493,6 +495,8 @@ function agregarConsulta($connect) : void{
     $superficieHasta = $_POST['superficiehasta'];
     $precioDesde = $_POST['preciodesde'];
     $precioHasta = $_POST['preciohasta'];
+    $precioAlquilerDesde = $_POST['precioalquilerdesde'];
+    $precioAlquilerHasta = $_POST['precioalquilerhasta'];
     $plantaBaja = $_POST['plantabaja'];
     $garage = $_POST['garage'];
     $garageDoble = $_POST['garagedoble'];
@@ -515,8 +519,8 @@ function agregarConsulta($connect) : void{
     };
 
 
-    $query = $connect-> prepare ("INSERT INTO wp_consultas (nombre, apellido , email, telefono, propiedad_id, observaciones, consulta, status_id, situacion, captado_por, canal_id, asignado_a, llamar_desde, llamar_hasta, superficie_construida_desde, superficie_construida_hasta, precio_venta_desde, precio_venta_hasta, planta_baja, garaje, garaje_doble, amueblada, balcon, pileta, contacto_id, zonas, tipos_propiedad, created, created_by) VALUES (?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $query->execute([$nombre, $apellido, $email, $telefono, $propiedad, $observaciones, $consulta, $estado, $situacion, $captadoPor, $medioContacto, $asignadoA, $llamarDesde, $llamarHasta, $superficieDesde, $superficieHasta, $precioDesde, $precioHasta, $plantaBaja, $garage, $garageDoble, $amueblada, $balcon, $pileta, $contactoId, $buscarZona, $buscarTipo, $created, $createdBy]);
+    $query = $connect-> prepare ("INSERT INTO wp_consultas (nombre, apellido , email, telefono, propiedad_id, observaciones, consulta, status_id, situacion, captado_por, canal_id, asignado_a, llamar_desde, llamar_hasta, superficie_construida_desde, superficie_construida_hasta, precio_venta_desde, precio_venta_hasta, precio_alquiler_desde, precio_alquiler_hasta, planta_baja, garaje, garaje_doble, amueblada, balcon, pileta, contacto_id, zonas, tipos_propiedad, created, created_by) VALUES (?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $query->execute([$nombre, $apellido, $email, $telefono, $propiedad, $observaciones, $consulta, $estado, $situacion, $captadoPor, $medioContacto, $asignadoA, $llamarDesde, $llamarHasta, $superficieDesde, $superficieHasta, $precioDesde, $precioHasta, $precioAlquilerDesde, $precioAlquilerHasta, $plantaBaja, $garage, $garageDoble, $amueblada, $balcon, $pileta, $contactoId, $buscarZona, $buscarTipo, $created, $createdBy]);
     
     if($query){
         $query = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = $createdBy") or die('query failed');
@@ -1640,7 +1644,7 @@ function editarPropiedad($connect,$connect2): void{
                         $apellidoNotificaciones = $usuario['apellido'];                                       
                     }
                     if(($NEWAgente_asignado_id != $modifiedBy) && ($NEWAgente_asignado_id != $editarAgente_asignado_id)){
-                        $mensaje = '<a href="propiedadesinfo.php?ref='.$editarRef.'"><i class="fa-solid fa-building"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha asignado una propiedad</a>';
+                        $mensaje = '<a href="propiedadesinfo.php?ref='.$editarRef.'"><i class="fa-solid fa-building"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha reasignado una propiedad</a>';
                         $query = $connect-> prepare ("INSERT INTO wp_notificaciones (mensaje, user_id, seen, fecha) VALUES (?, ?, ?, ?)");
                         $query->execute([$mensaje, $NEWAgente_asignado_id, 0, $modified]);
                     }
@@ -1839,6 +1843,8 @@ function editarConsulta($connect) : void{
         $editarSuperficieHasta = $consulta['superficie_construida_hasta'];
         $editarPrecioDesde = $consulta['precio_venta_desde'];
         $editarPrecioHasta = $consulta['precio_venta_hasta'];
+        $editarPrecioAlquilerDesde = $consulta['precio_alquiler_desde'];
+        $editarPrecioAlquilerHasta = $consulta['precio_alquiler_hasta'];
         $editarPlantaBaja = $consulta['planta_baja'];
         $editargaraje = $consulta['garaje'];
         $editargarajeDoble = $consulta['garaje_doble'];
@@ -1868,6 +1874,8 @@ function editarConsulta($connect) : void{
     $NEWsuperficieHasta = $_POST['superficiehasta'];
     $NEWprecioDesde = $_POST['preciodesde'];
     $NEWprecioHasta = $_POST['preciohasta'];
+    $NEWprecioAlquilerDesde = $_POST['precioalquilerdesde'];
+    $NEWprecioAlquilerHasta = $_POST['precioalquilerhasta'];
     $NEWplantaBaja = $_POST['plantabaja'];
     $NEWgaraje = $_POST['garage'];
     $NEWgarajeDoble = $_POST['garagedoble'];
@@ -1951,6 +1959,12 @@ function editarConsulta($connect) : void{
         if($NEWprecioHasta != $editarPrecioHasta){
             $update .= ", precio_venta_hasta = '".$NEWprecioHasta."'";
         }
+        if($NEWprecioAlquilerDesde != $editarPrecioAlquilerDesde){
+            $update .= ", precio_alquiler_desde = '".$NEWprecioAlquilerDesde."'";
+        }
+        if($NEWprecioAlquilerHasta != $editarPrecioAlquilerHasta){
+            $update .= ", precio_alquiler_hasta = '".$NEWprecioAlquilerHasta."'";
+        }
         if($NEWplantaBaja != $editarPlantaBaja){
             $update .= ", planta_baja = '".$NEWplantaBaja."'";
         }
@@ -1992,7 +2006,7 @@ function editarConsulta($connect) : void{
                     $apellidoNotificaciones = $usuario['apellido'];                                    
                 }
                 if(($NEWasignadoA != $modifiedBy) && ($NEWasignadoA != $editarAsignadoA)){
-                    $mensaje = '<a href="consultasinfo.php?consulta='.$_GET['consulta'].'"><i class="fa-solid fa-circle-question"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha asignado una consulta</a>';
+                    $mensaje = '<a href="consultasinfo.php?consulta='.$_GET['consulta'].'"><i class="fa-solid fa-circle-question"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha reasignado una consulta</a>';
                     $query = $connect-> prepare ("INSERT INTO wp_notificaciones (mensaje, user_id, seen, fecha) VALUES (?, ?, ?, ?)");
                     $query->execute([$mensaje, $NEWasignadoA, 0, $modified]);
                 }
@@ -2301,18 +2315,23 @@ function editarContacto($connect) : void{
     $modifiedBy = $_SESSION['usuario'];
                   
     $update = " modified = '".$modified."'";
+    $update2 = " modified = '".$modified."'";
 
     if($NEWnombre != $editarNombre){
         $update .= ", nombre = '".$NEWnombre."'";
+        $update2 .= ", nombre = '".$NEWnombre."'";
     }
     if($NEWapellido != $editarApellido){
         $update .= ", apellido = '".$NEWapellido."'";
+        $update2 .= ", apellido = '".$NEWapellido."'";
     }
     if($NEWtelefono != $editarTelefono){
         $update .= ", telefono = '".$NEWtelefono."'";
+        $update2 .= ", telefono = '".$NEWtelefono."'";
     }
     if($NEWemail != $editarEmail){
         $update .= ", email = '".$NEWemail."'";
+        $update2 .= ", email = '".$NEWemail."'";
     }
     if($NEWdireccion != $editarDireccion){
         $update .= ", direccion = '".$NEWdireccion."'";
@@ -2345,6 +2364,10 @@ function editarContacto($connect) : void{
             $query->execute();
         
             if($query){
+                
+
+                $query = $connect-> prepare ("UPDATE wp_consultas SET $update2 WHERE contacto_id= '".$_GET['id']."'");
+                $query->execute();
                     $query = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = $modifiedBy") or die('query failed');
                     $query->execute();
                     $list_usuarios = $query->fetchAll();
@@ -2353,7 +2376,7 @@ function editarContacto($connect) : void{
                         $apellidoNotificaciones = $usuario['apellido'];                                    
                     }
                     if(($NEWagenteAsignadoId != $modifiedBy) && ($NEWagenteAsignadoId != $editarAgenteAsignadoId)){
-                        $mensaje = '<a href="contactosinfo.php?contacto='.$_GET['id'].'"><i class="fa-solid fa-user"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha asignado un contacto</a>';
+                        $mensaje = '<a href="contactosinfo.php?contacto='.$_GET['id'].'"><i class="fa-solid fa-user"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha reasignado un contacto</a>';
                         $query = $connect-> prepare ("INSERT INTO wp_notificaciones (mensaje, user_id, seen, fecha) VALUES (?, ?, ?, ?)");
                         $query->execute([$mensaje, $NEWagenteAsignadoId, 0, $modified]);
                     }

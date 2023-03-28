@@ -36,6 +36,12 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                     $editarContacto = $propiedad['contacto_id'];
                     $editarBuscarZona = $propiedad['zonas'];               
                     $editarBuscarTipo = $propiedad['tipos_propiedad'];
+                    $editarCreated = $propiedad['created'];
+                    $editarCreated = date("d-m-Y", strtotime($editarCreated));
+                    $editarModified = $propiedad['modified'];
+                    if(!empty($editarModified)){
+                        $editarModified = date("d-m-Y", strtotime($editarModified));
+                    }
                     }
                     $whereZonas=" AND zona_id in(".$editarBuscarZona.")";         
                     $whereTipo=" AND tipo_propiedad_id in(".$editarBuscarTipo.")";
@@ -104,7 +110,11 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                             $contactoConyugeTelefono = $situacion['conyuge_tel'];
                             $emails = $situacion['no_emails'];
                             $created = $situacion['created'];
-                            $created = date("d-m-Y", strtotime($created));  
+                            $created = date("d-m-Y", strtotime($created));
+                            $modified = $situacion['modified'];
+                            if(!empty($modified)){
+                                $modified = date("d-m-Y", strtotime($modified));
+                            }
                         }; }else{
                             $contactoDireccion ='';
                             $contactoConyuge = '';
@@ -112,6 +122,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                             $contactoConyugeCelular = '';
                             $contactoConyugeTelefono = '';
                             $emails = '';
+                            $modified = '';
                         };
 
                         $sentencia = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = '".$editarCaptado."'") or die('query failed');
@@ -259,10 +270,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                                 <span>Precio:</span><span class="main__user__content__bloque__content__respuesta"><?php if($editarPrecioDesde != '' or $editarPrecioDesde != NULL){echo 'De '?><span class="main__user__content__bloque__content__respuesta--precio"><?php echo '$'.number_format($editarPrecioDesde,0,",", ".");?></span> a <span class="main__user__content__bloque__content__respuesta--precio"><?php echo '$'.number_format($editarprecioHasta,0,",", ".");?></span><?php }else{echo 'No se estableció ningun precio';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
-                                <span>Fecha de alta:</span><span class="main__user__content__bloque__content__respuesta"><?php {echo $created;}?></span>
-                            </div>
-                            <div class="main__user__content__bloque__content">
-                                <span>LLamar desde:</span><span class="main__user__content__bloque__content__respuesta"><?php if($editarLlamarDesde != '0' or $editarLlamarDesde != NULL){ echo $editarLlamarDesde;};?></span>
+                                <span>Fecha de alta:</span><span class="main__user__content__bloque__content__respuesta"><?php echo $editarCreated;?></span>
                             </div>
                         </div>                  
                         <div class="main__user__content__bloque">
@@ -273,10 +281,13 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                                 <span>Captado por:</span><span class="main__user__content__bloque__content__respuesta"><?php if(!empty($editarCaptado)){echo $agenteNombre.' '.$agenteApellido;}else{echo 'No se estableció ningun agente';}?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
-                                <span>Enviar emails:</span><span class="main__user__content__bloque__content__respuesta"><?php if($emails != ''){if($emails == '0' ){echo 'Si';}else if($emails == '1'){echo 'No';};}else{echo 'No establecido';}?></span>
+                                <span>LLamar desde:</span><span class="main__user__content__bloque__content__respuesta"><?php if($editarLlamarDesde != '0' or $editarLlamarDesde != NULL){ echo $editarLlamarDesde;};?></span>
                             </div>
                             <div class="main__user__content__bloque__content">
                                 <span>LLamar hasta:</span><span class="main__user__content__bloque__content__respuesta"><?php if($editarLlamarHasta != '00:00' or $editarLlamarHasta != NULL){ echo $editarLlamarHasta;};?></span>
+                            </div>
+                            <div class="main__user__content__bloque__content">
+                                <span>Actualizado:</span><span class="main__user__content__bloque__content__respuesta"><?php if(!empty($editarModified)){echo $editarModified ;}else{echo 'No se ha actualizado';};?></span>
                             </div>
                         </div>
                     </div>
@@ -285,6 +296,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                     <a href="consultasinfo.php?consulta=<?php echo $_GET['consulta'];?>&page=seguimiento" class="panel__segumiento-visita__button <?php if($_GET["page"] == 'seguimiento'){echo 'panel__segumiento-visita__button--active';}?>" type="button"><i class="fa-solid fa-signal"></i> Seguimiento</a>
                     <a href="consultasinfo.php?consulta=<?php echo $_GET['consulta'];?>&page=informacion" class="panel__segumiento-visita__button <?php if($_GET["page"] == 'informacion'){echo 'panel__segumiento-visita__button--active';}?>" type="button"><i class="fa-solid fa-info"></i> Informacion</a>
                     <a href="consultasinfo.php?consulta=<?php echo $_GET['consulta'];?>&page=visita" class="panel__segumiento-visita__button <?php if($_GET["page"] == 'visita'){echo 'panel__segumiento-visita__button--active';}?>" type="button"><i class="fa-solid fa-envelope"></i> Visita</a>
+                    <a href="consultasinfo.php?consulta=<?php echo $_GET['consulta'];?>&page=documento" class="panel__segumiento-visita__button <?php if($_GET["page"] == 'documento'){echo 'panel__segumiento-visita__button--active';}?>" type="button"><i class="fa-solid fa-file"></i> Documentos</a>
                 </div>
                 <div class="main__decoration"></div>
                 <?php if ($_GET['page']== 'seguimiento'){?>
@@ -361,7 +373,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                     <ul class="tareas--pendientes__list">
                     <div class="consulta">
                         <span class="consulta__span"><?php echo $editarConsulta;?></span>
-                    </div>  
+                    </div>   
                     <?php           
                         $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.consulta_id, t.asignada_el, t.propiedad_id,
                         g.id, g.nombre,
@@ -423,6 +435,36 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                                 </li>                         
                             <?php };?>
                     </ul>
+                </div>
+                <?php ;}?>
+                <?php if ($_GET['page']== 'informacion'){?>
+                <div class="main__seguimiento">
+                    <div class="main__user">
+                        <div class="main__user__content">
+                            <div class="main__user__content__bloque">
+                                <div class="main__user__content__bloque__content">
+                                    <span>Fecha de alta:</span><span class="main__user__content__bloque__content__respuesta"><?php echo $created;?></span>
+                                </div>
+                                <div class="main__user__content__bloque__content">
+                                    <span>Ultima actualizacion:</span><span class="main__user__content__bloque__content__respuesta"><?php if(!empty($modified)){echo $modified ;}else{echo 'No se ha actualizado';};?></span>
+                                </div>
+                                <div class="main__user__content__bloque__content">
+                                    <span>Conyuge:</span><span class="main__user__content__bloque__content__respuesta"><?php if(!empty($contactoConyuge)){echo $contactoConyuge;}else{echo 'No se estableció ningun conyuge';}?></span>
+                                </div>
+                            </div>                  
+                            <div class="main__user__content__bloque">
+                                <div class="main__user__content__bloque__content">
+                                    <span>Enviar emails:</span><span class="main__user__content__bloque__content__respuesta"><?php if($emails != ''){if($emails == '0' ){echo 'Si';}else if($emails == '1'){echo 'No';};}else{echo 'No establecido';}?></span>
+                                </div>
+                                <div class="main__user__content__bloque__content">
+                                    <span>Celular Conyuge:</span><span class="main__user__content__bloque__content__respuesta"><?php if(!empty($contactoConyugeCelular)){echo $contactoConyugeCelular;}else{echo 'No se estableció ningun celular de conyuge';}?></span>
+                                </div>
+                                <div class="main__user__content__bloque__content">
+                                    <span>Email Conyuge:</span><span class="main__user__content__bloque__content__respuesta"><?php if(!empty($contactoConyugeEmail)){echo $contactoConyugeEmail;}else{echo 'No se estableció ningun email de conyuge';}?></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <?php ;}?>
             </div>  

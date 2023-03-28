@@ -647,7 +647,7 @@
                                     <?php };?>
                                 </select>
                             </div>
-                            <div class="form__bloque__content content">
+                            <!-- <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Contactado por</label>
                                 <select class="form__select" name="contactadopor" id="">                               
                                     <option value></option>
@@ -663,7 +663,7 @@
                                     <option value="<?php echo $idAgente?>"><?php echo $agenteNombre.' '.$agenteApellido ?></option>
                                     <?php };?>
                                 </select>
-                            </div>                                          
+                            </div>                                           -->
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Oficina</label>
                                 <select class="form__select content__select" name="oficina" id="">    
