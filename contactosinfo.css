@@ -53,10 +53,10 @@
     background-color: var(--body-select-hover-checked);
 }
 
-.main__h1--emoji{
+.main__h1--emoji {
     color: var(--color-principal-main);
     font-size: 1.875em;
-    margin-right:0.625em ;
+    margin-right: 0.325em;
 }
 
 .main__h1{

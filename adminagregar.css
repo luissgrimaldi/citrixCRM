@@ -59,10 +59,10 @@
     user-select: none;
 }
 
-.main__h1--emoji{
+.main__h1--emoji {
     color: var(--color-principal-main);
     font-size: 1.875em;
-    margin-right:0.625em ;
+    margin-right: 0.325em;
 }
 
 .main__h1{
@@ -93,8 +93,8 @@
 .perfil__bloque__content{
     width: 100%;
     text-align: center;
-    background-color: var(--color-principal-main);
-    color: var(--color-terciario-main);
+    outline: 0.125em solid var(--color-principal-main);
+    color: black;
     border-radius: 1.25em;
     padding: .5em 1em;
     font-size: 1em;
@@ -152,11 +152,12 @@
 .perfil__select{
     width: 100%;
     text-align: center;
-    background-color: var(--color-principal-main);
-    color: var(--color-terciario-main);
+    outline: 0.125em solid var(--color-principal-main);
+    color: black;
     border-radius: 1.25em;
     font-size: 1em;
     cursor: pointer;
+    padding: .5em 1em;
 }
 
 .perfil__select option{
@@ -192,11 +193,12 @@
 .form__textarea{
     width: 100%;
     padding: 0.313em 1em;
-    background-color: var(--color-principal-main);
-    color: white;
+    border: 2px solid var(--color-principal-main);
+    color: black;
     border-radius: 1em;
     overflow-wrap: break-word;
-    resize: vertical;
+    resize: both;
+    position: relative;
 } 
 
 .files-area{

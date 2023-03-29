@@ -547,7 +547,8 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
             .then(data => {
                 alert(data);
                 formSeguimiento.reset();
-                modal.removeAttr('style');             
+                modal.removeAttr('style');
+                location.reload();             
                 
             })
             .catch(err => console.log(err))
@@ -570,7 +571,8 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
             .then(data => {
                 alert(data);
                 formVisita.reset();
-                modal.removeAttr('style');             
+                modal.removeAttr('style'); 
+                location.reload();          
                 
             })
             .catch(err => console.log(err))

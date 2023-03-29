@@ -24,10 +24,10 @@
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 
 /* Main */
-.main__h1--emoji{
+.main__h1--emoji {
     color: var(--color-principal-main);
     font-size: 1.875em;
-    margin-right:0.625em ;
+    margin-right: 0.325em;
 }
 
 .main__h1{
@@ -103,8 +103,8 @@
 .tareas__select, .tareas__search{
     width: 18.75em;
     text-align: center;
-    background-color: var(--color-principal-main);
-    color: var(--color-terciario-main);
+    outline: 0.125em solid var(--color-principal-main);
+    color: black;
     border-radius: 1.25em;
     padding: 0.313em 0;
     font-size: 1em;

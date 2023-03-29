@@ -767,6 +767,66 @@ function agregarContacto($connect) : void{
     }        
 }
 
+// Agregar contacto fetch //
+function agregarContactoFetch($connect) : void{
+    if(!isset($_POST['nombre'])){$_POST['nombre']= '';};
+    if(!isset($_POST['apellido'])){$_POST['apellido']= '';};
+    if(!isset($_POST['telefono'])){$_POST['telefono']= '';};
+    if(!isset($_POST['email'])){$_POST['email']= '';};
+    if(!isset($_POST['direccion'])){$_POST['direccion']= '';};
+    if(!isset($_POST['observaciones'])){$_POST['observaciones']='';};
+    if(!isset($_POST['conyuge'])){$_POST['conyuge']='';};
+    if(!isset($_POST['telefono_conyuge'])){$_POST['telefono_conyuge']='';};
+    if(!isset($_POST['email_conyuge'])){$_POST['email_conyuge']='';};
+    if(!isset($_POST['agente_asignado_id'])){$_POST['agente_asignado_id']='';};
+    if(!isset($_POST['no_emails'])){$_POST['no_emails']= '1';};
+    
+    // Variables de sección información //
+    $nombre = trim($_POST['nombre']);
+    $apellido = trim($_POST['apellido']);
+    $telefono = trim($_POST['telefono']);
+    $email = trim($_POST['email']);
+    $direccion = trim($_POST['direccion']);
+    $observaciones = trim($_POST['observaciones']);
+    $conyuge =  trim($_POST['conyuge']);
+    $telefono_conyuge =  trim($_POST['telefono_conyuge']);
+    $email_conyuge =  trim($_POST['email_conyuge']);
+    $agenteAsignadoId = trim($_POST['agente_asignado_id']);
+    $no_emails = trim($_POST['no_emails']);
+    $created=date("Y-m-d H:i:s");
+    $createdBy= $_SESSION['usuario'];
+    
+    // IF para ver si cumple los requisitos //
+
+    // Hago el insert en la DB //
+    $query = $connect-> prepare ("INSERT INTO wp_contactos (nombre, apellido, telefono, email, direccion, no_emails, observaciones, conyuge, conyuge_tel, conyuge_email, agente_asignado_id, created, created_by) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $query->execute([$nombre, $apellido, $telefono, $email, $direccion, $no_emails, $observaciones, $conyuge, $telefono_conyuge, $email_conyuge, $agenteAsignadoId, $created, $createdBy]);
+    
+    if($query){
+        $query = $connect->prepare("SELECT * FROM `usuarios` WHERE user_id = $createdBy") or die('query failed');
+        $query->execute();
+        $list_usuarios = $query->fetchAll();
+        foreach($list_usuarios as $usuario){                                                           
+            $nombreNotificaciones = $usuario['nombre'];                                                             
+            $apellidoNotificaciones = $usuario['apellido'];                                    
+        }
+        if($agenteAsignadoId != $createdBy){
+            $query2 = $connect->prepare("SELECT * FROM `wp_contactos` ORDER BY id DESC LIMIT 1") or die('query failed');
+            $query2->execute();
+            $list_consultas = $query2->fetchAll();
+            foreach($list_consultas as $consulta){                                                           
+                $idContacto = $consulta['id'];                                                                                              
+            }
+            $mensaje = '<a href="contactosinfo.php?contacto='.$idContacto.'"><i class="fa-solid fa-user"></i>'.$nombreNotificaciones.' '.$apellidoNotificaciones.' te ha asignado un contacto</a>';
+            $query = $connect-> prepare ("INSERT INTO wp_notificaciones (mensaje, user_id, seen, fecha) VALUES (?, ?, ?, ?)");
+            $query->execute([$mensaje, $agenteAsignadoId, 0, $created]);
+        }
+        echo json_encode("Contacto Agregado con éxito");
+    }else{
+        echo json_encode("Ha ocurrido un error al agregar contacto");
+    }        
+}
+
 // Agregar evento //
 function agregarEvento($connect) : void{
     if(!isset($_POST['tipo_tarea_id'])){$_POST['tipo_tarea_id']= '1';};

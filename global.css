@@ -81,6 +81,12 @@ textarea{
     min-height: 4em;
 }
 
+.form__text::placeholder, .tareas__search::placeholder {
+    color: rgba(0, 0, 0, 0.788);
+    font-style: italic;
+}
+
+
 input[type="date"]{
     align-items: center;
     border-right: .5em solid transparent;
@@ -92,7 +98,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
     border-radius: 4px;
     opacity: 1;
-    filter: invert(1);
 }
   
 input[type="date"]::-webkit-calendar-picker-indicator:hover {
@@ -110,7 +115,6 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
     border-radius: 4px;
     opacity: 1;
-    filter: invert(1);
 }
   
 input[type="time"]::-webkit-calendar-picker-indicator:hover {
@@ -429,6 +433,13 @@ input[type="time"]::-webkit-calendar-picker-indicator:hover {
 @media screen and (max-width:858px) {
     .header__container{
         padding: 0 2em;
+    }
+}
+
+@media screen and (max-width:815px) {
+    .main__title{
+        font-size: .8em;
+        padding-right: .8em;
     }
 }
 

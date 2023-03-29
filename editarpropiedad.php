@@ -1090,7 +1090,7 @@
         let formAddContacto= document.getElementById('formAddContacto');
         formAddContacto.addEventListener("submit", function(e){
             e.preventDefault();
-            let url = 'backend/agregar.php?page=contacto';
+            let url = 'backend/agregar.php?page=contactoFetch';
             let datos = new FormData(formAddContacto);
             let modal = $("#modal");
             

@@ -474,7 +474,7 @@ if($_GET['nombre'] == '' AND $_GET['email'] == '' AND $_GET['telefono'] == '' AN
                             $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;      
                             $sentencia = $connect->prepare("SELECT a.id as a_id, a.nombre as a_nombre, a.apellido, a.telefono, a.celular, a.email as a_email, a.direccion as a_direccion, a.medio_contacto_id, a.agente_asignado_id,
                             b.id, b.nombre as b_nombre,
-                            c.user_id, c.nombre as c_nombre
+                            c.user_id, c.nombre as c_nombre, c.apellido as c_apellido
                             from wp_contactos a
                             LEFT JOIN wp_medios_contacto b ON  a.medio_contacto_id =b.id
                             LEFT JOIN usuarios c ON  a.agente_asignado_id = c.user_id
@@ -488,7 +488,7 @@ if($_GET['nombre'] == '' AND $_GET['email'] == '' AND $_GET['telefono'] == '' AN
                             $inicioConsultasXpagina = ($_GET['pagina'] - 1)*$consultasXpagina;      
                             $sentencia = $connect->prepare("SELECT a.id as a_id, a.nombre as a_nombre, a.apellido, a.telefono, a.celular, a.email as a_email, a.direccion as a_direccion, a.medio_contacto_id, a.agente_asignado_id,
                             b.id, b.nombre as b_nombre,
-                            c.user_id, c.nombre as c_nombre
+                            c.user_id, c.nombre as c_nombre, c.apellido as c_apellido
                             from wp_contactos a
                             LEFT JOIN wp_medios_contacto b ON  a.medio_contacto_id =b.id
                             LEFT JOIN usuarios c ON  a.agente_asignado_id = c.user_id
@@ -504,7 +504,7 @@ if($_GET['nombre'] == '' AND $_GET['email'] == '' AND $_GET['telefono'] == '' AN
                                 $email = $usuario['a_email'];
                                 $direccion = $usuario['a_direccion'];
                                 $medioContacto = $usuario['b_nombre'];                                                                                                                        
-                                $agenteAsignado = $usuario['c_nombre'];                                                                                                                        
+                                $agenteAsignado = $usuario['c_nombre'].' '.$usuario['c_apellido'];                                                                                                                        
                             ?> 
                             <li class="propiedades__li" id="li<?php echo $id?>">
                                 <div class="propiedades__nombre-detalles-precio">

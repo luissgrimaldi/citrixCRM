@@ -46,10 +46,8 @@
                         </div>                  
                         <div class="perfil__bloque">
                             <span class="perfil__bloque__fake-label">Sobre mi</span>
-                            <div class="perfil__bloque__content">
                             <textarea class="form__textarea content__textarea" readonly name="sobre_mi" id=""><?php echo $sobreMiAgente;?></textarea>
-                        </div>
-                    </div>                                      
+                        </div>                                      
                     </div>
                 </div>
             </div>  

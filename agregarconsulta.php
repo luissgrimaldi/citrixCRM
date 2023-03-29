@@ -93,11 +93,11 @@
                         <div class="form__bloque">  
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Nombre</label>
-                                <input type="text" class="form__text content__text" name="nombre" id="inputNombre" readonly="readonly">                                  
+                                <input type="text" class="form__text content__text form__text--nombre" name="nombre" id="inputNombre" readonly="readonly">                                  
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Apellido</label>
-                                <input type="text" class="form__text content__text" name="apellido" id="inputApellido" readonly="readonly">                                  
+                                <input type="text" class="form__text content__text form__text--nombre" name="apellido" id="inputApellido" readonly="readonly">                                  
                             </div>
                             <div class="form__bloque__content content">
                                 <label  class="form__label content__label" for="">Email</label>
@@ -413,7 +413,7 @@
         let formAddContacto= document.getElementById('formAddContacto');
         formAddContacto.addEventListener("submit", function(e){
             e.preventDefault();
-            let url = 'backend/agregar.php?page=contacto';
+            let url = 'backend/agregar.php?page=contactoFetch';
             let datos = new FormData(formAddContacto);
             let modal = $("#modal");
             

@@ -58,9 +58,7 @@
                             </div>
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Sobre mi</span>
-                                <div class="perfil__bloque__content">
-                                    <textarea class="form__textarea content__textarea" name="sobre_mi" id=""></textarea>
-                                </div>
+                                <textarea class="form__textarea content__textarea" name="sobre_mi" id=""></textarea>
                             </div>
                             <div class="perfil__bloque">
                                 <label class="perfil__bloque__content__submit" for="foto">Seleccionar foto de perfil</label>
@@ -74,21 +72,19 @@
                             </div>
                             <div class="perfil__bloque"> 
                                 <span class="perfil__bloque__fake-label">Rol</span>
-                                <div class="perfil__bloque__content">
-                                    <select class="perfil__select content__select" name="rol" id="">                                             
-                                        <option value="0"></option>
-                                        <?php                          
-                                            $sentencia = $connect->prepare("SELECT * FROM `roles`") or die('query failed');
-                                            $sentencia->execute();
-                                            $list_roles = $sentencia->fetchAll();                         
-                                            foreach($list_roles as $roles){
-                                                $idRoles = $roles['role_id'];
-                                                $rolesNombre = $roles['name'];
-                                                ?>
-                                        <option value="<?php echo $idRoles?>"><?php echo ucfirst($rolesNombre)?></option>
-                                        <?php };?>
-                                    </select>
-                                </div>
+                                <select class="perfil__select content__select" name="rol" id="">                                             
+                                    <option value="0"></option>
+                                    <?php                          
+                                        $sentencia = $connect->prepare("SELECT * FROM `roles`") or die('query failed');
+                                        $sentencia->execute();
+                                        $list_roles = $sentencia->fetchAll();                         
+                                        foreach($list_roles as $roles){
+                                            $idRoles = $roles['role_id'];
+                                            $rolesNombre = $roles['name'];
+                                            ?>
+                                    <option value="<?php echo $idRoles?>"><?php echo ucfirst($rolesNombre)?></option>
+                                    <?php };?>
+                                </select>
                             </div>
                             <div class="perfil__bloque">
                                 <label class="perfil__bloque__label">Habilitado</span>
@@ -185,21 +181,19 @@
                         </div>
                         <div class="perfil__bloque"> 
                             <span class="perfil__bloque__fake-label">Ciudad a la que pertenece</span>
-                            <div class="perfil__bloque__content">
-                                <select class="perfil__select content__select" name="ciudad" id="">                                             
-                                    <option value ="0"></option>
-                                    <?php                          
-                                        $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE habilitado=1") or die('query failed');
-                                        $sentencia->execute();
-                                        $list_ciudades = $sentencia->fetchAll();                         
-                                        foreach($list_ciudades as $ciudad){
-                                            $idCiudad = $ciudad['id'];
-                                            $ciudadNombre = $ciudad['nombre'];
-                                            ?>
-                                    <option value="<?php echo $idCiudad?>"><?php echo $ciudadNombre?></option>
-                                    <?php };?>
-                                </select>
-                            </div>
+                            <select class="perfil__select content__select" name="ciudad" id="">                                             
+                                <option value ="0"></option>
+                                <?php                          
+                                    $sentencia = $connect->prepare("SELECT * FROM `wp_ciudades` WHERE habilitado=1") or die('query failed');
+                                    $sentencia->execute();
+                                    $list_ciudades = $sentencia->fetchAll();                         
+                                    foreach($list_ciudades as $ciudad){
+                                        $idCiudad = $ciudad['id'];
+                                        $ciudadNombre = $ciudad['nombre'];
+                                        ?>
+                                <option value="<?php echo $idCiudad?>"><?php echo $ciudadNombre?></option>
+                                <?php };?>
+                            </select>
                         </div>
                         <div class="perfil__bloque">
                             <label class="perfil__bloque__label">Habilitada</span>
@@ -296,21 +290,19 @@
                     </div>
                     <div class="perfil__bloque"> 
                         <span class="perfil__bloque__fake-label">Agente asignado</span>
-                        <div class="perfil__bloque__content">
-                            <select class="perfil__select content__select" name="agente_asignado_id" id="">                                             
-                                <option value ="0"></option>
-                                <?php                          
-                                    $sentencia = $connect->prepare("SELECT * FROM `usuarios` WHERE habilitado=1") or die('query failed');
-                                    $sentencia->execute();
-                                    $list_agentes = $sentencia->fetchAll();                         
-                                    foreach($list_agentes as $agente){
-                                        $idAgente = $agente['user_id'];
-                                        $agenteNombre = $agente['nombre'].' '.$agente['apellido'];
-                                        ?>
-                                <option value="<?php echo $idAgente?>"><?php echo $agenteNombre?></option>
-                                <?php };?>
-                            </select>
-                        </div>
+                        <select class="perfil__select content__select" name="agente_asignado_id" id="">                                             
+                            <option value ="0"></option>
+                            <?php                          
+                                $sentencia = $connect->prepare("SELECT * FROM `usuarios` WHERE habilitado=1") or die('query failed');
+                                $sentencia->execute();
+                                $list_agentes = $sentencia->fetchAll();                         
+                                foreach($list_agentes as $agente){
+                                    $idAgente = $agente['user_id'];
+                                    $agenteNombre = $agente['nombre'].' '.$agente['apellido'];
+                                    ?>
+                            <option value="<?php echo $idAgente?>"><?php echo $agenteNombre?></option>
+                            <?php };?>
+                        </select>
                     </div>               
                     <div class="perfil__bloque">
                         <label class="perfil__bloque__label">Enviar emails</span>

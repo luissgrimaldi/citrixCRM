@@ -59,10 +59,10 @@
     user-select: none;
 }
 
-.main__h1--emoji{
+.main__h1--emoji {
     color: var(--color-principal-main);
     font-size: 1.875em;
-    margin-right:0.625em ;
+    margin-right: 0.325em;
 }
 
 .main__h1{
@@ -93,8 +93,8 @@
 .perfil__bloque__content{
     width: 100%;
     text-align: center;
-    background-color: var(--color-principal-main);
-    color: var(--color-terciario-main);
+    outline: 0.125em solid var(--color-principal-main);
+    color: black;
     border-radius: 1.25em;
     padding: .5em 1em;
     font-size: 1em;
@@ -138,16 +138,6 @@
 }
 
 
-textarea{
-    height: 100%;
-    overflow: hidden;
-    -webkit-appearance: textarea !important;
-    -moz-appearance: textarea !important;
-    -ms-appearance: textarea !important;
-    -o-appearance: textarea !important;
-    appearance: textarea !important;
-}
-
 .perfil__bloque__fake-label{
     padding: 0 8%;
     border-top-right-radius:1em;
@@ -162,11 +152,12 @@ textarea{
 .perfil__select{
     width: 100%;
     text-align: center;
-    background-color: var(--color-principal-main);
-    color: var(--color-terciario-main);
+    outline: 0.125em solid var(--color-principal-main);
+    color: black;
     border-radius: 1.25em;
     font-size: 1em;
     cursor: pointer;
+    padding: .5em 1em;
 }
 
 .perfil__select option{
@@ -202,11 +193,12 @@ textarea{
 .form__textarea{
     width: 100%;
     padding: 0.313em 1em;
-    background-color: var(--color-principal-main);
-    color: white;
+    border: 2px solid var(--color-principal-main);
+    color: black;
     border-radius: 1em;
     overflow-wrap: break-word;
-    resize: vertical;
+    resize: both;
+    position: relative;
 } 
 
 .files-area{
@@ -262,6 +254,7 @@ textarea{
     .main__perfil__container{
         width: 90%;
     }
+
 }
 
 @media screen and (max-width:584px) {

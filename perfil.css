@@ -53,10 +53,16 @@
     background-color: var(--body-select-hover-checked);
 }
 
-.main__h1--emoji{
+.main__buttons__button--active{
+    background-color: var(--color-principal-main);
+    pointer-events: none;
+    user-select: none;
+}
+
+.main__h1--emoji {
     color: var(--color-principal-main);
     font-size: 1.875em;
-    margin-right:0.625em ;
+    margin-right: 0.325em;
 }
 
 .main__h1{
@@ -87,12 +93,57 @@
 .perfil__bloque__content{
     width: 100%;
     text-align: center;
-    background-color: var(--color-principal-main);
+    outline: 0.125em solid var(--color-principal-main);
+    color: black;
+    border-radius: 1.25em;
+    padding: .5em 1em;
+    font-size: 1em;
+}
+
+.perfil__bloque__content__email{
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+.perfil__bloque__content input{
+    width: 100%;
+}
+
+.perfil__bloque__content__submit{
+    width: 100%;
+    text-align: center;
+    background-color: var(--color-secundario-main);
     color: var(--color-terciario-main);
     border-radius: 1.25em;
     padding: .5em 1em;
     font-size: 1em;
 }
+
+.perfil__bloque__content__submit:hover{
+    cursor: pointer;
+    background-color: var(--body-select-hover-checked);
+}
+
+.perfil__bloque__content__notsubmit{
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: red;
+    color: var(--color-terciario-main);
+    border-radius: 1.25em;
+    padding: .5em 1em;
+    font-size: 1em;
+}
+
+
+.perfil__bloque__content__notsubmit:hover{
+    cursor: pointer;
+    background-color: rgba(255, 0, 0, 0.514);
+}
+
 
 .perfil__bloque__fake-label{
     padding: 0 8%;
@@ -105,15 +156,100 @@
 
 }
 
+.perfil__select{
+    width: 100%;
+    text-align: center;
+    outline: 0.125em solid var(--color-principal-main);
+    color: black;
+    border-radius: 1.25em;
+    font-size: 1em;
+    cursor: pointer;
+    padding: .5em 1em;
+}
+
+.perfil__select option{
+    text-align: center;
+}
+
+.form__checkbox{
+    width: 1.3em;
+    height: 1.3em;
+    -webkit-appearance: checkbox !important;
+    -moz-appearance: checkbox !important;
+    -ms-appearance: checkbox !important;
+    -o-appearance: checkbox !important;
+    appearance: checkbox !important;
+    display: inline-block;
+    
+}
+
+.form__checkbox:hover{
+    cursor: pointer;
+}
+
+.form__checkbox:checked{
+    accent-color: var(--body-select-hover-checked);
+}
+
+.perfil__bloque__label{
+    color: var(--color-secundario-main);
+    font-weight: bold;
+    display: inline-block;
+}
+
 .form__textarea{
     width: 100%;
     padding: 0.313em 1em;
-    background-color: var(--color-principal-main);
-    color: white;
+    border: 2px solid var(--color-principal-main);
+    color: black;
     border-radius: 1em;
     overflow-wrap: break-word;
-    resize: none;
+    resize: both;
+    position: relative;
 } 
+
+.files-area{
+    margin-top: 1em;
+    text-align: center;
+}
+
+.files-area span{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+  .files-names{
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+
+.file-block{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5em;
+    background-color: var(--color-principal-main);
+    width: fit-content;
+    padding: .5em;
+    border-radius: 1em;
+}
+
+.file-delete{
+    order: 2;
+    color: red;
+    font-size: 1.4em;
+}
+
+.file-delete:hover{
+    color: rgba(255, 0, 0, 0.459);
+    cursor: pointer;
+}
+
+.files-names{
+    color: white;
+}
 
 
 /* End Main */
@@ -125,6 +261,7 @@
     .main__perfil__container{
         width: 90%;
     }
+
 }
 
 @media screen and (max-width:584px) {

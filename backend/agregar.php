@@ -34,6 +34,10 @@ if (isset($_SESSION['usuario'])){
             agregarContacto($connect); 
         };
 
+        if($_GET['page']=='contactoFetch'){
+            agregarContactoFetch($connect); 
+        };
+
         if($_GET['page']=='perfilagenda'){
             agregarPerfilAgenda($connect); 
         };
