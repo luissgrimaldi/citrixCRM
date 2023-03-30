@@ -4,6 +4,9 @@
         <!--/* Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <main class="main" id="main">
+            <div class="loader-container">
+                <div class="loader"></div>
+            </div>
             <div id="modal" class="modal-BG">
                 <div class="modal">            
                     <form autocomplete="off" class="form__busqueda-propiedad form" id="formAddContacto" name="form" method="POST">
@@ -80,7 +83,7 @@
                 </div>
                 <div class="main__decoration"></div>
                 <div class="main__busqueda-propiedad">             
-                    <form autocomplete="off" class="form__busqueda-propiedad form" name="form" method="POST" action="backend/agregar.php?page=consulta">
+                    <form autocomplete="off" id="addConsultaForm" class="form__busqueda-propiedad form" name="form" method="POST" action="backend/agregar.php?page=consulta">
                         <h2 class="main__h2">Datos de contacto</h2> 
                         <div class="form__bloque">
                             <div class="form__bloque__content content">
@@ -380,6 +383,7 @@
                             </div>                                                                             
                         </div>
                         <div class="main__decoration"></div>
+                        <input type="hidden" name="submit">
                         <input type="submit" class="form__button form__bloque__button" name="submit" value="Agregar consulta">                                                                 
                     </form>
                 </div>
@@ -431,6 +435,32 @@
             })
             .catch(err => console.log(err))
                     
+        });
+
+        let loader = document.querySelector('.loader-container');
+        let form = document.getElementById('addConsultaForm');
+
+        form.addEventListener('submit', (event) => {
+        event.preventDefault();
+            let url = form.getAttribute('action');
+            let datos = new FormData(form);
+
+        // Mostrar pantalla de carga
+        loader.style.display = 'flex';
+
+        // Hacer solicitud con fetch
+        fetch(url, {
+            method:'POST',
+            body: datos,
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response => response.json())
+        .then(data => {
+            alert(data);
+            loader.style.display = 'none';
+            window.location.href = 'consultas.php';                
+            
+        })
+        .catch(err => console.log(err))
         });
     </script>
 </body>

@@ -313,7 +313,7 @@
                                 $propiedadAlturaCruces = $propiedad['altura'];?>
                                             <div class="modal__cruces">
                                                 <img class="modal__cruces__img" src="<?php echo 'https://projectandbrokers.com/wp-content/uploads/thumbnails/mediano__'.$propiedadImagenCruces?>" alt="">
-                                                <a  class="modal__cruces__a" href="propiedadesinfo.php?ref=<?php echo $propiedadRefCruces?>"><?php echo $propiedadNombreCruces .' '. $propiedadAlturaCruces.' ('.$propiedadRefCruces.')'?></a>                                                           
+                                                <a  class="modal__cruces__a" target="_blank" href="propiedadesinfo.php?ref=<?php echo $propiedadRefCruces?>"><?php echo $propiedadNombreCruces .' '. $propiedadAlturaCruces.' ('.$propiedadRefCruces.')'?></a>                                                           
                                             </div>
                                             <?php }?>
                                         </div>

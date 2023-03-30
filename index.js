@@ -84,15 +84,19 @@ function getContactos() {
     }
 }
 
-function seleccionarContacto(id,nombre) {
+function seleccionarContacto(id,nombre,email,telefono) {
 
     let buscador = document.getElementById("buscadorcontactos")
     let inputContacto = document.getElementById("inputContacto")
+    let inputEmail = document.getElementById("inputEmail")
+    let inputTelefono = document.getElementById("inputTelefono")
     let inputHide = document.getElementById("contacto_id")
     let lista = document.getElementById("listaContactos")
 
     buscador.value = '';
     inputContacto.value = nombre;
+    inputEmail.value = email;
+    inputTelefono.value = telefono;
     inputHide.value = id;
 
     lista.style.display = 'none'
@@ -590,3 +594,4 @@ function desmarcarLeido(id) {
         .catch(err => console.log(err))
 
 }
+

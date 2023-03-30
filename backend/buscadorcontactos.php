@@ -10,7 +10,7 @@ $html = "";
 
 while($row = $sentencia2->fetch()){
 
-    $html .= '<li onclick="seleccionarContacto('.$row["id"]. ", '".trim($row["nombre"])." ".trim($row["apellido"])."'".')">'.trim($row["nombre"])." ".trim($row["apellido"]).'</li>';
+    $html .= '<li onclick="seleccionarContacto('.$row["id"]. ", '".trim($row["nombre"])." ".trim($row["apellido"])."'". ", '".trim($row["email"])."'". ", '".trim($row["telefono"])."'".')">'.trim($row["nombre"])." ".trim($row["apellido"]).'</li>';
 
 };      
  

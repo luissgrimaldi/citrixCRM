@@ -290,7 +290,7 @@
                                 <div class="consultas__bloque__content consultas__edit-search-reload">
                                     <a class="consultas__edit-search-reload__content" href="editarpropiedad.php?ref=<?php echo $refPropiedad;?>"><i class="consultas__accion fa-solid fa-pencil"></i><span>Editar</span></a>
                                     <a class="consultas__edit-search-reload__content" href="propiedadesinfo.php?ref=<?php echo $refPropiedad;?>"><i class="consultas__accion fa-solid fa-search"></i><span>Detalles</span></a>
-                                    <a class="consultas__edit-search-reload__content" href=""><i class="consultas__accion fa-solid <?php if ($enWeb==1){echo 'fa-eye-slash';}else{echo 'fa-eye';}?>"></i><?php if ($enWeb==1){ echo '<span>Ocultar</span>' ;}else{ echo '<span>Mostrar</span>';};?></a>
+                                    <a class="consultas__edit-search-reload__content" href="<?php if ($enWeb==1){echo 'backend/novisibleweb.php?id='.$idPropiedad;}else{echo 'backend/visibleweb.php?id='.$idPropiedad;}?>"><i class="consultas__accion fa-solid <?php if ($enWeb==1){echo 'fa-eye-slash';}else{echo 'fa-eye';}?>"></i><?php if ($enWeb==1){ echo '<span>Ocultar</span>' ;}else{ echo '<span>Mostrar</span>';};?></a>
                                     <a onclick="if(confirm('¿Seguro que quieres eliminar esta consulta?')) delPropiedad(<?php echo $idPropiedad?>)" class="consultas__edit-search-reload__content"><i class="consultas__accion fa-solid fa-trash"></i><span>Eliminar</span></a>
                                 </div>   
                             </div>

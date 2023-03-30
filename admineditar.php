@@ -33,13 +33,16 @@
         <!--/* Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <main class="main" id="main">
+            <div class="loader-container">
+                <div class="loader"></div>
+            </div>
             <div class="main__container">
                 <div class="main__container__top">
                     <div class="main__title"><i class="fa-solid fa-user main__h1--emoji"></i><h1 class="main__h1">Editar usuario</h1></div>
                 </div>
                 <div class="main__decoration"></div>
                     <div class="main__perfil">                   
-                        <form class="main__perfil__container" method="POST" action="backend/editar.php?page=usuario&id=<?php echo $editarId?>" enctype="multipart/form-data">
+                        <form class="main__perfil__container" id="editUsuarioForm" method="POST" action="backend/editar.php?page=usuario&id=<?php echo $editarId?>" enctype="multipart/form-data">
                             <div class="perfil__bloque">
                                 <span class="perfil__bloque__fake-label">Username</span>
                                 <div class="perfil__bloque__content">
@@ -134,6 +137,7 @@
                                     <input class="form__checkbox content__checkbox" type="checkbox" name="habilitar" value="1" <?php if($editarHabilitar==1){ echo 'checked="check"';}?>>     
                                 </div>
                             </div>
+                            <input type="hidden" name="submit">
                             <div class="perfil__bloque">
                                 <div class="perfil__bloque__content--submit">
                                     <input type="submit" class="perfil__bloque__content__submit" name="submit"  value="Guardar cambios">                            
@@ -472,6 +476,33 @@
             const fileBlock2 = document.querySelector(`#file-block2[data-nombreeliminar="${nombre}"]`);
             fileBlock2.remove();
         }
+    </script>
+    <script>
+        let loader = document.querySelector('.loader-container');
+        let form = document.getElementById('editUsuarioForm');
+
+        form.addEventListener('submit', (event) => {
+        event.preventDefault();
+            let url = form.getAttribute('action');
+            let datos = new FormData(form);
+
+        // Mostrar pantalla de carga
+        loader.style.display = 'flex';
+
+        // Hacer solicitud con fetch
+        fetch(url, {
+            method:'POST',
+            body: datos,
+            mode: "cors" //Default cors, no-cors, same-origin
+        }).then(response => response.json())
+        .then(data => {
+            alert(data);
+            loader.style.display = 'none';
+            window.location.href = 'controladmin.php?page=usuario';                  
+            
+        })
+        .catch(err => console.log(err))
+        });
     </script>
 </body>
 </html>
