@@ -162,6 +162,10 @@ input[type="time"]::-webkit-calendar-picker-indicator:hover {
       transform: rotate(360deg);
     }
   }
+
+  .form__button{
+	text-align: center;
+  }
 /* End Global */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -524,6 +528,11 @@ input[type="time"]::-webkit-calendar-picker-indicator:hover {
 
     .header__li-user__ul--foto{
         left: -1.9em;
+    }
+
+    #nameEliminar{
+	max-width: 80vw;
+	overflow-wrap: break-word;
     }
 
 }
