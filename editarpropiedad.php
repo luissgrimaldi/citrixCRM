@@ -1026,7 +1026,7 @@
         <!--/* End Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     </div>
-    <script src="index.js"></script>
+    <script src="index.js?<?php echo time(); ?>"></script>
     <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEVUedCZ0UVFBtM7LaeIQPvRJEx1DCsBQ&libraries=places&callback=initMap">
 </script>

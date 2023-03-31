@@ -523,6 +523,8 @@ function seleccionarPropiedad3(id,calle,referencia) {
 function nuevoSeguimiento(){
     let modal = document.getElementById('modal');          
     modal.style.display='block';
+    $("#radioTareaAgregar").prop('checked', true);
+    $('#tareaAgregar option[value=19]').prop('selected', true);
 }
 
 function sacarSeguimiento(){

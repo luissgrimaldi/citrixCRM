@@ -433,7 +433,7 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <?php };?>
     </div>
-    <script src="index.js"></script>
+    <script src="index.js?<?php echo time(); ?>"></script>
     <script>
         const dt2 = new DataTransfer(); // Manejar los archivos del input
   
@@ -477,6 +477,7 @@
             fileBlock2.remove();
         }
     </script>
+<?php if($_GET["page"]=='usuario'){ ?>
     <script>
         let loader = document.querySelector('.loader-container');
         let form = document.getElementById('editUsuarioForm');
@@ -504,5 +505,6 @@
         .catch(err => console.log(err))
         });
     </script>
+<?php ;}?>
 </body>
 </html>

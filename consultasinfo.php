@@ -157,10 +157,16 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
             <div class="modal">            
                 <form class="form__busqueda-propiedad form" id="formSeguimiento" name="form" method="POST" autocomplete="off">
                     <h2 class="main__h2">Nuevo seguimiento</h2> 
-                    <div class="form__bloque">               
+                    <div class="form__bloque">
+			<div class="form__bloque__content--radio content">
+                                <label  class="form__label content__label" for="">Visita</label>
+                                <input type="radio" name="tipoActividad" id="radioVisitaAgregar" onclick=" tipoTarea(1); " value="5" >
+                                <label  class="form__label content__label" for="">Tarea</label>
+                                <input type="radio" name="tipoActividad" id="radioTareaAgregar" onclick=" tipoTarea(2); " value="19">                               
+                        </div>                          
                         <div class="form__bloque__content content">
                             <label  class="form__label content__label" for="">Tipo de tarea</label>
-                            <select class="form__select" name="tipo_tarea_id" required>                               
+                            <select id="tareaAgregar" class="form__select" name="tipo_tarea_id" required>                               
                                     <option></option>
                                     <?php                          
                                         $sentencia = $connect->prepare("SELECT * FROM `wp_agenda_tipo_tarea`  WHERE habilitada=1") or die('query failed');
@@ -170,8 +176,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                                         $id = $agente['id'];
                                         $nombre = $agente['nombre'];
                                         ?>
-                                    <?php if($id !=5){?><option value="<?php echo $id?>"><?php echo $nombre;?></option><?php };
-                                };?>
+                                    <option value="<?php echo $id?>"><?php echo $nombre;?></option><?php };?>
                             </select>
                         </div>
                     </div>                
@@ -197,6 +202,13 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                             <input class="form__checkbox content__checkbox" type="checkbox" name="tarea_terminada" value="1">
                         </div>  
                         <input type="hidden" name="submit">
+                    </div>
+		    <div class="form__bloque__content content" id="propiedadContent" style="display:none">
+                            <label  class="form__label content__label" for="">Propiedad</label>
+                            <input type="text" class="form__text content__text" name="buscadorpropiedad2" id="buscadorpropiedad2">
+                            <input type="hidden" class="form__text content__text" name="propiedad_id" id="propiedad_id">  
+                            <ul class="content_ul" id="listaPropiedades"></ul>
+                                                            
                     </div>
                     <input type="hidden" class="form__text content__text" name="consulta_id" value="<?php echo $editarId?>">
                     <input type="hidden" class="form__text content__text" name="usuario" value="<?php echo $idAgente?>">                                     
@@ -324,16 +336,18 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         <span class="consulta__span"><?php echo $editarConsulta;?></span>
                     </div>             
                     <?php           
-                        $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.consulta_id, t.asignada_el,
+                        $sentencia = $connect->prepare("SELECT t.id, t.user_id, t.fecha, t.asunto, t.tipo_tarea_id, t.hora_inicio, t.tarea_terminada,t.observaciones, t.consulta_id, t.asignada_el, t.propiedad_id,
                         g.id, g.nombre,
                         a.user_id, a.nombre, a.apellido,
                         t.id as t_id, t.user_id as t_user_id, t.fecha as t_fecha, t.asunto as t_asunto, t.tipo_tarea_id as t_tipo_tarea, t.hora_inicio as t_hora_inicio, t.observaciones as t_observaciones, t.asignada_el as t_asignada_el,
                         g.id as g_id, g.nombre as g_nombre,
-                        a.user_id as a_user_id, a.nombre as a_nombre, a.apellido as a_apellido
+                        a.user_id as a_user_id, a.nombre as a_nombre, a.apellido as a_apellido,
+			p.id as p_id, p.referencia_interna as p_referencia_interna, p.zona_id as p_zona_id, p.foto_portada as p_foto_portada, p.precio_propietario as p_precio_propietario
                         FROM wp_agenda t 
                         LEFT JOIN wp_agenda_tipo_tarea g ON  t.tipo_tarea_id =g.id
                         LEFT JOIN usuarios a ON  t.user_id=a.user_id
-                        WHERE t.consulta_id=$editarId AND t.tipo_tarea_id != 5 ORDER BY t.id DESC") or die('query failed');
+                        LEFT JOIN wp_propiedades p ON  t.propiedad_id=p.id
+                        WHERE t.consulta_id=$editarId ORDER BY t.id DESC") or die('query failed');
                         $sentencia->execute();
                         $seguimientos = $sentencia->rowCount();
                         if($seguimientos > 0){?>
@@ -352,6 +366,8 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                                 $tareaObservaciones = $tarea['t_observaciones'];                
                                 $tareaCreado = $tarea['t_asignada_el'];
                                 $tareaCreado=date("d-m-Y H:i:s",strtotime($tareaCreado));              
+                                $refPropiedadSeguimiento = $tarea['p_referencia_interna'];        
+                                $idPropiedadSeguimiento = $tarea['p_id'];  
                     ?>
                                 <li class="tareas--pendientes__li">
                                     <div class="tareas--pendientes__tarea">
@@ -365,7 +381,8 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                                     <div class="tareas--pendientes__tarea tareas--pendientes__tarea">
                                         <h4 class="generico"><span class="tareas--pendientes__tarea--bold">Asunto: </span><?php echo $tareaAsunto;?></h4>
                                         <span class="generico"><span class="tareas--pendientes__tarea--bold">Observacion: </span><?php echo $tareaObservaciones;?></span>
-                                        <span class="tareas--pendientes__tarea--bold"><?php echo $tareaCreado;?></span>
+                                        <?php if($idPropiedadSeguimiento>0){?><span class="generico"><span class="tareas--pendientes__tarea--bold">Propiedad: </span><a class="tareas--pendientes__tarea--bold a--propiedad" target="_blank" href="propiedadesinfo.php?ref=<?php echo $refPropiedadSeguimiento;?>"><?php echo $refPropiedadSeguimiento;?></a></span><?php ;}?>
+					<span class="tareas--pendientes__tarea--bold"><?php echo $tareaCreado;?></span>
                                     </div>
                                 </li>                         
                             <?php };?>
@@ -529,7 +546,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
         <!--/* End Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     </div>
-    <script src="index.js"></script>
+    <script src="index.js?<?php echo time(); ?>"></script>
     <script>
         let formSeguimiento= document.getElementById('formSeguimiento');
         formSeguimiento.addEventListener("submit", function(e){

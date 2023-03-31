@@ -108,6 +108,6 @@
         <!--/* End Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     </div>
-    <script src="index.js"></script>
+    <script src="index.js?<?php echo time(); ?>"></script>
 </body>
 </html>

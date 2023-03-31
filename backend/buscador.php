@@ -20,8 +20,14 @@ if ($cuenta > 0){
         $imgPropiedad = str_replace("[", "", $imgPropiedad);
         $imgPropiedad = str_replace("]", "", $imgPropiedad);
     
-        $html .= '<li class="header__form__ul__li"><img class="header__form__ul__li__img" src="https://projectandbrokers.com/wp-content/uploads/thumbnails/mediano__'.$imgPropiedad.'"><a href="propiedadesinfo.php?ref='.$row["referencia_interna"].'">'.$row["calle"]." ".$row["referencia_interna"].'</a></li>';
-    
+        $html .= '<li class="header__form__ul__li" onclick="window.location.href=\'propiedadesinfo.php?ref='.$row["referencia_interna"].'\'"><img class="header__form__ul__li__img" src="https://projectandbrokers.com/wp-content/uploads/thumbnails/mediano__'.$imgPropiedad.'"><a href="propiedadesinfo.php?ref='.$row["referencia_interna"].'">'.$row["calle"]." ".$row["referencia_interna"].'</a></li>';
+    	$html .= "<script>
+document.querySelector('.header__form__ul__li').addEventListener('click', function() {
+  var link = this.querySelector('a').getAttribute('href');
+  window.location.href = link;
+console.log(link);
+});
+</script>";
     };      
 }               
 

@@ -543,7 +543,7 @@ if($_GET['nombre'] == '' AND $_GET['email'] == '' AND $_GET['telefono'] == '' AN
 <?php };?>
 <?php include 'sidebar.php';?>
     </div>
-    <script src="index.js"></script>
+    <script src="index.js?<?php echo time(); ?>"></script>
     <script>
         order = document.getElementById("order");
         contactoForm = document.getElementById("contactoForm");

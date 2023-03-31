@@ -24,9 +24,9 @@ if(isset($_SESSION['usuario'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>citrixCRM</title>
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="<?php echo (basename($_SERVER['PHP_SELF'], ".php"))?>.css">
+    <link rel="stylesheet" href="reset.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="global.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?php echo (basename($_SERVER['PHP_SELF'], ".php"))?>.css?<?php echo time();?>">
     <script src="https://kit.fontawesome.com/53d0376852.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tiny.cloud/1/5azxqpycehfxf9dacvhqmvviotrflw6k4ph59e5tlb79x8pd/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>

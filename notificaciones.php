@@ -111,7 +111,7 @@
         <!--/* End Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     </div>
-    <script src="index.js"></script>
+    <script src="index.js?<?php echo time(); ?>"></script>
     <script>
         seen = document.getElementById("seen");
         notificacionesForm = document.getElementById("form_notificaciones");
