@@ -7,7 +7,9 @@ if (ini_get("session.use_cookies")) {
     $params["secure"], $params["httponly"]
     );
 }
-session_destroy(); ?>
+session_destroy(); 
+define('citrixCRMversion', 'CitrixCRMv-2');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +17,8 @@ session_destroy(); ?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="reset.css?<?php echo time(); ?>">
-    <link rel="stylesheet" href="login.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="reset.css?<?php echo citrixCRMversion;?>">
+    <link rel="stylesheet" href="login.css?<?php echo citrixCRMversion;?>">
     <script src="https://kit.fontawesome.com/53d0376852.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -55,6 +57,6 @@ session_destroy(); ?>
         <!--/* End Login */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     </div>
-    <script src="index.js?<?php echo time(); ?>"></script>
+    <script src="index.js?<?php echo citrixCRMversion;?>"></script>
 </body>
 </html>

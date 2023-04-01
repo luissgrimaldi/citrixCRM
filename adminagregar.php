@@ -334,7 +334,7 @@
 <?php };?>
 
     </div>
-    <script src="index.js?<?php echo time(); ?>"></script>
+    <script src="index.js?<?php echo citrixCRMversion;?>"></script>
     <script>
         const dt2 = new DataTransfer(); // Manejar los archivos del input
   

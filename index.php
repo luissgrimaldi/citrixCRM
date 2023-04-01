@@ -163,7 +163,7 @@
         <!--/* End Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     </div>
-    <script src="index.js?<?php echo time(); ?>"></script>
+    <script src="index.js?<?php echo citrixCRMversion;?>"></script>
     <script type="text/javascript">
 $(document).ready(function(){
     $('#chk_all').click(function(){

@@ -364,7 +364,7 @@
         <!--/* End Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     </div>
-    <script src="index.js?<?php echo time(); ?>"></script>
+    <script src="index.js?<?php echo citrixCRMversion;?>"></script>
     <script>
     function abrirCruces(id){
         let modal = document.getElementById('modal'+id);  

@@ -347,7 +347,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         LEFT JOIN wp_agenda_tipo_tarea g ON  t.tipo_tarea_id =g.id
                         LEFT JOIN usuarios a ON  t.user_id=a.user_id
                         LEFT JOIN wp_propiedades p ON  t.propiedad_id=p.id
-                        WHERE t.consulta_id=$editarId ORDER BY t.id DESC") or die('query failed');
+                        WHERE t.consulta_id=$editarId ORDER BY t.id ASC") or die('query failed');
                         $sentencia->execute();
                         $seguimientos = $sentencia->rowCount();
                         if($seguimientos > 0){?>
@@ -418,7 +418,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
                         LEFT JOIN usuarios a ON  t.user_id=a.user_id
                         LEFT JOIN wp_propiedades p ON  t.propiedad_id=p.id
                         LEFT JOIN wp_zonas z ON  p.zona_id=z.id
-                        WHERE t.consulta_id=$editarId AND t.tipo_tarea_id = 5  ORDER BY t.id DESC") or die('query failed');
+                        WHERE t.consulta_id=$editarId AND t.tipo_tarea_id = 5  ORDER BY t.id ASC") or die('query failed');
                         $sentencia->execute();
                         $visitas = $sentencia->rowCount();
                         if($visitas > 0){?>
@@ -546,7 +546,7 @@ if(!$_GET["page"]){header('Location:'.$_SERVER['REQUEST_URI'].'&page=seguimiento
         <!--/* End Main */-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     </div>
-    <script src="index.js?<?php echo time(); ?>"></script>
+    <script src="index.js?<?php echo citrixCRMversion;?>"></script>
     <script>
         let formSeguimiento= document.getElementById('formSeguimiento');
         formSeguimiento.addEventListener("submit", function(e){
