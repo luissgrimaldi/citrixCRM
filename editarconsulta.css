@@ -390,6 +390,36 @@
     pointer-events: none;
   }
 
+  .zonasSelected{
+    display: none;
+    max-width: 100%;
+    flex-direction: row;
+    padding: .5em;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .6em;
+    background-color: #87b0e3;
+    border-radius: 1em;
+    margin-top: 1em;
+  }
+
+  .zonasSelected>div{
+    width: fit-content;
+    background-color: #aecdf3;
+    display: flex;
+    flex-direction: row;
+    gap: .2em;
+    padding: .3em;
+    justify-content: left;
+    align-items: center;
+    border-radius: 1em;
+  }
+
+  .zonasSelected>div :nth-child(1) {
+    color: red;
+    cursor: pointer;
+  }
 /* End Main */
 
 /* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */

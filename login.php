@@ -8,7 +8,7 @@ if (ini_get("session.use_cookies")) {
     );
 }
 session_destroy(); 
-define('citrixCRMversion', 'CitrixCRMv-2');
+define('citrixCRMversion', 'CitrixCRMv-3');
 ?>
 <!DOCTYPE html>
 <html lang="en">

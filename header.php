@@ -15,7 +15,7 @@ if(isset($_SESSION['usuario'])){
     $celularAgente = $agente['celular'];
     $emailAgente = $agente['email'];
     $sobreMiAgente = $agente['sobre_mi'];
-    define('citrixCRMversion', 'CitrixCRMv-2');
+    define('citrixCRMversion', 'CitrixCRMv-3');
     }else{echo '<script> alert("Por favor inicie sesión"); window.location = "login.php"; </script>'; session_destroy(); die();}
 ?>
 <!DOCTYPE html>

@@ -116,7 +116,6 @@
                     $editarBalcon = $propiedad['balcon'];
                     $editarPileta = $propiedad['pileta'];
                     $editarBuscarZona = $propiedad['zonas'];
-		    $editarBuscarZona = str_replace(['[', ']'], '', $editarBuscarZona);
                     $editarBuscarTipo = $propiedad['tipos_propiedad'];
                     $editarBuscarTipo = explode ( "," , $editarBuscarTipo);
                     }
