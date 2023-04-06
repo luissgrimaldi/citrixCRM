@@ -314,7 +314,16 @@
             let modalEditar = document.getElementById('modalEditar');
             modalEditar.style.display='block';
             
+          },
+          eventContent: function(info) {
+            return {
+                html: '<div class="fc-content">' +
+                            '<span class="fc-time">' + info.event.extendedProps.hora.slice(0, -3) + '</span>' +
+                                        '<span class="fc-title"> - ' + info.event.title + '</span>' +
+                                                  '</div>'
+            };
           }
+                                                    
         });
         calendar.render();
 

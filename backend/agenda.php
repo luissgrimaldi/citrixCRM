@@ -37,7 +37,7 @@ if (isset($_SESSION['usuario'])){
         t.tipo_tarea_id, t.color_background, t.user_id,
         p.id, p.referencia_interna, p.calle,
         c.id, c.nombre, c.apellido, 
-        e.id as id, CONCAT(DATE_FORMAT(e.hora_inicio, '%H:%i'), ' - ', e.asunto) as title, e.fecha as start, e.observaciones as descripcion, e.tipo_tarea_id as tarea_id, e.tarea_terminada as tarea_terminada, e.hora_inicio as hora, e.propiedad_id as e_propiedad_id, e.consulta_id as e_consulta_id,
+        e.id as id, e.asunto as title, e.fecha as start, e.observaciones as descripcion, e.tipo_tarea_id as tarea_id, e.tarea_terminada as tarea_terminada, e.hora_inicio as hora, e.propiedad_id as e_propiedad_id, e.consulta_id as e_consulta_id,
         t.color_background as backgroundColor,
         p.id as p_id, p.referencia_interna as p_referencia_interna, p.calle as p_calle,
         c.id as c_id, c.nombre as c_nombre, c.apellido as c_apellido
@@ -69,7 +69,7 @@ if (isset($_SESSION['usuario'])){
         t.id, t.color_background_default, 
         p.id, p.referencia_interna, p.calle,
         c.id, c.nombre, c.apellido,
-        e.id as id, CONCAT(DATE_FORMAT(e.hora_inicio, '%H:%i'), ' - ', e.asunto) as title, e.fecha as start, e.observaciones as descripcion, e.tipo_tarea_id as tarea_id, e.tarea_terminada as tarea_terminada, e.hora_inicio as hora, e.propiedad_id as e_propiedad_id, e.consulta_id as e_consulta_id,
+        e.id as id, e.asunto as title, e.fecha as start, e.observaciones as descripcion, e.tipo_tarea_id as tarea_id, e.tarea_terminada as tarea_terminada, e.hora_inicio as hora, e.propiedad_id as e_propiedad_id, e.consulta_id as e_consulta_id,
         t.color_background_default as backgroundColor,
         p.id as p_id, p.referencia_interna as p_referencia_interna, p.calle as p_calle,
         c.id as c_id, c.nombre as c_nombre, c.apellido as c_apellido
